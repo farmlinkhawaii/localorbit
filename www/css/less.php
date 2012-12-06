@@ -59,6 +59,6 @@ $less = new lessc;
 $less->setVariables(array_map('format_value', $options));//array('p1c' => '#333'));
 $less->setImportDir($path . '/../less');
 
-//header('Content-type: text/css');
+header("Content-type: text/css; charset: UTF-8");
 echo $less->compileFile($path . '/../less/bootstrap.less');
 ?>
