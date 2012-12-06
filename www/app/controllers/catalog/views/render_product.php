@@ -1,5 +1,5 @@
 <?
-# the parameters for views called as functions are stored in $core->view. 
+# the parameters for views called as functions are stored in $core->view.
 global $core,$prods,$prices,$delivs;
 $prod    = $core->view[0];
 $cats    = $core->view[1];
@@ -53,11 +53,27 @@ $rendered_prices = 0;
 				<div class="row">
 					<a class="span4 accordion-toggle" data-toggle="collapse" class="span4" href="#moreInfo<?=$prod['prod_id']?>">More Information...</a>
 				</div>
-				<div class="row">
-					<div id="moreInfo<?=$prod['prod_id']?>" class="collapse span4">
-						"test"
-					</div>
-				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="moreInfo<?=$prod['prod_id']?>" class="collapse row">
+	<div class="span5">
+		<p class="note">
+			<strong>What:</strong> <?=$prod['description']?>
+		</p>
+		<p class="note">
+			<strong>How:</strong> <?=$seller['product_how']?>
+	</div>
+	<div class="span4">
+		<div class="row">
+			<div class="span4">
+				<p class="note">
+					<strong>Who:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
+				</p>
+				<p class="note">
+					<iframe width="370" height="220" src="http://maps.stamen.com/terrain/embed#11/42.3529/-83.0991"></iframe>
+				</p>
 			</div>
 		</div>
 	</div>
@@ -74,7 +90,7 @@ $rendered_prices = 0;
 	<td class="catalog">
 		<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>">
 			<span style="font-size: 120%;">
-				<?=$prod['name']?> 
+				<?=$prod['name']?>
 				<? if($prod['single_unit'] != ''){?>
 				(<?=$prod['single_unit']?>)
 				<?}?>
@@ -93,19 +109,19 @@ $rendered_prices = 0;
 					<?=(($i == $rendered_prices)?'&nbsp;':'&nbsp;')?>
 				</td>
 				<td class="value" style="width: 200px;">
-				
+
 				<?if($pricing[$i]['org_id'] != 0){ ?>
-					<div class="error">Your price: 
+					<div class="error">Your price:
 				<?}?>
-				
-				<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>, 
+
+				<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
 				min <?=floatval($pricing[$i]['min_qty'])?>
 				<?}?>
-				
+
 				<?if($pricing[$i]['org_id'] != 0){ ?>
 					</div>
 				<?}?>
-				
+
 				</td>
 			</tr>
 			<?$rendered_prices++; }?>
