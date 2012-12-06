@@ -278,7 +278,7 @@ class core_controller_catalog extends core_controller
 	{
 		core::log(print_r($cat1_name,true));
 		?>
-
+<!--
 		<table id="start_cat1_<?=$cat1_id?>">
 			<col width="120" />
 			<col width="240" />
@@ -287,6 +287,7 @@ class core_controller_catalog extends core_controller
 			<tr>
 				<td colspan="4" class="category_start1_<?=$style?>"><?=$cat1_name?></td>
 			</tr>
+-->
 		<?
 	}
 
@@ -294,9 +295,10 @@ class core_controller_catalog extends core_controller
 	function render_cat1_end($cat1_id,$cat1_name)
 	{
 		?>
+		<!--
 			<tr id="end_cat1_<?=$cat1_id?>"><td colspan="4" class="category1_spacer"></td></tr>
 		</table>
-		<!--<hr class="category_<?=$cat1_id?>" />-->
+	-->
 		<?
 	}
 
@@ -306,6 +308,7 @@ class core_controller_catalog extends core_controller
 		if($cat3_id != 0 && $cat3_id != '')
 			$id_cat = $cat3_id;
 		?>
+		<!--
 		<tr id="start_cat2_<?=$id_cat?>" class="category_<?=$cat2_id?> category_<?=$cat3_id?>">
 			<td colspan="4" class="category_start2_<?=$style?>">
 				<?=$cat2_name?>
@@ -314,6 +317,7 @@ class core_controller_catalog extends core_controller
 				<?}?>
 			</td>
 		</tr>
+	-->
 		<?
 	}
 
@@ -323,9 +327,11 @@ class core_controller_catalog extends core_controller
 		if($cat3_id != 0 && $cat3_id != '')
 			$id_cat = $cat3_id;
 		?>
+		<!--
 		<tr id="end_cat2_<?=$id_cat?>">
 			<td colspan="4" class="category2_spacer">&nbsp;</td>
 		</tr>
+	-->
 		<?
 	}
 

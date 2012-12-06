@@ -33,6 +33,36 @@ foreach($dd_ids as $dd_id)
 $rendered_prices = 0;
 
 ?>
+<div class="row">
+	<? if(intval($prod['pimg_id']) > 0){?>
+	<img class="catalog span1" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+	<?}else{?>
+	<img class="catalog_placeholder span1" src="<?=image('product_placeholder_small')?>" />
+	<?}?>
+	<div class="span4">
+		<div class="row">
+			<a class="span4"><?=$prod['name']?></a>
+		</div>
+		<div class="row">
+			<span class="span4">from <?=$prod['org_name']?></span>
+		</div>
+		<div class="row">
+		</div>
+		<div class="row">
+			<div class="span4">
+				<div class="row">
+					<a class="span4 accordion-toggle" data-toggle="collapse" class="span4" href="#moreInfo<?=$prod['prod_id']?>">More Information...</a>
+				</div>
+				<div class="row">
+					<div id="moreInfo<?=$prod['prod_id']?>" class="collapse span4">
+						"test"
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--
 <tr id="product_<?=$prod['prod_id']?>" class="catalog catalog_<?=$style1?>_<?=$style2?> category_<?=$prod['category_ids'][2]?> category_<?=$prod['category_ids'][3]?>">
 	<td class="catalog">
 		<? if(intval($prod['pimg_id']) > 0){?>
@@ -101,3 +131,4 @@ $rendered_prices = 0;
 		</table>
 	</td>
 </tr>
+-->
