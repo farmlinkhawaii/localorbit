@@ -41,18 +41,18 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
 	<base href="<?=$prtcl?><?=$_SERVER['SERVER_NAME']?><?=str_replace('index.php','',$_SERVER['SCRIPT_NAME'])?>" />
-		
+
 	<!--
 	<link rel="stylesheet" type="text/css" href="css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="css/loader.php?time=<?php echo time();?>" />
 	<link rel="stylesheet" type="text/css" href="homepage/includes/popup.css" />
 	-->
-		
+
 	<link rel="stylesheet" type="text/css" href="css/less.php" />
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Open+Sans+Condensed:300,300italic,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Open+Sans+Condensed:300,300italic,700"/>
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
-		
+
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/console.min.js"></script>-->
 	<script language="Javascript" type="text/javascript" src="js/jquery.min.js"></script>
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.js?time=<?php echo time();?>"></script>
@@ -81,7 +81,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	$.fn.datePicker.format = 'M d,y';
 	//-->
 	</script>
-		
+
 	<script language="Javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body onload="core.init(false);">
@@ -148,7 +148,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<div class="row">
 		<div id="left" class="span3">
 		</div><!--/#left-->
-		
+
 		<div id="center" class="span9">
 		</div><!--/#center-->
 	</div>
@@ -236,6 +236,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </script>
 
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-	
+
 </body>
 </html>
