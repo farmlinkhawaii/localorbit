@@ -1,0 +1,43 @@
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+	}
+
+	h1, h2, h3 {
+		text-transform: uppercase;
+	}
+
+.sidebar-nav {
+	padding: 9px 0;
+	}
+
+
+#statusnav .navbar-text { padding-right: 9px; }
+#statusnav .divider-vertical { margin: 0 !important; }
+
+
+#navrow { margin-top: 40px;}
+
+#mainnav li a {
+	font-size: 36px;
+	line-height: 40px;
+	padding-top: 4px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	}
+
+
+
+.product-row h3 {
+	margin: 0;
+	font-weight: normal;
+	}
+
+
+@media (max-width: 767px) {
+	
+	#logocontainer {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+	
+}
