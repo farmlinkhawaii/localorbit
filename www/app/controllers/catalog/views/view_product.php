@@ -29,79 +29,80 @@ foreach($cart->items as $item)
 }
 
 ?>
-<form name="prodForm">
-	<table style="width: 500px;">
-		<col width="200" />
-		<col width="30" />
-		<col width="700" />
-		<tr>
-			<td style="text-align: left;vertical-align: top;">
-				<?if($img){?>
-					<img class="homepage" src="/img/products/cache/<?=$img['pimg_id']?>.<?=$img['width']?>.<?=$img['height']?>.200.150.<?=$img['extension']?>" />
-				<?}else{?>
-					<img src="<?=image('product_placeholder')?>" />
-				<?}?>
-			</td>
-			<td>&nbsp;</td>
-			<td style="text-align: left;vertical-align: top;">
-				<span class="product_name"><?=$data['name']?></span><br />
-				<span class="farm_name"><?=$data['org_name']?></span><br />
-				<table class="form">
-					<tr>
-						<td class="label">Price</td>
-						<td class="value" style="width: 280px;">
-							<?foreach($prices as $price){?>
-							<?=core_format::price($price['price'])?><?if($data['single_unit'] != ''){?>/<?=$data['single_unit']?><?}?>
-							<?if($price['min_qty'] > 1){?> - mininum <?=intval($price['min_qty'])?><?}?>
-							<br />
-							
-							<?}?>
-						</td>
-					</tr>
-					<? if( $inv > 0){?>
-					<tr>
-						<td class="label">Quantity in your cart</td>
-						<td class="value">
-							<input type="text" name="qty" id="qty" style="width: 55px;" value="<?=$cart_item['qty_ordered']?>" />
-							<div class="error" id="not_enough_inv" style="display: none;"></div>
-						</td>
-					</tr>
-					<?}else{?>
-					<tr>
-						<td class="value" colspan="2">
-							<div class="error">This product is not currently available for ordering.</div>
-						</td>
-					</tr>
-					<?}?>
-				</table>
-			</td>
-		</tr>
-	</table>
-	<?if($inv > 0){?>
-	<div class="buttonset">
-		<input type="button" class="button_secondary" onclick="$('#not_enough_inv').hide();core.doRequest('/cart/update_item',{'prod_id':<?=$data['prod_id']?>,'qty':document.prodForm.qty.value});" value="update cart" />
-		<input type="button" class="button_secondary" onclick="location.href='#!catalog-shop';core.go('#!catalog-shop');" value="continue shopping" />
+<div class="row">
+	<div class="span6">
+		
+		<h2 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h2>
+		<h3 class="farm_name notcaps" style="margin-top: 0;">from <?=$data['org_name']?>, [FIX:ORG Location]</h3>
+		
+		<hr>
+		
+		<form name="prodForm" class="form-inline">
+		<div class="row">
+			<div class="span2">
+				<script>
+				
+				$(document).ready(function () {
+				    $("[rel=tooltip]").tooltip();
+				});
+				
+				</script>
+				<? foreach($prices as $price): ?>
+					<a href="#" id="yourprice" rel="tooltip" data-original-title="YOUR PRICE" data-placement="right"><?= core_format::price($price['price'])?><? if($data['single_unit'] != ''): ?><small> / <?= $data['single_unit']?></small><? endif; ?>
+					<? if($price['min_qty'] > 1): ?>, Min. <?=intval($price['min_qty'])?><? endif; ?></a>
+				<? endforeach; ?>
+			</div>
+			<div class="span2">
+				[FIX:DeliveryDate]
+			</div>
+			<div class="span2">
+				<? if( $inv > 0): ?>
+					<input type="text" name="qty" id="qty" class="input-small" value="<?=$cart_item['qty_ordered']?>" />
+					<div class="error" id="not_enough_inv" style="display: none;"></div>
+					
+					<button type="submit" class="btn" onclick="$('#not_enough_inv').hide();core.doRequest('/cart/update_item',{'prod_id':<?=$data['prod_id']?>,'qty':document.prodForm.qty.value});">Add to Cart</button>
+					
+				<? else: ?>
+					<div class="error">This product is not currently available for ordering.</div>
+				<? endif; ?>
+			</div>
+		</div>
+		</form>
+		
+		<hr>
+		
+		<p class="note">[FIX: Add category breadcrumbs]</p>
+		
+		<p><strong>Size:</strong> [FIX: Add size string here]</p>
+		
+		<!--<p><strong>Who:</strong> <?=(($data['who']=='')?$org['profile']:$data['who'])?></p>-->
+		<p><strong>What:</strong> <?=$data['description']?></p>
+		<p><strong>How:</strong> <?=(($data['how']=='')?$org['product_how']:$data['how'])?></p>
+			
+		<h3>Produced by <?=$data['org_name']?></h3>
+		<p>[FIX:Production Address] <a href="#" class="pull-right">See full seller profile...</a></p>
+		<?
+		$addr = $data['address'].', '.$data['city'].', '.$data['code'].', '.$data['postal_code'];
+		echo(core_ui::map('prodmap','100%','400px',8));
+		core_ui::map_center('prodmap',$addr);
+		core_ui::map_add_point('prodmap',$addr,'<h1>'.$data['org_name'].'</h1>'.$addr);
+		}
+		?>
+		
+		
 	</div>
-	<?}else{?><br />&nbsp;<br /><?}?>
-</form>
 
-<h1>What</h1>
-<?=$data['description']?>
-<br />&nbsp;<br />
-
-<h1>Who</h1>
-<?=(($data['who']=='')?$org['profile']:$data['who'])?>
-<br />&nbsp;<br />
-
-<h1>How</h1>
-<?=(($data['how']=='')?$org['product_how']:$data['how'])?>
-<br />&nbsp;<br />
-
-<h1>Where</h1>
-<?
-$addr = $data['address'].', '.$data['city'].', '.$data['code'].', '.$data['postal_code'];
-echo(core_ui::map('prodmap','600px','400px',8));
-core_ui::map_center('prodmap',$addr);
-core_ui::map_add_point('prodmap',$addr,'<h1>'.$data['org_name'].'</h1>'.$addr);
-}
-?>
+	<div class="span3">
+		<?if($img){?>
+			<img class="homepage" src="/img/products/cache/<?=$img['pimg_id']?>.<?=$img['width']?>.<?=$img['height']?>.300.300.<?=$img['extension']?>" />
+		<?}else{?>
+			<img src="<?=image('product_placeholder')?>" />
+		<?}?>
+		
+		<h4>Other Products from this Seller</h4>
+		[FIX: Add other products]
+		
+		<h4>Other Products from this Category</h4>
+		[FIX: Add other products]
+	</div>
+</div>

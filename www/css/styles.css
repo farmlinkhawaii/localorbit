@@ -1,16 +1,21 @@
 body {
-	padding-top: 60px;
+	padding-top: 40px;
 	padding-bottom: 40px;
 	}
 
-	h1, h2, h3 {
+	h1, h2, h3, h4 {
 		text-transform: uppercase;
-	}
+		}
+		
+		h1.notcaps, h2.notcaps, h3.notcaps, h4.notcaps {
+			text-transform: capitalize;
+			}
 
 .sidebar-nav {
 	padding: 9px 0;
 	}
 
+p.note { font-size: 90%; }
 
 #statusnav .navbar-text { padding-right: 9px; }
 #statusnav .divider-vertical { margin: 0 !important; }
