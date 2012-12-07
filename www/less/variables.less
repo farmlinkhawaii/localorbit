@@ -2,6 +2,7 @@
 // Variables
 // --------------------------------------------------
 
+@mastercolor: #227d74;
 
 // Global values
 // --------------------------------------------------
@@ -38,7 +39,7 @@
 
 // Links
 // -------------------------
-@linkColor:             #227d74;
+@linkColor:             @mastercolor;
 @linkColorHover:        darken(@linkColor, 15%);
 
 
@@ -195,13 +196,13 @@
 @navbarBrandColor:                @navbarLinkColor;
 
 // Inverted navbar
-@navbarInverseBackground:                #227d74;
+@navbarInverseBackground:                @mastercolor;
 @navbarInverseBackgroundHighlight:       darken(@navbarInverseBackground, 5%);
 @navbarInverseBorder:                    #252525;
 
 @navbarInverseText:                      @grayLight;
 @navbarInverseLinkColor:                 @white;
-@navbarInverseLinkColorHover:            @grayLight;
+@navbarInverseLinkColorHover:            lighten(@mastercolor, 50%);
 @navbarInverseLinkColorActive:           @navbarInverseLinkColorHover;
 @navbarInverseLinkBackgroundHover:       transparent;
 @navbarInverseLinkBackgroundActive:      @navbarInverseBackground;
@@ -250,7 +251,7 @@
 // Tooltips and popovers
 // -------------------------
 @tooltipColor:            #fff;
-@tooltipBackground:       #227d74;
+@tooltipBackground:       @mastercolor;
 @tooltipArrowWidth:       5px;
 @tooltipArrowColor:       @tooltipBackground;
 

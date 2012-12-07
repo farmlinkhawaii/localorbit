@@ -128,13 +128,13 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 
 <div id="header" class="container">
-	<div class="row" style="margin-bottom: 30px;">
+	<div class="row">
 		<div class="span3" id="logocontainer">
 			<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
 		</div><!--/span-->
 		<div id="navrow" class="span9">
 			<h2 style="text-transform: capitalize;"><span id="tagline"></span></h2>
-			<ul id="mainnav" class="nav nav-pills">
+			<ul id="mainnav" class="nav nav-pills" style="margin-bottom: 0">
 				<li class="active"><a href="#">Shop</a></li>
 				<li><a href="#">News</a></li>
 				<li><a href="#">About</a></li>
@@ -144,7 +144,10 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	</div>
 </div>
 
-<div id="content" class="container">
+<div id="dashboardnav" class="container">
+</div>
+
+<div id="content" class="container" style="margin-top: 30px;">
 	<div class="row">
 		<div id="left" class="span3">
 		</div><!--/#left-->
