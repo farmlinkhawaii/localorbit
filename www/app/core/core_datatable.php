@@ -407,7 +407,7 @@ class core_datatable
 	{
 		global $core;
 		
-		echo('<table class="dt" id="dt_'.$this->name.'">');
+		echo('<table class="dt table table-striped" id="dt_'.$this->name.'">');
 		for ($j = 0; $j < count($this->columns); $j++)
 		{
 			echo($this->columns[$j]->render_width());

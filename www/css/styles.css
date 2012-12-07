@@ -5,6 +5,7 @@ body {
 
 	h1, h2, h3, h4 {
 		text-transform: uppercase;
+		margin-top: 0;
 		}
 		
 		h1.notcaps, h2.notcaps, h3.notcaps, h4.notcaps {
@@ -31,6 +32,8 @@ p.note { font-size: 90%; }
 	}
 
 
+table.table h3 { margin: 0; }
+table.table td { vertical-align: middle; }
 
 .product-row h3 {
 	margin: 0;

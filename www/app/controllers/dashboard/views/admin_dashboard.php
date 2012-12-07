@@ -83,85 +83,84 @@ for ($i = 0; $i < count($ord_data); $i++)
 
 ?>
 <h1>Welcome <?=$core->session['first_name']?> <?=$core->session['last_name']?></h1>
-You are currently logged into Local orbit as an administrator. This gives you the right to do pretty much anything you want, such as
-<a href="#!market-list">Configure a hub</a>, <a href="#!products-list">modify a product</a>, <a href="#!organizations-create">create a new customer company</a>, or <a href="#!dictionaries-edit">Modify the dictionary</a>.
-<br />
-Remember though: With great power, comes bad movie quotes. And remember that Mike Thorn can undo *almost* anything. Be careful.
-<br />&nbsp;<br />
-<h1>7 Day Cycle</h1>
-<table>
-	<col width="20%" />
-	<col width="16%" />
-	<col width="16%" />
-	<col width="16%" />
-	<col width="16%" />
-	<col width="16%" />
-	<tr>
-		<th class="dt">Data Type</th>
-		<th class="dt" style="text-align: center">Today</th>
-		<th class="dt" style="text-align: center">Yesterday</th>
-		<th class="dt" style="text-align: center">This week</th>
-		<th class="dt" style="text-align: center">Last week</th>
-		<th class="dt" style="text-align: center">Two weeks ago</th>
-	</tr>
-	<tr>
-		<td><h2>Sales</h2></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['day'][0])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['day'][1])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][0])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][1])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][2])?></td>
-	</tr>
-	<tr>
-		<td><h2>Hub Fees</h2></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['day'][3])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['day'][4])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][3])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][4])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][5])?></td>
-	</tr>
-	<tr>
-		<td><h2>LO Fees</h2></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['day'][6])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['day'][7])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][6])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][7])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['week'][8])?></td>
-	</tr>
+
+<p>You are currently logged into Local orbit as an administrator. This gives you the right to do pretty much anything you want, such as <a href="#!market-list">configure a hub</a>, <a href="#!products-list">modify a product</a>, <a href="#!organizations-create">create a new customer company</a>, or <a href="#!dictionaries-edit">modify the dictionary</a>.</p>
+<p>Remember though: With great power, comes bad movie quotes. And remember that Mike Thorn can undo *almost* anything. Be careful.</p>
+
+<h2>7 Day Cycle</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th class="dt">Data Type</th>
+			<th class="dt" style="text-align: right">Today</th>
+			<th class="dt" style="text-align: right">Yesterday</th>
+			<th class="dt" style="text-align: right">This week</th>
+			<th class="dt" style="text-align: right">Last week</th>
+			<th class="dt" style="text-align: right">Two weeks ago</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><h3>Sales</h3></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['day'][0])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['day'][1])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][0])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][1])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][2])?></td>
+		</tr>
+		<tr>
+			<td><h3>Hub Fees</h3></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['day'][3])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['day'][4])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][3])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][4])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][5])?></td>
+		</tr>
+		<tr>
+			<td><h3>LO Fees</h3></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['day'][6])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['day'][7])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][6])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][7])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['week'][8])?></td>
+		</tr>
+	</tbody>
 </table>
-<br />
-<h1>Month Cycle</h1>
-<table>
-	<col width="25%" />
-	<col width="25%" />
-	<col width="25%" />
-	<col width="25%" />
-	<tr>
-		<th class="dt">Data Type</th>
-		<th class="dt" style="text-align: center">This month</th>
-		<th class="dt" style="text-align: center">Last month</th>
-		<th class="dt" style="text-align: center">Two months ago</th>
-	</tr>
-	<tr>
-		<td><h2>Sales</h2></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][0])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][1])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][2])?></td>
-	</tr>
-	<tr>
-		<td><h2>Hub Fees</h2></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][3])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][4])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][5])?></td>
-	</tr>
-	<tr>
-		<td><h2>LO Fees</h2></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][6])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][7])?></td>
-		<td style="text-align: center"><?=core_format::price($cycle_data['month'][8])?></td>
-	</tr>
+
+
+<h2>Month Cycle</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th class="dt">Data Type</th>
+			<th class="dt" style="text-align: right">This month</th>
+			<th class="dt" style="text-align: right">Last month</th>
+			<th class="dt" style="text-align: right">Two months ago</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><h3>Sales</h3></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][0])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][1])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][2])?></td>
+		</tr>
+		<tr>
+			<td><h3>Hub Fees</h3></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][3])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][4])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][5])?></td>
+		</tr>
+		<tr>
+			<td><h3>LO Fees</h3></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][6])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][7])?></td>
+			<td style="text-align: right"><?=core_format::price($cycle_data['month'][8])?></td>
+		</tr>
+	</tbody>
 </table>
-<br />
-<h1>Mailchimp Stats</h1>
-<a href="https://us1.admin.mailchimp.com/campaigns/" target="_blank">Mailchimp Dashboard</a>
-<br />&nbsp;<br />
+
+<h2>Email Statistics</h2>
+<p><a href="https://us1.admin.mailchimp.com/campaigns/" target="_blank"><i class="icon-chevron-right"></i> Click here to visit your Mailchimp Emailer Dashboard</a></p>

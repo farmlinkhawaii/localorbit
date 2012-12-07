@@ -112,6 +112,17 @@ class core_ui
 		core::js($js);
 	}
 
+
+	/* Standard HTML checkbox */
+	public static function checkdiv($name,$text,$checked=false,$onclick='',$clickable=true)
+	{
+		$html = '<label class="checkbox"><input type="checkbox" id="checkdiv_'.$name.'_value" name="'.$name.'" checked="'.(($checked)?1:0).'" />';
+		$html .= ' ' . $text . '</label>';
+
+		return $html;
+	}
+
+	/* Old Image-Based Method
 	public static function checkdiv($name,$text,$checked=false,$onclick='',$clickable=true)
 	{
 		$html = '<div id="checkdiv_'.$name.'" class="checkdiv';
@@ -129,7 +140,7 @@ class core_ui
 		$html .= ' name="'.$name.'" value="'.(($checked)?1:0).'" />';
 		core::js('core.preloadImages(\'default/checkdiv_checked.png\',\'default/checkdiv_unchecked.png\');');
 		return $html;
-	}
+	}*/
 
 	public static function radiodiv($name,$text,$checked=false,$radiogroup='',$allow_radio_unselect=false,$onclick='')
 	{
