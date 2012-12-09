@@ -86,95 +86,91 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 </head>
 <body onload="core.init(false);">
 
-<?/*
-<div id="popup_closer"><a href="#" onclick="$('#overlay,.popup,#popup_closer').fadeOut(100);"><img src="/homepage/img/icon_popup_close.png" /></a></div>
-<div id="overlay"></div>
+<div id="wrap">
 
-<div class="popup" id="popup3">
-	<div class="popup_content">
-		<iframe height="942" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none" src="http://localorbit.wufoo.com/embed/z7x3k1/"><a href="http://localorbit.wufoo.com/forms/z7x3k1/">Fill out my Wufoo form!</a></iframe>
+	<?/*
+	<div id="popup_closer"><a href="#" onclick="$('#overlay,.popup,#popup_closer').fadeOut(100);"><img src="/homepage/img/icon_popup_close.png" /></a></div>
+	<div id="overlay"></div>
+
+	<div class="popup" id="popup3">
+		<div class="popup_content">
+			<iframe height="942" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none" src="http://localorbit.wufoo.com/embed/z7x3k1/"><a href="http://localorbit.wufoo.com/forms/z7x3k1/">Fill out my Wufoo form!</a></iframe>
+		</div>
 	</div>
-</div>
-<div id="shop_popup"><div class="shop_popup_top">&nbsp;</div><div class="shop_popup_middle">&nbsp;<div id="shop_popup_content"></div></div><div class="shop_popup_bottom">&nbsp;</div></div>
-<div id="edit_popup"></div>
-*/?>
+	<div id="shop_popup"><div class="shop_popup_top">&nbsp;</div><div class="shop_popup_middle">&nbsp;<div id="shop_popup_content"></div></div><div class="shop_popup_bottom">&nbsp;</div></div>
+	<div id="edit_popup"></div>
+	*/?>
 
 
-<div id="statusnav" class="navbar navbar-inverse navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target="#statusnav .nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			<div id="nav1top" class="nav-collapse collapse">
-				<ul class="nav pull-right">
-					<li class="divider-vertical"></li>
-					<li><a href="#">Your Account</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="#about">Help</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="#contact">Your Cart</a></li>
+
+	<div id="statusnav" class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target="#statusnav .nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<div id="nav1top" class="nav-collapse collapse">
+					<ul class="nav pull-right">
+						<li class="divider-vertical"></li>
+						<li><a href="#">Your Account</a></li>
+						<li class="divider-vertical"></li>
+						<li><a href="#about">Help</a></li>
+						<li class="divider-vertical"></li>
+						<li><a href="#contact">Your Cart</a></li>
+					</ul>
+					<p class="navbar-text pull-right">
+						Logged in as <a href="#" class="navbar-link">Username</a>
+					</p>
+				</div><!--/.nav-collapse -->
+			</div><!-- /.container-->
+		</div><!-- /.navbar-inner-->
+	</div><!--/#statusnav -->
+
+
+
+	<div id="header" class="container">
+		<div class="row">
+			<div class="span3" id="logocontainer">
+				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
+			</div><!--/span-->
+			<div id="navrow" class="span9">
+				<h2 style="text-transform: capitalize;"><span id="tagline"></span></h2>
+				<ul id="mainnav" class="nav nav-pills" style="margin-bottom: 0">
+					<li class="active"><a href="#">Shop</a></li>
+					<li><a href="#">News</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Contact</a></li>
 				</ul>
-				<p class="navbar-text pull-right">
-					Logged in as <a href="#" class="navbar-link">Username</a>
-				</p>
-			</div><!--/.nav-collapse -->
+			</div> <!-- /#navrow-->
+		</div> <!-- /.row-->
+	</div> <!-- /#header-->
+
+
+
+	<div id="dashboardnav" class="container"></div>
+
+
+
+	<div id="content" class="container" style="margin-top: 30px;">
+		<div class="row">
+			<div id="left" class="span3">
+			</div><!--/#left-->
+
+			<div id="center" class="span9">
+			</div><!--/#center-->
 		</div>
-	</div>
-</div><!--/#statusnav -->
+	</div><!--/#content-->
 
 
 
-<div id="header" class="container">
-	<div class="row">
-		<div class="span3" id="logocontainer">
-			<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
-		</div><!--/span-->
-		<div id="navrow" class="span9">
-			<h2 style="text-transform: capitalize;"><span id="tagline"></span></h2>
-			<ul id="mainnav" class="nav nav-pills" style="margin-bottom: 0">
-				<li class="active"><a href="#">Shop</a></li>
-				<li><a href="#">News</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
-
-<div id="dashboardnav" class="container">
-</div>
-
-<div id="content" class="container" style="margin-top: 30px;">
-	<div class="row">
-		<div id="left" class="span3">
-		</div><!--/#left-->
-
-		<div id="center" class="span9">
-		</div><!--/#center-->
-	</div>
-</div><!--/#content-->
+	<div id="push"></div> <!-- This pushes the footer to the bottom of the window-->
+</div> <!-- /#wrap -->
 
 
-<div id="footer">
-	<div class="container">
-		<div id="footer_logo" class="span3"></div>
-		<td id="footer_links1">
 
-		</td>
-		<td id="footer_links2">
-
-		</td>
-		<td id="footer_links3">
-
-		</td>
-		<td id="footer_links4">
-
-		</td>
-	</div>
-</div>
+<div id="footer"></div>
 
 
 

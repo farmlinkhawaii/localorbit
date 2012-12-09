@@ -1,0 +1,108 @@
+html,
+body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
+	}
+
+body {
+	}
+
+	h1, h2, h3, h4 {
+		text-transform: uppercase;
+		margin-top: 0;
+		}
+		
+		h1.notcaps, h2.notcaps, h3.notcaps, h4.notcaps {
+			text-transform: capitalize;
+			}
+
+
+
+
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -150px;
+	}
+
+
+
+
+.sidebar-nav {
+	padding: 9px 0;
+	}
+
+p.note { font-size: 90%; }
+
+#statusnav .navbar-text { padding-right: 9px; }
+#statusnav .divider-vertical { margin: 0 !important; }
+
+
+#navrow { margin-top: 40px;}
+
+#mainnav li a {
+	font-size: 36px;
+	line-height: 40px;
+	padding-top: 4px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	}
+
+
+table.table h3 { margin: 0; }
+table.table td { vertical-align: middle; }
+
+.product-row h3 {
+	margin: 0;
+	font-weight: normal;
+	}
+
+
+
+#push,
+#footer {
+	height: 150px;
+	}
+
+#footer {
+	background-color: darken(@mastercolor, 12%);
+	color: #fff;
+	}
+	
+	#footer a {
+		color: lighten(@mastercolor, 50%);;
+		}
+	
+	#footer .tos {
+		text-align: right;
+		}
+
+
+
+
+@media (min-width: 768px) {
+
+	#header {
+		margin-top: 60px;
+	}
+
+}
+
+
+@media (max-width: 767px) {
+	
+	#logocontainer {
+		max-width: 400px;
+		margin: 0 auto;
+		}
+	
+	
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+		}
+	
+}

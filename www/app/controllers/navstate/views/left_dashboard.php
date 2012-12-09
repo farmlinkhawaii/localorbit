@@ -1,6 +1,16 @@
 <div class="navbar navbar-inverse navbar-static-top">
 	<div class="navbar-inner">
+		
+		<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+		<a class="btn btn-navbar" data-toggle="collapse" data-target="#dashnav">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</a>
+		
+		<small class="brand visible-phone">Administration</small>
 
+		<div id="dashnav" class="nav-collapse collapse">
 		<? if(lo3::is_admin()){?>
 		
 		<ul class="nav">
@@ -139,6 +149,8 @@
 				</ul>
 			</li>
 		</ul>
+
+		</div> <!-- /.nav-collapse-->
 
 	</div>
 </div>

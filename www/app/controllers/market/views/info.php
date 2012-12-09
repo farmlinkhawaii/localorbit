@@ -66,42 +66,14 @@ else
 
 ?>
 
-<table>
-	<col width="600" />
-	<col width="50" />
-	<col width="200" />
-	<tr>
-		<td>
-			<h1><?=$market['name']?></h1>
-			<img src="<?=image('profile')?>?_time_=<?=$core->config['time']?>" />
-
-			<h2>Who</h2>
-			<? if(trim($market['market_profile']) != ''){?>
-				<?=core_format::plaintext2html($market['market_profile'])?>
-			<?}?><br />
-			<br />
-			<h2>Contact</h2><br />
-			<?=$market['secondary_contact_name']?><br />
-			<a href="mailTo:<?=$market['secondary_contact_email']?>"><?=$market['secondary_contact_email']?></a><br />
-			<?=$market['secondary_contact_phone']?><br />
-
-			<? if(trim($market['market_policies']) != ''){?>
-			<h2>Our Policies</h2>
-			<?=core_format::plaintext2html($market['market_policies'])?>
-			<?}?>
-
-			<h2>Pickup/Delivery</h2>
-			<?
-			foreach($delivs as $deliv)
-			{
-				echo($deliv['buyer_formatted_cycle'].'.<br />&nbsp;<br />');
-			}
-			?>
-
-			<? if($has_address){?>
-			<h2>Where</h2>
-			<?
-			echo(core_ui::map('hubmap','592px','380px',8).'<br />');
+<div class="row">
+	<div class="span5">
+		<img src="<?= image('profile') ?>?_time_=<?=$core->config['time']?>" style="max-height: 325px;" />
+	</div>
+	
+	<div class="span4">
+		<? if($has_address):
+			echo(core_ui::map('hubmap','500px','325px',8).'<br />');
 			core_ui::map_center('hubmap',$lat,$long);
 			core_ui::map_add_point('hubmap',$lat,$long,'<h1>'.$market['name'].'</h1>'.$address,image('hub_bubble'));
 			
@@ -110,28 +82,60 @@ else
 				if(is_numeric($seller['latitude']) && is_numeric($seller['longitude']))
 				{
 					$address = $seller['address'].', '.$seller['city'].', '.$seller['code'].', '.$seller['postal_code'];
-					core_ui::map_add_point('hubmap',$seller['latitude'],$seller['longitude'],'<h1>'.$seller['name'].'</h1>'.$address,image('farm_bubble'));
+					core_ui::map_add_point('hubmap',$seller['latitude'],$seller['longitude'],'<h4>'.$seller['name'].'</h4><p class="note">'.$address.'</p>',image('farm_bubble'));
 				}
 			}
 			?>
-			<?}?>
-		</td>
-		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-		<td>
-			<? if($market_news->__num_rows > 0 ){?>
-			<div class="header_1">Latest News</div>
-				<? foreach($market_news as $market_newsitem){?>
-					<h4><?=$market_news['title']?></h4>
-					<?=$market_news['content']?>  <br />
-					<div class="market_news_date">Published on <?=core_format::date($market_news['creation_date'],'short')?> </div>
-					<div class="market_news_divider">&nbsp;</div>
-					
-				<?}?>
-			<?}?>
-		</td>
-	</tr>
-</table>
-<?
+		<? endif; ?>
+	</div>
+</div>
 
-}
-?>
+<div class="row">
+	<div class="span5">
+		<h3>About <?=$market['name']?></h3>
+		
+		<? if(trim($market['market_profile']) != ''){?>
+			<?=core_format::plaintext2html($market['market_profile'])?>
+		<?}?>
+		
+		<h3>Contact</h3>
+		<p>
+			<?=$market['secondary_contact_name']?><br />
+			<a href="mailTo:<?=$market['secondary_contact_email']?>"><?=$market['secondary_contact_email']?></a><br />
+			<?=$market['secondary_contact_phone']?>
+		</p>
+
+		<? if (trim($market['market_policies']) != ''): ?>
+		<h3>Our Policies</h3>
+		<?=core_format::plaintext2html($market['market_policies'])?>
+		<? endif; ?>
+
+		<h3>Pickup/Delivery</h3>
+		<? foreach($delivs as $deliv): ?>
+			<p><?= $deliv['buyer_formatted_cycle'] ?></p>
+		<? endforeach; ?>
+	</div>
+	<div class="span4">
+		<h3>Our Sellers</h3>
+		
+		<? foreach($sellers as $seller): ?>
+			<a href="#"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
+		<? endforeach; ?>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span9">
+		<? if($market_news->__num_rows > 0 ){?>
+			<div class="header_1">Latest News</div>
+			<? foreach($market_news as $market_newsitem){?>
+				<h4><?=$market_news['title']?></h4>
+				<?=$market_news['content']?>  <br />
+				<div class="market_news_date">Published on <?=core_format::date($market_news['creation_date'],'short')?> </div>
+				<div class="market_news_divider">&nbsp;</div>
+			<?}?>
+		<?}?>
+	</div>
+</div>
+
+<? } ?>
