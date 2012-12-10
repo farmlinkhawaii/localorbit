@@ -63,6 +63,10 @@ $rendered_prices = 0;
 			</li>
 			<?$rendered_prices++; }?>
 	</ol>
+	<div class="span2">
+		<input type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" />
+		<input class="total" readonly="readonly" type="text" name="prodTotal_<?=$prod['prod_id']?>" id="prodTotal_<?=$prod['prod_id']?>" size="3" style="width: 57px;" value="<?=$total?>" />
+	</div>
 </div>
 
 <div id="moreInfo<?=$prod['prod_id']?>" class="collapse row">
