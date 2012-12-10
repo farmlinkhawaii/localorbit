@@ -28,17 +28,19 @@ if($core->config['url-controller'] == 'sellers')
 
 core::log('random seller is: '.$random_seller);
 
-echo('<div class="header_1">Our Sellers</div>');
+echo('<h2>Our Sellers</h2>');
+echo('<ul class="nav nav-list">');
 foreach($sellers as $seller)
 {
 	?>
-	<div class="subheader_1">
+	<li>
 		<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>">
 			<?=$seller['name']?>
 		</a>
-	</div>
+	</li>
 	<?
 }
+echo('</ul>');
 ?>
 
 

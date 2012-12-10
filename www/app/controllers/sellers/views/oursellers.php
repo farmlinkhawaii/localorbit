@@ -46,8 +46,7 @@ else
 	{
 		page_header('No sellers yet!');
 		?>
-		There are no sellers on this hub yet. Please check back once some have registered.
-		<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;
+		<div class="alert alert-error">There are no sellers on this hub yet. Please check back once some have registered.</div>
 		<?
 		#core::replace('left','&nbsp;');
 	}
@@ -64,7 +63,7 @@ else
 		$map = '';
 		if(is_numeric($address['latitude'])  && is_numeric($address['longitude']))
 		{
-			$map = core_ui::map('mymap','592px','400px',8);
+			$map = core_ui::map('mymap','100%','325px',8);
 			core_ui::map_center('mymap',$address['latitude'],$address['longitude']);
 			core_ui::map_add_point('mymap',$address['latitude'],$address['longitude'],'<h1>'.$seller['name'].'</h1>'.$address['formatted_address'],image('farm_bubble'));
 		}
@@ -75,45 +74,58 @@ else
 
 		$products->load();
 ?>
-<table>
-	<col width="600" />
-	<col width="10" />
-	<col width="200" />
-	<tr>
-		<td>
-			<h1><?=$seller['name']?></h1>
-			<?if($has_image){?>
-			<img src="<?=$web_path?>" />
-			<?}?>
 
-			<?if(trim($seller['profile']) != ''){?>
-			<h2>Who</h2>
-			<?=core_format::plaintext2html($seller['profile'])?>
-			<?}?>
+<div class="row">
+	<div class="span5">
 
-			<?if(trim($seller['product_how']) != ''){?>
-			<h2>How</h2>
-			<?=core_format::plaintext2html($seller['product_how'])?>
-			<?}?>
-			<h2>Our Location</h2>
-			<?=$address['formatted_address']?>
-			<?=$map?>
-			<br />
-		</td>
-		<td>&nbsp;</td>
-		<td>
-			<? if($products->__num_rows > 0 ){?>
-			<div class="header_1">Currently Selling</div>
-			<? foreach($products as $prod){?>
-			<div class="subheader_1">
-				<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>">
-					<?=$prod['name']?> (<?=$prod['plural_unit']?>)
-				</a>
-			</div>
-			<?}?>
-			<?}?>
-		</td>
-	</tr>
-</table>
+		<h2><?=$seller['name']?></h2>
+		<?if($has_image){?><img src="<?=$web_path?>" /><?}?>
+	
+	</div>
+	<div class="span4">
+		
+		<h3><?=$address['formatted_address']?></h3>
+		<?=$map?>
+
+	</div>
+</div> <!-- /row-->
+
+<div class="row">
+	<div class="span5">
+		
+		<?if(trim($seller['profile']) != ''){?>
+			<h2>Who We Are</h2>
+			<p><?=core_format::plaintext2html($seller['profile'])?></p>
+		<?}?>
+	
+	</div>
+	<div class="span4">
+
+		<?if(trim($seller['product_how']) != ''){?>
+			<h2>How We Do It</h2>
+			<p><?=core_format::plaintext2html($seller['product_how'])?></p>
+		<?}?>
+
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span9">
+	<? if($products->__num_rows > 0 ){?>
+		<? foreach($products as $prod){?>
+		<div class="subheader_1">
+			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>">
+				<?=$prod['name']?> (<?=$prod['plural_unit']?>)
+			</a>
+		</div>
+		<?}?>
+	<?}?>
+	</div>
+
+</div>
+			
 <?}?>
 <?}?>

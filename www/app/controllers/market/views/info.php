@@ -13,7 +13,7 @@ if(
 }
 else
 {
-	core::ensure_navstate(array('left'=>'left_seller_list')); 
+	core::ensure_navstate(array('left'=>'left_hub_info')); 
 	core::head('Local Orbit Market Information','Local Orbit Makes it easy for chefs, consumers and institutions to buy great food direct from local producers in one convenient location');
 	lo3::require_permission();
 
@@ -73,7 +73,7 @@ else
 	
 	<div class="span4">
 		<? if($has_address):
-			echo(core_ui::map('hubmap','500px','325px',8).'<br />');
+			echo(core_ui::map('hubmap','100%','325px',8));
 			core_ui::map_center('hubmap',$lat,$long);
 			core_ui::map_add_point('hubmap',$lat,$long,'<h1>'.$market['name'].'</h1>'.$address,image('hub_bubble'));
 			
@@ -97,29 +97,18 @@ else
 		<? if(trim($market['market_profile']) != ''){?>
 			<?=core_format::plaintext2html($market['market_profile'])?>
 		<?}?>
-		
-		<h3>Contact</h3>
-		<p>
-			<?=$market['secondary_contact_name']?><br />
-			<a href="mailTo:<?=$market['secondary_contact_email']?>"><?=$market['secondary_contact_email']?></a><br />
-			<?=$market['secondary_contact_phone']?>
-		</p>
 
 		<? if (trim($market['market_policies']) != ''): ?>
 		<h3>Our Policies</h3>
 		<?=core_format::plaintext2html($market['market_policies'])?>
 		<? endif; ?>
 
-		<h3>Pickup/Delivery</h3>
-		<? foreach($delivs as $deliv): ?>
-			<p><?= $deliv['buyer_formatted_cycle'] ?></p>
-		<? endforeach; ?>
 	</div>
 	<div class="span4">
 		<h3>Our Sellers</h3>
 		
 		<? foreach($sellers as $seller): ?>
-			<a href="#"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
+			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
 		<? endforeach; ?>
 	</div>
 </div>
