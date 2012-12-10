@@ -10,7 +10,8 @@ class core_form
 		$html = '<ul class="nav nav-tabs" id="'.$tabset_name.'">';
 		for ($i = 0; $i < count($tab_list); $i++)
 		{
-			$html .= '<li><a href="#'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
+			if ($i == 0): $default_active = 'active'; else: $default_active = ''; endif; # Picks first tab as default active
+			$html .= '<li class="' . $default_active . '"><a href="#'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
 		}
 		$html .= '</ul>';
 		return $html;
@@ -38,7 +39,8 @@ class core_form
 	public static function table_nv()
 	{
 		$items = func_get_args();
-		$out = '<table class="form">'.core_form::render_items($items).'</table>';
+		#$out = '<table class="form">'.core_form::render_items($items).'</table>';
+		$out = '<fieldset>'.core_form::render_items($items).'</fieldset>';
 		return $out;
 	}
 
@@ -59,7 +61,7 @@ class core_form
 		));
 		if($options['render'] != true)	return '';
 
-		$out = '<form name="'.$name.'" action="'.$url.'" method="post" id="'.$name.'" onsubmit="return core.submit(\''.$url.'\',this);" enctype="multipart/form-data"';
+		$out = '<form name="'.$name.'" class="form-horizontal" action="'.$url.'" method="post" id="'.$name.'" onsubmit="return core.submit(\''.$url.'\',this);" enctype="multipart/form-data"';
 
 		if($options['style'] != '')
 		{
@@ -154,10 +156,13 @@ class core_form
 
 
 		$html = '
-		<tr>
-			<td class="label">'.$label.'</td>
-			<td class="value">'.$value.'</td>
-		</tr>';
+		<div class="control-group">
+			<label class="control-label" for="inputEmail">'.$label.'</label>
+		    <div class="controls">
+				'. $value .'
+		    </div>
+		</div>
+		';
 		return $html;
 	}
 
@@ -493,13 +498,13 @@ class core_form
 			'on_save'=>'',
 			'require_pin' => false,
 		));
-		$out = '<div class="buttonset" id="main_save_buttons">';
+		$out = '<div class="buttonset pull-right" id="main_save_buttons">';
 		if($options['cancel_button'])
 		{
-			$out .= '<input type="button" class="button_primary" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" />';
+			$out .= '<input type="button" class="btn" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" />';
 
 		}
-		$out .= '<input type="submit" class="button_primary" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /></div>';
+		$out .= '<input type="submit" class="btn btn-primary btn-large" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /></div>';
 
 		return $out;
 	}

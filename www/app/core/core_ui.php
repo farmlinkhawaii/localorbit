@@ -264,7 +264,8 @@ class core_ui
 		$html = '<ul class="nav nav-tabs" id="'.$tabset_name.'">';
 		for ($i = 0; $i < count($tab_list); $i++)
 		{
-			$html .= '<li><a href="#'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
+			if ($i == 0): $default_active = 'active'; else: $default_active = ''; endif; # Picks first tab as default active
+			$html .= '<li class="' . $default_active . '"><a href="#'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
 		}
 		$html .= '</ul>';
 		return $html;
