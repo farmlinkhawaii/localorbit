@@ -347,11 +347,15 @@ class core_ui
 		}
 	}
 
+	public static function fullWidth()
+	{
+		core::js('core.ui.fullWidth();');
+	}
+
 	public static function showLeftNav()
 	{
 		core::js('core.ui.showLeftNav();');
 	}
-
 
 	public function tagset_link($name,$value)
 	{

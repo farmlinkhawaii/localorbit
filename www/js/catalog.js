@@ -360,9 +360,9 @@ core.catalog.setQty=function(prodId,newQty,rowTotal){
 		});
 	}
 
-
 	// show the total
 	$('#prodTotal_'+prodId).val(core.format.price(rowTotal));
+	$('#prodTotal_'+prodId+'_text').text(core.format.price(rowTotal));
 }
 
 core.catalog.sendNewQtys=function(){
