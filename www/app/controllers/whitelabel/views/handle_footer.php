@@ -9,7 +9,7 @@ $opts = core::model('template_options')->get_options(array('footer'));
 			<div class="row">
 				<div class="span1">
 					<a href="#!misc-home">
-						<img src="/img/default/logo_gray.png" />
+						<img src="/img/misc/footer_logo.png" />
 					</a>
 				</div>
 				<div class="span2">
@@ -19,6 +19,7 @@ $opts = core::model('template_options')->get_options(array('footer'));
 			</div>
 		</div>
 
+		<?/*
 		<div class="span4">
 		<? if ($core->config['domain']['domain_id'] > 1): ?>
 
@@ -65,8 +66,9 @@ $opts = core::model('template_options')->get_options(array('footer'));
 		endif;
 		?>
 		</div>
+		*/?>
 
-		<div class="span4 tos">
+		<div class="span8 tos">
 			<small><a href="app.php#!misc-tos" onclick="core.go(this.href);">Terms of Service</a> | <a href="app.php#!misc-localorbit_privacy" onclick="core.go(this.href);">Privacy</a> | <a href="http://localorbit.zendesk.com/forums" target="_blank">Help</a></small>
 		</div>
 	

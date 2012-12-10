@@ -40,42 +40,29 @@ $rendered_prices = 0;
 	<img class="catalog_placeholder span1" src="<?=image('product_placeholder_small')?>" />
 	<?}?>
 	<div class="span4">
-		<div class="row">
-			<a class="span4"><?=$prod['name']?></a>
-		</div>
-		<div class="row">
-			<span class="span4">from <?=$prod['org_name']?></span>
-		</div>
-		<div class="row">
-		</div>
-		<div class="row">
-			<div class="span4">
-				<div class="row">
-					<a class="span4 accordion-toggle" data-toggle="collapse" class="span4" href="#moreInfo<?=$prod['prod_id']?>">More Information...</a>
-				</div>
-			</div>
-		</div>
+		<p><a><?=$prod['name']?></a><br>
+		<span>from <?=$prod['org_name']?></span></p>
+		<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>
 	</div>
 </div>
+
 <div id="moreInfo<?=$prod['prod_id']?>" class="collapse row">
+	<div class="clearfix" style="padding-top: 15px;"></div>
 	<div class="span5">
 		<p class="note">
 			<strong>What:</strong> <?=$prod['description']?>
 		</p>
 		<p class="note">
 			<strong>How:</strong> <?=$seller['product_how']?>
+		</p>
 	</div>
 	<div class="span4">
-		<div class="row">
-			<div class="span4">
-				<p class="note">
-					<strong>Who:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
-				</p>
-				<p class="note">
-					<iframe width="370" height="220" src="http://maps.stamen.com/terrain/embed#11/42.3529/-83.0991"></iframe>
-				</p>
-			</div>
-		</div>
+		<p class="note">
+			<strong>Who:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
+		</p>
+		<p class="note">
+			<iframe width="370" height="220" src="http://maps.stamen.com/terrain/embed#11/42.3529/-83.0991"></iframe>
+		</p>
 	</div>
 </div>
 <!--
@@ -148,3 +135,5 @@ $rendered_prices = 0;
 	</td>
 </tr>
 -->
+
+<hr>
