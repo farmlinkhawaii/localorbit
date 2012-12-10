@@ -5,16 +5,16 @@ $opts = core::model('template_options')->get_options(array('footer'));
 <div class="container">
 	<div class="row" style="margin-top: 30px;">
 	
-		<div class="span4">
+		<div class="span6">
 			<div class="row">
 				<div class="span1">
 					<a href="#!misc-home">
 						<img src="/img/misc/footer_logo.png" />
 					</a>
 				</div>
-				<div class="span2">
-					<h4>Proudly Powered by Local Orbit</h4>
-					<p class="note">Copyright <?=date('Y')?>, All Rights Reserved</p>
+				<div class="span5">
+					<h4 style="margin: 10px 0 0 0;">Proudly Powered by Local Orbit</h4>
+					<small>Copyright <?=date('Y')?>, All Rights Reserved</small>
 				</div>
 			</div>
 		</div>
@@ -68,7 +68,7 @@ $opts = core::model('template_options')->get_options(array('footer'));
 		</div>
 		*/?>
 
-		<div class="span8 tos">
+		<div class="span6 tos">
 			<small><a href="app.php#!misc-tos" onclick="core.go(this.href);">Terms of Service</a> | <a href="app.php#!misc-localorbit_privacy" onclick="core.go(this.href);">Privacy</a> | <a href="http://localorbit.zendesk.com/forums" target="_blank">Help</a></small>
 		</div>
 	
