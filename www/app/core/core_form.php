@@ -7,12 +7,12 @@ class core_form
 	{
 		global $core;
 		core_ui::tabset($tabset_name);
-		$html = '<div class="tabset" id="'.$tabset_name.'">';
+		$html = '<ul class="nav nav-tabs" id="'.$tabset_name.'">';
 		for ($i = 0; $i < count($tab_list); $i++)
 		{
-			$html .= '<div class="tabswitch" id="'.$tabset_name.'-s'.($i + 1).'">'.$tab_list[$i].'</div>';
+			$html .= '<li><a href="#'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
 		}
-		$html .= '</div>';
+		$html .= '</ul>';
 		return $html;
 	}
 
@@ -30,7 +30,7 @@ class core_form
 		$items = func_get_args();
 		array_shift($items);
 
-		$out = '<div class="tabarea" id="'.$tabset_name.'-a'.$core->config['tab_index_cache'][$tabset_name].'">';
+		$out = '<div class="tab-pane tabarea" id="'.$tabset_name.'-s'.$core->config['tab_index_cache'][$tabset_name].'">';
 		$out .= core_form::render_items($items).'</div>';
 		return $out;
 	}
@@ -76,13 +76,13 @@ class core_form
 
 	public static function page_header($title,$extrafunction='',$function_text='',$icon='')
 	{
-		$out = '<div class="form_header">';
+		$out = '<div class="form_header clearfix">';
 		$out .= '<h1>'.$title.'</h1>';
 		if($extrafunction!='')
 		{
 			$out .= '<h2 class="form_add_button btn btn-primary"><a href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a></h2>';
 		}
-		$out .= "</div>";
+		$out .= '</div><div class="clearfix"></div>';
 		return $out;
 	}
 

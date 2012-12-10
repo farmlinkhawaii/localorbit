@@ -56,89 +56,94 @@ if(lo3::is_admin())
 	$tabs[] = 'Features';
 }
 ?>
-<form name="marketForm" method="post" action="/market/save" target="uploadArea" onsubmit="return core.submit('/market/save',this);" enctype="multipart/form-data">
+<form name="marketForm" class="form-horizontal" method="post" action="/market/save" target="uploadArea" onsubmit="return core.submit('/market/save',this);" enctype="multipart/form-data">
 	<?=core_ui::tab_switchers('markettabs',$tabs)?>
-	<div class="tabarea" id="markettabs-a1">
+	
+	<div class="tab-content">
+	<div class="tab-pane tabarea" id="markettabs-s1">
 		
-		<table class="form">
+		<fieldset>
 			<?if(lo3::is_admin()){?>
-			<tr>
-				<td class="label">Domain ID</td>
-				<td class="value"><b><?=$data['domain_id']?></b></td>
-			</tr>
+			<div class="control-group">
+				<label class="control-label">Domain ID</label>
+				<div class="controls">
+					<?=$data['domain_id']?>
+				</div>
+			</div>
 			<?}?>
-			<tr>
-				<td class="label">Name</td>
-				<td class="value"><input type="text" name="name" value="<?=$data['name']?>" /></td>
-			</tr>
-			<tr>
-				<td class="label">Detailed Name</td>
-				<td class="value"><input type="text" name="detailed_name" value="<?=$data['detailed_name']?>" /><?=info('This field is used for the registration dropdown')?></td>
-			</tr>
+			<div class="control-group">
+				<label class="control-label">Name</label>
+				<div class="controls">
+					<input type="text" name="name" value="<?=$data['name']?>" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label">Detailed Name</label>
+				<div class="controls">
+					<input type="text" name="detailed_name" value="<?=$data['detailed_name']?>" /> <small class="help-inline">This field is used for the registration dropdown</small>
+				</div>
+			</div>
+			
 			<?if(lo3::is_admin()){?>
-			<tr>
-				<td class="label">Managed By</td>
-				<td class="value">
+			<div class="control-group">
+				<label class="control-label">Managed By</label>
+				<div class="controls">
 					<? foreach($managed as $managed_org){?>
-					<a href="#!organizations-edit--org_id-<?=$managed_org['org_id']?>"><?=$managed_org['name']?></a>
+					<a href="#!organizations-edit--org_id-<?=$managed_org['org_id']?>"><?=$managed_org['name']?></a><br>
 					<?}?>
-				</td>
-			</tr>
-			<tr>
-				<td class="label">Hostname</td>
-				<td class="value"><input type="text" name="hostname" value="<?=$data['hostname']?>" /></td>
-			</tr>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Hostname</label>
+				<div class="controls">
+					<input type="text" name="hostname" value="<?=$data['hostname']?>" />
+					<?/* 
+					<div class="input-append">
+						<input type="text" name="hostname" value="<?=$data['hostname']?>" />
+						<span class="add-on">.localorb.it</span>
+					</div>
+					*/?>
+				</div>
+			</div>
 			<?}?>
-			<tr>
-				<td class="label">Timezone</td>
-				<td class="value">
+			<div class="control-group">
+				<label class="control-label">Timezone</label>
+				<div class="controls">
 					<select name="tz_id">
 						<?=core_ui::options($zones,$data['tz_id'],'tz_id','tz_name')?>
 					</select>
-				</td>
-			</tr>
-			<tr>
-				<td class="label">&nbsp;</td>
-				<td class="value"><?=core_ui::checkdiv('do_daylight_savings','Apply Daylight Savings',$data['do_daylight_savings'])?></td>
-			</tr>
-			<tr>
-				<td class="label">&nbsp;</td>
-				<td class="value"><?=core_ui::checkdiv('is_live','Is Live',$data['is_live'])?></td>
-			</tr>
-			<tr>
-				<td class="label">&nbsp;</td>
-				<td class="value"><?=core_ui::checkdiv('is_closed','Close Store',$data['is_closed'])?></td>
-			</tr>
-			<tr>
-				<td class="label">&nbsp;</td>
-				<td class="value"><?=core_ui::checkdiv('show_on_homepage','Show on Registration',$data['show_on_homepage'])?></td>
-			</tr>
+				</div>
+			</div>
+			
+			<?=core_ui::checkdiv('do_daylight_savings','Apply Daylight Savings',$data['do_daylight_savings'])?>
+			<?=core_ui::checkdiv('is_live','Is Live',$data['is_live'])?>
+			<?=core_ui::checkdiv('is_closed','Close Store',$data['is_closed'])?>
+			<?=core_ui::checkdiv('show_on_homepage','Show on Registration',$data['show_on_homepage'])?>
 			<?if(lo3::is_admin()){?>
-			<tr>
-				<td class="label">&nbsp;</td>
-				<td class="value"><?=core_ui::checkdiv('autoactivate_organization','Auto-activate Organizations',$data['autoactivate_organization'])?></td>
-			</tr>
+				<?=core_ui::checkdiv('autoactivate_organization','Auto-activate Organizations',$data['autoactivate_organization'])?>
 			<?}?>
-		</table>
+
+		</fieldset>
 	</div>
 
-	<div class="tabarea" id="markettabs-a2">
+	<div class="tab-pane tabarea" id="markettabs-s2">
 		<? $this->delivery();	?>
 	</div>
-	<div class="tabarea" id="markettabs-a3">
+	<div class="tab-pane tabarea" id="markettabs-s3">
 		<? $this->branding(); ?>
 	</div>
-	<div class="tabarea" id="markettabs-a4">
+	<div class="tab-pane tabarea" id="markettabs-s4">
 		<? $this->market_info(); ?>
 	</div>
-	<div class="tabarea" id="markettabs-a5">
+	<div class="tab-pane tabarea" id="markettabs-s5">
 		<? $this->addresses(); ?>
 	</div>
-	<div class="tabarea" id="markettabs-a6">
+	<div class="tab-pane tabarea" id="markettabs-s6">
 		<? $this->payments_fees();?>
 	</div>
 	<? if(lo3::is_admin()){?>
-	<div class="tabarea" id="markettabs-a7">
+	<div class="tab-pane tabarea" id="markettabs-s7">
 		<table class="form">
 		<?php foreach($domains as $domain){ ?>
 			<tr>
@@ -153,9 +158,9 @@ if(lo3::is_admin())
 
 	
 
-	<div class="tabarea" id="markettabs-a8">
+	<div class="tab-pane tabarea" id="markettabs-s8">
 
-		<table class="form">
+		<fieldset>
 			<?=core_form::input_check('Require sellers to accept all delivery options','feature_require_seller_all_delivery_opts',$data,false,$core->i18n['hub:features:req_selr_all_delv_opts'])?>			
 			<?=core_form::input_check('Force items at checkout to soonest delivery option','feature_force_items_to_soonest_delivery',$data,false,$core->i18n['hub:features:items_to_1st_delv'])?>			
 			<?=core_form::input_check('Sellers enter prices before fees','feature_sellers_enter_price_without_fees',$data,false,$core->i18n['hub:features:sellers_enter_price_without_fees'])?>			
@@ -170,8 +175,11 @@ if(lo3::is_admin())
 					</select>
 				</td>	
 			</tr>
-		</table>
+		</fieldset>
 	</div>
+	
+	</div>
+	
 	<?}?>
 	<?
 	if(lo3::is_admin())

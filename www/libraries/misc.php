@@ -181,13 +181,13 @@ function address($formname='',$data=array(),$prefix='')
 
 function page_header($title,$extrafunction='',$function_text='',$icon='')
 {
-	$out = '<div class="form_header">';
+	$out = '<div class="form_header clearfix">';
 	$out .= '<h1 class="pull-left">'.$title.'</h1>';
 	if($extrafunction!='')
 	{
 		$out .= '<a class="pull-right form_add_button btn btn-primary" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
 	}
-	$out .= "</div>";
+	$out .= '</div><div class="clearfix"></div>';
 	echo $out;
 }
 

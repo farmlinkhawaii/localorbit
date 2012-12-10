@@ -114,10 +114,17 @@ class core_ui
 
 
 	/* Standard HTML checkbox */
-	public static function checkdiv($name,$text,$checked=false,$onclick='',$clickable=true)
+	public static function checkdiv($name,$text,$checked=false,$onclick='',$clickable=true,$label="")
 	{
-		$html = '<label class="checkbox"><input type="checkbox" id="checkdiv_'.$name.'_value" name="'.$name.'" checked="'.(($checked)?1:0).'" />';
-		$html .= ' ' . $text . '</label>';
+		$html = '<div class="control-group">';
+		$html .= '	<label class="control-label">' . $text . '</label>';
+		$html .= '	<div class="controls">';
+		$html .= '		<input type="checkbox" id="checkdiv_'.$name.'_value" name="'.$name.'" checked="'.(($checked)?1:0).'" />';
+		if ($label):
+		 	$html .= '<small class="help-inline">' . $label . '</small>';
+		endif;
+		$html .= '	</div>';
+		$html .= '</div>';
 
 		return $html;
 	}
@@ -254,12 +261,12 @@ class core_ui
 	{
 		global $core;
 		core_ui::tabset($tabset_name);
-		$html = '<div class="tabset" id="'.$tabset_name.'">';
+		$html = '<ul class="nav nav-tabs" id="'.$tabset_name.'">';
 		for ($i = 0; $i < count($tab_list); $i++)
 		{
-			$html .= '<div class="tabswitch" id="'.$tabset_name.'-s'.($i + 1).'">'.$tab_list[$i].'</div>';
+			$html .= '<li><a href="#'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
 		}
-		$html .= '</div>';
+		$html .= '</ul>';
 		return $html;
 	}
 
