@@ -60,9 +60,7 @@ $rendered_prices = 0;
 		<p class="note">
 			<strong>Who:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
 		</p>
-		<p class="note">
-			<iframe width="370" height="220" src="http://maps.stamen.com/terrain/embed#11/42.3529/-83.0991"></iframe>
-		</p>
+		<p class="note" id="map_<?=$prod['prod_id']?>"/>
 	</div>
 </div>
 <!--
