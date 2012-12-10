@@ -237,9 +237,8 @@ else
 	$this->weekly_special();
 }
 
+core::js("window.setTimeout('core.catalog.initCatalog();',1000);");
+core_ui::showLeftNav();
 
-	core::js("window.setTimeout('core.catalog.initCatalog();',1000);");
-	core_ui::showLeftNav();
-#
 #core::log('total time on server: '.($end - $start))
 ?>

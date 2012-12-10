@@ -1,6 +1,7 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_cart'));
+core::ensure_navstate(array('left'=>'left_filters'));
+core_ui::showLeftNav();
 core::head('View a product','View a product.');
 lo3::require_permission();
 

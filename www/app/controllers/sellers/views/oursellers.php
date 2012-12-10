@@ -20,6 +20,7 @@ else
 	core::head('Our Sellers','','');
 
 	core::ensure_navstate(array('left'=>'left_seller_list')); 
+	core_ui::showLeftNav();
 
 	# figure out which seller to load
 	$seller = core::model('domains')->load_sellers()->limit(1);
