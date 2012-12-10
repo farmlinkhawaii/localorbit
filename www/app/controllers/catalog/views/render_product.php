@@ -31,7 +31,6 @@ foreach($dd_ids as $dd_id)
 	$dds[] = $delivs[$dd_id][0];
 }
 $rendered_prices = 0;
-
 ?>
 <div class="row">
 	<? if(intval($prod['pimg_id']) > 0){?>
@@ -44,6 +43,26 @@ $rendered_prices = 0;
 		<span>from <?=$prod['org_name']?></span></p>
 		<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>
 	</div>
+	<ol class="span2 priceList">
+		<?for ($i=0; $i < count($pricing); $i++){?>
+			<li>
+
+				<?if($pricing[$i]['org_id'] != 0){ ?>
+					<div class="error">Your price:
+				<?}?>
+
+				<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
+				min <?=floatval($pricing[$i]['min_qty'])?>
+				<?}?>
+
+				<?if($pricing[$i]['org_id'] != 0){ ?>
+					</div>
+				<?}?>
+
+				</td>
+			</li>
+			<?$rendered_prices++; }?>
+	</ol>
 </div>
 
 <div id="moreInfo<?=$prod['prod_id']?>" class="collapse row">
