@@ -590,3 +590,11 @@ core.ui.clearFields=function(formObj,clearFields,zeroFields,checkedFields){
 		formObj[checkedFields[i]].checked=true;
 	}
 }
+
+core.ui.fullWidth=function () {
+	$(document).ready(function () {
+		$('#left').hide();
+		$('#center').toggleClass('span9', false);
+		$('#center').toggleClass('span12', true);
+	});
+}

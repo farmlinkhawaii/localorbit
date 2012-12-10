@@ -346,6 +346,11 @@ class core_ui
 		}
 	}
 
+	public static function fullWidth()
+	{
+		core::js('core.ui.fullWidth();');
+	}
+
 
 	public function tagset_link($name,$value)
 	{
