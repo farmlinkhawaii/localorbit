@@ -76,12 +76,13 @@ class core_form
 
 	public static function page_header($title,$extrafunction='',$function_text='',$icon='')
 	{
-		$out = '<h1>'.$title;
+		$out = '<div class="form_header">';
+		$out .= '<h1>'.$title.'</h1>';
 		if($extrafunction!='')
 		{
-			$out .= '<a class="header_right" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
+			$out .= '<h2 class="form_add_button btn btn-primary"><a href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a></h2>';
 		}
-		$out .= '</h1>';
+		$out .= "</div>";
 		return $out;
 	}
 

@@ -469,12 +469,12 @@ class core_datatable
 	function render_column_headers()
 	{
 		global $core;
-		echo('<tr id="dt_'.$this->name.'_columns"'.(($this->data->__num_rows > 0)?'':' style="display:none;"').'>');
+		echo('<thead><tr id="dt_'.$this->name.'_columns"'.(($this->data->__num_rows > 0)?'':' style="display:none;"').'>');
 		for ($j = 0; $j < count($this->columns); $j++)
 		{
 			echo($this->columns[$j]->render_header('html'));
 		}
-		echo('</tr>');
+		echo('</tr></thead>');
 	}
 	
 	# this adds a row that is used to inform the user that there is no data available 

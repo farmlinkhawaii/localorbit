@@ -181,12 +181,14 @@ function address($formname='',$data=array(),$prefix='')
 
 function page_header($title,$extrafunction='',$function_text='',$icon='')
 {
-	echo('<h1>'.$title);
+	$out = '<div class="form_header">';
+	$out .= '<h1 class="pull-left">'.$title.'</h1>';
 	if($extrafunction!='')
 	{
-		echo('<a class="header_right" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>');
+		$out .= '<a class="pull-right form_add_button btn btn-primary" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
 	}
-	echo('</h1>');
+	$out .= "</div>";
+	echo $out;
 }
 
 function log_event($event_type,$obj_id1=0,$obj_id2=0,$varchar1='',$varchar2='')
