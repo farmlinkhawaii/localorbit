@@ -353,6 +353,7 @@ core.doRequest=function(path,data){
 		core.requestEndTime = new Date().valueOf();
 		core.log('total request time: '+(core.requestEndTime - core.requestStartTime))
 	}, "text");
+		core.ui.fullWidth();
 }
 
 

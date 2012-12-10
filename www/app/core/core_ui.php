@@ -347,9 +347,9 @@ class core_ui
 		}
 	}
 
-	public static function fullWidth()
+	public static function showLeftNav()
 	{
-		core::js('core.ui.fullWidth();');
+		core::js('core.ui.showLeftNav();');
 	}
 
 

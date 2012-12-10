@@ -80,7 +80,6 @@ for ($i = 0; $i < count($ord_data); $i++)
 	$ord_data[$i]['mydate'] = $ord_data[$i]['mydate'] * 86400;
 	$ord_data[$i]['mydate'] = date('d-M-y',$ord_data[$i]['mydate']);
 }
-
 ?>
 <h1>Welcome <?=$core->session['first_name']?> <?=$core->session['last_name']?></h1>
 

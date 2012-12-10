@@ -79,6 +79,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	core.unauth_controller = '#!misc-home';
 	core.authed_controller = '#!dashboard-view';
 	$.fn.datePicker.format = 'M d,y';
+	core.ui.fullWidth();
 	//-->
 	</script>
 

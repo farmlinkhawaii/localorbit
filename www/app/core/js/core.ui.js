@@ -598,3 +598,11 @@ core.ui.fullWidth=function () {
 		$('#center').toggleClass('span12', true);
 	});
 }
+
+core.ui.showLeftNav=function () {
+	$(document).ready(function () {
+		$('#left').show();
+		$('#center').toggleClass('span9', true);
+		$('#center').toggleClass('span12', false);
+	});
+}
