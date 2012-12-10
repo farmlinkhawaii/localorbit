@@ -6,8 +6,6 @@ $address = $address->row()
 ?>
 <h1>Hello <?=$core->session['first_name']?> <?=$core->session['last_name']?></h1>
 
-From your Dashboard you have the ability to view a snapshot of your recent account activity and 
-update your account information. Select a link below to view or edit information.
-<br />
+<p>From your Dashboard you have the ability to view a snapshot of your recent account activity and  update your account information. Select a link below to view or edit information.</p>
+
 <? $this->buyer_orders(); ?>
-<br />

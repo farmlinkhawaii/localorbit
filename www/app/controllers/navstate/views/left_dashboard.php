@@ -166,7 +166,7 @@
 
 <? else: ?>
 
-<h2>Account Information</h2>
+<h2>Your Account</h2>
 <ul class="nav nav-list">
 	<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
 	<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
