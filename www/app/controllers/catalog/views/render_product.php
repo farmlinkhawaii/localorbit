@@ -64,12 +64,13 @@ $rendered_prices = 0;
 			<?$rendered_prices++; }?>
 	</ol>
 	<div class="span2">
-		<input class="prodQty" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
 		<!--
 		<input class="prodTotal" readonly="readonly" type="text" name="prodTotal_<?=$prod['prod_id']?>" id="prodTotal_<?=$prod['prod_id']?>" size="3" style="width: 57px;" value="<?=$total?>" />
 	-->
+		<input class="prodQty" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
+
 		<div class="prodTotal_text" id="prodTotal_<?=$prod['prod_id']?>_text">
-			<?=$total?>
+			<i class="icon-remove-sign"/><span class="value"><?=$total?></span> 
 		</div>
 	</div>
 </div>
