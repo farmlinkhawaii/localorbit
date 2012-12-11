@@ -30,55 +30,59 @@ lo3::require_permission();
 
 $tag_classes=array('customer','address');
 ?>
-<h1>Editing Dictionary</h1>
-<form method="post" name="dictform" action="dictionaries/update" onsubmit="return core.submit('/dictionaries/update',this);">
-	<div class="tagset">
-	<?foreach($tag_classes as $tag){ echo(core_ui::tagset_link('fieldtags',$tag));	} ?>
-	</div>
-	<div class="tabset" id="phrasecats">
-		<?php $a=0; foreach($cats as $cat){ $a++;?>
-		<div class="tabswitch" id="phrasecats-s<?=$a?>">
-			<?=$cat['name']?>
-		</div>
-		<?}?>
-	</div>
-	<?php $a=0; foreach($cats as $cat){ $a++;?>
-		<div class="tabarea" id="phrasecats-a<?=$a?>">
-			<?if($cat['pcat_id'] == 8){?>
-			Note: you can test these e-mails using the <a href="#!emails-tests" onclick="core.go(this.href);"><?=$core->i18n['nav2:emails:tests']?></a> page.
-			<?}?>
-			<table class="form">
-				<col width="240" />
-				<col />
-			<?
-			foreach($phrases[$cat['name']] as $phrase)
-			{
-				
+<h2>Editing Dictionary</h2>
+
+<form class="form-horizontal" method="post" name="dictform" action="dictionaries/update" onsubmit="return core.submit('/dictionaries/update',this);">
+	<ul class="nav nav-tabs">
+		<? $a = 0;
+		foreach($cats as $cat): $a++; ?>
+			<li <? if ($a == 1): ?>class="active"<? endif; ?>><a href="#tagset_<?= $a ?>" data-toggle="tab"><?= $cat['name'] ?></a></li>
+		<? endforeach; ?>
+
+		<? foreach($tag_classes as $tag): ?>
+			<li><a href="#tagset_<?= $name ?>_<?= $value ?>" data-toggle="tab"><?= $value ?></a></li>
+		<? endforeach; ?>
+	</ul>
+
+	<div class="tab-content">
+	<? $a=0; foreach($cats as $cat): $a++; ?>
+
+		<div class="tab-pane <? if ($a == 1): ?>active<? endif; ?>" id="tagset_<?= $a ?>">
+			<? if ($cat['pcat_id'] == 8): ?>
+				<p>Note: you can test these e-mails using the <a href="#!emails-tests" onclick="core.go(this.href);"><?=$core->i18n['nav2:emails:tests']?></a> page.</p>
+			<? endif; ?>
+
+			<? foreach($phrases[$cat['name']] as $phrase):
 				$phrase['tags'] = explode(',',$phrase['tags']);
 			?>
-				<tr<?=core_ui::tagset_classes('fieldtags',$phrase['tags'])?>>
-					<td class="label">
-						<?=$phrase['label']?>:
-					</td>
-					<td class="value">
+			
+				<div class="control-group">
+					<label class="control-label" for="phrase_<?=$phrase['phrase_id']?>"><?=$phrase['label']?>:</label>
+					<div class="controls">
 						<?if($phrase['edit_type'] == 'text'){?>
-						<input type="text" style="width: 400px;" name="phrase_<?=$phrase['phrase_id']?>" value="<?=htmlentities($phrase['default_value'])?>" />
+							<input type="text" name="phrase_<?=$phrase['phrase_id']?>" value="<?=htmlentities($phrase['default_value'])?>" />
 						<?}else if($phrase['edit_type'] == 'textarea'){?>
-						<textarea name="phrase_<?=$phrase['phrase_id']?>" rows="5" cols="45"><?=htmlentities($phrase['default_value'])?></textarea>
+							<textarea name="phrase_<?=$phrase['phrase_id']?>" rows="5" cols="45"><?=htmlentities($phrase['default_value'])?></textarea>
 						<?} if($phrase['edit_type'] == 'rte'){?>
-						<textarea class="rte" id="phrase_<?=$phrase['phrase_id']?>" name="phrase_<?=$phrase['phrase_id']?>" rows="5" cols="45"><?=htmlentities($phrase['default_value'])?></textarea>						
+							<textarea class="rte" id="phrase_<?=$phrase['phrase_id']?>" name="phrase_<?=$phrase['phrase_id']?>" rows="5" cols="45"><?=htmlentities($phrase['default_value'])?></textarea>						
 						<?}?>
 						<?if($phrase['info_note'] != ''){ echo(info($phrase['info_note']));	}?>
-					</td>
-				</tr>
-			<?}?>
-			</table>
+					</div>
+				</div>
+
+			<? endforeach; ?>
 		</div>
-	<?}?>
+
+	<? endforeach; ?>
+	</div> <!-- /.tab-content-->
+	
 	<? core_ui::rte(500,300,'/css/emails.css'); ?>
-	<div class="buttonset">
-		<input type="submit" class="button_primary" value="save" />
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Save changes</button>
+		<button type="button" class="btn">Cancel</button>
 	</div>
+	
 </form>
 
 <?=core_ui::tabset('phrasecats') ?>
+<? core_ui::fullWidth(); ?>
