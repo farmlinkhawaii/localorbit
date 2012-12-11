@@ -15,6 +15,7 @@ echo('</pre><br />');
 */
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 //~ core_ui::load_library('js','test.js');
 //~ core_ui::load_library('js','excanvas.min.js');
 //~ #core_ui::load_library('js','jquery.jqplot.min.js');
@@ -80,7 +81,6 @@ for ($i = 0; $i < count($ord_data); $i++)
 	$ord_data[$i]['mydate'] = $ord_data[$i]['mydate'] * 86400;
 	$ord_data[$i]['mydate'] = date('d-M-y',$ord_data[$i]['mydate']);
 }
-core_ui::fullWidth();
 ?>
 <h1>Welcome <?=$core->session['first_name']?> <?=$core->session['last_name']?></h1>
 
