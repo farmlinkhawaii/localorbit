@@ -100,7 +100,7 @@ class core_controller_fresh_sheet extends core_controller
 	function generate_html($domain_id,$show_edit_links=false)
 	{
 		global $core;
-		$html = '<table class="dt">';
+		$html = '<table class="table table-hover">';
 		$prods = core::model('products')->get_catalog($domain_id,0)->sort('name');
 		
 		$prods = $prods->to_array();
@@ -163,8 +163,8 @@ class core_controller_fresh_sheet extends core_controller
 		$cur_cat = '';
 		foreach($prods_by_catname_hash as $category => $prods)
 		{
-			$html .= '<tr class="dt'.$style.'">';
-				$html .= '<th style="font-family: Ubuntu, Arial, Sans Serif;text-align: left;padding: 4px 2px;background-color: #e3ebe7;font-weight: bold;color: #000;" class="dt"'.(($show_edit_links)?' colspan="2"':'').'><b>'.$category.'</b></th>';
+			$html .= '<tr class="'.$style.'">';
+				$html .= '<th'.(($show_edit_links)?' colspan="2"':'').'>'.$category.'</th>';
 				
 			$html .= '</tr>';
 			$style = false;
