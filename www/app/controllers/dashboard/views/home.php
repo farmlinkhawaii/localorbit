@@ -1,16 +1,14 @@
 <h1>Welcome to Local Orbit: <?=$core->i18n['hello']?></h1>
 <pre>
-<?php 
-
+<?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 #echo(dirname(__FILE__).'<br />');
 #print_r($core->config);
-
-
 ?>
 </pre>
-<hr />
 
+<hr />
 
 <?php
 

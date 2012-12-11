@@ -79,11 +79,10 @@ class core_form
 	public static function page_header($title,$extrafunction='',$function_text='',$icon='')
 	{
 		$out = '<div class="form_header clearfix">';
+		if($extrafunction!=''):
+			$out .= '<a class="pull-right btn btn-primary" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
+		endif;
 		$out .= '<h1>'.$title.'</h1>';
-		if($extrafunction!='')
-		{
-			$out .= '<h2 class="form_add_button btn btn-primary"><a href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a></h2>';
-		}
 		$out .= '</div><div class="clearfix"></div>';
 		return $out;
 	}
@@ -498,13 +497,12 @@ class core_form
 			'on_save'=>'',
 			'require_pin' => false,
 		));
-		$out = '<div class="buttonset pull-right" id="main_save_buttons">';
-		if($options['cancel_button'])
-		{
-			$out .= '<input type="button" class="btn" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" />';
-
-		}
-		$out .= '<input type="submit" class="btn btn-primary btn-large" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /></div>';
+		$out = '<div class="form-actions" id="main_save_buttons">';
+		$out .= '<input type="submit" class="btn btn-primary btn-large" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /> ';
+		if ($options['cancel_button']):
+			$out .= '<input type="button" class="btn btn-large" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" />';
+		endif;
+		$out .= '</div>';
 
 		return $out;
 	}

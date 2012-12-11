@@ -1,5 +1,6 @@
 <?
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core_ui::load_library('js','test.js');
 core_ui::load_library('js','excanvas.min.js');
 #core_ui::load_library('js','jquery.jqplot.min.js');
@@ -71,44 +72,46 @@ for ($i = 0; $i < count($ord_data); $i++)
 
 ?>
 <h1>Welcome <?=$core->session['first_name']?> <?=$core->session['last_name']?></h1>
-You are currently logged into Local orbit as an administrator. This gives you the right to do pretty much anything you want, such as 
-<a href="#!market-list">Configure a hub</a>, <a href="#!products-list">modify a product</a>, <a href="#!organizations-create">create a new customer company</a>, or <a href="#!dictionaries-edit">Modify the dictionary</a>.
-<br />
-Remember though: With great power, comes bad movie quotes. And remember that Mike Thorn can undo *almost* anything. Be careful.
-<br />&nbsp;<br />
-<h1>Metrics</h1>
-<table>
-	<tr>
-		<th class="dt">Data Type</th>
-		<th class="dt" style="text-align: center">Yesterday</th>
-		<th class="dt" style="text-align: center">Last 7 Days</th>
-		<th class="dt" style="text-align: center">Last 30 days</th>
-		<th class="dt" style="text-align: center">All Time</th>
-	</tr>
-	<tr>
-		<td><h2>New Organizations</h2></td>
-		<td style="text-align: center"><?=$data['orgs'][0]?></td>
-		<td style="text-align: center"><?=$data['orgs'][1]?></td>
-		<td style="text-align: center"><?=$data['orgs'][2]?></td>
-		<td style="text-align: center;font-weight:bold;"><?=$data['orgs'][3]?></td>
-	</tr>
-	<tr>
-		<td><h2># of Transactions</h2></td>
-		<td style="text-align: center"><?=$data['num_trans'][0]?></td>
-		<td style="text-align: center"><?=$data['num_trans'][1]?></td>
-		<td style="text-align: center"><?=$data['num_trans'][2]?></td>
-		<td style="text-align: center;font-weight:bold;"><?=$data['num_trans'][3]?></td>
-	</tr>
-	<tr>
-		<td><h2>$ value of Transactions</h2></td>
-		<td style="text-align: center"><?=core_format::price($data['dol_trans'][0])?></td>
-		<td style="text-align: center"><?=core_format::price($data['dol_trans'][1])?></td>
-		<td style="text-align: center"><?=core_format::price($data['dol_trans'][2])?></td>
-		<td style="text-align: center;font-weight:bold;"><?=core_format::price($data['dol_trans'][3])?></td>
-	</tr>
-</table>
-<br />
 
+<p>You are currently logged into Local orbit as an administrator. This gives you the right to do pretty much anything you want, such as <a href="#!market-list">configure a hub</a>, <a href="#!products-list">modify a product</a>, <a href="#!organizations-create">create a new customer company</a>, or <a href="#!dictionaries-edit">modify the dictionary</a>.</p>
+<p>Remember though: With great power, comes bad movie quotes. And remember that Mike Thorn can undo *almost* anything. Be careful.</p>
+
+<h2>Metrics</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th class="dt">Data Type</th>
+			<th class="dt" style="text-align: center">Yesterday</th>
+			<th class="dt" style="text-align: center">Last 7 Days</th>
+			<th class="dt" style="text-align: center">Last 30 days</th>
+			<th class="dt" style="text-align: center">All Time</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><h2>New Organizations</h2></td>
+			<td style="text-align: center"><?=$data['orgs'][0]?></td>
+			<td style="text-align: center"><?=$data['orgs'][1]?></td>
+			<td style="text-align: center"><?=$data['orgs'][2]?></td>
+			<td style="text-align: center;font-weight:bold;"><?=$data['orgs'][3]?></td>
+		</tr>
+		<tr>
+			<td><h2># of Transactions</h2></td>
+			<td style="text-align: center"><?=$data['num_trans'][0]?></td>
+			<td style="text-align: center"><?=$data['num_trans'][1]?></td>
+			<td style="text-align: center"><?=$data['num_trans'][2]?></td>
+			<td style="text-align: center;font-weight:bold;"><?=$data['num_trans'][3]?></td>
+		</tr>
+		<tr>
+			<td><h2>$ value of Transactions</h2></td>
+			<td style="text-align: center"><?=core_format::price($data['dol_trans'][0])?></td>
+			<td style="text-align: center"><?=core_format::price($data['dol_trans'][1])?></td>
+			<td style="text-align: center"><?=core_format::price($data['dol_trans'][2])?></td>
+			<td style="text-align: center;font-weight:bold;"><?=core_format::price($data['dol_trans'][3])?></td>
+		</tr>
+	</tbody>
+</table>
 
 <?=core_ui::tab_switchers('charttabs',array('New Organizations, 30 days','New Orders, 30 days'))?>
 <div class="tabarea" id="charttabs-a1">

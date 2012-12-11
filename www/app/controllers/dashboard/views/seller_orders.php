@@ -35,6 +35,6 @@ $orders->add(new core_datacolumn('seller_payment_status','Payment',true,'15%','<
 $orders->columns[1]->autoformat='date-short';
 $orders->sort_direction = 'desc';
 $orders->columns[2]->autoformat='price';
-page_header('Current Sales','#!delivery_tools-view','Get this week\'s sales and delivery info');
+page_header('Current Sales','#!delivery_tools-view','This week\'s sales and deliveries');
 $orders->render();
 ?>

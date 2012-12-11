@@ -1,13 +1,9 @@
 <?php 
-
 $col = core::model('lo_order')->collection();
-
-
 
 #$col->filter('status','<>','cart');
 $col->filter('lo_order.lbps_id', '<>', '1');
 $col->filter('organizations.org_id',$core->session['org_id']);
-
 
 $orders = new core_datatable('orders','dashboard/buyer_orders',$col);
 $orders->add(new core_datacolumn('lo3_order_nbr','Order #',true,'50%','<a href="#!orders-view_order--lo_oid-{lo_oid}"><b>{lo3_order_nbr}</b>'));

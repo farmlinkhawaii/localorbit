@@ -1,10 +1,9 @@
 <?
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 ?>
-<h1>Uh-oh! Wait a sec...</h1>
 
-Hi, <?=$core->session['first_name']?> <?=$core->session['last_name']?>! 
-
-<br />&nbsp;<br />
-You've confirmed your email account, but the market manager must approve your account before you can shop. We'll let you know as soon as that happens!
-<br />&nbsp;<br />
+<div class="alert alert-block">
+	<h1>Uh-oh! Wait a sec...</h1>
+	<p>Hi, <?=$core->session['first_name']?> <?=$core->session['last_name']?>!</p>
+	<p>You've confirmed your email account, but the market manager must approve your account before you can shop. We'll let you know as soon as that happens!</p>
+</div>

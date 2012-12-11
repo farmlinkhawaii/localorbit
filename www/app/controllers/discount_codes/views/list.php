@@ -1,5 +1,6 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Discount Codes','This page is to view discount codes');
 lo3::require_permission();
 lo3::require_login();

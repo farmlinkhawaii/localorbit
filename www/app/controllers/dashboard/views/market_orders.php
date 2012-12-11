@@ -46,6 +46,6 @@ $orders->columns[2]->autoformat='price';
 $orders->sort_direction = 'desc';
 $orders->size=5;
 $orders->render_resizer = false;
-page_header('Current Sales','#!delivery_tools-view','Get this week\'s sales and delivery info');
+page_header('Current Sales','#!delivery_tools-view','This week\'s sales and deliveries');
 $orders->render();
 ?>

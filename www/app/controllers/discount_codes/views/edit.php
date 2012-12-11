@@ -1,5 +1,6 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Edit Discount Code','This page is to edit Discount Code Information');
 lo3::require_permission();
 lo3::require_login();
@@ -40,7 +41,7 @@ $this->rules()->js();
 
 # render the form
 echo(
-	core_form::page_header('Editing '.$data['name'],'#!discount_codes-list','cancel').
+	core_form::page_header('Editing '.$data['name']).
 	core_form::form('discForm','/discount_codes/update',null,
 		core_form::tab_switchers('discounttabs',array('Discounts')),
 		core_form::tab('discounttabs',
@@ -87,7 +88,7 @@ echo(
 			)
 		),
 		core_form::input_hidden('disc_id',$data),
-		core_form::save_buttons()
+		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'core.go(\'#!discount_codes-list\');'))
 	)
 );
 
