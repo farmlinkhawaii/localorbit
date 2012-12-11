@@ -1,5 +1,6 @@
 <?php  
 core::ensure_navstate(array('left'=>'left_dashboard')); 
+core_ui::fullWidth();
 core::head('List Markets','asdfasdfasdfsdf');
 lo3::require_permission();
 lo3::require_login();
@@ -85,7 +86,7 @@ $domains->add_filter(new core_datatable_filter('name','name','~'));
 $domains->filter_html .= core_datatable_filter::make_text('domains','name',$domains->filter_states['domains__filter__name'],'Search by name');
 
 $domains->add(new core_datacolumn('name','Name',true,$cols[0],'<a href="#!market-edit--domain_id-{domain_id}"><b>{name}</b></a><br /><a href="https://{hostname}/app.php#!dashboard-home">Switch to {hostname}</a>'));
-$domains->add(new core_datacolumn('secondary_contact_name','Market Contact',true,$cols[1],'<a href="#!market-edit--domain_id-{domain_id}"><b>{secondary_contact_name}</b></a> (<a href="mailTo:{secondary_contact_email}">e-mail</a>)<br />Tel. {secondary_contact_phone} '));
+$domains->add(new core_datacolumn('secondary_contact_name','Market Contact',true,$cols[1],'<a href="#!market-edit--domain_id-{domain_id}">{secondary_contact_name}</a> (<a href="mailTo:{secondary_contact_email}">e-mail</a>)<br />Tel. {secondary_contact_phone} '));
 
 if(lo3::is_admin())
 {
@@ -94,8 +95,7 @@ if(lo3::is_admin())
 }
 
 $domains->add(new core_datacolumn('is_closed','Closed',true,$cols[4],'{is_closed}','{is_closed_printable}','{is_closed_printable}'));
-page_header('Hubs');
+page_header('Markets');
 #,'#!market-edit','Create new hub'
 $domains->render();
 ?>
-mike test

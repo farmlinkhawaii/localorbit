@@ -278,7 +278,7 @@ class core_ui
 		if(is_numeric($core->data['tabautoswitch_'.$name]))
 		{
 			#core::Log("$('#".$name."-s".$core->data['tabautoswitch_'.$name]."').click();");
-			core::js("$('#".$name."-a".$core->data['tabautoswitch_'.$name]."').click();");
+			#core::js("$('#".$name."-a".$core->data['tabautoswitch_'.$name]."').click();");
 		}
 	}
 

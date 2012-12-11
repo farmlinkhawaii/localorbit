@@ -1,5 +1,6 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Edit Market','This page is used to edit markets');
 lo3::require_permission();
 lo3::require_login();
@@ -60,127 +61,124 @@ if(lo3::is_admin())
 	<?=core_ui::tab_switchers('markettabs',$tabs)?>
 	
 	<div class="tab-content">
-	<div class="tab-pane tabarea" id="markettabs-s1">
+		<div class="tab-pane tabarea active" id="markettabs-a1">
 		
-		<fieldset>
-			<?if(lo3::is_admin()){?>
-			<div class="control-group">
-				<label class="control-label">Domain ID</label>
-				<div class="controls">
-					<?=$data['domain_id']?>
-				</div>
-			</div>
-			<?}?>
-			<div class="control-group">
-				<label class="control-label">Name</label>
-				<div class="controls">
-					<input type="text" name="name" value="<?=$data['name']?>" />
-				</div>
-			</div>
-			
-			<div class="control-group">
-				<label class="control-label">Detailed Name</label>
-				<div class="controls">
-					<input type="text" name="detailed_name" value="<?=$data['detailed_name']?>" /> <small class="help-inline">This field is used for the registration dropdown</small>
-				</div>
-			</div>
-			
-			<?if(lo3::is_admin()){?>
-			<div class="control-group">
-				<label class="control-label">Managed By</label>
-				<div class="controls">
-					<? foreach($managed as $managed_org){?>
-					<a href="#!organizations-edit--org_id-<?=$managed_org['org_id']?>"><?=$managed_org['name']?></a><br>
-					<?}?>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">Hostname</label>
-				<div class="controls">
-					<input type="text" name="hostname" value="<?=$data['hostname']?>" />
-					<?/* 
-					<div class="input-append">
-						<input type="text" name="hostname" value="<?=$data['hostname']?>" />
-						<span class="add-on">.localorb.it</span>
+			<fieldset>
+				<?if(lo3::is_admin()){?>
+				<div class="control-group">
+					<label class="control-label">Domain ID</label>
+					<div class="controls">
+						<?=$data['domain_id']?>
 					</div>
-					*/?>
 				</div>
-			</div>
-			<?}?>
-			<div class="control-group">
-				<label class="control-label">Timezone</label>
-				<div class="controls">
-					<select name="tz_id">
-						<?=core_ui::options($zones,$data['tz_id'],'tz_id','tz_name')?>
-					</select>
+				<?}?>
+				<div class="control-group">
+					<label class="control-label">Name</label>
+					<div class="controls">
+						<input type="text" name="name" value="<?=$data['name']?>" />
+					</div>
 				</div>
-			</div>
 			
-			<?=core_ui::checkdiv('do_daylight_savings','Apply Daylight Savings',$data['do_daylight_savings'])?>
-			<?=core_ui::checkdiv('is_live','Is Live',$data['is_live'])?>
-			<?=core_ui::checkdiv('is_closed','Close Store',$data['is_closed'])?>
-			<?=core_ui::checkdiv('show_on_homepage','Show on Registration',$data['show_on_homepage'])?>
-			<?if(lo3::is_admin()){?>
-				<?=core_ui::checkdiv('autoactivate_organization','Auto-activate Organizations',$data['autoactivate_organization'])?>
+				<div class="control-group">
+					<label class="control-label">Detailed Name</label>
+					<div class="controls">
+						<input type="text" name="detailed_name" value="<?=$data['detailed_name']?>" /> <small class="help-inline">This field is used for the registration dropdown</small>
+					</div>
+				</div>
+			
+				<?if(lo3::is_admin()){?>
+				<div class="control-group">
+					<label class="control-label">Managed By</label>
+					<div class="controls">
+						<? foreach($managed as $managed_org){?>
+						<a href="#!organizations-edit--org_id-<?=$managed_org['org_id']?>"><?=$managed_org['name']?></a><br>
+						<?}?>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Hostname</label>
+					<div class="controls">
+						<input type="text" name="hostname" value="<?=$data['hostname']?>" />
+						<?/* 
+						<div class="input-append">
+							<input type="text" name="hostname" value="<?=$data['hostname']?>" />
+							<span class="add-on">.localorb.it</span>
+						</div>
+						*/?>
+					</div>
+				</div>
+				<?}?>
+				<div class="control-group">
+					<label class="control-label">Timezone</label>
+					<div class="controls">
+						<select name="tz_id">
+							<?=core_ui::options($zones,$data['tz_id'],'tz_id','tz_name')?>
+						</select>
+					</div>
+				</div>
+			
+				<?=core_ui::checkdiv('do_daylight_savings','Apply Daylight Savings',$data['do_daylight_savings'])?>
+				<?=core_ui::checkdiv('is_live','Is Live',$data['is_live'])?>
+				<?=core_ui::checkdiv('is_closed','Close Store',$data['is_closed'])?>
+				<?=core_ui::checkdiv('show_on_homepage','Show on Registration',$data['show_on_homepage'])?>
+				<?if(lo3::is_admin()){?>
+					<?=core_ui::checkdiv('autoactivate_organization','Auto-activate Organizations',$data['autoactivate_organization'])?>
+				<?}?>
+
+			</fieldset>
+		</div>
+
+		<div class="tab-pane tabarea" id="markettabs-a2">
+			<? $this->delivery();	?>
+		</div>
+		<div class="tab-pane tabarea" id="markettabs-a3">
+			<? $this->branding(); ?>
+		</div>
+		<div class="tab-pane tabarea" id="markettabs-a4">
+			<? $this->market_info(); ?>
+		</div>
+		<div class="tab-pane tabarea" id="markettabs-a5">
+			<? $this->addresses(); ?>
+		</div>
+		<div class="tab-pane tabarea" id="markettabs-a6">
+			<? $this->payments_fees();?>
+		</div>
+		<? if(lo3::is_admin()){?>
+		<div class="tab-pane tabarea" id="markettabs-a7">
+			<table class="form">
+			<?php foreach($domains as $domain){ ?>
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td class="value">
+						<?=core_ui::checkdiv('accept_products_from_'.$domain['domain_id'],'Accept products from '.$domain['name'],$allows[$domain['domain_id']])?>
+					</td>
+				</tr>
 			<?}?>
+			</table>
+		</div>
 
-		</fieldset>
-	</div>
-
-	<div class="tab-pane tabarea" id="markettabs-s2">
-		<? $this->delivery();	?>
-	</div>
-	<div class="tab-pane tabarea" id="markettabs-s3">
-		<? $this->branding(); ?>
-	</div>
-	<div class="tab-pane tabarea" id="markettabs-s4">
-		<? $this->market_info(); ?>
-	</div>
-	<div class="tab-pane tabarea" id="markettabs-s5">
-		<? $this->addresses(); ?>
-	</div>
-	<div class="tab-pane tabarea" id="markettabs-s6">
-		<? $this->payments_fees();?>
-	</div>
-	<? if(lo3::is_admin()){?>
-	<div class="tab-pane tabarea" id="markettabs-s7">
-		<table class="form">
-		<?php foreach($domains as $domain){ ?>
-			<tr>
-				<td class="label">&nbsp;</td>
-				<td class="value">
-					<?=core_ui::checkdiv('accept_products_from_'.$domain['domain_id'],'Accept products from '.$domain['name'],$allows[$domain['domain_id']])?>
-				</td>
-			</tr>
+		<div class="tab-pane tabarea" id="markettabs-a8">
+			<fieldset>
+				<?=core_form::input_check('Require sellers to accept all delivery options','feature_require_seller_all_delivery_opts',$data,false,$core->i18n['hub:features:req_selr_all_delv_opts'])?>			
+				<?=core_form::input_check('Force items at checkout to soonest delivery option','feature_force_items_to_soonest_delivery',$data,false,$core->i18n['hub:features:items_to_1st_delv'])?>			
+				<?=core_form::input_check('Sellers enter prices before fees','feature_sellers_enter_price_without_fees',$data,false,$core->i18n['hub:features:sellers_enter_price_without_fees'])?>			
+				<?=core_form::input_check('Sellers cannot modify cross-sells','feature_sellers_cannot_manage_cross_sells',$data,false,$core->i18n['hub:features:sellers_cannot_modify_cross_sells'])?>			
+				<?=core_form::input_check('Sellers can change delivery statuses','feature_sellers_mark_items_delivered',$data,false,$core->i18n['hub:features:feature_sellers_mark_items_delivered'])?>			
+				<?=core_form::input_check('Allow anonymous shopping','feature_allow_anonymous_shopping',$data,false,'Note: checking this feature will also enable organization auto-activation, credit card payments, and disable POs',null,false,"market.toggleAnon();")?>			
+				<tr id="default_homepage_selector"<?=(($data['feature_allow_anonymous_shopping'] != '1')?' style="display: none;"':'')?>>
+					<td class="label">Homepage:</td>
+					<td>
+						<select name="default_homepage">
+							<?=core_ui::options(array('Login'=>'Login','Market Info'=>'Market Info','Our Sellers'=>'Our Sellers','Shop'=>'Shop'),$data['default_homepage'])?>
+						</select>
+					</td>	
+				</tr>
+			</fieldset>
+		</div>
 		<?}?>
-		</table>
-	</div>
-
-	
-
-	<div class="tab-pane tabarea" id="markettabs-s8">
-
-		<fieldset>
-			<?=core_form::input_check('Require sellers to accept all delivery options','feature_require_seller_all_delivery_opts',$data,false,$core->i18n['hub:features:req_selr_all_delv_opts'])?>			
-			<?=core_form::input_check('Force items at checkout to soonest delivery option','feature_force_items_to_soonest_delivery',$data,false,$core->i18n['hub:features:items_to_1st_delv'])?>			
-			<?=core_form::input_check('Sellers enter prices before fees','feature_sellers_enter_price_without_fees',$data,false,$core->i18n['hub:features:sellers_enter_price_without_fees'])?>			
-			<?=core_form::input_check('Sellers cannot modify cross-sells','feature_sellers_cannot_manage_cross_sells',$data,false,$core->i18n['hub:features:sellers_cannot_modify_cross_sells'])?>			
-			<?=core_form::input_check('Sellers can change delivery statuses','feature_sellers_mark_items_delivered',$data,false,$core->i18n['hub:features:feature_sellers_mark_items_delivered'])?>			
-			<?=core_form::input_check('Allow anonymous shopping','feature_allow_anonymous_shopping',$data,false,'Note: checking this feature will also enable organization auto-activation, credit card payments, and disable POs',null,false,"market.toggleAnon();")?>			
-			<tr id="default_homepage_selector"<?=(($data['feature_allow_anonymous_shopping'] != '1')?' style="display: none;"':'')?>>
-				<td class="label">Homepage:</td>
-				<td>
-					<select name="default_homepage">
-						<?=core_ui::options(array('Login'=>'Login','Market Info'=>'Market Info','Our Sellers'=>'Our Sellers','Shop'=>'Shop'),$data['default_homepage'])?>
-					</select>
-				</td>	
-			</tr>
-		</fieldset>
-	</div>
 	
 	</div>
 	
-	<?}?>
 	<?
 	if(lo3::is_admin())
 		save_buttons(true);

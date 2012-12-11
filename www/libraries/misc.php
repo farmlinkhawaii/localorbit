@@ -30,7 +30,7 @@ function save_buttons($require_pin = false)
 		?>
 	<div class="form-actions buttonset unlock_area" id="unlock_area"<?=((!$require_pin)?' style="display:none;"':'')?>>
 		4 Digit Pin: <input type="password" name="sec_pin" id="sec_pin" value="" />
-		<input type="button" class="button_primary" value="unlock to save" onclick="core.doRequest('/auth/unlock_pin',{'formname':this.form.getAttribute('name'),'sec_pin':$('#sec_pin').val()});" />
+		<input type="button" class="btn btn-primary" value="Unlock to Save" onclick="core.doRequest('/auth/unlock_pin',{'formname':this.form.getAttribute('name'),'sec_pin':$('#sec_pin').val()});" />
 	</div>
 	<?}?>
 	<div class="form-actions" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
@@ -182,11 +182,11 @@ function address($formname='',$data=array(),$prefix='')
 function page_header($title,$extrafunction='',$function_text='',$icon='')
 {
 	$out = '<div class="form_header clearfix">';
-	$out .= '<h1 class="pull-left">'.$title.'</h1>';
 	if($extrafunction!='')
 	{
 		$out .= '<a class="pull-right form_add_button btn btn-primary" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
 	}
+	$out .= '<h2 class="pull-left">'.$title.'</h2>';
 	$out .= '</div><div class="clearfix"></div>';
 	echo $out;
 }

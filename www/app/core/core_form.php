@@ -82,7 +82,7 @@ class core_form
 		if($extrafunction!=''):
 			$out .= '<a class="pull-right btn btn-primary" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
 		endif;
-		$out .= '<h1>'.$title.'</h1>';
+		$out .= '<h2>'.$title.'</h2>';
 		$out .= '</div><div class="clearfix"></div>';
 		return $out;
 	}
@@ -470,9 +470,9 @@ class core_form
 		if($options['require_pin'])
 		{
 			$out = '
-				<div class="buttonset unlock_area" id="unlock_area">
-					4 Digit Pin: <input type="password" name="sec_pin" id="sec_pin" value="" />
-					<input type="button" class="button_primary" value="unlock to save" onclick="core.doRequest(\'/auth/unlock_pin\',{\'formname\':this.form.getAttribute(\'name\'),\'sec_pin\':$(\'#sec_pin\').val()});" />
+				<div class="form-actions unlock_area" id="unlock_area">
+					<input type="password" name="sec_pin" id="sec_pin" class="input-mini" placeholder="4 Digit Pin" value="" />
+					<input type="button" class="btn btn-primary btn-large" value="Unlock to Save" onclick="core.doRequest(\'/auth/unlock_pin\',{\'formname\':this.form.getAttribute(\'name\'),\'sec_pin\':$(\'#sec_pin\').val()});" />
 				</div>
 			';
 		}
