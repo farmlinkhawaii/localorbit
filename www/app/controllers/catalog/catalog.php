@@ -278,6 +278,11 @@ class core_controller_catalog extends core_controller
 	{
 		core::log(print_r($cat1_name,true));
 		?>
+		<div class="row">
+			<h2 class="span9">
+				<?=$cat1_name?>
+			</h2>
+		</div>
 <!--
 		<table id="start_cat1_<?=$cat1_id?>">
 			<col width="120" />
@@ -308,6 +313,12 @@ class core_controller_catalog extends core_controller
 		if($cat3_id != 0 && $cat3_id != '')
 			$id_cat = $cat3_id;
 		?>
+		<div class="row">
+			<h3 class="span9">
+				<?=$cat2_name?>
+			</h3>
+			<hr class="span9"/>
+		</div>
 		<!--
 		<tr id="start_cat2_<?=$id_cat?>" class="category_<?=$cat2_id?> category_<?=$cat3_id?>">
 			<td colspan="4" class="category_start2_<?=$style?>">

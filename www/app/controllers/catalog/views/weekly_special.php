@@ -1,4 +1,7 @@
 <?
+global $core;
+$prods    = $core->view[0];
+$allPrices    = $core->view[1];
 
 $special = core::model('weekly_specials')
 	->collection()
@@ -6,13 +9,70 @@ $special = core::model('weekly_specials')
 	->filter('is_active',1)
 	->load()
 	->row();
-	
+
+/*
+echo $special['product_id'];
+$product = $prods[$special['product_id']];
+*/
+$prod = null;
+foreach ($prods as $value) {
+	if ($value['prod_id'] == $special['product_id']) {
+		$prod = $value;
+		break;
+	}
+}
+
+$pricing = $allPrices[$special['product_id']];
+$rendered_prices = 0;
+//print_r($product);
+//print_r($prices);
 if($special)
 {
 	list($has_image,$webpath) = $special->get_image();
 ?>
 
-<div id="weekly_special"<?=(($core->session['weekly_special_noshow'] == 1)?' style="display:none;"':'')?>>
+<div class="row" id="weekly_special"<?=(($core->session['weekly_special_noshow'] == 1 && false)?' style="display:none;"':'')?>>
+	<span class="span9">
+		<h2>the featured deal</h2>
+	</span>
+	<img class="span2" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
+	<span class="span3">
+		<h3><?=$special['title']?></h3>
+		<div>from <?=$prod['org_name']?></div>
+		<p class="note"><?=$special['body']?></p>
+		
+	</span>
+	<ol class="span2 priceList">
+		<?for ($i=0; $i < count($pricing); $i++){?>
+			<li>
+
+				<?if($pricing[$i]['org_id'] != 0){ ?>
+					<div class="error">Your price:
+				<?}?>
+
+				<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
+				min <?=floatval($pricing[$i]['min_qty'])?>
+				<?}?>
+
+				<?if($pricing[$i]['org_id'] != 0){ ?>
+					</div>
+				<?}?>
+
+				</td>
+			</li>
+			<?$rendered_prices++; }?>
+	</ol>
+		<div class="span2">
+		<!--
+		<input class="prodTotal" readonly="readonly" type="text" name="prodTotal_<?=$prod['prod_id']?>" id="prodTotal_<?=$prod['prod_id']?>" size="3" style="width: 57px;" value="<?=$total?>" />
+	-->
+		<input class="prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="weeklySpecial_prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
+
+		<div class="prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="weeklySpecial_prodTotal_<?=$prod['prod_id']?>_text">
+			<i class="icon-remove-sign"/><span class="value"><?=$total?></span> 
+		</div>
+	</div>
+	<!-- 
 	<table>
 		<tr>
 			<td class="weeklyspecial_popup_top">&nbsp;</td>
@@ -73,8 +133,11 @@ if($special)
 			<td class="weeklyspecial_popup_bottom">&nbsp;</td>
 		</tr>
 	</table>
+-->
 </div>
+<!--
 <a id="weekly_special_icon" href="#!catalog-shop" onclick="$('#weekly_special').fadeIn('fast');"><img src="<?=image('weekly_special_small')?>" /></a>
+-->
 <?
 	$core->session['weekly_special_noshow'] = 1;
 }

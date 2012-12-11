@@ -145,7 +145,8 @@ else
 
 		# 1st total line
 		echo('<form name="cartForm"><br />');
-		$this->render_total_line(1);
+		$this->weekly_special($prods, $prices);
+		//$this->render_total_line(1);
 		$this->render_no_products_line();
 		$this->render_cart_empty_line();
 
@@ -230,11 +231,11 @@ else
 		}
 
 		# 2nd total line
-		$this->render_total_line(2);
+		//$this->render_total_line(2);
 		echo('</form>');
 	}
 
-	$this->weekly_special();
+	//$this->weekly_special();
 }
 
 core::js("window.setTimeout('core.catalog.initCatalog();',1000);");

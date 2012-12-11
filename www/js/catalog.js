@@ -248,7 +248,7 @@ core.catalog.initCatalog=function(){
 	$('.prodTotal_text > i.icon-remove-sign').click(function () {
 		var jq = $(this);
 		var idSplit = jq.parent().attr('id').split('_');
-		$('#prodQty_'+idSplit[1]).val(0);
+		$('.prodQty_'+idSplit[1]).val(0);
 		jq.parent().hide();
 		core.catalog.updateRow(idSplit[1], 0);
 		//core.catalog.setQty(idSplit[1], 0, 0);
@@ -277,14 +277,14 @@ core.catalog.setAddressCache=function(address,gcResult){
 
 core.catalog.checkInventoryFailure=function(prodId, maximumQuantity){
 	core.log('failure...');
-	$('#prodQty_'+prodId).val(parseFloat(maximumQuantity));
+	$('.prodQty_'+prodId).val(parseFloat(maximumQuantity));
 	$('#qtyBelowInv_'+prodId).html(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.').fadeIn(300);
 	core.catalog.updateRowContinue(prodId, maximumQuantity);
 }
 
 core.catalog.doWeeklySpecial=function(prodId){
 	core.catalog.updateRow(prodId,1);
-	$('#prodQty_'+prodId).val(1);
+	$('.prodQty_'+prodId).val(1);
 	$('#weekly_special').fadeOut('fast');
 }
 
@@ -334,7 +334,7 @@ core.catalog.updateRowContinue=function(prodId, newQty) {
 			//alert('You must order '+prodId+' at least '+parseFloat(lowestMin))
 			$('#qtyBelowMin_'+prodId).html('You must order at least '+parseFloat(lowestMin)).show();
 		}
-		$('#prodTotal_'+prodId).val(0);
+		$('.prodTotal_'+prodId).val(0);
 		core.catalog.setQty(prodId,0,0);
 		core.catalog.sendNewQtys();
 	}
@@ -381,9 +381,10 @@ core.catalog.setQty=function(prodId,newQty,rowTotal){
 	}
 
 	// show the total
-	$('#prodTotal_'+prodId).val(core.format.price(rowTotal));
-	$('#prodTotal_'+prodId+'_text .value').text(core.format.price(rowTotal));
-	$('#prodTotal_'+prodId+'_text').show();
+	$('.prodTotal_'+prodId).val(core.format.price(rowTotal));
+	$('.prodQty_'+prodId).val(newQty);
+	$('.prodTotal_'+prodId+'_text .value').text(core.format.price(rowTotal));
+	$('.prodTotal_'+prodId+'_text').show();
 }
 
 core.catalog.sendNewQtys=function(){
