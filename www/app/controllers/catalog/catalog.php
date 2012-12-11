@@ -271,7 +271,7 @@ class core_controller_catalog extends core_controller
 	function __construct($path)
 	{
 		parent::__construct($path);
-		core::ensure_navstate(array('left'=>'left_about'));
+		//core::ensure_navstate(array('left'=>'left_about'));
 	}
 
 	function render_cat1_start($cat1_id,$cat1_name,$style)
