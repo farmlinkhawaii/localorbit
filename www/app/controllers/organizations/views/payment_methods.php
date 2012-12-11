@@ -1,4 +1,4 @@
-<div class="tabarea" id="orgtabs-a4">
+<div class="tab-pane tabarea" id="orgtabs-a4">
 	<?php
 	global $data,$core;
 	
@@ -27,36 +27,47 @@
 	
 	
 	?>
-	<div class="buttonset" id="addPaymentButton">
-		<input type="button" class="button_secondary" value="Add New Bank Account" onclick="org.editPaymentMethod(0,'','');" />
-		<input type="button" class="button_secondary" value="Remove Checked" onclick="org.deletePaymentMethods(this.form);" />
+	<div id="addPaymentButton">
+		<input type="button" class="btn" value="Add New Bank Account" onclick="org.editPaymentMethod(0,'','');" />
+		<input type="button" class="btn pull-right" value="Remove Checked" onclick="org.deletePaymentMethods(this.form);" />
 	</div>
-	<br />
+
 	<fieldset id="editPaymentMethod" style="display: none;">
 		<legend>Bank Account Info</legend>
-		<table class="form">
-			<tr>
-				<td class="label">Label:</td>
-				<td class="value"><input type="text" name="pm_label" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label">Name on Account:</td>
-				<td class="value"><input type="text" name="name_on_account" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label">Account #:</td>
-				<td class="value"><input type="text" name="nbr1" value="" onfocus="if(new String(this.value).indexOf('*')===0){this.value='';}" /></td>
-			</tr>
-			<tr>
-				<td class="label">Routing #:</td>
-				<td class="value"><input type="text" name="nbr2" value="" onfocus="if(new String(this.value).indexOf('*')===0){this.value='';}" /></td>
-			</tr>
-			
-		</table>
+
+		<div class="control-group">
+			<label class="control-label" for="pm_label">Label</label>
+			<div class="controls">
+				<input type="text" name="pm_label" value="" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="name_on_account">Name on Account</label>
+			<div class="controls">
+				<input type="text" name="name_on_account" value="" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="nbr1">Account #</label>
+			<div class="controls">
+				<input type="text" name="nbr1" value="" onfocus="if(new String(this.value).indexOf('*')===0){this.value='';}" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="nbr2">Routing #</label>
+			<div class="controls">
+				<input type="text" name="nbr2" value="" onfocus="if(new String(this.value).indexOf('*')===0){this.value='';}" />
+			</div>
+		</div>
+
 		<input type="hidden" name="opm_id" value="" />
-		<div class="buttonset">
-			<input type="button" class="button_secondary" value="save this bank account" onclick="org.savePaymentMethod(this.form);" />
-			<input type="button" class="button_secondary" value="cancel" onclick="org.cancelPaymentChanges();" />
+
+		<div class="buttonset form-actions">
+			<input type="button" class="btn btn-primary" value="Save This Bank Account" onclick="org.savePaymentMethod(this.form);" />
+			<input type="button" class="btn" value="cancel" onclick="org.cancelPaymentChanges();" />
 		</div>
 	</fieldset>
 </div>

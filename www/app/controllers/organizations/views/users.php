@@ -1,4 +1,4 @@
-<div class="tabarea" id="orgtabs-a3">
+<div class="tab-pane tabarea" id="orgtabs-a3">
 	<?php 
 	global $data,$org_all_domains;
 	
@@ -41,11 +41,11 @@
 	$actions = '';
 	if(lo3::is_market() ||  lo3::is_admin())
 	{
-		$actions = '<a href="#!auth-loginas--entity_id-{entity_id}">Login &raquo;</a><br /><a href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a>';
+		$actions = '<a href="#!auth-loginas--entity_id-{entity_id}">Login &raquo;</a><br /><a href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a><br />';
 	}
 	else
 	{
-		$actions = '<a href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a>';
+		$actions = '<a href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a><br />';
 	}
 	$actions .= '<a href="#!organizations-edit--org_id-{org_id}" onclick="org.deleteUser({entity_id},this,'.$core->session['user_id'].');">Delete&nbsp;&raquo;</a>';
 	$users->add(new core_datacolumn('entity_id','&nbsp;',false,'13%',$actions,' ',' '));

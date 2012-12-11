@@ -1,4 +1,4 @@
-<div class="tabarea" id="orgtabs-a2">
+<div class="tab-pane tabarea" id="orgtabs-a2">
 	<?php
 	global $data,$org_all_domains;
 	#if (!isset($data))
@@ -36,60 +36,82 @@
 	$addr_model->get_table('organizations',$col,'organizations/addresses?org_id='.$core->data['org_id']);
 
 	?>
-	<div class="buttonset" id="addAddressButton">
-		<input type="button" class="button_secondary" value="Add New Address" onclick="core.address.editAddress('organizations',0);" />
-		<input type="button" class="button_secondary" value="Remove Checked" onclick="core.address.removeCheckedAddresses(this.form);" />
+	<div id="addAddressButton">
+		<input type="button" class="btn" value="Add New Address" onclick="core.address.editAddress('organizations',0);" />
+		<input type="button" class="btn pull-right" value="Remove Checked" onclick="core.address.removeCheckedAddresses(this.form);" />
 	</div>
-	<br />
 
 	<fieldset id="editAddress" style="display: none;">
 		<legend>Address Info</legend>
-		<table class="form">
-			<tr>
-				<td class="label">Label</td>
-				<td class="value"><input type="text" name="label" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label"><?=$core->i18n['field:address:street']?></td>
-				<td class="value"><input type="text" name="address" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" /></td>
-			</tr>
-			<tr>
-				<td class="label"><?=$core->i18n['field:address:city']?></td>
-				<td class="value"><input type="text" name="city" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" /></td>
-			</tr>
-			<tr>
-				<td class="label"><?=$core->i18n['field:address:state']?></td>
-				<td class="value">
-					<select name="region_id" onchange="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);">
-						<option value="0"></option>
-						<?=core_ui::options($regions,null,'region_id','default_name')?>					
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td class="label"><?=$core->i18n['field:address:postalcode']?></td>
-				<td class="value"><input type="text" name="postal_code" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label"><?=$core->i18n['field:address:telephone']?></td>
-				<td class="value"><input type="text" name="telephone" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label"><?=$core->i18n['field:address:fax']?></td>
-				<td class="value"><input type="text" name="fax" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label"><?=$core->i18n['field:address:delivery_instructions']?></td>
-				<td class="value"><input type="text" name="delivery_instructions" value="" /></td>
-			</tr>
-		</table>
-		<div id="bad_address" class="info_area info_area_speech">We cannot locate your address. The address must be valid before you may save it.</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="domain_id">Label</label>
+			<div class="controls">
+				<input type="text" name="label" value="" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="address"><?=$core->i18n['field:address:street']?></label>
+			<div class="controls">
+				<input type="text" name="address" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="city"><?=$core->i18n['field:address:city']?></label>
+			<div class="controls">
+				<input type="text" name="city" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="region_id"><?=$core->i18n['field:address:state']?></label>
+			<div class="controls">
+				<select name="region_id" onchange="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);">
+					<option value="0"></option>
+					<?=core_ui::options($regions,null,'region_id','default_name')?>					
+				</select>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="postal_code"><?=$core->i18n['field:address:postalcode']?></label>
+			<div class="controls">
+				<input type="text" name="postal_code" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" value="" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="postal_code"><?=$core->i18n['field:address:telephone']?></label>
+			<div class="controls">
+				<input type="text" name="telephone" value="" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="postal_code"><?=$core->i18n['field:address:fax']?></label>
+			<div class="controls">
+				<input type="text" name="fax" value="" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="postal_code"><?=$core->i18n['field:address:delivery_instructions']?></label>
+			<div class="controls">
+				<input type="text" name="delivery_instructions" value="" />
+			</div>
+		</div>
+
+
+		<div id="bad_address" class="alert alert-block info_area info_area_speech">We cannot locate your address. The address must be valid before you may save it.</div>
 		<input type="hidden" name="latitude" id="latitude" value="" />
 		<input type="hidden" name="longitude" id="longitude" value="" />
 		<input type="hidden" name="address_id" value="" />
-		<div class="buttonset">
-			<input type="button" class="button_secondary" value="save this address" onclick="core.address.saveAddress('organizations');" />
-			<input type="button" class="button_secondary" value="cancel" onclick="core.address.cancelAddressChanges();" />
+		
+		<div class="buttonset form-actions">
+			<input type="button" class="btn btn-primary" value="save this address" onclick="core.address.saveAddress('organizations');" />
+			<input type="button" class="btn" value="cancel" onclick="core.address.cancelAddressChanges();" />
 		</div>
 	</fieldset>
 </div>

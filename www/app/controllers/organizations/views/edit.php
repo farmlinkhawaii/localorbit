@@ -1,6 +1,7 @@
 <?php
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Edit organizations','This page is used to edit organizations');
 lo3::require_permission();
 lo3::require_login();
@@ -85,18 +86,22 @@ page_header('Editing '.$data['name'],'#!organizations-list','cancel');
 
 if($data['is_deleted'] == 1)
 {
-	echo('<div class="error">This organization has been deleted.</div>');
+	echo('<div class="alert alert-error">This organization has been deleted.</div>');
 }
 ?>
-<form name="organizationsForm" method="post" action="/organizations/save" onsubmit="return core.submit('/organizations/save',this);" enctype="multipart/form-data">
+<form class="form-horizontal" name="organizationsForm" method="post" action="/organizations/save" onsubmit="return core.submit('/organizations/save',this);" enctype="multipart/form-data">
 	<?=core_ui::tab_switchers('orgtabs',$tabs)?>
-	<? $this->info($is_mm); ?>
-	<? $this->addresses(); ?>
-	<? $this->users(); ?>
-	<? $this->payment_methods(); ?>
-	<? $this->cross_sell($crosssell_tab_id); ?>
-	<? $this->profile($profile_tab_id); ?>
-	<? $this->managed_hubs($managehubs_tab_id,$is_mm); ?>
+	
+	<div class="tab-content">
+		<? $this->info($is_mm); ?>
+		<? $this->addresses(); ?>
+		<? $this->users(); ?>
+		<? $this->payment_methods(); ?>
+		<? $this->cross_sell($crosssell_tab_id); ?>
+		<? $this->profile($profile_tab_id); ?>
+		<? $this->managed_hubs($managehubs_tab_id,$is_mm); ?>
+	</div>
+	
 	<?
 	if($core->data['me'] == '1') 
 		save_only_button();

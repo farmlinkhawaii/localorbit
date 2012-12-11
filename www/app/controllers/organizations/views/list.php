@@ -1,5 +1,6 @@
 <?php 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Org Management','This page is used to manage organizations');
 lo3::require_permission();
 lo3::require_login();

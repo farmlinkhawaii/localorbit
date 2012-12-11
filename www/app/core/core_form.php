@@ -11,7 +11,7 @@ class core_form
 		for ($i = 0; $i < count($tab_list); $i++)
 		{
 			if ($i == 0): $default_active = 'active'; else: $default_active = ''; endif; # Picks first tab as default active
-			$html .= '<li class="' . $default_active . '"><a href="#'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
+			$html .= '<li class="' . $default_active . '"><a href="#'.$tabset_name.'-a'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
 		}
 		$html .= '</ul>';
 		return $html;
@@ -31,7 +31,7 @@ class core_form
 		$items = func_get_args();
 		array_shift($items);
 
-		$out = '<div class="tab-pane tabarea" id="'.$tabset_name.'-s'.$core->config['tab_index_cache'][$tabset_name].'">';
+		$out = '<div class="tab-pane tabarea" id="'.$tabset_name.'-a'.$core->config['tab_index_cache'][$tabset_name].'">';
 		$out .= core_form::render_items($items).'</div>';
 		return $out;
 	}
@@ -480,9 +480,9 @@ class core_form
 		else
 		{
 			$out = '
-				<div class="buttonset" id="main_save_buttons"'.(($options['require_pin'])?' style="display:none;"':'').'>
-					<input type="'.(($require_pin)?'button':'submit').'" class="button_primary" name="save" value="'.$core->i18n['button:save_and_continue'].'" />
-					<input type="button" onclick="core.submit(this.form.action,this.form,{\'do_redirect\':1});" class="button_primary" value="'.$core->i18n['button:save_and_go_back'].'" />
+				<div class="form-actions" id="main_save_buttons"'.(($options['require_pin'])?' style="display:none;"':'').'>
+					<input type="'.(($require_pin)?'button':'submit').'" class="btn btn-primary" name="save" value="'.$core->i18n['button:save_and_continue'].'" />
+					<input type="button" onclick="core.submit(this.form.action,this.form,{\'do_redirect\':1});" class="btn btn-primary" value="'.$core->i18n['button:save_and_go_back'].'" />
 				</div>
 			';
 		}

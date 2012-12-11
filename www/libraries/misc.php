@@ -28,14 +28,14 @@ function save_buttons($require_pin = false)
 	if($require_pin)
 	{
 		?>
-	<div class="buttonset unlock_area" id="unlock_area"<?=((!$require_pin)?' style="display:none;"':'')?>>
+	<div class="form-actions buttonset unlock_area" id="unlock_area"<?=((!$require_pin)?' style="display:none;"':'')?>>
 		4 Digit Pin: <input type="password" name="sec_pin" id="sec_pin" value="" />
 		<input type="button" class="button_primary" value="unlock to save" onclick="core.doRequest('/auth/unlock_pin',{'formname':this.form.getAttribute('name'),'sec_pin':$('#sec_pin').val()});" />
 	</div>
 	<?}?>
-	<div class="buttonset" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
-		<input type="<?=(($require_pin)?'button':'submit')?>" class="button_primary" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
-		<input type="button" onclick="core.submit(this.form.action,this.form,{'do_redirect':1});" class="button_primary" value="<?=$core->i18n['button:save_and_go_back']?>" />
+	<div class="form-actions" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
+		<input type="<?=(($require_pin)?'button':'submit')?>" class="btn btn-primary" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
+		<input type="button" onclick="core.submit(this.form.action,this.form,{'do_redirect':1});" class="btn btn-primary" value="<?=$core->i18n['button:save_and_go_back']?>" />
 	</div>
 	<?
 }
@@ -43,11 +43,11 @@ function save_only_button($cancel_button=false,$oncancel_js='',$require_pin = fa
 {
 	global $core;
 	?>
-	<div class="buttonset" id="main_save_buttons">
+	<div class="form-actions buttonset" id="main_save_buttons">
 		<?if($cancel_button){?>
-		<input type="button" class="button_primary" name="cancel" onclick="<?=$oncancel_js?>" value="<?=$core->i18n['button:cancel']?>" />
+		<input type="button" class="btn" name="cancel" onclick="<?=$oncancel_js?>" value="<?=$core->i18n['button:cancel']?>" />
 		<?}?>
-		<input type="submit" class="button_primary" name="save" value="<?=$core->i18n['button:save']?>" />
+		<input type="submit" class="btn btn-primary" name="save" value="<?=$core->i18n['button:save']?>" />
 	</div>
 	<?
 }

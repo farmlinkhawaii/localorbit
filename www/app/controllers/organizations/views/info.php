@@ -27,78 +27,104 @@ echo(
 */
 
 ?>
-<div class="tabarea" id="orgtabs-a1">
-	<table class="form">
-		<tr>
-			<td class="label">Name</td>
-			<td class="value"><input type="text" name="name" value="<?=$data['name']?>" /></td>
-		</tr>
-		<tr>
-			<td class="label"><?=$core->i18n['organizations:facebook']?></td>
-			<td class="value"><input type="text" name="facebook" value="<?=$data['facebook']?>" /></td>
-		</tr>
-		<tr>
-			<td class="label"><?=$core->i18n['organizations:twitter']?></td>
-			<td class="value"><input type="text" name="twitter" value="<?=$data['twitter']?>" /></td>
-		</tr>
-		<?if(lo3::is_admin() || lo3::is_market()){?>
-		<tr>
-			<td class="label">&nbsp;</td>
-			<td class="value"><?=core_ui::checkdiv('allow_sell','Allowed to sell products',$data['allow_sell'])?></td>
-		</tr>
+<div class="tab-pane active" id="orgtabs-a1">
+	
+	<div class="control-group">
+		<label class="control-label" for="name">Name</label>
+		<div class="controls">
+			<input type="text" name="name" value="<?=$data['name']?>" />
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="facebook"><?=$core->i18n['organizations:facebook']?></label>
+		<div class="controls">
+			<div class="input-prepend">
+				<span class="add-on">facebook.com/</span>
+				<input type="text" name="facebook" value="<?=$data['facebook']?>" />
+			</div>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="twitter"><?=$core->i18n['organizations:twitter']?></label>
+		<div class="controls">
+			<div class="input-prepend">
+				<span class="add-on">@</span>
+				<input type="text" name="twitter" value="<?=$data['twitter']?>" />
+			</div>
+		</div>
+	</div>
 
-		<tr>
-			<td colspan="2"><h3>Organization Payment Methods</h3></td>
-		</tr>
-		<tr<?=(($domain['payment_allow_paypal'] == 1 || $data['payment_allow_paypal'])?'':' style="display:none;')?>>
-			<td class="label">&nbsp;</td>
-			<td class="value"><?=core_ui::checkdiv('payment_allow_paypal','Allow CC via Paypal',$data['payment_allow_paypal'])?></td>
-		</tr>
-		<tr<?=(($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder'])?'':' style="display:none;')?>>
-			<td class="label">&nbsp;</td>
-			<td class="value"><?=core_ui::checkdiv('payment_allow_purchaseorder','Allow Purchase Orders',$data['payment_allow_purchaseorder'])?></td>
-		</tr>
-		<?}?>
-		<?if(lo3::is_admin() || lo3::is_market() || $data['org_id'] == $core->session['org_id']){?>
-		<tr>
-			<td class="label">Payment Contact</td>
-			<td class="value">
+
+	<? if(lo3::is_admin() || lo3::is_market()): ?>
+		
+		<?= core_ui::checkdiv('allow_sell','Allowed to sell products',$data['allow_sell']); ?>
+	
+		<h3>Organization Payment Methods</h3>
+
+		<? if($domain['payment_allow_paypal'] == 1 || $data['payment_allow_paypal']): ?>
+			<?= core_ui::checkdiv('payment_allow_paypal','Allow CC via Paypal',$data['payment_allow_paypal']); ?>
+		<? endif; ?>
+
+		<? if($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder']): ?>
+			<?= core_ui::checkdiv('payment_allow_purchaseorder','Allow Purchase Orders',$data['payment_allow_purchaseorder']); ?>
+		<? endif; ?>
+
+	<? endif; ?>
+
+
+	<? if(lo3::is_admin() || lo3::is_market() || $data['org_id'] == $core->session['org_id']) { ?>
+		
+		<div class="control-group">
+			<label class="control-label" for="payment_entity_id">Payment Contact</label>
+			<div class="controls">
 				<select name="payment_entity_id">
 					<?=core_ui::options($users,$data['payment_entity_id'],'entity_id','full_name')?>
 				</select>
-			</td>
-		</tr>
-		<?}?>
+			</div>
+		</div>
 
-		<?if(lo3::is_admin() || lo3::is_market()){?>
-		<tr<?=(($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder'])?'':' style="display:none;')?>>
-			<td class="label">PO payments due</td>
-		<td class="value"><input type="text" name="po_due_within_days" style="width:40px;" value="<?=intval($data['po_due_within_days'])?>" /> days</td>
-		</tr>
-		<?}?>
+	<? } ?>
 
-		<?if(lo3::is_admin()){?>
-		<tr>
-			<td colspan="2"><h3>Organization Options</h3></td>
-		</tr>
-		<tr>
-			<td class="label">Hub</td>
-			<td class="value">
+
+	<?if(lo3::is_admin() || lo3::is_market()){?>
+
+		<div<?=(($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder'])?'':' style="display:none;')?>>
+	
+			<div class="control-group">
+				<label class="control-label" for="po_due_within_days">PO payments due</label>
+				<div class="controls">
+					<input type="text" class="input-mini" name="po_due_within_days" value="<?=intval($data['po_due_within_days'])?>" /> <span class="help-inline">days</span>
+				</div>
+			</div>
+
+		</div>
+
+	<?}?>
+
+	<?if(lo3::is_admin()){?>
+
+		<h3>Organization Options</h3>
+
+		<div class="control-group">
+			<label class="control-label" for="domain_id">Hub</label>
+			<div class="controls">
 				<select name="domain_id">
 					<?=core_ui::options($all_domains,$data['domain_id'],'domain_id','name')?>
 				</select>
-			</td>
-		</tr>
-
-		<tr>
-			<td class="label">Buyer Type</td>
-			<td class="value">
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="buyer_type">Buyer Type</label>
+			<div class="controls">
 				<select name="buyer_type">
 					<?=core_ui::options(array('Wholesale'=>'Wholesale','Retail'=>'Retail'),$data['buyer_type'])?>
 				</select>
-			</td>
-		</tr>
-		<?}?>
-	</table>
-	<? $this->activate_enable(); ?>
+			</div>
+		</div>
+		
+	<?}?>
+
 </div>

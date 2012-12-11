@@ -152,7 +152,7 @@ class core_datatable_filter
 			$core->data[$tablename.'__filter__'.$name] = core_format::parse_date($value);
 		}
 	
-		$out  = '<tr><td class="label label_dt_filter">'.$pre_label.'</td><td class="value">';
+		$out  = '<tr><td>'.$pre_label.'</td><td class="value">';
 		$out .= core_ui::date_picker($tablename.'__filter__'.$name,$value,'function(var1,var2){core.ui.dataTable.updateFilter(var1,var2);}').$post_label;
 		$out .= '</td></tr>';
 		return $out;
@@ -166,7 +166,7 @@ class core_datatable_filter
 		if($value == __core_datatable_filter_nullval__)
 			$value = '';
 		
-		$out  = $out  = '<tr><td class="label label_dt_filter">'.$pre_label.'</td><td class="value">';
+		$out  = $out  = '<tr><td>'.$pre_label.'</td><td class="value">';
 		$out .= '<input type="text"';
 		$out .= ' name="'.$tablename.'__filter__'.$name.'"';	
 		$out .= ' id="'.$tablename.'__filter__'.$name.'"';	
