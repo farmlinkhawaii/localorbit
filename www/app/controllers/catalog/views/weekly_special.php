@@ -10,10 +10,6 @@ $special = core::model('weekly_specials')
 	->load()
 	->row();
 
-/*
-echo $special['product_id'];
-$product = $prods[$special['product_id']];
-*/
 $prod = null;
 foreach ($prods as $value) {
 	if ($value['prod_id'] == $special['product_id']) {
@@ -24,23 +20,22 @@ foreach ($prods as $value) {
 
 $pricing = $allPrices[$special['product_id']];
 $rendered_prices = 0;
-//print_r($product);
-//print_r($prices);
 if($special)
 {
 	list($has_image,$webpath) = $special->get_image();
 ?>
 
-<div class="row" id="weekly_special"<?=(($core->session['weekly_special_noshow'] == 1 && false)?' style="display:none;"':'')?>>
-	<span class="span9">
-		<h2>the featured deal</h2>
-	</span>
+<div class="row" id="weekly_special"<?=(($core->session['weekly_special_noshow'] == 1)?' style="display:none;"':'')?>>
+	<div class="span9">
+		<h2 style="display:inline; float: left; margin-right: 5px;">the featured deal</h2>
+		<small><a class="note" href="#!catalog-shop" style="float: left; line-height: 5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon-remove-sign"/>&nbsp;Hide this special...</a></small>
+	</div>
 	<img class="span2" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
 	<span class="span3">
 		<h3><?=$special['title']?></h3>
 		<div>from <?=$prod['org_name']?></div>
 		<p class="note"><?=$special['body']?></p>
-		
+
 	</span>
 	<ol class="span2 priceList">
 		<?for ($i=0; $i < count($pricing); $i++){?>
@@ -69,10 +64,10 @@ if($special)
 		<input class="prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="weeklySpecial_prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
 
 		<div class="prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="weeklySpecial_prodTotal_<?=$prod['prod_id']?>_text">
-			<i class="icon-remove-sign"/><span class="value"><?=$total?></span> 
+			<i class="icon-remove-sign"/><span class="value"><?=$total?></span>
 		</div>
 	</div>
-	<!-- 
+	<!--
 	<table>
 		<tr>
 			<td class="weeklyspecial_popup_top">&nbsp;</td>
@@ -103,7 +98,7 @@ if($special)
 									<td style="vertical-align: top;">
 										<div class="weekly_header">the featured deal:</div>
 										<div class="weekly_title"><?=$special['title']?></div>
-										
+
 									</td>
 									<td>&nbsp;</td>
 									<td style="vertical-align: top;">
@@ -139,6 +134,6 @@ if($special)
 <a id="weekly_special_icon" href="#!catalog-shop" onclick="$('#weekly_special').fadeIn('fast');"><img src="<?=image('weekly_special_small')?>" /></a>
 -->
 <?
-	$core->session['weekly_special_noshow'] = 1;
+	//$core->session['weekly_special_noshow'] = 1;
 }
 ?>

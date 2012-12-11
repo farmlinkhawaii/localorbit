@@ -493,6 +493,14 @@ class core_controller_catalog extends core_controller
 		$final_opts = array_values($final_opts);
 		return $final_opts;
 	}
+
+	function hide_special () {
+		global $core;
+		core::log('hide_special');
+		core::log($core->session['weekly_special_noshow']);
+		$core->session['weekly_special_noshow'] = 1;
+		core::log($core->session['weekly_special_noshow']);
+	}
 }
 
 ?>

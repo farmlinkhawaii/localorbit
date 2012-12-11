@@ -25,7 +25,13 @@ core.catalog.resetFilters=function(){
 	core.catalog.updateListing();
 }
 
+core.catalog.hideSpecial=function(){
+	core.doRequest('/catalog/hide_special');
+	$('#weekly_special').slideUp(1000);
+}
+
 core.catalog.setFilter=function(type,id,parentId,updateListing){
+
 	if(arguments.length <4)
 		updateListing=true;
 	switch(type){
@@ -40,6 +46,7 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 				$('.filtercheck').attr('checked',false);
 				$('#filtercheck_'+core.catalog.filters.cat1).attr('checked',true);
 			}
+			$('#filter_cat_'+core.catalog.filters.cat1).toggleClass('active');
 			break;
 		case 'cat2':
 			core.catalog.filters.cat2 = (core.catalog.filters.cat2 == id)?0:id;
@@ -63,6 +70,7 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 				$('.filter_org').addClass('subheader_off');
 				$('#filter_org_'+id).removeClass('subheader_off');
 			}
+			$('#filter_org_'+core.catalog.filters.seller).toggleClass('active');
 			break;
 		case 'pricetype':
 			break;
@@ -470,7 +478,7 @@ core.catalog.showMapImage=function(prodId){
 	var longitude = parseFloat(core.prodIndex[prodId]['longitude']);
 
 	$(document).ready(function () {
-		var prodMap = $('#map_' + prodId + ':empty').append('<iframe width="370" height="220" src="http://maps.stamen.com/terrain/embed#10/'+latitude+'/'+longitude+'"></iframe>');		
+		var prodMap = $('#map_' + prodId + ':empty').append('<iframe width="370" height="220" src="http://maps.stamen.com/terrain/embed#10/'+latitude+'/'+longitude+'"></iframe>');
 	});
 }
 
