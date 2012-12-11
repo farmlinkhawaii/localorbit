@@ -4,7 +4,7 @@ h1, h2, h3, h4 {
 	text-transform: uppercase;
 	margin-top: 0;
 	}
-		
+
 	h1.notcaps, h2.notcaps, h3.notcaps, h4.notcaps {
 		text-transform: capitalize;
 		}
@@ -15,7 +15,10 @@ h1, h2, h3, h4 {
 
 p.note { font-size: 90%; }
 
-
+.caps {
+font-weight: bold;
+text-transform: uppercase;
+}
 
 /* Structure --------------- */
 
@@ -53,11 +56,11 @@ body {
 	background-color: darken(@mastercolor, 12%);
 	color: #fff;
 	}
-	
+
 	#footer a {
 		color: lighten(@mastercolor, 50%);;
 		}
-	
+
 	#footer .tos {
 		text-align: right;
 		}
@@ -76,7 +79,7 @@ body {
 #header {
 	margin-bottom: 20px;
 	}
-	
+
 	#mainnav { margin-left: -12px; }
 
 	#mainnav li a {
@@ -86,7 +89,7 @@ body {
 		font-family: 'Open Sans Condensed', sans-serif;
 		text-transform: capitalize;
 		}
-		
+
 
 
 
@@ -165,18 +168,18 @@ table.table td { vertical-align: middle; }
 /* Phone AND Tablet */
 
 @media (max-width: 767px) {
-	
+
 	#logocontainer {
 		max-width: 400px;
 		margin: 0 auto;
 		}
-	
-	
+
+
 	#footer {
 		margin-left: -20px;
 		margin-right: -20px;
 		padding-left: 20px;
 		padding-right: 20px;
 		}
-	
+
 }

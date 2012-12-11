@@ -1,5 +1,5 @@
 <?
-# the parameters for views called as functions are stored in $core->view. 
+# the parameters for views called as functions are stored in $core->view.
 global $core;
 $cats = $core->view[0];
 $sellers = $core->view[1];
@@ -15,7 +15,7 @@ $sellers = $core->view[1];
 
 <hr style="margin: 5px 0;">
 
-<h3><!--<input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" />--><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" /> Sellers</h3>
+<span class="caps"><!--<input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" />--><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />By Seller</span>
 
 <ul class="nav nav-list">
 <?php
@@ -24,7 +24,7 @@ foreach($sellers as $seller)
 	if($seller[0]['name'] != '')
 	{
 	?>
-	<li id="filter_org_<?=$seller[0]['org_id']?>"><a onclick="core.catalog.setFilter('seller',<?=$seller[0]['org_id']?>);"><?=$seller[0]['name']?></a>
+	<li id="filter_org_<?=$seller[0]['org_id']?>"><a href="#!catalog-shop" onclick="core.catalog.setFilter('seller',<?=$seller[0]['org_id']?>);"><?=$seller[0]['name']?></a>
 	<input type="hidden" id="filtercheck_<?=$cat[0]['cat_id']?>" class="filtercheck" checked="checked" /></li>
 	<?
 	}
@@ -34,16 +34,16 @@ foreach($sellers as $seller)
 
 <hr style="margin: 5px 0;">
 
-<h3>Categories</h3>
+<span class="caps">By Category</span>
 <ul class="nav nav-list">
 <?
 $style=1;
 foreach($cats->roots as $root)
 {
-	$cat = $cats->by_id[$root]; 
+	$cat = $cats->by_id[$root];
 ?>
 <li id="filter_cat_<?=$cat[0]['cat_id']?>">
-	<a href="#" onclick="core.catalog.setFilter('cat1',<?=$cat[0]['cat_id']?>);">
+	<a href="#!catalog-shop" onclick="core.catalog.setFilter('cat1',<?=$cat[0]['cat_id']?>);">
 		<!--<input type="hidden" id="filtercheck_<?=$cat[0]['cat_id']?>" class="filtercheck" checked="checked" />-->
 		<?=$cat[0]['cat_name']?>
 	</a>
