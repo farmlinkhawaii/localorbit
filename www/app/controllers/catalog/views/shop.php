@@ -188,7 +188,7 @@ else
 				}
 				
 				# if this is a new 2nd or 3rd level cat
-				if($rendering_cats[1] != $prod['cats'][2] || $rendering_cats[2] != $prod['cats'][3])
+				if($rendering_cats[1] != $prod['cats'][2])
 				{
 					# if we started rendering 2nd/3rd level cats, close them.
 					if($rendering_cats[1] > 0)
