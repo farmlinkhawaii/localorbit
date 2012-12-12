@@ -28,16 +28,19 @@ foreach($cart->items as $item)
 		$cart_item = $item->to_array();
 		
 }
-	# get the full list of products
+
 	$prods = core::model('products')->get_catalog()->load();
+		$cat_ids   = $prods->get_unique_values('category_ids',true,true);
+		$cats  = core::model('categories')->load_for_products($cat_ids);
 		$org_ids   = $prods->get_unique_values('org_id');
 		$sellers   = core::model('organizations')->collection()->sort('name');
 		$sellers	  = $sellers->filter('organizations.org_id','in',$org_ids)->to_hash('org_id');
-
-$cats  = core::model('categories')->load_for_products(explode(',',$data['category_ids']));//->load()->collection();
 		core::ensure_navstate(array('left'=>'left_blank'));
 core::write_navstate();
-$this->left_filters($cats,$sellers);
+		$this->left_filters($cats,$sellers);
+
+
+$cats  = core::model('categories')->load_for_products(explode(',',$data['category_ids']));//->load()->collection();
 ?>
 <div class="row">
 	<div class="span6">

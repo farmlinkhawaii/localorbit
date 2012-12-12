@@ -408,9 +408,13 @@ core.catalog.setQty=function(prodId,newQty,rowTotal){
 
 	// show the total
 	$('.prodTotal_'+prodId).val(core.format.price(rowTotal));
-	$('.prodQty_'+prodId).val(newQty);
+	$('.prodQty_'+prodId).val(newQty===0?'':newQty);
 	$('.prodTotal_'+prodId+'_text .value').text(core.format.price(rowTotal));
-	$('.prodTotal_'+prodId+'_text').show();
+	if (rowTotal === 0) {
+		$('.prodTotal_'+prodId+'_text').hide();
+	} else {
+		$('.prodTotal_'+prodId+'_text').show();
+	}
 }
 
 core.catalog.sendNewQtys=function(){
