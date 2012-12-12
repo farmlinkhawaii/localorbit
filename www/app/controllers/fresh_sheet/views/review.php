@@ -58,7 +58,7 @@ if($domain_id > 0)
 	<? } else { ?>
 
 	<p>
-		<input type="button" onclick="$('#bs1,#bs2').hide();$('#tf1').show()" class="btn btn-primary" value="Send Test" />
+		<input type="button" onclick="$('#bs1,#bs2').hide();$('#tf1').show()" class="btn" value="Send Test" />
 		<input type="button" onclick="core.doRequest('/fresh_sheet/send',{'domain_id':<?=$domain_id?>});" class="btn btn-primary" value="Send Now" />
 	</p>
 	
@@ -73,7 +73,7 @@ if($domain_id > 0)
 	<hr>
 	
 	<p>
-		<input type="button" onclick="$('#bs1,#bs2').hide();$('#tf2').show();" class="btn btn-primary" value="Send Test" />
+		<input type="button" onclick="$('#bs1,#bs2').hide();$('#tf2').show();" class="btn" value="Send Test" />
 		<input type="button" onclick="core.doRequest('/fresh_sheet/send',{'domain_id':<?=$domain_id?>});" class="btn btn-primary" value="Send Now" />
 	</p>
 	

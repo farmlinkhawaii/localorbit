@@ -1,5 +1,6 @@
 <?php 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('User Management','This page is used to manage users');
 lo3::require_permission();
 lo3::require_login();
@@ -91,11 +92,11 @@ core::replace('datatable_filters');
 $users->filter_html .= core::getclear_position('datatable_filters');
 
 $actions = '
-	<a href="#!auth-loginas--entity_id-{entity_id}">Login &raquo;</a>
+	<a href="#!auth-loginas--entity_id-{entity_id}">Login&nbsp;&raquo;</a>
 	<br />
-	<a href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'customer_entity\'});">{enable_action}</a>
+	<a class="text-warning" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'customer_entity\'});">{enable_action}&nbsp;&raquo;</a>
 	<br />
-	<a href="#!users-list" onclick="org.deleteUser({entity_id},\'{first_name} {last_name}\',this,'.$core->session['user_id'].');">Delete&nbsp;&raquo;</a>
+	<a class="text-error" href="#!users-list" onclick="org.deleteUser({entity_id},\'{first_name} {last_name}\',this,'.$core->session['user_id'].');">Delete&nbsp;&raquo;</a>
 ';
 
 #$users->add_filter(new core_datatable_filter('org_id'));

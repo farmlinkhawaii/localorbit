@@ -1,6 +1,7 @@
 <?php
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Buy and Sell Local Food on Local Orbit - Specials','This page is used to view specials');
 lo3::require_permission();
 lo3::require_login();
@@ -54,7 +55,8 @@ if(lo3::is_admin() || lo3::is_market() && count($core->session['domains_by_orgty
 $weekly_specials->add(new core_datacolumn('creation_date','Created On',true,'15%'));
 $weekly_specials->add(new core_datacolumn('name','Name',true,'35%','<a href="#!weekly_specials-edit--spec_id-{spec_id}">{name}</a>','{name}','{name}'));
 #$weekly_specials->add(new core_datacolumn('domain_name','Hub',true,'25%'));
-$weekly_specials->add(new core_datacolumn('domain_name','Action',false,'60%','{special_link}<br /><a href="#!weekly_specials-list" onclick="if(confirm(\'Are you sure you want to delete this special?\')){core.doRequest(\'/weekly_specials/delete\',\'&spec_id={spec_id}\');return false;}">Delete</a>','{domain_name}','{domain_name}'));
+$weekly_specials->add(new core_datacolumn('domain_name','Action',false,'60%','{special_link}','{domain_name}','{domain_name}'));
+$weekly_specials->add(new core_datacolumn('domain_name','Action',false,'60%','<a href="#!weekly_specials-list" onclick="if(confirm(\'Are you sure you want to delete this special?\')){core.doRequest(\'/weekly_specials/delete\',\'&spec_id={spec_id}\');return false;}">Delete</a>','{domain_name}','{domain_name}'));
 $weekly_specials->columns[0]->autoformat='date-short';
 
 
