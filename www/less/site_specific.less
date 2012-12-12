@@ -153,6 +153,35 @@ table.table td { vertical-align: middle; }
 	color: Red;
 }
 
+#filter_list:empty {
+	display: none;	
+}
+
+#filter_list {
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 24px;
+	list-style: none;
+	background-color: #fcf8e4;
+	padding: 20px;
+	border: #fbeed7 2px solid;
+}
+
+#filter_list > li:first-child:before {
+	content: "SHOWING: ";
+}
+
+#filter_list > li {
+	float: left;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+#filter_list > li > i {
+	position: relative;
+	top: 10px;
+	margin-right: 5px;
+	.opacity(50);
+}
 /* Media Queries (Desktop/Phone/Table) --------------- */
 
 

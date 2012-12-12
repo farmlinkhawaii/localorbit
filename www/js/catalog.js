@@ -32,6 +32,7 @@ core.catalog.hideSpecial=function(){
 }
 
 core.catalog.setFilter=function(type,id,parentId,updateListing){
+	var newfilter; 
 	if(arguments.length <4)
 		updateListing=true;
 	switch(type){
@@ -42,11 +43,16 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 			$('.filter_subcat').removeClass('subheader_off');
 			if(core.catalog.filters.cat1==0){
 				$('.filtercheck').attr('checked',true);
+				$('#filter_cat_'+id).removeClass('active');
+				$('#filter_list .cat1_' + id).remove();
 			}else{
 				$('.filtercheck').attr('checked',false);
 				$('#filtercheck_'+core.catalog.filters.cat1).attr('checked',true);
+				$('#filter_list .cat1').remove();
+				newfilter = $('<li class="cat1 cat1_' + id + '"><i class="icon-remove-sign"/>' + $('#filter_cat_'+id).attr('data-name') + '</li>').appendTo($('#filter_list'));
+				$('.filter.category').removeClass('active');
+				$('#filter_cat_'+id).addClass('active');
 			}
-			$('#filter_cat_'+id).toggleClass('active');
 			break;
 		case 'cat2':
 			core.catalog.filters.cat2 = (core.catalog.filters.cat2 == id)?0:id;
@@ -65,12 +71,17 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 			if(core.catalog.filters.seller == 0){
 				// if we were turning off the filter, turn all on
 				$('.filter_org').removeClass('subheader_off');
+				$('#filter_list .org_' + id).remove();
+				$('#filter_org_'+id).removeClass('active');
 			}else{
 				// otherwise JUST turn on this selelr filter, turn the rest off
 				$('.filter_org').addClass('subheader_off');
 				$('#filter_org_'+id).removeClass('subheader_off');
+				$('#filter_list .seller').remove();
+				newfilter = $('<li class="seller org_' + id + '"><i class="icon-remove-sign"/>' + core.sellers[id][0].name+ '</li>').appendTo($('#filter_list'));
+				$('.filter.seller').removeClass('active');
+				$('#filter_org_'+id).addClass('active');
 			}
-			$('#filter_org_'+id).toggleClass('active');
 			break;
 		case 'pricetype':
 			break;
@@ -79,6 +90,14 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 			$('#continueShoppingButton1,#continueShoppingButton2')[((core.catalog.filters.cartOnly == 1)?'show':'hide')]();
 			$('#showCartButton1,#showCartButton2')[((core.catalog.filters.cartOnly == 0)?'show':'hide')](300);
 			break;
+	}
+
+	if (newfilter) {
+		newfilter.click(function () {
+			var classes = $(this).attr('class').split(/\s+/);
+			var id = classes[1].split('_')[1];
+			core.catalog.setFilter(classes[0], id);
+		});
 	}
 	//core.alertHash(core.catalog.filters);
 	if(updateListing)
