@@ -248,7 +248,6 @@ core.catalog.initCatalog=function(){
 		core.products[i].category_ids = new String(core.products[i].category_ids).split(',');
 		core.prodIndex[core.products[i]['prod_id']] = core.products[i];
 		core.catalog.addressCoords[core.products[i].address+', '+core.products[i].city+', '+core.products[i].code+', '+core.products[i].postal_code] = true;
-		core.catalog.showMapImage(core.products[i]['prod_id']);
 	}
 
 	// build a cache of all the coordinates for the addresses for each product
@@ -490,15 +489,6 @@ core.catalog.popupWhere=function(prodId,refObj){
 	core.catalog.popupShow(refObj,'','Where');
 	//var pos = $(refObj).offset();
 	//$('#shop_popup').hide().css('top',(pos.top + 15)+'px').css('left',(pos.left - 340)+'px').mouseleave(core.catalog.popupOff).fadeIn('fast');
-}
-
-core.catalog.showMapImage=function(prodId){
-	var latitude = parseFloat(core.prodIndex[prodId]['latitude']);
-	var longitude = parseFloat(core.prodIndex[prodId]['longitude']);
-
-	$(document).ready(function () {
-		var prodMap = $('#map_' + prodId + ':empty').append('<iframe width="370" height="220" src="http://maps.stamen.com/terrain/embed#10/'+latitude+'/'+longitude+'"></iframe>');
-	});
 }
 
 core.catalog.popupShow=function(refObj,content,type){

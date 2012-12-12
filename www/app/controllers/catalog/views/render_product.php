@@ -84,7 +84,9 @@ $rendered_prices = 0;
 			<p class="note">
 				<strong>Where:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
 			</p>
-			<p class="note" id="map_<?=$prod['prod_id']?>"/>
+			<p class="note">
+				<img src="//maps.googleapis.com/maps/api/staticmap?center=<?=$prod['latitude']?>,<?=$prod['longitude']?>&zoom=12&size=370x220&sensor=false"/>
+			</p>
 		</div>
 	</div>
 
