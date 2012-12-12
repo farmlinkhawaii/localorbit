@@ -13,12 +13,16 @@ h1, h2, h3, h4 {
 	cursor: pointer;
 	}
 
-p.note { font-size: 90%; }
+p.note { 
+	font-size: 90%; 
+	}
 
 .caps {
-font-weight: bold;
-text-transform: uppercase;
-}
+	font-weight: bold;
+	text-transform: uppercase;
+	}
+
+
 
 /* Structure --------------- */
 
@@ -58,7 +62,7 @@ body {
 	}
 
 	#footer a {
-		color: lighten(@mastercolor, 50%);;
+		color: lighten(@mastercolor, 50%);
 		}
 
 	#footer .tos {
@@ -86,7 +90,7 @@ body {
 		font-size: 36px;
 		line-height: 40px;
 		padding-top: 4px;
-		font-family: 'Open Sans Condensed', sans-serif;
+		font-family: @headingsFontFamily;
 		text-transform: capitalize;
 		}
 
@@ -158,30 +162,46 @@ table.table td { vertical-align: middle; }
 }
 
 #filter_list {
-	font-family: 'Open Sans Condensed', sans-serif;
 	font-size: 24px;
+	font-family: @headingsFontFamily;
 	list-style: none;
 	background-color: #fcf8e4;
-	padding: 20px;
-	border: #fbeed7 2px solid;
-}
+	padding: 14px 35px 14px 14px;
+	border: 1px solid #fbeed5;
+	.border-radius(4px);
+	}
+	
+	#filter_list ol {
+		}
 
-#filter_list > li:first-child:before {
-	content: "SHOWING: ";
-}
+		#filter_list > li:first-child:before {
+			content: "SHOWING: ";
+			}
 
-#filter_list > li {
-	float: left;
-	margin-right: 5px;
-	cursor: pointer;
-}
+		#filter_list > li {
+			float: left;
+			margin-top: -4px;
+			margin-right: 5px;
+			cursor: pointer;
+			}
+			
+			#filter_list > li:hover {
+				text-decoration: underline;
+				}
 
-#filter_list > li > i {
-	position: relative;
-	top: 10px;
-	margin-right: 5px;
-	.opacity(50);
-}
+			#filter_list > li > i {
+				position: relative;
+				top: 10px;
+				margin-right: 5px;
+				.opacity(50);
+				}
+				
+				#filter_list > li:hover > i {
+					.opacity(100);
+					}
+
+
+
 /* Media Queries (Desktop/Phone/Table) --------------- */
 
 
