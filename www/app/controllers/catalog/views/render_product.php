@@ -82,7 +82,7 @@ $rendered_prices = 0;
 		</div>
 		<div class="span4">
 			<p class="note">
-				<strong>Who:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
+				<strong>Where:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
 			</p>
 			<p class="note" id="map_<?=$prod['prod_id']?>"/>
 		</div>

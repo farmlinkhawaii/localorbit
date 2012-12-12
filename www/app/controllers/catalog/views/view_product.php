@@ -28,13 +28,22 @@ foreach($cart->items as $item)
 		$cart_item = $item->to_array();
 		
 }
+	# get the full list of products
+	$prods = core::model('products')->get_catalog()->load();
+		$org_ids   = $prods->get_unique_values('org_id');
+		$sellers   = core::model('organizations')->collection()->sort('name');
+		$sellers	  = $sellers->filter('organizations.org_id','in',$org_ids)->to_hash('org_id');
 
+$cats  = core::model('categories')->load_for_products(explode(',',$data['category_ids']));//->load()->collection();
+		core::ensure_navstate(array('left'=>'left_blank'));
+core::write_navstate();
+$this->left_filters($cats,$sellers);
 ?>
 <div class="row">
 	<div class="span6">
 		
 		<h2 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h2>
-		<h3 class="farm_name notcaps" style="margin-top: 0;">from <?=$data['org_name']?>, [FIX:ORG Location]</h3>
+		<h3 class="farm_name notcaps" style="margin-top: 0;">from <?=$data['org_name']?>, <?=$data['city']?>, <?=$data['code']?></h3>
 		
 		<hr>
 		
@@ -72,7 +81,28 @@ foreach($cart->items as $item)
 		
 		<hr>
 		
-		<p class="note">[FIX: Add category breadcrumbs]</p>
+		<p class="note">
+		<?
+			ksort($cats->by_id);
+			$categories = array_values($cats->by_id);
+			$first = true;
+			$second = true;
+			foreach ($categories as $category) {
+				if ($first) {
+					$first = false;
+					continue;
+				}
+				if ($second) {
+					$second = false;
+				} else {
+					echo ':';
+				}
+				?>
+				<u><?=$category[0]['cat_name']?></u>
+				<?
+			}
+		?>
+		</p>
 		
 		<p><strong>Size:</strong> [FIX: Add size string here]</p>
 		
@@ -81,7 +111,7 @@ foreach($cart->items as $item)
 		<p><strong>How:</strong> <?=(($data['how']=='')?$org['product_how']:$data['how'])?></p>
 			
 		<h3>Produced by <?=$data['org_name']?></h3>
-		<p>[FIX:Production Address] <a href="#" class="pull-right">See full seller profile...</a></p>
+		<p><?=$data['address']?>, <?=$data['city']?>, <?=$data['code']?> <a href="#!sellers-oursellers--org_id-<?=$data['org_id']?>" class="pull-right">See full seller profile...</a></p>
 		<?
 		$addr = $data['address'].', '.$data['city'].', '.$data['code'].', '.$data['postal_code'];
 		echo(core_ui::map('prodmap','100%','400px',8));
