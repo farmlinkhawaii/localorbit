@@ -32,67 +32,70 @@ foreach($dd_ids as $dd_id)
 }
 $rendered_prices = 0;
 ?>
-<div id="product_<?=$prod['prod_id']?>" class="product-row row">
-	<div class="span1">
-		<? if(intval($prod['pimg_id']) > 0){?>
-		<img class="img-polaroid catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
-		<?}else{?>
-		<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
-		<?}?>
-	</div>
-	<div class="span4">
-		<p><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
-		<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small></p>
-		<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>
-	</div>
-	<ol class="span2 priceList">
-		<?for ($i=0; $i < count($pricing); $i++){?>
-			<li>
-
-				<?if($pricing[$i]['org_id'] != 0){ ?>
-					<div class="error">Your price:
-				<?}?>
-
-				<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
-				min <?=floatval($pricing[$i]['min_qty'])?>
-				<?}?>
-
-				<?if($pricing[$i]['org_id'] != 0){ ?>
-					</div>
-				<?}?>
-
-				</td>
-			</li>
-			<?$rendered_prices++; }?>
-	</ol>
-	<div class="span2">
-		<input class="prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
-
-		<div class="prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text">
-			<i class="icon-remove-sign"/><span class="value"><?=$total?></span> 
-		</div>
-	</div>
-	<div class="clearfix"></div>
-	<div id="moreInfo<?=$prod['prod_id']?>" class="collapse">
-		<div class="clearfix" style="padding-top: 15px;"></div>
-		<div class="span5">
-			<p class="note">
-				<strong>What:</strong> <?=$prod['description']?>
-			</p>
-			<p class="note">
-				<strong>How:</strong> <?=$seller['product_how']?>
-			</p>
+<div class="row">
+	<div id="product_<?=$prod['prod_id']?>" class="product-row">
+		<div class="span1">
+			<? if(intval($prod['pimg_id']) > 0){?>
+			<img class="img-polaroid catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+			<?}else{?>
+			<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+			<?}?>
 		</div>
 		<div class="span4">
-			<p class="note">
-				<strong>Where:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
-			</p>
-			<p class="note">
-				<img src="//maps.googleapis.com/maps/api/staticmap?center=<?=$prod['latitude']?>,<?=$prod['longitude']?>&zoom=7&size=370x220&sensor=false&markers=size:small%7Ccolor:white%7C<?=$prod['latitude']?>,<?=$prod['longitude']?>"/>
-			</p>
+			<p><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
+			<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small></p>
+			<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>
 		</div>
-	</div>
-</div>
+		<ol class="span2 priceList">
+			<?for ($i=0; $i < count($pricing); $i++){?>
+				<li>
+
+					<?if($pricing[$i]['org_id'] != 0){ ?>
+						<div class="error">Your price:
+					<?}?>
+
+					<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
+					min <?=floatval($pricing[$i]['min_qty'])?>
+					<?}?>
+
+					<?if($pricing[$i]['org_id'] != 0){ ?>
+						</div>
+					<?}?>
+
+					</td>
+				</li>
+				<?$rendered_prices++; }?>
+		</ol>
+		<div class="span2">
+			<input class="prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
+
+			<div class="prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text">
+				<i class="icon-remove-sign"/><span class="value"><?=$total?></span> 
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div id="moreInfo<?=$prod['prod_id']?>" class="collapse">
+			<div class="clearfix" style="padding-top: 15px;"></div>
+			<div class="span5">
+				<p class="note">
+					<strong>What:</strong> <?=$prod['description']?>
+				</p>
+				<p class="note">
+					<strong>How:</strong> <?=$seller['product_how']?>
+				</p>
+			</div>
+			<div class="span4">
+				<p class="note">
+					<strong>Where:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
+				</p>
+				<p class="note">
+					<img src="//maps.googleapis.com/maps/api/staticmap?center=<?=$prod['latitude']?>,<?=$prod['longitude']?>&zoom=7&size=370x220&sensor=false&markers=size:small%7Ccolor:white%7C<?=$prod['latitude']?>,<?=$prod['longitude']?>"/>
+				</p>
+			</div>
+		</div> <!-- /#moreInfo-->
+	</div> <!-- /.product-row-->
+</div> <!-- /.row-->
+
 <? /*
 <tr id="product_<?=$prod['prod_id']?>" class="catalog catalog_<?=$style1?>_<?=$style2?> category_<?=$prod['category_ids'][2]?> category_<?=$prod['category_ids'][3]?>">
 	<td class="catalog">
