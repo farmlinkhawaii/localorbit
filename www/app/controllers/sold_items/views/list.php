@@ -1,5 +1,6 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Orders','');
 lo3::require_permission();
 lo3::require_login();
@@ -289,17 +290,13 @@ $order_link = '<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">';
 $items->add(new core_datacolumn('lo_liid',array(core_ui::check_all('solditem'),'',''),false,'4%',core_ui::check_all('solditem','lo_liid'),' ',' '));
 
 if (lo3::is_admin() || lo3::is_market()) {
-	$items->add(new core_datacolumn('order_date','Placed On',true,'14%',$order_link.'{order_date}</a><br />
-		<a onclick="core.sold_items.editAdminNotes({lo_oid}, this);" style="cursor: pointer;"><img src="'.image('generic_note').'" /></a>
-		'));
-} else {
-	$items->add(new core_datacolumn('order_date','Placed On',true,'14%',$order_link.'{order_date}</a>'));
+	$items->add(new core_datacolumn('order_date','&nbsp;',true,'14%','<a onclick="core.sold_items.editAdminNotes({lo_oid}, this);" style="cursor: pointer;"><img src="'.image('generic_note').'" width="20" /></a>'));
 }
 
 
 #if(lo3::is_admin())
 #{
-	$items->add(new core_datacolumn('lo_oid','Order',true,'29%','
+	$items->add(new core_datacolumn('lo_oid','Order',true,'29%','{order_date}<br>
 	<a href="#!orders-view_order--lo_oid-{lo_oid}">{lo3_order_nbr}</a>
 	<br />
 	<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{lfo3_order_nbr}</a>'
@@ -307,20 +304,17 @@ if (lo3::is_admin() || lo3::is_market()) {
 #}
 
 # do not link customers to org profiles.
-if(lo3::is_customer())
+#if(lo3::is_customer())
 	$items->add(new core_datacolumn('o1.name','Buyer',true,'20%','{buyer_name}','{buyer_name}','{buyer_name}'));
-else
-	$items->add(new core_datacolumn('o1.name','Buyer',true,'20%',$order_link.'{buyer_name}</a>','{buyer_name}','{buyer_name}'));
+#else
+#	$items->add(new core_datacolumn('o1.name','Buyer',true,'20%',$order_link.'{buyer_name}</a>','{buyer_name}','{buyer_name}'));
 
 # do
-$items->add(new core_datacolumn('seller_name','Seller',true,'20%',$order_link.'{seller_name}</a>'));
-$items->add(new core_datacolumn('hub_name','Hub',true,'20%',$order_link.'{domain_name}</a>'));
+	$items->add(new core_datacolumn('seller_name','Seller',true,'20%','{seller_name}<br><small>{domain_name}</small>'));
 $items->add(new core_datacolumn('product_name','Product',true,'25%',$order_link.'{product_name}</a>'));
-$items->add(new core_datacolumn('qty_ordered','Quantity',true,'14%',$order_link.'{qty_ordered}</a>'));
-$items->add(new core_datacolumn('unit_price','Unit Price',true,'14%',$order_link.'{unit_price}</a>'));
-$items->add(new core_datacolumn('row_total','Row Total',true,'14%',$order_link.'{row_total}</a>'));
-$items->add(new core_datacolumn('discount','Discount',true,'14%',$order_link.'{discount}</a>'));
-$items->add(new core_datacolumn('row_adjusted_total','Discounted Total',true,'14%',$order_link.'{row_adjusted_total}</a>'));
+$items->add(new core_datacolumn('qty_ordered','Quantity',true,'14%','{qty_ordered}x'));
+$items->add(new core_datacolumn('unit_price','Price',true,'14%','<small>Unit:</small> {unit_price}<br><small>Row Total:</small> {row_total}'));
+$items->add(new core_datacolumn('discount','Discount',true,'14%','<small>Discount:</small> {discount}<br><small>Discounted Total:</small> {row_adjusted_total}'));
 $items->add(new core_datacolumn('delivery_status','Delivery',true,'14%',$order_link.'{delivery_status}</a>'));
 $items->add(new core_datacolumn('buyer_payment_status','Buyer',true,'14%',$order_link.'{buyer_payment_status}</a>'));
 $items->add(new core_datacolumn('seller_payment_status','Seller',true,'14%',$order_link.'{seller_payment_status}</a>'));
