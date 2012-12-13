@@ -1,3 +1,4 @@
+<div class="row"><div class="span6">
 <?
 global $core;
 $lodeliv_id = $core->view[0];
@@ -33,3 +34,4 @@ else
 	echo('<h1>'.$core->i18n['field:checkout_pickup'].'</h1>');
 }
 ?>
+</div></div>

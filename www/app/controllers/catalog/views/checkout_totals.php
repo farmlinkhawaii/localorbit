@@ -28,4 +28,3 @@ $cart = $core->view[0];
 		</tr>
 	</table>
 </div>
-<br />

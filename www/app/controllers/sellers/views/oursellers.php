@@ -74,6 +74,15 @@ else
 		$products = core::model('products')->get_catalog_for_seller($seller['org_id']);
 
 		$products->load();
+				$cart = core::model('lo_order')->get_cart();
+		$cart->load_items();
+		core_ui::load_library('js','catalog.js');
+		core::js('core.categories ='.json_encode($cats->by_parent).';');
+		core::js('core.products ='.json_encode($products).';');
+		core::js('core.sellers ='.json_encode($sellers).';');
+		core::js('core.prices ='.json_encode($prices).';');
+		core::js('core.delivs ='.json_encode($delivs).';');
+		core::js('core.cart = '.$cart->write_js(true).';');
 ?>
 
 <div class="row">
@@ -114,12 +123,23 @@ else
 <div class="row">
 
 	<div class="span9">
-	<? if($products->__num_rows > 0 ){?>
+	<? //$catalog_controller = new core_controller_catalog;
+		if($products->__num_rows > 0 ){?>
 		<? foreach($products as $prod){?>
 		<div class="subheader_1">
-			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>">
-				<?=$prod['name']?> (<?=$prod['plural_unit']?>)
-			</a>
+			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"> <?
+				core::process_command('catalog/render_product', true,
+					$prod,
+					$cats->by_id,
+					$sellers[$prod['org_id']][0],
+					$prices[$prod['prod_id']],
+					$delivs,
+					$styles[0],
+					$styles[1],
+					$item_hash[$prod['prod_id']][0]['qty_ordered'],
+					$item_hash[$prod['prod_id']][0]['row_total']
+				);
+		?>	</a>
 		</div>
 		<?}?>
 	<?}?>

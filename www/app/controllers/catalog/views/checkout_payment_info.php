@@ -32,11 +32,12 @@ $this->payment_authorize($paymethods);
 $this->payment_paypal($paymethods);
 $this->payment_purchaseorder($paymethods);
 ?>
-<br />
-<div id="placeorder_button" class="buttonset"<?=(($paymethods > 1)?' style="display:none;"':'')?>>
+<!--
+<div class="span3" id="placeorder_button" class="buttonset"<?=(($paymethods > 1)?' style="display:none;"':'')?>>
 	<input type="button" onclick="location.href='#!catalog-shop';" value="back to cart" class="button_secondary button_back_to_cart" />
 	<input type="button" value="place order" class="button_primary button_place_order" onclick="core.checkout.process();" />
 </div>
-<div id="loading_progress" style="display: none;">
+<div class="span3" id="loading_progress" style="display: none;">
 	<img src="<?=image('loading-progress')?>" />
 </div>
+-->
