@@ -44,15 +44,79 @@ else if ($cart['grand_total'] < $core->config['domain']['order_minimum'])
 }
 
 $cart->items_by_delivery = array();
-
+$options = $this->determine_options($delivery_opt_key,$cart->delivery_options,$all_addrs);
 core::replace('full_width');
-?>
-<pre>
-<?
 # rearrange the items so that they're grouped by delivery options.
 $cart->arrange_by_next_delivery();
 ?>
-</pre>
+<div class="row">
+	<span class="span3">
+		Your Order
+	</span>
+	<span class="span1">
+		Quantity
+	</span>
+	<span class="span1">
+		Unit Price
+	</span>
+	<span class="span1">
+		Subtotal
+	</span>
+	<span class="span6">
+		Delivery/Pickup
+	</span>
+	<hr class="span6"/>
+	<hr class="span6"/>
+	<span class="span6">
+				<?php
+				foreach($cart->items_by_delivery as $delivery_opt_key=>$items){
+				$this->checkout_items_header($items[0]['lodeliv_id']);
+				?>
+					<div class="row">
+						<hr class="span6"/>
+					</div>
+				<?
+				$items_by_seller = array();
+				foreach ($items as $item) {
+					if (!array_key_exists($item['seller_name'], $items_by_seller)){
+						$items_by_seller[$item['seller_name']] = array();
+					}
+					$items_by_seller[$item['seller_name']][] = $item;
+				}
+				foreach ($items_by_seller as $seller_name => $items) {
+					?>
+					<div class="row">
+						<div class="span6"><?=$seller_name?></div>
+					</div>
+						<?
+						foreach ($items as $item) {
+						?>
+					<div class="row">
+						<div class="span3"><?=$item['product_name']?></div>
+						<div class="span1"><?=$item['qty_ordered']?></div>
+						<div class="span1"><?=$item['unit_price']?></div>
+						<div class="span1"><?=$item['row_total']?></div>
+					</div>
+						<?
+						}
+						?>
+					<div class="row">
+						<hr class="span6"/>
+					</div>
+					</div>
+					<?
+				}
+				?>
+	</span>
+	<hr class="span6"/>
+	<hr class="span6"/>
+</div>
+
+				<?}?>
+<?
+/*
+?>
+
 <form name="checkoutForm" class="checkout" method="post" action="app/catalog/order_confirmation">
 	<table>
 		<col width="670" /><col width="3" /><col width="300" />
@@ -65,7 +129,6 @@ $cart->arrange_by_next_delivery();
 					<col width="400" /><col width="10" /><col width="260" />
 					<tr>
 						<td>
-							<?php $this->checkout_items_header($items[0]['lodeliv_id']);?>
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td>
@@ -100,7 +163,9 @@ $cart->arrange_by_next_delivery();
 		</tr>
 	</table>
 </form>
+-->
 <?
+*/
 # this is used to dynamically update the fees and such.
 core::js('window.setTimeout("core.checkout.requestUpdatedFees();",1000);');
 ?>

@@ -3,9 +3,7 @@ $cart = $core->view[0];
 ?>
 <h1>Payment Info</h1>
 <h3>Order Summary</h3>
-<!--
-&nbsp; &nbsp; Total <b><?=core_format::price($cart['grand_total'])?></b>
--->
+
 <div style="width: 200px;height:90px;overflow:hidden;">
 	<img src="<?=image('loading-progress')?>" id="totals_loading" />
 	<table id="total_table" style="display:none;">
