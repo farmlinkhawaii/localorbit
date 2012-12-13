@@ -37,7 +37,7 @@ foreach($cart->items as $item)
 		$sellers	  = $sellers->filter('organizations.org_id','in',$org_ids)->to_hash('org_id');
 		core::ensure_navstate(array('left'=>'left_blank'));
 core::write_navstate();
-		$this->left_filters($cats,$sellers);
+		$this->left_filters($cats,$sellers,true);
 
 
 $cats  = core::model('categories')->load_for_products(explode(',',$data['category_ids']));//->load()->collection();

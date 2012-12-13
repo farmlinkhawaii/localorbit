@@ -3,6 +3,7 @@
 global $core;
 $cats = $core->view[0];
 $sellers = $core->view[1];
+$hashUrl = $core->view[2];
 ?>
 
 <!--
@@ -24,7 +25,7 @@ foreach($sellers as $seller)
 	if($seller[0]['name'] != '')
 	{
 	?>
-	<li class="filter seller" id="filter_org_<?=$seller[0]['org_id']?>"><a href="#!catalog-shop" onclick="core.catalog.setFilter('seller',<?=$seller[0]['org_id']?>);"><?=$seller[0]['name']?></a>
+	<li class="filter seller" id="filter_org_<?=$seller[0]['org_id']?>"><a href="<?=($hashUrl?'#!catalog-shop#seller='.$seller[0]['org_id']:'#')?>" onclick="core.catalog.setFilter('seller',<?=$seller[0]['org_id']?>);"><?=$seller[0]['name']?></a>
 	<input type="hidden" id="filtercheck_<?=$cat[0]['cat_id']?>" class="filtercheck" checked="checked" /></li>
 	<?
 	}
@@ -43,7 +44,7 @@ foreach($cats->roots as $root)
 	$cat = $cats->by_id[$root];
 ?>
 <li class="filter category" data-name="<?=$cat[0]['cat_name']?>" id="filter_cat_<?=$cat[0]['cat_id']?>">
-	<a href="#!catalog-shop" onclick="core.catalog.setFilter('cat1',<?=$cat[0]['cat_id']?>);">
+	<a href="<?=($hashUrl?'#!catalog-shop#cat1='.$cat[0]['cat_id']:'#')?>" onclick="core.catalog.setFilter('cat1',<?=$cat[0]['cat_id']?>);">
 		<!--<input type="hidden" id="filtercheck_<?=$cat[0]['cat_id']?>" class="filtercheck" checked="checked" />-->
 		<?=$cat[0]['cat_name']?>
 	</a>

@@ -279,6 +279,15 @@ core.catalog.initCatalog=function(){
 		core.catalog.updateRow(idSplit[1], 0);
 		//core.catalog.setQty(idSplit[1], 0, 0);
 	});
+
+	var cmpnts = document.URL.split('#');
+	var pair = cmpnts[cmpnts.length - 1].split('=');
+	console.log(pair);
+	if (pair.length === 2) {
+		$(document).ready( function () {
+			core.catalog.setFilter(pair[0], pair[1], true);
+		});
+	}
 }
 
 core.catalog.updateTotalViews = function () {
