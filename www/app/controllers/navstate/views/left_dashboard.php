@@ -26,27 +26,28 @@
 					<li><a href="#!market-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
 					<li><a href="#!users-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:users']?></a></li>
 					<li><a href="#!organizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
-					<li><a href="#!orders-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
-					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
-					<li><a href="#!products-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:products']?></a></li>
 					<li><a href="#!events-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
-					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
-					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
-					<li><a href="#!emails-tests" onclick="core.go(this.href);"><?=$core->i18n['nav2:emails:tests']?></a></li>
-					<li><a href="#!taxonomy-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:producttaxonomy']?></a></li>
-					<!--<li><a href="#!translations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:translations']?></a></li>-->
 					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
-					<!--<li><a href="#!customizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:customizations']?></a></li>-->
-					<!--<li><a href="#!payments-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:payments']?></a></li>-->
-					<li><a href="#!units-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:units']?></a></li>
-					<li><a href="#!reports-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:reports']?></a></li>
-					<li><a href="#!referrals-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:referrals']?></a></li>
-					<li><a href="#!metrics-overview" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:metrics']?></a></li>
-					<!--<li><a href="#!admin_roles-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:adminroles']?></a></li>-->
-					
 				</ul>
 			</li>
 		</ul>
+		
+		<ul class="nav">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-wrench"></i>
+					Products & Delivery
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#!orders-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
+					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
+					<li><a href="#!products-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:products']?></a></li>
+					<li><a href="#!units-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:units']?></a></li>
+				</ul>
+			</li>
+		</ul>
+		
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -61,9 +62,39 @@
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
 					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);">Featured Deals</a></li>
 					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
+					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
+					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
+					<li><a href="#!emails-tests" onclick="core.go(this.href);"><?=$core->i18n['nav2:emails:tests']?></a></li>
 				</ul>
 			</li>
 		</ul>
+		
+		<ul class="nav">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-wrench"></i>
+					Reports
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#!reports-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:reports']?></a></li>
+					<li><a href="#!referrals-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:referrals']?></a></li>
+					<li><a href="#!metrics-overview" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:metrics']?></a></li>
+				</ul>
+			</li>
+		</ul>
+				
+				
+					
+					
+					
+
+					<!--<li><a href="#!taxonomy-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:producttaxonomy']?></a></li>-->
+					<!--<li><a href="#!translations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:translations']?></a></li>-->
+					<!--<li><a href="#!customizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:customizations']?></a></li>-->
+					<!--<li><a href="#!payments-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:payments']?></a></li>-->
+					<!--<li><a href="#!admin_roles-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:adminroles']?></a></li>-->
+
 
 		<?}?>
 

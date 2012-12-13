@@ -30,10 +30,10 @@ if($special)
 		<h2 style="display:inline; float: left; margin-right: 5px;">the featured deal</h2>
 		<small><a class="note" href="#!catalog-shop" style="float: left; line-height: 5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon-remove-sign"/>&nbsp;Hide this special...</a></small>
 	</div>
-	<img class="span2" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
+	<img class="span2 img-polaroid" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
 	<span class="span3">
-		<h3><?=$special['title']?></h3>
-		<div>from <?=$prod['org_name']?></div>
+		<h3 style="margin: 0;"><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a></h3>
+		<p style="margin-top: 0;">from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></p>
 		<p class="note"><?=$special['body']?></p>
 
 	</span>

@@ -1,6 +1,13 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
-core_ui::fullWidth();
+
+if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()):
+	core_ui::fullWidth();
+else:
+	core_ui::showLeftNav();
+endif;
+
+
 core::head('Edit Users','This page is used to edit users');
 lo3::require_permission();
 lo3::require_login();

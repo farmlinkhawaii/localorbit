@@ -1,6 +1,6 @@
 <?
 core::ensure_navstate(array('left'=>'left_dashboard'));
-core_ui::fullWidth();
+core_ui::showLeftNav();
 
 $org = core::model('organizations')->load($core->session['org_id']);
 $address = core::model('addresses')->collection()->filter('org_id',$org['org_id'])->filter('default_billing',1)->load();

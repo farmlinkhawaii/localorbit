@@ -84,8 +84,7 @@ else
 	
 	</div>
 	<div class="span4">
-		
-		<h3><?=$address['formatted_address']?></h3>
+		<h3><?= $address['city'] ?>, <?= $address['code'] ?></h3>
 		<?=$map?>
 
 	</div>

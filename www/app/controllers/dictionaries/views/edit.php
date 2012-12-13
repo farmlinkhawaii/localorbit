@@ -24,6 +24,7 @@ $overrides = $overrides->to_hash('phrase_id');
 
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Dictionary','This page is used to edit the site dictionary');
 core_ui::tagset_init('fieldtags');
 lo3::require_permission();

@@ -205,6 +205,8 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 core.doRequest('/whitelabel/get_options','');
 //-->
 </script>
+
+<?/*
 <script language="Javascript" type="text/javascript" src="<?=$prtcl?>asset0.zendesk.com/external/zenbox/v2.1/zenbox.js"></script>
 <script language="Javascript" type="text/javascript" defer="defer">
 var fileref=document.createElement("link")
@@ -221,7 +223,9 @@ if (typeof(Zenbox) !== "undefined") {
 	tabPosition: "Left"
 	});
 }
+*/?>
 
+<script language="Javascript" type="text/javascript" defer="defer">
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-19817823-1']);
 _gaq.push(['_setDomainName', '.localorb.it']);

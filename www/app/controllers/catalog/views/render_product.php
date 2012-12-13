@@ -35,9 +35,9 @@ $rendered_prices = 0;
 <div id="product_<?=$prod['prod_id']?>" class="product-row row">
 	<div class="span1">
 		<? if(intval($prod['pimg_id']) > 0){?>
-		<img class="catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+		<img class="img-polaroid catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
 		<?}else{?>
-		<img class="catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+		<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
 		<?}?>
 	</div>
 	<div class="span4">
@@ -88,7 +88,7 @@ $rendered_prices = 0;
 				<strong>Where:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
 			</p>
 			<p class="note">
-				<img src="//maps.googleapis.com/maps/api/staticmap?center=<?=$prod['latitude']?>,<?=$prod['longitude']?>&zoom=12&size=370x220&sensor=false"/>
+				<img src="//maps.googleapis.com/maps/api/staticmap?center=<?=$prod['latitude']?>,<?=$prod['longitude']?>&zoom=7&size=370x220&sensor=false&markers=size:small%7Ccolor:white%7C<?=$prod['latitude']?>,<?=$prod['longitude']?>"/>
 			</p>
 		</div>
 	</div>
