@@ -1,6 +1,7 @@
 <?php
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Add new user','This page is used to add users');
 lo3::require_permission();
 lo3::require_login();
@@ -12,26 +13,23 @@ $this->add_rules()->js();
 #$payables->html_dump();
 	
 echo(
-	core_form::page_header('Adding new user','#!users-list','cancel').
+	core_form::page_header('Adding new user').
 	core_form::form('userAddForm','/users/save_new',null,
-		core_form::tab_switchers('usertabs',array('User Info')),
-		core_form::tab('usertabs',
-			core_form::table_nv(
-				core_form::input_select('Organization','org_id',$data,core::model('organizations')->get_list_for_dropdown(),array(
-					'default_show'=>true,
-					'default_text'=>'Select an organization',
-					'text_column'=>'org_name',
-					'value_column'=>'org_id',
-					'select_style'=>'width:300px;',
-				)),
-				core_form::input_text('First Name','first_name'),
-				core_form::input_text('Last Name','last_name'),
-				core_form::input_text('E-mail','email'),
-				core_form::input_password('Password','password'),
-				core_form::input_password('Confirm Password','password_confirm')
-			)
+		core_form::table_nv(
+			core_form::input_select('Organization','org_id',$data,core::model('organizations')->get_list_for_dropdown(),array(
+				'default_show'=>true,
+				'default_text'=>'Select an organization',
+				'text_column'=>'org_name',
+				'value_column'=>'org_id',
+				'select_style'=>'width:300px;',
+			)),
+			core_form::input_text('First Name','first_name'),
+			core_form::input_text('Last Name','last_name'),
+			core_form::input_text('E-mail','email'),
+			core_form::input_password('Password','password'),
+			core_form::input_password('Confirm Password','password_confirm')
 		),
-		core_form::save_only_button(),
+		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'core.go(\'#!users-list\');')),
 		($core->config['stage'] == 'testing' || $core->config['stage'] == 'qa')?
 			core_form::input_button('testing','Testing/QA',"var f=document.userAddForm;$(f.first_name).val('Mike');$(f.last_name).val('Thorn');$(f.email).val('localorbit.testing+'+(new Date().valueOf())+'@gmail.com');$(f.password).val('password');$(f.password_confirm).val('password');"):''
 	)
