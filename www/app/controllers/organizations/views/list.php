@@ -84,13 +84,13 @@ echo(core_datatable_filter::make_checkbox('organizations','allow_sell',($orgs->f
 
 # add the columns
 $orgs->add(new core_datacolumn('name','Name',true,'40%','<a href="#!organizations-edit--org_id-{org_id}">{name}</a>','{name}','{name}'));
-$orgs->add(new core_datacolumn('domains.name','Domain',true,'25%','<a href="#!organizations-edit--org_id-{org_id}">{domain_name}</a>','{domain_name}','{domain_name}'));
-$orgs->add(new core_datacolumn('creation_date','Registered On',true,'15%','<a href="#!organizations-edit--org_id-{org_id}">{creation_date}</a>','{creation_date}','{creation_date}'));
-$orgs->add(new core_datacolumn('orgtype_id','Role',true,'10%','<a href="#!organizations-edit--org_id-{org_id}">{role}</a>','{role}','{role}'));
-$orgs->add(new core_datacolumn('name',' ',false,'10%','<a href="javascript:core.doRequest(\'/organizations/{activate_action}\',{\'org_id\':{org_id}});">{activate_action}</a><br /><a href="javascript:core.doRequest(\'/organizations/{enable_action}\',{\'org_id\':{org_id}});">{enable_action}</a>',' ',' '));
+$orgs->add(new core_datacolumn('domains.name','Domain',true,'25%','{domain_name}','{domain_name}','{domain_name}'));
+$orgs->add(new core_datacolumn('creation_date','Registered On',true,'15%','{creation_date}','{creation_date}','{creation_date}'));
+$orgs->add(new core_datacolumn('orgtype_id','Role',true,'10%','{role}','{role}','{role}'));
 
-if(lo3::is_admin() || lo3::is_market())
-{
+if(lo3::is_admin() || lo3::is_market()) {
+	$orgs->add(new core_datacolumn('name',' ',false,'10%','<a href="javascript:core.doRequest(\'/organizations/{activate_action}\',{\'org_id\':{org_id}});">{activate_action}&nbsp;&raquo;</a><br /><a href="javascript:core.doRequest(\'/organizations/{enable_action}\',{\'org_id\':{org_id}});" class="text-warning">{enable_action}&nbsp;&raquo;</a><br><a href="#!organizations-list" class="text-error" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>',' ',' '));
+} else {
 	$orgs->add(new core_datacolumn('','&nbsp;',false,'12%','<a href="#!organizations-list" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>',' ',' '));
 }
 

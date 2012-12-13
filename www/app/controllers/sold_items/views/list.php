@@ -313,8 +313,8 @@ if (lo3::is_admin() || lo3::is_market()) {
 	$items->add(new core_datacolumn('seller_name','Seller',true,'20%','{seller_name}<br><small>{domain_name}</small>'));
 $items->add(new core_datacolumn('product_name','Product',true,'25%',$order_link.'{product_name}</a>'));
 $items->add(new core_datacolumn('qty_ordered','Quantity',true,'14%','{qty_ordered}x'));
-$items->add(new core_datacolumn('unit_price','Price',true,'14%','<small>Unit:</small> {unit_price}<br><small>Row Total:</small> {row_total}'));
-$items->add(new core_datacolumn('discount','Discount',true,'14%','<small>Discount:</small> {discount}<br><small>Discounted Total:</small> {row_adjusted_total}'));
+$items->add(new core_datacolumn('unit_price','Price',true,'14%','<small>Unit:</small>&nbsp;{unit_price}<br><small>Row&nbsp;Total:</small>&nbsp;{row_total}'));
+$items->add(new core_datacolumn('discount','Discount',true,'14%','<small>Discount:</small>&nbsp;{discount}<br><small>Discounted&nbsp;Total:</small>&nbsp;{row_adjusted_total}'));
 $items->add(new core_datacolumn('delivery_status','Delivery',true,'14%',$order_link.'{delivery_status}</a>'));
 $items->add(new core_datacolumn('buyer_payment_status','Buyer',true,'14%',$order_link.'{buyer_payment_status}</a>'));
 $items->add(new core_datacolumn('seller_payment_status','Seller',true,'14%',$order_link.'{seller_payment_status}</a>'));

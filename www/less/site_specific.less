@@ -38,12 +38,15 @@ body {
 	background: url(/img/backgrounds/brownpaper.jpg) fixed;
 	}
 
+
+@footerHeight: 117px;
+
 #wrap {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
 	/* Negative indent footer by it's height */
-	margin: 0 auto -150px;
+	margin: 0 auto -@footerHeight;
 	background: #fff;
 	}
 
@@ -55,7 +58,7 @@ body {
 
 #push,
 #footer {
-	min-height: 150px;
+	min-height: @footerHeight;
 	}
 
 #footer {
@@ -118,7 +121,15 @@ body {
 
 
 table.table h3 { margin: 0; }
-table.table td { vertical-align: middle; }
+table.table th { vertical-align: middle; font-size: 90%; }
+table.table td { vertical-align: middle; font-size: 90%; }
+
+
+
+/* Admin Forms --------------- */
+
+form h3 { background: #f9f9f9; padding-left: 5px; }
+
 
 
 /* Catalog Page */

@@ -501,9 +501,9 @@ class core_form
 			'require_pin' => false,
 		));
 		$out = '<div class="form-actions" id="main_save_buttons">';
-		$out .= '<input type="submit" class="btn btn-primary btn-large" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /> ';
+		$out .= '<input type="submit" class="btn btn-primary" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /> ';
 		if ($options['cancel_button']):
-			$out .= '<input type="button" class="btn btn-large" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" />';
+			$out .= '<input type="button" class="btn" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" />';
 		endif;
 		$out .= '</div>';
 

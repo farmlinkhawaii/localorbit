@@ -1,6 +1,7 @@
-	<?php
+<?php
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Edit Newsletter','Edit Newsletter');
 lo3::require_permission();
 lo3::require_login();
@@ -43,9 +44,8 @@ if(in_array(4,$groups))
 
 
 echo(
-	core_form::page_header('Editing '.$data['title'],'#!newsletters-list','cancel').
+	core_form::page_header('Editing '.$data['title']).
 	core_form::form('nlForm','/newsletters/update',null,
-		core_form::tab_switchers('newslettertabs',array('Newsletter')),
 		core_form::tab('newslettertabs',
 			core_form::table_nv(
 				((lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)?
@@ -78,11 +78,11 @@ echo(
 		core_form::input_hidden('do_test',0),
 		core_form::input_hidden('do_send',0),
 		core_form::input_hidden('cont_id',$data['cont_id']),
-		core_form::save_buttons()
+		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'core.go(\'#!newsletters-list\');'))
 	)
 );
 ?>
-<!--
+<?/*
 <?
 page_header('Editing '.$data['title'],'#!newsletters-list','cancel');
 ?>
@@ -158,4 +158,4 @@ page_header('Editing '.$data['title'],'#!newsletters-list','cancel');
 	<input type="hidden" name="cont_id" value="<?=$data['cont_id']?>" />
 	<? save_buttons(); ?>
 </form>
--->
+*/?>

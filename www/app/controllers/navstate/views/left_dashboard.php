@@ -18,16 +18,16 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-wrench"></i>
+					<i class="icon-cogs"></i>
 					<?=$core->i18n['nav2:marketadmin']?>
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!market-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
-					<li><a href="#!users-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:users']?></a></li>
-					<li><a href="#!organizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
-					<li><a href="#!events-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
-					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);"><i class="icon-sitemap"></i> <?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
+					<li><a href="#!users-list" onclick="core.go(this.href);"><i class="icon-group"></i> <?=$core->i18n['nav2:marketadmin:users']?></a></li>
+					<li><a href="#!organizations-list" onclick="core.go(this.href);"><i class="icon-cog"></i> <?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
+					<li><a href="#!events-list" onclick="core.go(this.href);"><i class="icon-tasks"></i> <?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
+					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><i class="icon-font"></i> <?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -35,7 +35,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-wrench"></i>
+					<i class="icon-money"></i>
 					Products & Delivery
 					<b class="caret"></b>
 				</a>
@@ -68,11 +68,10 @@
 				</ul>
 			</li>
 		</ul>
-		
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-wrench"></i>
+					<i class="icon-bar-chart"></i>
 					Reports
 					<b class="caret"></b>
 				</a>
@@ -83,20 +82,15 @@
 				</ul>
 			</li>
 		</ul>
-				
-				
-					
-					
-					
 
-					<!--<li><a href="#!taxonomy-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:producttaxonomy']?></a></li>-->
-					<!--<li><a href="#!translations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:translations']?></a></li>-->
-					<!--<li><a href="#!customizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:customizations']?></a></li>-->
-					<!--<li><a href="#!payments-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:payments']?></a></li>-->
-					<!--<li><a href="#!admin_roles-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:adminroles']?></a></li>-->
+		<!--<li><a href="#!taxonomy-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:producttaxonomy']?></a></li>-->
+		<!--<li><a href="#!translations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:translations']?></a></li>-->
+		<!--<li><a href="#!customizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:customizations']?></a></li>-->
+		<!--<li><a href="#!payments-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:payments']?></a></li>-->
+		<!--<li><a href="#!admin_roles-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:adminroles']?></a></li>-->
 
 
-		<?}?>
+		<?} # / is admin ?>
 
 		<? if(lo3::is_market()){?>
 			
@@ -109,17 +103,27 @@
 				</a>
 				<ul class="dropdown-menu">
 					<?if(count($core->session['domains_by_orgtype_id'][2]) > 1){?>
-					<li><a href="#!market-list" onclick="core.go(this.href);">Hubs</a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
 					<?}else{?>
-					<li><a href="#!market-edit--domain_id-<?=$core->session['domains_by_orgtype_id'][2][0]?>" onclick="core.go(this.href);">Hub</a></li>
+					<li><a href="#!market-edit--domain_id-<?=$core->session['domains_by_orgtype_id'][2][0]?>" onclick="core.go(this.href);">Market</a></li>
 					<?}?>
 					<li><a href="#!users-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:users']?></a></li>
 					<li><a href="#!organizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="nav">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="icon-money"></i>
+					Products & Delivery
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu">
 					<li><a href="#!orders-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
 					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
 					<li><a href="#!products-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:products']?></a></li>
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
-					<li><a href="#!reports-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:reports']?></a></li>					
 				</ul>
 			</li>
 		</ul>
@@ -140,8 +144,9 @@
 				</ul>
 			</li>
 		</ul>
+		<ul class="nav"><li><a href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bar-chart"></i> <?=$core->i18n['nav2:marketadmin:reports']?></a></li></ul>
 
-		<?}?>
+		<?} # / is market manager ?>
 
 		<? if(lo3::is_customer() && lo3::is_seller()){?>
 			
@@ -163,7 +168,7 @@
 			</li>
 		</ul>
 
-		<?}?>
+		<?} # / is customer or seller ?>
 		
 		<ul class="nav">
 			<li class="dropdown">

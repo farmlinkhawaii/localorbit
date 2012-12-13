@@ -27,7 +27,8 @@ echo(
 */
 
 ?>
-<div class="tab-pane active" id="orgtabs-a1">
+
+<h3>Organization Info</h3>
 	
 	<div class="control-group">
 		<label class="control-label" for="name">Name</label>
@@ -90,7 +91,7 @@ echo(
 
 	<?if(lo3::is_admin() || lo3::is_market()){?>
 
-		<div<?=(($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder'])?'':' style="display:none;')?>>
+		<div<?=(($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder'])?'':' style="display:none;"')?>>
 	
 			<div class="control-group">
 				<label class="control-label" for="po_due_within_days">PO payments due</label>
@@ -127,4 +128,3 @@ echo(
 		
 	<?}?>
 
-</div>

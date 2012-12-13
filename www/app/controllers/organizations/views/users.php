@@ -1,4 +1,4 @@
-<div class="tab-pane tabarea" id="orgtabs-a3">
+
 	<?php 
 	global $data,$org_all_domains;
 	
@@ -57,9 +57,8 @@
 	$users->render();
 	?>
 	<br />
-	<input type="text" name="invite_email" value="" />
-	<input type="button" class="button_secondary" value="invite user" onclick="org.inviteUser(<?=$data['domain_id']?>);" />
+	<input type="text" name="invite_email" placeholder="Email for Invitation" value="" />
+	<input type="button" class="btn" value="Invite New User" onclick="org.inviteUser(<?=$data['domain_id']?>);" />
 	<?if($core->config['stage'] != 'production'){?>
-	<input type="button" class="button_secondary" value="Testing/qa only" onclick="document.organizationsForm.invite_email.value='localorbit.testing+'+(new String((Math.floor(Math.random() * 1000))))+'@gmail.com';org.inviteUser(<?=$data['domain_id']?>);" />
+	<input type="button" class="btn" value="Testing/qa only" onclick="document.organizationsForm.invite_email.value='localorbit.testing+'+(new String((Math.floor(Math.random() * 1000))))+'@gmail.com';org.inviteUser(<?=$data['domain_id']?>);" />
 	<?}?>
-</div>

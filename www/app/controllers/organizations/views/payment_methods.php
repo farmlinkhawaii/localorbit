@@ -1,4 +1,4 @@
-<div class="tab-pane tabarea" id="orgtabs-a4">
+
 	<?php
 	global $data,$core;
 	
@@ -70,5 +70,3 @@
 			<input type="button" class="btn" value="cancel" onclick="org.cancelPaymentChanges();" />
 		</div>
 	</fieldset>
-</div>
-

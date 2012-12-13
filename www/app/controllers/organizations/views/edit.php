@@ -99,13 +99,13 @@ if($data['is_deleted'] == 1)
 	<?=core_ui::tab_switchers('orgtabs',$tabs)?>
 	
 	<div class="tab-content">
-		<? $this->info($is_mm); ?>
-		<? $this->addresses(); ?>
-		<? $this->users(); ?>
-		<? $this->payment_methods(); ?>
-		<? $this->cross_sell($crosssell_tab_id); ?>
-		<? $this->profile($profile_tab_id); ?>
-		<? $this->managed_hubs($managehubs_tab_id,$is_mm); ?>
+		<div class="tab-pane active" id="orgtabs-a1"><? $this->info($is_mm); ?></div>
+		<div class="tab-pane" id="orgtabs-a2"><? $this->addresses(); ?></div>
+		<div class="tab-pane" id="orgtabs-a3"><? $this->users(); ?></div>
+		<div class="tab-pane" id="orgtabs-a4"><? $this->payment_methods(); ?></div>
+		<div class="tab-pane" id="orgtabs-a5"><? $this->cross_sell($crosssell_tab_id); ?></div>
+		<div class="tab-pane" id="orgtabs-a6"><? $this->profile($profile_tab_id); ?></div>
+		<div class="tab-pane" id="orgtabs-a7"><? $this->managed_hubs($managehubs_tab_id,$is_mm); ?></div>
 	</div>
 	
 	<?
