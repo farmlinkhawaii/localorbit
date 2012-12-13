@@ -8,6 +8,7 @@ core::clear_response('replace','left');
 core::clear_response('replace','center');
 core::replace('left','&nbsp;&nbsp;');
 core_ui::load_library('js','checkout.js');
+core_ui::fullWidth();
 $this->paypal_rules()->js();
 $this->authorize_rules()->js();
 $this->purchaseorder_rules()->js();
@@ -41,10 +42,10 @@ else if ($cart['grand_total'] < $core->config['domain']['order_minimum'])
 	core_ui::notification(str_replace('{1}', core_format::price($core->config['domain']['order_minimum']), $core->session['i18n']['error:customer:minimum_error']));
 	core::deinit();
 }
-core::ensure_navstate(array('left'=>'left_blank'));
 
 $cart->items_by_delivery = array();
 
+core::replace('full_width');
 ?>
 <pre>
 <?
@@ -102,5 +103,4 @@ $cart->arrange_by_next_delivery();
 <?
 # this is used to dynamically update the fees and such.
 core::js('window.setTimeout("core.checkout.requestUpdatedFees();",1000);');
-core::replace('full_width');
 ?>
