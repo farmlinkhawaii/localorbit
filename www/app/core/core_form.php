@@ -29,9 +29,12 @@ class core_form
 
 		# get the final content list for this div
 		$items = func_get_args();
+		$tabset_class = $items[2]; # Grab 3rd argument for active tab pane
+		unset($items[2]);
+		
 		array_shift($items);
 
-		$out = '<div class="tab-pane tabarea" id="'.$tabset_name.'-a'.$core->config['tab_index_cache'][$tabset_name].'">';
+		$out = '<div class="tab-pane tabarea ' . $tabset_class . '" id="'.$tabset_name.'-a'.$core->config['tab_index_cache'][$tabset_name].'">';
 		$out .= core_form::render_items($items).'</div>';
 		return $out;
 	}

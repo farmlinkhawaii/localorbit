@@ -68,7 +68,7 @@ echo(
 				core_form::input_text('First Name','first_name',$data,array('required'=>true)),
 				core_form::input_text('Last Name','last_name',$data,array('required'=>true)),
 				core_form::input_text('E-mail','email',$data,array('required'=>true))
-			)
+			),'active'
 		),
 		core_form::tab('usertabs',
 			core_form::table_nv(

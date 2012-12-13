@@ -74,7 +74,6 @@ if(lo3::is_admin() || lo3::is_market() && count($core->session['domains_by_orgty
 
 if(lo3::is_admin())
 {
-
 	# filter by org type
 	$users->add_filter(new core_datatable_filter('otd.orgtype_id'));
 	echo(core_datatable_filter::make_select(
@@ -92,18 +91,16 @@ core::replace('datatable_filters');
 $users->filter_html .= core::getclear_position('datatable_filters');
 
 $actions = '
-	<a href="#!auth-loginas--entity_id-{entity_id}">Login&nbsp;&raquo;</a>
-	<br />
-	<a class="text-warning" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'customer_entity\'});">{enable_action}&nbsp;&raquo;</a>
-	<br />
+	<a href="#!auth-loginas--entity_id-{entity_id}">Login&nbsp;&raquo;</a><br />
+	<a class="text-warning" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'customer_entity\'});">{enable_action}&nbsp;&raquo;</a><br />
 	<a class="text-error" href="#!users-list" onclick="org.deleteUser({entity_id},\'{first_name} {last_name}\',this,'.$core->session['user_id'].');">Delete&nbsp;&raquo;</a>
 ';
 
 #$users->add_filter(new core_datatable_filter('org_id'));
-$users->add(new core_datacolumn('o.name','Organization',true,'30%','<a href="#!users-edit--entity_id-{entity_id}"><b>{org_name}</b><br />{domain_name}</a>','{org_name}','{org_name}'));
-$users->add(new core_datacolumn('first_name','Name',true,'35%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b><br /><a href="mailTo:{email}">{email}</a></a>','{first_name} {last_name}','{first_name} {last_name}'));
-$users->add(new core_datacolumn('organization_types.name','Org Type',true,'11%','<a href="#!users-edit--entity_id-{entity_id}">{orgtype_name}</a>','{orgtype_name}','{orgtype_name}'));
-$users->add(new core_datacolumn('created_at','Registered On',true,'15%','<a href="#!users-edit--entity_id-{entity_id}">{created_at}</a>','{created_at}','{created_at}'));
+$users->add(new core_datacolumn('first_name','Name',true,'35%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b></a><br /><small><i class="icon-envelope"></i> <a href="mailTo:{email}">{email}</a></small>','{first_name} {last_name}','{first_name} {last_name}'));
+$users->add(new core_datacolumn('o.name','Organization',true,'30%','<b>{org_name}</b><br /><small>{domain_name}</small>','{org_name}','{org_name}'));
+$users->add(new core_datacolumn('organization_types.name','Org Type',true,'11%','{orgtype_name}','{orgtype_name}','{orgtype_name}'));
+$users->add(new core_datacolumn('created_at','Registered On',true,'15%','{created_at}','{created_at}','{created_at}'));
 $users->add(new core_datacolumn('entity_id',' ',false,'10%',$actions,'  ','  '));
 
 $users->sort_column = 3;
