@@ -1,5 +1,6 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Edit Users','This page is used to edit users');
 lo3::require_permission();
 lo3::require_login();
@@ -53,6 +54,7 @@ echo(
 	).
 	core_form::form('userForm','/users/save',null,
 		core_form::tab_switchers('usertabs',array('User Info','Password Security')),
+		'<div class="tab-content">',
 		core_form::tab('usertabs',
 			core_form::table_nv(
 				core_form::value('Organization','<a href="#!organizations-edit--org_id-'.$org['org_id'].'">'.$org['name'].'</a>'),
@@ -67,6 +69,7 @@ echo(
 				core_form::input_password('Confirm Password','confirm_password')
 			)
 		),
+		'</div>',
 		core_form::input_hidden('entity_id',$data),
 		(($core->data['me'] == '1')?core_form::save_only_button():core_form::save_buttons())
 	)

@@ -32,15 +32,17 @@ foreach($dd_ids as $dd_id)
 }
 $rendered_prices = 0;
 ?>
-<div id="product_<?=$prod['prod_id']?>" class="row">
-	<? if(intval($prod['pimg_id']) > 0){?>
-	<img class="catalog span1" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
-	<?}else{?>
-	<img class="catalog_placeholder span1" src="<?=image('product_placeholder_small')?>" />
-	<?}?>
+<div id="product_<?=$prod['prod_id']?>" class="product-row row">
+	<div class="span1">
+		<? if(intval($prod['pimg_id']) > 0){?>
+		<img class="catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+		<?}else{?>
+		<img class="catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+		<?}?>
+	</div>
 	<div class="span4">
 		<p><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
-		<span>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></span></p>
+		<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small></p>
 		<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>
 	</div>
 	<ol class="span2 priceList">
@@ -70,7 +72,8 @@ $rendered_prices = 0;
 			<i class="icon-remove-sign"/><span class="value"><?=$total?></span> 
 		</div>
 	</div>
-	<div id="moreInfo<?=$prod['prod_id']?>" class="collapse row">
+	<div class="clearfix"></div>
+	<div id="moreInfo<?=$prod['prod_id']?>" class="collapse">
 		<div class="clearfix" style="padding-top: 15px;"></div>
 		<div class="span5">
 			<p class="note">
@@ -89,10 +92,8 @@ $rendered_prices = 0;
 			</p>
 		</div>
 	</div>
-
-	<hr class="span9"/>
 </div>
-<!--
+<? /*
 <tr id="product_<?=$prod['prod_id']?>" class="catalog catalog_<?=$style1?>_<?=$style2?> category_<?=$prod['category_ids'][2]?> category_<?=$prod['category_ids'][3]?>">
 	<td class="catalog">
 		<? if(intval($prod['pimg_id']) > 0){?>
@@ -161,4 +162,4 @@ $rendered_prices = 0;
 		</table>
 	</td>
 </tr>
--->
+*/ ?>

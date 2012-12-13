@@ -145,7 +145,7 @@ else
 		$styles =array(1,1);
 
 		# 1st total line
-		echo('<div class="row"><ol class="span9" id="filter_list"/></div>');
+		echo('<div id="filter_container"><ol id="filter_list"/></div>');
 		echo('<form name="cartForm">');
 		$this->weekly_special($prods, $prices);
 		//$this->render_total_line(1);
