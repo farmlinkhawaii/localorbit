@@ -4,6 +4,9 @@ if($org['payment_allow_paypal'] == 1)
 {
 	$style = ($core->view[0] > 1)?' style="display:none;"':'';
 	?>
+<div id="payment_paypal" class="span6"<?=$style?>>
+<div class="span6">
+<div class="row">
 <div class="span3">
 	Credit Card Information
 </div>
@@ -92,6 +95,9 @@ if($org['payment_allow_paypal'] == 1)
 		<label class="span3">Zip/Postal Code</label>
 		<div class="span3"><input type="text" name="pp_zip" value="" /></div>
 	</div>
+</div>
+</div>
+</div>
 </div>
 <?
 	/*
