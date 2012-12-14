@@ -1,7 +1,8 @@
 <?php
 # This is a list of all files we'll need to load
 $files = array(
-	'fonts','tags','structure','nav','forms','catalog','headings','datatable','popups','rte','misc','slideshow','public',
+	#'fonts','tags','structure','nav','forms','catalog','headings','datatable','popups','rte','misc','slideshow','public',
+	'forms','datatable','popups','rte'
 );
 
 class core

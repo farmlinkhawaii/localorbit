@@ -159,65 +159,6 @@ body.popup{
 	padding: 10px;
 }
 
-#dashboard_note{
-	position: absolute;
-	top: 10px;
-	left: 200px;
-	width: 89px;
-	height: 77px;
-	padding: 35px 30px;
-	background-image: url(../img/default/noteBkgd.png);
-	background-repeat: no-repeat;
-	z-index:100;
-	font-size: 90%;
-	text-align: center;
-}
-
-#weekly_special{
-	position: absolute;
-	top: 90px;
-	width: 980px;
-	height: 300px;
-	left: -22px;
-	z-index: 120;
-}
-
-.weeklyspecial_popup_top{
-	background-image: url(../img/popups/openLargeWindow_top.png);
-	background-repeat: no-repeat;
-	height: 50px;
-
-}
-
-.weeklyspecial_popup_middle{
-	background-image: url(../img/popups/openLargeWindow_middle.png);
-	background-repeat: repeat-y;
-}
-
-.weeklyspecial_popup_bottom{
-	background-image: url(../img/popups/openLargeWindow_bottom.png);
-	background-repeat: no-repeat;
-	height: 25px;
-}
-
-#weekly_special_icon{
-	position: absolute;
-	top: 72px;
-	left: 380px;
-	z-index: 99;
-}
-
-.weekly_header{
-	color: <?=$options['p1f']?>;
-	font-family: <?=$options['font2']?>;
-	font-size: 130%;
-	margin-bottom: 4px;
-}
-
-.weekly_title{
-	color: <?=$options['p1f']?>;
-	font-size: 140%;
-}
 
 #edit_popup{
 	background-color: <?=$options['p4f']?>;

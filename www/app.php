@@ -44,9 +44,9 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 	<!--
 	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	-->
 	<link rel="stylesheet" type="text/css" href="css/loader.php?time=<?php echo time();?>" />
 	<link rel="stylesheet" type="text/css" href="homepage/includes/popup.css" />
-	-->
 
 	<link rel="stylesheet" type="text/css" href="css/less.php" />
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Open+Sans+Condensed:300,300italic,700"/>
@@ -88,18 +88,19 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 <div id="wrap">
 
-	<?/*
+
 	<div id="popup_closer"><a href="#" onclick="$('#overlay,.popup,#popup_closer').fadeOut(100);"><img src="/homepage/img/icon_popup_close.png" /></a></div>
 	<div id="overlay"></div>
-
+	<? /*
 	<div class="popup" id="popup3">
 		<div class="popup_content">
 			<iframe height="942" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none" src="http://localorbit.wufoo.com/embed/z7x3k1/"><a href="http://localorbit.wufoo.com/forms/z7x3k1/">Fill out my Wufoo form!</a></iframe>
 		</div>
 	</div>
+	*/ ?>
 	<div id="shop_popup"><div class="shop_popup_top">&nbsp;</div><div class="shop_popup_middle">&nbsp;<div id="shop_popup_content"></div></div><div class="shop_popup_bottom">&nbsp;</div></div>
 	<div id="edit_popup"></div>
-	*/?>
+
 
 
 
@@ -136,8 +137,8 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
 			</div><!--/span-->
 			<div id="navrow" class="span9">
-				<h2 style="text-transform: capitalize;"><span id="tagline"></span></h2>
-				<ul id="mainnav" class="nav nav-pills" style="margin-bottom: 0">
+				<h2><span id="tagline"></span></h2>
+				<ul id="mainnav" class="nav nav-pills">
 					<li class="active"><a href="#">Shop</a></li>
 					<li><a href="#">News</a></li>
 					<li><a href="#">About</a></li>
@@ -153,7 +154,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 
 
-	<div id="content" class="container" style="margin-top: 30px;">
+	<div id="content" class="container">
 		<div class="row">
 			<div id="left" class="span3">
 			</div><!--/#left-->
@@ -174,7 +175,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 
 
-<?/*
+
 <div id="overlay">&nbsp;</div>
 
 <div id="notification">
@@ -197,7 +198,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 		</div>
 	</div>
 </div>
-*/?>
+
 
 
 <script language="Javascript" type="text/javascript" defer="defer">

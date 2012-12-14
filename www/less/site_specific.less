@@ -88,16 +88,23 @@ body {
 #header {
 	margin-bottom: 20px;
 	}
-
-	#mainnav { margin-left: -12px; }
-
-	#mainnav li a {
-		font-size: 36px;
-		line-height: 40px;
-		padding-top: 4px;
-		font-family: @headingsFontFamily;
+	
+	#header h2 {
 		text-transform: capitalize;
 		}
+
+	#mainnav {
+		margin-left: -12px;
+		margin-bottom: 0;
+		}
+
+		#mainnav li a {
+			font-size: 36px;
+			line-height: 40px;
+			padding-top: 4px;
+			font-family: @headingsFontFamily;
+			text-transform: capitalize;
+			}
 
 
 
@@ -128,7 +135,7 @@ table.table td { vertical-align: middle; font-size: 90%; }
 
 /* Admin Forms --------------- */
 
-form h3 { background: #f9f9f9; padding-left: 5px; }
+form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 
 
 
@@ -274,6 +281,11 @@ form h3 { background: #f9f9f9; padding-left: 5px; }
 	#logocontainer {
 		max-width: 400px;
 		margin: 0 auto;
+		}
+		
+		#header img {
+			max-height: 180px !important;
+			height: 180px;
 		}
 
 
