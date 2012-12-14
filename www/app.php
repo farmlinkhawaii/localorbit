@@ -178,9 +178,9 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 <div id="overlay">&nbsp;</div>
 
-<div id="notification">
+<div id="notification" class="alert alert-success">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
 	<div id="notification_content"></div>
-	<div id="notification_close" onclick="core.ui.notificationClose();"></div>
 </div>
 
 <div id="popup">
