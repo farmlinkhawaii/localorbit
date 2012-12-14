@@ -421,7 +421,7 @@ class core_datatable
 	{
 		global $core;
 		echo('<div class="dt_filter_resizer"');
-		if(!$this->display_filter_resizer)
+		if(!$this->filter_html)
 			echo(' style="display: none;"');
 		echo('>');
 		

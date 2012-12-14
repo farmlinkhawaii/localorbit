@@ -1,5 +1,13 @@
 <?php 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+
+if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()):
+	core_ui::fullWidth();
+else:
+	core_ui::showLeftNav();
+endif;
+
+
 core::head('Order Management','This page is used to manage orders');
 lo3::require_permission();
 lo3::require_login();

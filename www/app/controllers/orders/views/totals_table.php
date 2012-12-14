@@ -1,14 +1,7 @@
-<?
-$prefix = $core->view[0];
-?>
-<br />
+<? $prefix = $core->view[0]; ?>
 <h1>Total Sales</h1>
-<table class="dt">
-	<col width="20%" />
-	<col width="17%" />
-	<col width="17%" />
-	<col width="26%" />
-	<col width="20%" />
+<table class="dt table table-striped">
+	<thead>
 	<tr>
 		<th class="dt">Gross Sales</th>
 		<th class="dt">Hub Fees</th>
@@ -16,6 +9,8 @@ $prefix = $core->view[0];
 		<th class="dt">Payment Processing Fees</th>
 		<th class="dt">Net Sales</th>
 	</tr>
+	</thead>
+	<tbody>
 	<tr class="dt">
 		<td class="dt" id="gross">$0.00</td>
 		<td class="dt" id="hub">$0.00</td>
@@ -23,5 +18,5 @@ $prefix = $core->view[0];
 		<td class="dt" id="proc">$0.00</td>
 		<td class="dt" id="net">$0.00</td>
 	</tr>
+	</tbody>
 </table>
-<br />
