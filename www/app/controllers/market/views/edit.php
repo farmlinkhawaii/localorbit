@@ -147,12 +147,7 @@ if(lo3::is_admin())
 		<div class="tab-pane tabarea" id="markettabs-a7">
 
 			<?php foreach($domains as $domain){ ?>				
-				<div class="control-group">
-					<label class="control-label"></label>
-					<div class="controls">
-						<?=core_ui::checkdiv('accept_products_from_'.$domain['domain_id'],'Accept products from '.$domain['name'],$allows[$domain['domain_id']])?>
-					</div>
-				</div>
+				<?=core_ui::checkdiv('accept_products_from_'.$domain['domain_id'],'<small>Accept products from</small><br><strong style="position: relative; top: -3px;">'.$domain['name'].'</strong>',$allows[$domain['domain_id']])?>
 			<?}?>
 
 		</div>
