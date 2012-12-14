@@ -1,6 +1,9 @@
 <?php
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+
+core_ui::fullWidth();
+
 core::head('Edit','Edit');
 lo3::require_permission();
 lo3::require_login();
@@ -64,7 +67,7 @@ $this->inventory_advanced_rules()->js();
 
 page_header('Editing '.$data['name'],'#!products-list','cancel');
 ?>
-<form name="prodForm" method="post" action="/products/update" target="uploadArea" onsubmit="return product.doSubmit(false)" enctype="multipart/form-data">
+<form name="prodForm" class="form-horizontal" method="post" action="/products/update" target="uploadArea" onsubmit="return product.doSubmit(false)" enctype="multipart/form-data">
 	<?
 	$tabs = array('Product Info','Inventory','Pricing','Images');
 	if($all_dds->__num_rows > 0)
@@ -72,20 +75,21 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 	?>
 	<?=core_ui::tab_switchers('producttabs',$tabs)?>
 	
-	<div class="tabarea" id="producttabs-a1">
-		<table class="form">
+	<div class="tab-content">
+		<div class="tabarea tab-pane active" id="producttabs-a1">
+			
 			<?if(lo3::is_admin() || lo3::is_market()){?>
 				<?=core_form::value('Seller',$data['org_name'])?>
 			<?}?>
 			<?=core_form::input_text('Name','product_name',$data['name'],true)?>
-			<tr>
-				<td class="label">Categories:</td>
-				<td class="value">
+			<div class="control-group">
+			    <label class="control-label" for="">Categories:</label>
+				<div class="controls">
 				<?foreach($data->taxonomy as $category){?>
 					/ <?=$category['cat_name']?>
 				<?}?>	
-				</td>
-			</tr>
+				</div>
+			</div>
 
 			<?=core_form::value('Unit<div class="sublabel">Type to search</div>','
 				<select name="unit_id" id="unit_id">
@@ -114,29 +118,30 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 			<?=core_form::input_textarea($core->i18n['products:what:label'],$core->i18n['products:what:description'],'description',$data,true,7,53)?>
 			<?=core_form::input_textarea($core->i18n['products:who:label'],$core->i18n['products:who:description'],'who',$data,false,7,53,$who_msg,'edit',true)?>
 			<?=core_form::input_textarea($core->i18n['products:how:label'],$core->i18n['products:how:description'],'how',$data,false,7,53,$how_msg,'edit',true)?>
-		</table>
+
+		</div>
+		<div class="tabarea tab-pane" id="producttabs-a2">
+			<? $this->inventory_form() ?>
+		</div>
+		<div class="tabarea tab-pane" id="producttabs-a3">
+			<?
+			$this->pricing_form() 
+			?>
+		</div>
+		<div class="tabarea tab-pane" id="producttabs-a4">
+			<? $this->images();	?>
+		</div>
+		<?if($all_dds->__num_rows > 0){?>
+		<div class="tabarea tab-pane" id="producttabs-a5">
+			<? $this->delivery_form(); ?>
+		</div>
+		<?}?>
+		<input type="hidden" name="prod_id" value="<?=$data['prod_id']?>" />
 	</div>
-	<div class="tabarea" id="producttabs-a2">
-		<? $this->inventory_form() ?>
-	</div>
-	<div class="tabarea" id="producttabs-a3">
-		<?
-		$this->pricing_form() 
-		?>
-	</div>
-	<div class="tabarea" id="producttabs-a4">
-		<? $this->images();	?>
-	</div>
-	<?if($all_dds->__num_rows > 0){?>
-	<div class="tabarea" id="producttabs-a5">
-		<? $this->delivery_form(); ?>
-	</div>
-	<?}?>
 	<div class="buttonset" id="main_save_buttons">
 		<input type="submit" class="button_primary" name="save" value="save and continue editing" />
 		<input type="button" onclick="product.doSubmit(true)" class="button_primary" value="save and go back" />
 	</div>
-	<input type="hidden" name="prod_id" value="<?=$data['prod_id']?>" />
 </form>
 <?
 if($core->data['invmode'] == 'yes')

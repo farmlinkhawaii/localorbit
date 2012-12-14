@@ -55,90 +55,93 @@ $address = core::model('lo_order_address')
 #$order->dump();
 
 ?>
-<form name="orderForm" method="post" action="/orders/save_admin_notes" onsubmit="return core.submit('/orders/save_admin_notes',this);" enctype="multipart/form-data">
-	<table>
-		<col width="47%" />
-		<col width="6%" />
-		<col width="47%" />
 
-		<tr>
-			<td>
-				<h2>Order Info</h2>
-				<table class="form">
-					<tr>
-						<td class="label">Order #</td>
-						<td class="value"><b><?=$order['lo3_order_nbr']?></b></td>
-					</tr>
-					<tr>
-						<td class="label">Placed On</td>
-						<td class="value"><?=core_format::date($order['order_date'],'long')?></td>
-					</tr>
-					<tr>
-						<td class="label">Item Total</td>
-						<td class="value"><?=core_format::price($order['item_total'])?></td>
-					</tr>
-					<? if($order['discount_total'] != 0){?>
-					<tr>
-						<td class="label">Discounts</td>
-						<td class="value"><?=core_format::price($order['discount_total'],false)?></td>
-					</tr>
-					<?}?>
-					<tr>
-						<td class="label">Delivery Fees</td>
-						<td class="value"><?=(($order['delivery_total']>0)?core_format::price($order['delivery_total'],false):'Free!')?></td>
-					</tr>
-					<tr>
-						<td class="label">Grand Total</td>
-						<td class="value"><?=core_format::price($order['grand_total'])?></td>
-					</tr>
-					<!--
-					<tr>
-						<td class="label">Status</td>
-						<td class="value"><?=$order['status']?></td>
-					</tr>
-				-->
-					<tr>
-						<td class="label">Delivery Status</td>
-						<td class="value"><?=$order['delivery_status']?></td>
-					</tr>
-					<tr>
-						<td class="label">Buyer Payment</td>
-						<td class="value"><?=$order['buyer_payment_status']?></td>
-					</tr>
-					<tr>
-						<td class="label">Payment Method</td>
-						<?if($order['payment_method'] == 'paypal'){?>
-						<td class="value"><?=$core->i18n['order:paymentbypaypal']?></td>
-						<?} else if($order['payment_method'] == 'purchaseorder'){?>
-						<td class="value"><?=$core->i18n['order:paymentbypo']?></td>
-						<?} else{?>
-						<td class="value"><?=$order['payment_method']?></td>
-						<?}?>
-					</tr>
-					<tr>
-						<td class="label">Payment Ref</td>
-						<td class="value"><?=$order['payment_ref']?></td>
-					</tr>
-				</table>
-			</td>
+<div class="row">
+	<div class="span6">
+		<h2>Order Info</h2>
+		
+		<div class="row">
+			<div class="span3">Order #</div>
+			<div class="span3"><b><?=$order['lo3_order_nbr']?></b></div>
+		</div>
+		
+		<div class="row">
+			<div class="span3">Placed On</div>
+			<div class="span3"><?=core_format::date($order['order_date'],'long')?></div>
+		</div>
+		
+		<div class="row">
+			<div class="span3">Item Total</div>
+			<div class="span3"><?=core_format::price($order['item_total'])?></div>
+		</div>
+		
+		<? if($order['discount_total'] != 0){?>
+		<div class="row">
+			<div class="span3">Discounts</div>
+			<div class="span3"><?=core_format::price($order['discount_total'],false)?></div>
+		</div>
+		<?}?>
 
-			<td>&nbsp;</td>
-			<td>
-				<h2>Billing Address</h2>
-				<b><?=$order['buyer_org_name']?></b><br />
+		<div class="row">
+			<div class="span3">Delivery Fees</div>
+			<div class="span3"><?=(($order['delivery_total']>0)?core_format::price($order['delivery_total'],false):'Free!')?></div>
+		</div>
+		
+		<div class="row">
+			<div class="span3">Grand Total</div>
+			<div class="span3"><?=core_format::price($order['grand_total'])?></div>
+		</div>
+		
+		<div class="row">
+			<div class="span3">Delivery Status</div>
+			<div class="span3"><?=$order['delivery_status']?></div>
+		</div>
+		
+		<div class="row">
+			<div class="span3">Buyer Payment</div>
+			<div class="span3"><?=$order['buyer_payment_status']?></div>
+		</div>
+		
+		<div class="row">
+			<div class="span3">Payment Method</div>
+			<div class="span3">
+				<? if($order['payment_method'] == 'paypal') { ?>
+					<?=$core->i18n['order:paymentbypaypal']?>
+				<?} else if($order['payment_method'] == 'purchaseorder'){?>
+					<?=$core->i18n['order:paymentbypo']?>
+				<?} else{?>
+					<?=$order['payment_method']?>
+				<?}?>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="span3">Payment Ref</div>
+			<div class="span3"><?=$order['payment_ref']?></div>
+		</div>
+
+	</div>
+
+	<div class="span6">
+		<h2>Billing Address</h2>
+		<p>
+			<b><?=$order['buyer_org_name']?></b><br />
+			<? if ($address['street1'] || $address['city'] || $address['code'] || $address['postcode']): ?>
 				<?=$address['street1']?><br />
 				<?=$address['city']?>, <?=$address['code']?> <?=$address['postcode']?><br />
 				<?if($address['telephone'] != ''){?>
 				T: <?=$address['telephone']?>
 				<?}?>
-				<br/><br/>
-			<?if(lo3::is_admin() || lo3::is_market()){
-				$this->admin_notes($order['lo_oid'],$order['admin_notes']);
-			}?>
-			</td>
-		</tr>
-	</table>
-	<br />
+			<? endif; ?>
+		</p>
+		<? if(lo3::is_admin() || lo3::is_market()) { ?>
+		<form name="orderForm" method="post" action="/orders/save_admin_notes" onsubmit="return core.submit('/orders/save_admin_notes',this);" enctype="multipart/form-data">
+			<? $this->admin_notes($order['lo_oid'],$order['admin_notes']); ?>
+		</form>
+		<? } ?>
+	</div>
+</div>
+
 <?
 
 if ($core->config['domain']['po_due_within_days'] > 0) { ?>
@@ -158,7 +161,6 @@ foreach($order->items as $item)
 		if($dd_id > 0)
 		{
 			echo('<input type="hidden" id="deliv_ids_'.$dd_id.'" name="deliv_ids_'.$dd_id.'" value="'.implode('-',$deliv_ids).'" />');
-			echo('</table><br />');
 			$deliv_ids = array();
 		}
 
@@ -176,29 +178,22 @@ foreach($order->items as $item)
 			if (!isset($field) || $addresses->__num_rows < 2 || ($item['delivery_start_time'] - $item['hours_due_before']*60*60) < time())
 			{
 			?>
-			<h2><?=$item['buyer_formatted_deliv1']?></h2>
-			<?=$item['buyer_formatted_deliv2']?>
+				<h3><?=$item['buyer_formatted_deliv1']?></h3>
+				<?=$item['buyer_formatted_deliv2']?>
 			<?} else { ?>
-			<h2><?=$item['buyer_formatted_deliv1']?></h2>
-			<?=$item['buyer_formatted_deliv2']?>
-			<div style="padding:5px 0px 5px 0px;">Change delivery address: </div>
-			<select id="address_select_<?=$item['dd_id']?>" style="width: 500px;">
-				<?=core_ui::options($addresses, $item[$field.'_address_id'],'address_id','formatted_address')?>
-			</select>
-			<input type="button" class="button_secondary" value="update delivery address" onclick="$('#lodelivinfo_<?=$item['dd_id']?>').html($('#address_select_<?=$item['dd_id']?> option:selected').html());core.doRequest('/orders/update_delivery_address', {'lodeliv_id' :$('#deliv_ids_<?=$this_dd?>').val() ,  'id' : $('#address_select_<?=$item['dd_id']?>').val(), 'field' : '<?=$field?>'});" />
+				<h3><?=$item['buyer_formatted_deliv1']?></h3>
+				<?=$item['buyer_formatted_deliv2']?>
+				<p>Change delivery address: </p>
+				<select id="address_select_<?=$item['dd_id']?>">
+					<?=core_ui::options($addresses, $item[$field.'_address_id'],'address_id','formatted_address')?>
+				</select>
+				<input type="button" class="button_secondary" value="update delivery address" onclick="$('#lodelivinfo_<?=$item['dd_id']?>').html($('#address_select_<?=$item['dd_id']?> option:selected').html());core.doRequest('/orders/update_delivery_address', {'lodeliv_id' :$('#deliv_ids_<?=$this_dd?>').val() ,  'id' : $('#address_select_<?=$item['dd_id']?>').val(), 'field' : '<?=$field?>'});" />
 		  <?
 			}
 		}
       ?>
-		<table class="dt">
-			<col width="36%" />
-			<col width="10%" />
-			<col width="10%" />
-			<col width="10%" />
-			<col width="10%" />
-			<col width="12%" />
-			<col width="12%" />
-			<col width="12%" />
+		<table class="dt table table-striped">
+			<thead>
 			<tr>
 				<th class="dt">Product</th>
 				<th class="dt">Qty Ordered</th>
@@ -209,6 +204,8 @@ foreach($order->items as $item)
 				<th class="dt">Delivery Status</th>
 				<th class="dt">Buyer Payment</th>
 			</tr>
+			</thead>
+			<tbody>
 	<?
 		$dd_id = $this_dd;
 	}
@@ -263,7 +260,7 @@ foreach($order->items as $item)
 			</tr>
 	<?
 }
-?>
+?>	</tbody>
 	</table>
 <?
 echo('<input type="hidden" id="deliv_ids_'.$dd_id.'" name="deliv_ids_'.$dd_id.'" value="'.implode('-',$deliv_ids).'" />');
@@ -290,5 +287,3 @@ if((lo3::is_admin() || lo3::is_market()) && count($order->history) > 0){?>
 	<?}?>
 	</table>
 <?}?>
-</form>
-<br />&nbsp;<br />
