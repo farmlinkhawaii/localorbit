@@ -230,7 +230,7 @@ class core_form
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		return core_form::tr_nv($label,$value);
+		return core_form::tr_nv($label,$value,$options);
 	}
 
 
