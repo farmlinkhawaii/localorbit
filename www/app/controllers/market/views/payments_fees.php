@@ -19,7 +19,7 @@ $payment_methods = core::model('organization_payment_methods')
 		and   orgtype_id=2
 	)');
 ?>
-<table class="form">
+
 	<? if(lo3::is_admin()){ ?>
 
 		<?=core_form::header_nv('Service Fee')?>
@@ -46,9 +46,9 @@ $payment_methods = core::model('organization_payment_methods')
 				'option_prefix'=>'************',
 		))?>	
 		<?=core_form::value('Last Paid',$last_paid)?>
-		<?=core_form::spacer_nv()?>
-	
+
 		<?=core_form::header_nv('Operational Fees')?>
+		
 		<?=core_form::input_select(
 			'Payable Organization',
 			'payable_org_id',
@@ -92,25 +92,23 @@ $payment_methods = core::model('organization_payment_methods')
 		<?=core_form::input_check('Allow Purchase Orders','payment_allow_purchaseorder',$data['payment_allow_purchaseorder'],array(
 			'onclick'=>'market.allowPaymentChanged(\'purchaseorder\');market.togglePoDue();',
 		))?>
-	
-		<tr id="allow_po_row"<?=(($data['payment_allow_purchaseorder']==0)?' style="display:none;"':'')?>>
-			<td class="label">PO payments due</td>
-			<td class="value"><input type="text" name="po_due_within_days" style="width:40px;" value="<?=intval($data['po_due_within_days'])?>" /> days</td>
-		</tr>
+		
+		<? if($data['payment_allow_purchaseorder']==0): ?>
+		<div class="control-group">
+			<label class="control-label">PO payments due</label>
+			<div class="controls">
+				<input type="text" name="po_due_within_days" class="input-xxsmall" value="<?=intval($data['po_due_within_days'])?>" /> days
+			</div>
+		</div>
+		<? endif; ?>
 	
 	<?}?>
 	
-	<h3>Default Payment Methods</h3>
-	
-	<?=core_form::spacer_nv()?>
 	<?=core_form::header_nv('Default Payment Methods',array(
 		'info'=>$core->i18n['note:default_payment_methods'],
 		'info_icon'=>'speech',
 		'info_show'=>true
 	))?>
-	
-	<h3>Default Payment Methods</h3>
-	<div class="alert"><?= $core->i18n['note:default_payment_methods'] ?></div>
 	
 	<? if($data['payment_allow_paypal'] == 1): ?>
 		<?=core_ui::checkdiv('payment_default_paypal','CC via Paypal',$data['payment_default_paypal'],'market.defaultPaymentChanged(\'paypal\');')?>
@@ -123,24 +121,24 @@ $payment_methods = core::model('organization_payment_methods')
 	<?if(lo3::is_admin()){?>
 	<h3>Seller Payments</h3>
 	
-	<tr>
-		<td class="label">&nbsp;</td>
-		<td class="value">
-			<?=core_ui::radiodiv('seller_payer_lo','LO pays seller',($data['seller_payer'] == 'lo'),'seller_payer')?>
-			<br />
-			<?=core_ui::radiodiv('seller_payer_hub','Hub pays seller',($data['seller_payer'] == 'hub'),'seller_payer')?>
-		</td>
-	</tr>
-	<tr class="buyer_invoicer_options"<?=(($data['payment_allow_purchaseorder']==1)?'':' style="display:none;"')?>>
-		<td colspan="2"><br/ ><h3>Buyer Invoicing</h3></td>
-	</tr>
-	<tr class="buyer_invoicer_options"<?=(($data['payment_allow_purchaseorder']==1)?'':' style="display:none;"')?>>
-		<td class="label">&nbsp;</td>
-		<td class="value">
-			<?=core_ui::radiodiv('buyer_invoicer_lo','LO invoices buyer',($data['buyer_invoicer'] == 'lo'),'buyer_invoicer')?>
-			<br />
-			<?=core_ui::radiodiv('buyer_invoicer_hub','Hub invoices buyer',($data['buyer_invoicer'] == 'hub'),'buyer_invoicer')?>
-		</td>
-	</tr>
+	<div class="control-group">
+		<label class="control-label">Who pays the seller?</label>
+		<div class="controls">
+			<?=core_ui::radiodiv('seller_payer_lo','Local Orbit pays seller',($data['seller_payer'] == 'lo'),'seller_payer')?>
+			<?=core_ui::radiodiv('seller_payer_hub','Market pays seller',($data['seller_payer'] == 'hub'),'seller_payer')?>
+		</div>
+	</div>
+
+	<? if($data['payment_allow_purchaseorder']==1): ?>
+		<h3>Buyer Invoicing</h3>
+		
+		<div class="control-group">
+			<label class="control-label">Who invoices the buyer?</label>
+			<div class="controls">
+				<?=core_ui::radiodiv('buyer_invoicer_lo','Local Orbit invoices buyer',($data['buyer_invoicer'] == 'lo'),'buyer_invoicer')?>
+				<?=core_ui::radiodiv('buyer_invoicer_hub','Market invoices buyer',($data['buyer_invoicer'] == 'hub'),'buyer_invoicer')?>
+			</div>
+		</div>
+	<? endif;?>
+
 	<?}?>
-</table>
