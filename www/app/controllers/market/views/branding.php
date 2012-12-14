@@ -31,7 +31,7 @@ $has_custom = (strpos($logo,'default') === false);
 <div class="control-group">
 	<label class="control-label" for="specimage">Main Logo</label>
 	<div class="controls row">
-		<div class="span3"><img class="pull-left" id="logo1" src="<?=$logo?>" /></div>
+		<div class="span3"><img class="pull-left img-polaroid" id="logo1" src="<?=$logo?>" /></div>
 		<div class="span5">
 			<input type="file" name="logo_image" value="" />
 			<input type="button" class="btn btn-mini" value="Upload File" onclick="core.ui.uploadFrame(document.marketForm,'uploadArea1','market.refreshLogo1({params});','app/market/save_logo1');" />
@@ -52,7 +52,7 @@ $has_custom = (strpos($logo,'default') === false);
 <div class="control-group">
 	<label class="control-label" for="email_image">E-mail Logo</label>
 	<div class="controls row">
-		<div class="span3"><img class="pull-left" id="logo2" src="<?=$logo?>" /></div>
+		<div class="span3"><img class="pull-left img-polaroid" id="logo2" src="<?=$logo?>" /></div>
 		<div class="span5">
 			<input type="file" name="email_image" value="" />
 			<input type="button" class="btn btn-mini" value="Upload File" onclick="core.ui.uploadFrame(document.marketForm,'uploadArea2','market.refreshLogo2({params});','app/market/save_logo2');" />

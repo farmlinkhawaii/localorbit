@@ -21,80 +21,86 @@ $payment_methods = core::model('organization_payment_methods')
 ?>
 <table class="form">
 	<? if(lo3::is_admin()){ ?>
-	<?=core_form::header_nv('Service Fee')?>
-	<?=core_form::input_text('Service Fee','service_fee',core_format::price($data['service_fee']))?>
-	<?=core_form::input_select(
-		'Fee Schedule',
-		'sfs_id',
-		$data['sfs_id'],
-		core::model('service_fee_schedules')->collection(),
-		array(
-			'text_column'=>'name',
-			'value_column'=>'sfs_id',
-			'select_style'=>'width:300px;',
-	))?>
-	<?=core_form::input_select(
-		'Pay Fee Via',
-		'opm_id',
-		$data['opm_id'],
-		$payment_methods,
-		array(
-			'text_column'=>'nbr1_last_4',
-			'value_column'=>'opm_id',
-			'select_style'=>'width:300px;',
-			'option_prefix'=>'************',
-	))?>	
-	<?=core_form::value('Last Paid',$last_paid)?>
-	<?=core_form::spacer_nv()?>
-	
-	<?=core_form::header_nv('Operational Fees')?>
-	<?=core_form::input_select(
-		'Payable Organization',
-		'payable_org_id',
-		$data['payable_org_id'],
-		$orgs,
-		array(
-			'text_column'=>'name',
-			'value_column'=>'org_id',
-			'select_style'=>'width:300px;',
-			'info'=>'This is the organization for whom payables are created when orders are placed',
+
+		<?=core_form::header_nv('Service Fee')?>
+		<?=core_form::input_text('Service Fee','service_fee',core_format::price($data['service_fee']))?>
+		<?=core_form::input_select(
+			'Fee Schedule',
+			'sfs_id',
+			$data['sfs_id'],
+			core::model('service_fee_schedules')->collection(),
+			array(
+				'text_column'=>'name',
+				'value_column'=>'sfs_id',
+				'select_style'=>'width:300px;',
 		))?>
-		
-	<tr>
-		<td class="label">Create Payables:</td>
-		<td class="value">
-			<select name="payables_create_on" style="width: 300px;">
-				<option value="buyer_paid"<?=(($data['payables_create_on'] == 'buyer_paid')?' selected="selected"':'')?>>Buyer Pays</option>
-				<option value="delivery"<?=(($data['payables_create_on'] == 'delivery')?' selected="selected"':'')?>>Products Delivered</option>
-				<option value="buyer_paid_and_delivered"<?=(($data['payables_create_on'] == 'buyer_paid_and_delivered')?' selected="selected"':'')?>>Buyer Pays and Products Delivered</option>
-				
-			</select>
-		</td>
-	</tr>
-	<?=core_form::input_text('Order minimum','order_minimum',floatval($data['order_minimum']))?>
+		<?=core_form::input_select(
+			'Pay Fee Via',
+			'opm_id',
+			$data['opm_id'],
+			$payment_methods,
+			array(
+				'text_column'=>'nbr1_last_4',
+				'value_column'=>'opm_id',
+				'select_style'=>'width:300px;',
+				'option_prefix'=>'************',
+		))?>	
+		<?=core_form::value('Last Paid',$last_paid)?>
+		<?=core_form::spacer_nv()?>
 	
-	<?=core_form::input_text('LO Fee %','fee_percen_lo',floatval($data['fee_percen_lo']))?>
-	<?=core_form::input_text('Hub Fee %','fee_percen_hub',floatval($data['fee_percen_hub']))?>
-	<?=core_form::input_text('Paypal Processing Fee %','paypal_processing_fee',floatval($data['paypal_processing_fee']))?>
-	<?=core_form::input_check('Hub Covers Fees','hub_covers_fees',$data['hub_covers_fees'])?>
-	<?=core_form::spacer_nv()?>
-	<?=core_form::header_nv('Allowed Payment Methods',array(
-		'info'=>$core->i18n['note:allowed_payment_methods'],
-		'info_icon'=>'speech',
-		'info_show'=>true
-	))?>
+		<?=core_form::header_nv('Operational Fees')?>
+		<?=core_form::input_select(
+			'Payable Organization',
+			'payable_org_id',
+			$data['payable_org_id'],
+			$orgs,
+			array(
+				'text_column'=>'name',
+				'value_column'=>'org_id',
+				'select_style'=>'width:300px;',
+				'info'=>'This is the organization for whom payables are created when orders are placed',
+			))?>
+
+		<div class="control-group">
+			<label class="control-label">Create Payables</label>
+			<div class="controls">
+				<select name="payables_create_on">
+					<option value="buyer_paid"<?=(($data['payables_create_on'] == 'buyer_paid')?' selected="selected"':'')?>>Buyer Pays</option>
+					<option value="delivery"<?=(($data['payables_create_on'] == 'delivery')?' selected="selected"':'')?>>Products Delivered</option>
+					<option value="buyer_paid_and_delivered"<?=(($data['payables_create_on'] == 'buyer_paid_and_delivered')?' selected="selected"':'')?>>Buyer Pays and Products Delivered</option>
+				</select>
+			</div>
+		</div>
+
+		<?=core_form::input_text('Order minimum','order_minimum',floatval($data['order_minimum']))?>
 	
-	<?=core_form::input_check('Allow CC via Paypal','payment_allow_paypal',$data['payment_allow_paypal'],array(
-		'onclick'=>'market.allowPaymentChanged(\'paypal\');',
-	))?>
-	<?=core_form::input_check('Allow Purchase Orders','payment_allow_purchaseorder',$data['payment_allow_purchaseorder'],array(
-		'onclick'=>'market.allowPaymentChanged(\'purchaseorder\');market.togglePoDue();',
-	))?>
-	<tr id="allow_po_row"<?=(($data['payment_allow_purchaseorder']==0)?' style="display:none;"':'')?>>
-		<td class="label">PO payments due</td>
-		<td class="value"><input type="text" name="po_due_within_days" style="width:40px;" value="<?=intval($data['po_due_within_days'])?>" /> days</td>
-	</tr>
+		<?=core_form::input_text('LO Fee %','fee_percen_lo',floatval($data['fee_percen_lo']))?>
+		<?=core_form::input_text('Hub Fee %','fee_percen_hub',floatval($data['fee_percen_hub']))?>
+		<?=core_form::input_text('Paypal Processing Fee %','paypal_processing_fee',floatval($data['paypal_processing_fee']))?>
+		<?=core_form::input_check('Hub Covers Fees','hub_covers_fees',$data['hub_covers_fees'])?>
+
+		<?=core_form::header_nv('Allowed Payment Methods',array(
+			'info'=>$core->i18n['note:allowed_payment_methods'],
+			'info_icon'=>'speech',
+			'info_show'=>true
+		))?>
+	
+		<?=core_form::input_check('Allow CC via Paypal','payment_allow_paypal',$data['payment_allow_paypal'],array(
+			'onclick'=>'market.allowPaymentChanged(\'paypal\');',
+		))?>
+	
+		<?=core_form::input_check('Allow Purchase Orders','payment_allow_purchaseorder',$data['payment_allow_purchaseorder'],array(
+			'onclick'=>'market.allowPaymentChanged(\'purchaseorder\');market.togglePoDue();',
+		))?>
+	
+		<tr id="allow_po_row"<?=(($data['payment_allow_purchaseorder']==0)?' style="display:none;"':'')?>>
+			<td class="label">PO payments due</td>
+			<td class="value"><input type="text" name="po_due_within_days" style="width:40px;" value="<?=intval($data['po_due_within_days'])?>" /> days</td>
+		</tr>
+	
 	<?}?>
+	
+	<h3>Default Payment Methods</h3>
 	
 	<?=core_form::spacer_nv()?>
 	<?=core_form::header_nv('Default Payment Methods',array(
@@ -102,18 +108,21 @@ $payment_methods = core::model('organization_payment_methods')
 		'info_icon'=>'speech',
 		'info_show'=>true
 	))?>
-	<tr id="div_payment_allow_paypal"<?=(($data['payment_allow_paypal'] == 1)?'':' style="display:none;"')?>>
-		<td class="label">&nbsp;</td>
-		<td class="value"><?=core_ui::checkdiv('payment_default_paypal','CC via Paypal',$data['payment_default_paypal'],'market.defaultPaymentChanged(\'paypal\');')?></td>
-	</tr>
-	<tr id="div_payment_allow_purchaseorder"<?=(($data['payment_allow_purchaseorder'] == 1)?'':' style="display:none;"')?>>
-		<td class="label">&nbsp;</td>
-		<td class="value"><?=core_ui::checkdiv('payment_default_purchaseorder','Purchase Orders',$data['payment_default_purchaseorder'],'market.defaultPaymentChanged(\'purchaseorder\');')?></td>
-	</tr>
+	
+	<h3>Default Payment Methods</h3>
+	<div class="alert"><?= $core->i18n['note:default_payment_methods'] ?></div>
+	
+	<? if($data['payment_allow_paypal'] == 1): ?>
+		<?=core_ui::checkdiv('payment_default_paypal','CC via Paypal',$data['payment_default_paypal'],'market.defaultPaymentChanged(\'paypal\');')?>
+	<? endif; ?>
+
+	<? if($data['payment_allow_purchaseorder'] == 1): ?>
+		<?=core_ui::checkdiv('payment_default_purchaseorder','Purchase Orders',$data['payment_default_purchaseorder'],'market.defaultPaymentChanged(\'purchaseorder\');')?>
+	<? endif; ?>
+
 	<?if(lo3::is_admin()){?>
-	<tr>
-		<td colspan="2"><br/ ><h3>Seller Payments</h3></td>
-	</tr>
+	<h3>Seller Payments</h3>
+	
 	<tr>
 		<td class="label">&nbsp;</td>
 		<td class="value">

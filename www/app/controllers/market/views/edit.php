@@ -145,16 +145,16 @@ if(lo3::is_admin())
 		</div>
 		<? if(lo3::is_admin()){?>
 		<div class="tab-pane tabarea" id="markettabs-a7">
-			<table class="form">
-			<?php foreach($domains as $domain){ ?>
-				<tr>
-					<td class="label">&nbsp;</td>
-					<td class="value">
+
+			<?php foreach($domains as $domain){ ?>				
+				<div class="control-group">
+					<label class="control-label"></label>
+					<div class="controls">
 						<?=core_ui::checkdiv('accept_products_from_'.$domain['domain_id'],'Accept products from '.$domain['name'],$allows[$domain['domain_id']])?>
-					</td>
-				</tr>
+					</div>
+				</div>
 			<?}?>
-			</table>
+
 		</div>
 
 		<div class="tab-pane tabarea" id="markettabs-a8">
@@ -165,14 +165,15 @@ if(lo3::is_admin())
 				<?=core_form::input_check('Sellers cannot modify cross-sells','feature_sellers_cannot_manage_cross_sells',$data,false,$core->i18n['hub:features:sellers_cannot_modify_cross_sells'])?>			
 				<?=core_form::input_check('Sellers can change delivery statuses','feature_sellers_mark_items_delivered',$data,false,$core->i18n['hub:features:feature_sellers_mark_items_delivered'])?>			
 				<?=core_form::input_check('Allow anonymous shopping','feature_allow_anonymous_shopping',$data,false,'Note: checking this feature will also enable organization auto-activation, credit card payments, and disable POs',null,false,"market.toggleAnon();")?>			
-				<tr id="default_homepage_selector"<?=(($data['feature_allow_anonymous_shopping'] != '1')?' style="display: none;"':'')?>>
-					<td class="label">Homepage:</td>
-					<td>
+				
+				<div class="control-group" id="default_homepage_selector"<?=(($data['feature_allow_anonymous_shopping'] != '1')?' style="display: none;"':'')?>>
+					<label class="control-label">Homepage</label>
+					<div class="controls">
 						<select name="default_homepage">
 							<?=core_ui::options(array('Login'=>'Login','Market Info'=>'Market Info','Our Sellers'=>'Our Sellers','Shop'=>'Shop'),$data['default_homepage'])?>
 						</select>
-					</td>	
-				</tr>
+					</div>
+				</div>
 			</fieldset>
 		</div>
 		<?}?>
