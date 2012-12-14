@@ -12,9 +12,9 @@ function domain_checks($data)
 	$data['is_live_printable'] = ($data['is_live'] == 1)?'True':'False';
 	$data['is_closed_printable'] = ($data['is_closed'] == 1)?'True':'False';
 
-	$data['show_on_homepage'] = ($data['show_on_homepage'] == 1)?'<img src="'.image('checkdiv_checked').'" />':'';
-	$data['is_live'] = ($data['is_live'] == 1)?'<img src="'.image('checkdiv_checked').'" />':'';
-	$data['is_closed'] = ($data['is_closed'] == 1)?'<img src="'.image('checkdiv_checked').'" />':'';
+	$data['show_on_homepage'] = ($data['show_on_homepage'] == 1)?'<i class="icon-check icon-large"></i>':'';
+	$data['is_live'] = ($data['is_live'] == 1)?'<i class="icon-check icon-large"></i>':'';
+	$data['is_closed'] = ($data['is_closed'] == 1)?'<i class="icon-check icon-large"></i>':'';
 
 	return $data;
 }

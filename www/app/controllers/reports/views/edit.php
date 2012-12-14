@@ -3,6 +3,7 @@
 # figure out the start/end ranges for the filters
 
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('Create Custom Reports','This page is to create a custom report');
 lo3::require_permission();
 lo3::require_login();
@@ -52,30 +53,29 @@ $start = $end - (30 * 86400);
 
 ?>
 <form name="reportsForm" method="post" action="/reports/update" onsubmit="return core.submit('/reports/update',this);" enctype="multipart/form-data">
-	<div class="tabset" id="reportstabs">
+	<ul class="nav nav-tabs">
 		<?
 		$count = 1;
-		foreach($reports as $label=>$function)
-		{
-			echo('<div class="tabswitch" id="reportstabs-s'.$count.'">'.$label.'</div>');
-			$count++;
-		}
+		foreach($reports as $label=>$function):
 		?>
-	</div>
+			<li <? if ($count == 1): ?>class="active"<? endif; ?>><a href="#reportstabs-a<?= $count ?>" data-toggle="tab"><?= $label ?></a></li>
+		<? $count++; endforeach; ?>
+	</ul>
+	
+	<div class="tab-content">
 	<?
 	$count = 1;
-	foreach($reports as $label=>$function)
-	{
-		echo('<div class="tabarea" id="reportstabs-a'.$count.'">');
+	foreach($reports as $label=>$function): ?>
+		<div class="tab-pane <? if ($count == 1): ?>active<? endif; ?>" id="reportstabs-a<?= $count ?>">
+	<?
 		#core::replace('center');
 		#if($function == 'sales_by_seller')
-			$this->$function($start,$end);
+		$this->$function($start,$end);
 		echo('</div>');
 		$count++;
-	}
-	
+	endforeach; ?>
+	</div>
 
-	?>
 </form>
 
 
