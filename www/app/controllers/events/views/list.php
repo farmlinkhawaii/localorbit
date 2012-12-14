@@ -1,5 +1,6 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
+core_ui::fullWidth();
 core::head('User Event Log','User Event Log.');
 lo3::require_permission();
 lo3::require_login();

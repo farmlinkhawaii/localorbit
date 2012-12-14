@@ -3,31 +3,31 @@ class core_controller_sold_items extends core_controller
 {
 	function get_actions_menus($idx)
 	{
-		$html = '
-		<table>
-			<tr>';
+		#$html = '
+		#<table>
+		#	<tr>';
 		
 		
 		if(!lo3::is_customer() || (lo3::is_customer() && $core->config['domain']['feature_sellers_mark_items_delivered'] == 1))
 		{
 			$html .='
-					<td>
-						<select style="width: 190px;" name="actions_'.$idx.'" id="actions_menu_'.$idx.'" onchange="document.getElementById(\'actions_menu_1\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_4\').selectedIndex=this.selectedIndex;">
-							<option value="none">Select Delivery Status</option>
+					<!--<td>-->
+						<select name="actions_'.$idx.'" id="actions_menu_'.$idx.'" onchange="document.getElementById(\'actions_menu_1\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_4\').selectedIndex=this.selectedIndex;">
+							<option value="none">Set Delivery Status</option>
 							<option value="ldstat_id:2">Delivery: Pending</option>
 							<option value="ldstat_id:4">Delivery: Delivered</option>
 							<option value="ldstat_id:3">Delivery: Canceled</option>
 							<option value="ldstat_id:5">Delivery: Partially Delivered</option>
 							<option value="ldstat_id:6">Delivery: Contested</option>
 						</select>
-					</td>
+					<!--</td>-->
 			';
 		}
 		
 		$html .= '
-				<td>
-					<select style="width: 200px;" name="actions_'.($idx+2).'" id="actions_menu_'.($idx+2).'" onchange="document.getElementById(\'actions_menu_3\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_6\').selectedIndex=this.selectedIndex;">
-						<option value="none">Select Buyer Payment Status</option>
+				<!--<td>-->
+					<select name="actions_'.($idx+2).'" id="actions_menu_'.($idx+2).'" onchange="document.getElementById(\'actions_menu_3\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_6\').selectedIndex=this.selectedIndex;">
+						<option value="none">Set Buyer Payment Status</option>
 						<option value="lbps_id:2">Buyer Pmt: Paid</option>
 						<option value="lbps_id:1">Buyer Pmt: Unpaid</option>
 						<option value="lbps_id:3">Buyer Pmt: Invoice Issued</option>
@@ -35,20 +35,20 @@ class core_controller_sold_items extends core_controller
 						<option value="lbps_id:5">Buyer Pmt: Refunded</option>
 						<option value="lbps_id:6">Buyer Pmt: Manual Review</option>
 					</select>
-				</td>
-				<td>
-					<select style="width: 200px;" name="actions_'.($idx+1).'" id="actions_menu_'.($idx+1).'" onchange="document.getElementById(\'actions_menu_2\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_5\').selectedIndex=this.selectedIndex;">
-						<option value="none">Select Seller Payment Status</option>
+				<!--</td>
+				<td>-->
+					<select name="actions_'.($idx+1).'" id="actions_menu_'.($idx+1).'" onchange="document.getElementById(\'actions_menu_2\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_5\').selectedIndex=this.selectedIndex;">
+						<option value="none">Set Seller Payment Status</option>
 						<option value="lsps_id:2">Seller Pmt: Paid</option>
 						<option value="lsps_id:1">Seller Pmt: Unpaid</option>
 						<option value="lsps_id:3">Seller Pmt: Partially Paid</option>
 					</select>
-				</td>
-				<td>
-					<input type="button" class="button_primary" value="apply action" onclick="core.sold_items.applyAction();" />
-				</td>
+				<!--</td>
+				<td>-->
+					<input type="button" class="button_primary btn btn-mini btn-info" value="Apply Action to Checked Items" onclick="core.sold_items.applyAction();" />
+				<!--</td>
 			</tr>
-		</table>
+		</table>-->
 		';
 		return $html;
 	}

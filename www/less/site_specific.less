@@ -141,7 +141,11 @@ a.dt_pager i { font-size: 120%; margin-right: 3px; position: relative; top: 1px;
 	a.dt_pager.next i, { font-size: 90% !important; top: 0; }
 
 select.dt { font-size: 95%; height: auto; position: relative; top: -2px; margin: 0 8px 0 12px; }
-.text-search input { font-size: 90%; }
+
+
+.dt_filter_area { float: left; display: inline; }
+
+.text-search input { font-size:85%; margin-right: 8px; }
 
 .dt_filter_resizer {
 	border: 5px #ccc solid;
@@ -157,8 +161,9 @@ select.dt { font-size: 95%; height: auto; position: relative; top: -2px; margin:
 	
 .dt_filter_resizer select {
 	width: auto; 
+	max-width:200px;
 	height: auto;
-	font-size: 90%;
+	font-size: 85%;
 	margin-right: 10px;
 	position: relative;
 	top: 3px;
@@ -168,9 +173,47 @@ select.dt { font-size: 95%; height: auto; position: relative; top: -2px; margin:
 		margin-right: 10px;
 		}
 		
-		.dt_filter_resizer .date-filter small {
-			margin-top: -8px;
+		.dt_filter_resizer .date-filter input {
+			font-size:85%;
 			}
+		
+		.dt_filter_resizer .date-filter small {
+			position: relative;
+			top: -8px;
+			}
+
+.dt_filter_resizer .filter-title { font-size: 80%; position: relative; top: 4px; margin-right: 3px; }
+
+.checkbox-filter { margin-right: 8px; position: relative; top: 2px; }
+.checkbox-filter .controls { float: left; margin-right: 5px;  }
+.checkbox-filter label { float: right; position: relative; top: 3px; font-size: 90%; }
+
+
+.dt_action_options {
+	margin: 10px 0;
+	border-width: 5px;
+	padding: 5px 10px 3px;
+	}
+	
+	.dt_action_options strong {
+		margin-right: 8px;
+		}
+	
+	.dt_action_options select {
+		width: auto; 
+		max-width:200px;
+		height: auto;
+		font-size: 85%;
+		margin-right: 10px;
+		position: relative;
+		top: 3px;
+		}
+		
+	.dt_action_options .btn {
+		position: relative;
+		top: -2px;
+		text-transform: capitalize;
+		}
 
 
 /* Admin Forms --------------- */

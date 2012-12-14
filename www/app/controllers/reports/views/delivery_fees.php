@@ -182,23 +182,23 @@ $fees->render();
 
 # now we need an html structure to contain the totals
 ?>
-<br />
-<h1>Total Fees</h1>
-<table class="dt">
-	<col width="20%" />
-	<col width="17%" />
-	<col width="26%" />
-	<col width="20%" />
+
+<h2>Total Fees</h2>
+<table class="dt table table-striped">
+	<thead>
 	<tr>
 		<th class="dt">Gross Fees</th>
 		<th class="dt">LO Fees</th>
 		<th class="dt">Payment Processing Fees</th>
 		<th class="dt">Net Fees</th>
 	</tr>
+	</thead>
+	<tbody>
 	<tr class="dt">
 		<td class="dt" id="fees_gross">$0.00</td>
 		<td class="dt" id="fees_lo">$0.00</td>
 		<td class="dt" id="fees_payment">$0.00</td>
 		<td class="dt" id="fees_net">$0.00</td>
 	</tr>
+	<tbody>
 </table>

@@ -35,7 +35,7 @@ class core_datatable
 		$this->max_page = -1;
 		$this->sort_column = -1;
 		$this->sort_direction = 'asc';
-		$this->no_data_message = 'There is no data for this table';
+		$this->no_data_message = '<h3>No Results</h3>This table is empty, either because there is no data, or because the filter you\'ve applied is hiding it.';
 		
 		# load misc settings from core/config
 		$this->size           = $core->config['datatables']['size_default'];
@@ -287,7 +287,7 @@ class core_datatable
 		{	
 			# the table is rendered in this order:
 			$this->render_filter_resizer();
-			
+			$this->render_action_options();
 			
 			$this->render_start();
 			$this->render_no_data();
@@ -437,6 +437,22 @@ class core_datatable
 		echo('</div>');
 	}
 	
+	function render_action_options()
+	{
+		global $core;
+		echo('<div class="dt_action_options alert alert-info"');
+		if(!$this->action_html)
+			echo(' style="display: none;"');
+		echo('>');
+		
+		if($this->action_html != '')
+		{
+			echo('<strong>Actions:</strong> ');
+			echo($this->action_html);
+		}
+		echo('</div>');
+	}
+	
 	function render_filter_expander()
 	{
 		if($this->render_filter_expander)
@@ -461,7 +477,7 @@ class core_datatable
 	{
 		echo('<tr id="dt_'.$this->name.'_nodata"'.(($this->data->__num_rows > 0)?' style="display:none;"':'').'>');
 		echo('<td class="dt dt_nodata" colspan="'.count($this->columns).'">');
-		echo($this->no_data_message);
+		echo('<div class="alert alert-info alert-block span5 offset3" style="margin-top: 20px;">' . $this->no_data_message . '</div>');
 		echo('</td>');
 		echo('</tr>');		
 	}

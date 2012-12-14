@@ -159,10 +159,27 @@ $items->render_page_arrows = false;
 $items->size = (-1);
 
 # add filters
-$items->filter_html .= '</table>';
+#$items->filter_html .= '</table>';
+
+$items->filter_html .= '<div class="clearfix">';
+
+core_format::fix_dates('sold_items__filter__sicreatedat1','sold_items__filter__sicreatedat2');
+$items->add_filter(new core_datatable_filter('sicreatedat1','lo_fulfillment_order.order_date','>','date',core_format::date($start,'db')));
+$items->add_filter(new core_datatable_filter('sicreatedat2','lo_fulfillment_order.order_date','<','date',core_format::date($end,'db')));
+#$items->filter_html .= '<table>';
+$items->filter_html .= core_datatable_filter::make_date('sold_items','sicreatedat1',core_format::date($start,'short'),'Placed on or after ');
+$items->filter_html .= core_datatable_filter::make_date('sold_items','sicreatedat2',core_format::date($end,'short'),'Placed on or before ');
+
+$items->add_filter(new core_datatable_filter('searchables','concat_ws(\' \',seller_name,o1.name,lo_order.lo3_order_nbr,lo_fulfillment_order.lo3_order_nbr,product_name)','~'));
+$items->filter_html .= core_datatable_filter::make_text('sold_items','searchables',$items->filter_states['sold_items__filter__searchables'],'Search');
+
+$items->filter_html .= '</div>';
+
+
+$items->filter_html .= '<div class="clearfix">';
 
 if(isset($core->i18n['title:sold_items_filters1']))
-	$items->filter_html .= '<h2>'.$core->i18n['title:sold_items_filters1'].'</h2>';
+	$items->filter_html .= '<strong class="filter-title pull-left">'.$core->i18n['title:sold_items_filters1'].':</strong> ';
 
 
 # everyone can use the status filter
@@ -180,8 +197,7 @@ $items->filter_html .= core_datatable_filter::make_select(
 	),
 	null,
 	null,
-	'Show All Delivery Statuses',
-	'width: 230px;'
+	'All Delivery Statuses'
 );
 
 
@@ -200,8 +216,7 @@ $items->filter_html .= core_datatable_filter::make_select(
 	),
 	null,
 	null,
-	'Show All Buyer Payment Statuses',
-	'width: 270px;'
+	'All Buyer Payment Statuses'
 );
 
 
@@ -217,12 +232,14 @@ $items->filter_html .= core_datatable_filter::make_select(
 	),
 	null,
 	null,
-	'Show All Seller Payment Statuses',
-	'width: 270px;'
+	'All Seller Payment Statuses'
 );
 
+$items->filter_html .= '</div>';
+$items->filter_html .= '<div class="clearfix">';
+
 if(isset($core->i18n['title:sold_items_filters2']))
-	$items->filter_html .= '<br />&nbsp;<br /><h2>'.$core->i18n['title:sold_items_filters2'].'</h2>';
+	$items->filter_html .= '<strong class="filter-title pull-left">'.$core->i18n['title:sold_items_filters2'].':</strong> ';
 
 # only admins can filter by hub
 if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)
@@ -235,8 +252,7 @@ if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)
 		$hubs,
 		'domain_id',
 		'name',
-		'Show from all hubs',
-		'width: 230px;'
+		'All Markets'
 	);
 }
 
@@ -249,8 +265,7 @@ $items->filter_html .= core_datatable_filter::make_select(
 	new core_collection($buyer_sql),
 	'org_id',
 	'name',
-	'Show from all buyers',
-	'width: 270px;'
+	'All Buyers'
 );
 
 # only MMs and admins get a seller filter
@@ -264,25 +279,12 @@ if(lo3::is_market() || lo3::is_admin())
 		new core_collection($seller_sql),
 		'org_id',
 		'name',
-		'Show from all sellers',
-		'width: 270px;'
+		'All Sellers'
 	);
 }
 
+$items->filter_html .= '</div>';
 
-
-$items->filter_html .= '<table>';
-core_format::fix_dates('sold_items__filter__sicreatedat1','sold_items__filter__sicreatedat2');
-$items->add_filter(new core_datatable_filter('sicreatedat1','lo_fulfillment_order.order_date','>','date',core_format::date($start,'db')));
-$items->add_filter(new core_datatable_filter('sicreatedat2','lo_fulfillment_order.order_date','<','date',core_format::date($end,'db')));
-#$items->filter_html .= '<table>';
-$items->filter_html .= core_datatable_filter::make_date('sold_items','sicreatedat1',core_format::date($start,'short'),'Placed on or after ');
-$items->filter_html .= core_datatable_filter::make_date('sold_items','sicreatedat2',core_format::date($end,'short'),'Placed on or before ');
-
-$items->add_filter(new core_datatable_filter('searchables','concat_ws(\' \',seller_name,o1.name,lo_order.lo3_order_nbr,lo_fulfillment_order.lo3_order_nbr,product_name)','~'));
-$items->filter_html .= core_datatable_filter::make_text('sold_items','searchables',$items->filter_states['sold_items__filter__searchables'],'Search');
-
-$items->filter_html .= '</table>';
 
 
 #relevant buyers by date, item, amount, status
@@ -310,7 +312,7 @@ if (lo3::is_admin() || lo3::is_market()) {
 #	$items->add(new core_datacolumn('o1.name','Buyer',true,'20%',$order_link.'{buyer_name}</a>','{buyer_name}','{buyer_name}'));
 
 # do
-	$items->add(new core_datacolumn('seller_name','Seller',true,'20%','{seller_name}<br><small>{domain_name}</small>'));
+$items->add(new core_datacolumn('seller_name','Seller',true,'20%','{seller_name}<br><small>{domain_name}</small>'));
 $items->add(new core_datacolumn('product_name','Product',true,'25%',$order_link.'{product_name}</a>'));
 $items->add(new core_datacolumn('qty_ordered','Quantity',true,'14%','{qty_ordered}x'));
 $items->add(new core_datacolumn('unit_price','Price',true,'14%','<small>Unit:</small>&nbsp;{unit_price}<br><small>Row&nbsp;Total:</small>&nbsp;{row_total}'));
@@ -328,7 +330,7 @@ $items->columns[9]->autoformat='price';
 #$items->columns[11]->autoformat='price';
 
 $items->sort_direction = 'desc';
-$items->filter_html .= $this->get_actions_menus(1).'<table>';
+$items->action_html .= $this->get_actions_menus(1);
 
 # add a hidden area to put the editor into
 echo('<div id="qtyDeliveredForm" style="display: none;"></div>');
@@ -337,12 +339,9 @@ echo('<div id="statusErrors" style="display: none;"></div>');
 page_header('Sold Items');
 ?>
 <form name="itemForm">
-	<?
-	$items->render();
-
-	?>
+	<? $items->render(); ?>
 	<div class="buttonset">
-	<?=$this->get_actions_menus(4)?>
+	<div class="dt_action_options alert alert-info"><strong>Actions:</strong> <?=$this->get_actions_menus(4)?></div>
 	</div>
 	<? $this->totals_table(); ?>
 </form>

@@ -181,9 +181,9 @@ class core_datatable_filter
 	public static function make_checkbox($tablename,$name,$value,$label)
 	{
 		core::log('filter state for checkbox: '.$value);
-		$out  = $out  = '<tr><td class="label label_dt_filter">'.$pre_label.'</td><td class="value">';
+		$out  = $out  = '<div class="checkbox-filter pull-left">' . $pre_label;
 		$out .= core_ui::checkdiv($tablename.'__filter__'.$name,$label,$value,'core.ui.dataTables[\''.$tablename.'\'].changeFilterState(\''.$name.'\',(($(\'#checkdiv_'.$tablename.'__filter__'.$name.'_value\').val()==1)?1:'.__core_datatable_filter_nullval__.'));');
-		$out .= '</td></tr>';
+		$out .= '</div>';
 		return $out;
 	}
 	

@@ -4,14 +4,9 @@ $suffix1 = (isset($core->view[1]))?($core->view[1]):((lo3::is_market() || lo3::i
 $suffix2 = (isset($core->view[2]))?($core->view[2]):('Fees');
 ?>
 <div<?=((lo3::is_customer())?' style="display: none;"':'')?>>
-<br />
-<h1>Total <?=$suffix1?></h1>
-<table class="dt">
-	<col width="20%" />
-	<col width="17%" />
-	<col width="17%" />
-	<col width="26%" />
-	<col width="20%" />
+<h2>Total <?=$suffix1?></h2>
+<table class="dt table table-striped">
+	<thead>
 	<tr>
 		<th class="dt">Gross <?=$suffix1?></th>
 		<th class="dt">Discounts</th>
@@ -27,6 +22,8 @@ if(lo3::is_market() || lo3::is_seller() || lo3::is_admin())
 	?>
 		<th class="dt">Net <?=$suffix1?></th>
 	</tr>
+	</thead>
+	<tbody>
 	<tr class="dt">
 		<td class="dt" id="<?=$prefix?>gross">$0.00</td>
 		<td class="dt" id="<?=$prefix?>discount">$0.00</td>
@@ -42,5 +39,6 @@ if(lo3::is_market() || lo3::is_seller() || lo3::is_admin())
 	?>
 		<td class="dt" id="<?=$prefix?>net">$0.00</td>
 	</tr>
+	</tbody>
 </table>
 </div>
