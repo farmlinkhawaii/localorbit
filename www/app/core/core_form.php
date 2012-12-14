@@ -108,11 +108,15 @@ class core_form
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		$html = '<tr><td colspan="2"><h'.$options['level'].'>'.$label;
-		$html .= (isset($options['info'])  && $options['info'] != '')?
-			core_form::info($options['info'],$options['info_icon'],$options['info_show']):'';
-	
-		$html .= '</h'.$options['level'].'></td></tr>';
+		$html = '<h'.$options['level'].'>' . $label . '</h'.$options['level'].'>';
+		
+		#$html .= (isset($options['info'])  && $options['info'] != '')?
+		#core_form::info($options['info'],$options['info_icon'],$options['info_show']):'';
+		
+		if (isset($options['info']) && ($options['info'] != '')):
+			$html .= '<div class="alert">' . $options['info'] . '</div>';
+		endif;
+		
 		return $html;
 	}
 	
