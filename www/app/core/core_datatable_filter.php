@@ -99,7 +99,7 @@ class core_datatable_filter
 	public static function make_select($tablename,$name,$value=__core_datatable_filter_nullval__,$collection=array(),$col_opt_val_field='val',$col_opt_text_field='text',$null_val_text=null,$custom_style='',$post_js='',$pre_js='')
 	{
 		#build the select tag
-		$out  = '<select name="'.$tablename.'__filter__'.$name.'"';
+		$out  = '<select name="'.$tablename.'__filter__'.$name.'" class="pull-left"';
 		$out .= ' id="'.$tablename.'__filter__'.$name.'"';
 		if($custom_style != '')
 		{
@@ -152,9 +152,9 @@ class core_datatable_filter
 			$core->data[$tablename.'__filter__'.$name] = core_format::parse_date($value);
 		}
 	
-		$out  = '<tr><td>'.$pre_label.'</td><td class="value">';
+		$out  = '<div class="date-filter pull-left">';
 		$out .= core_ui::date_picker($tablename.'__filter__'.$name,$value,'function(var1,var2){core.ui.dataTable.updateFilter(var1,var2);}').$post_label;
-		$out .= '</td></tr>';
+		$out .= '<br><small>'.$pre_label.'</small></div>';
 		return $out;
 	}
 	
@@ -166,13 +166,14 @@ class core_datatable_filter
 		if($value == __core_datatable_filter_nullval__)
 			$value = '';
 		
-		$out  = $out  = '<tr><td>'.$pre_label.'</td><td class="value">';
+		$out  = $out  = '<div class="text-search pull-left">';
 		$out .= '<input type="text"';
 		$out .= ' name="'.$tablename.'__filter__'.$name.'"';	
 		$out .= ' id="'.$tablename.'__filter__'.$name.'"';	
 		$out .= ' onkeyup="core.ui.dataTables[\''.$tablename.'\'].handleTextFilter(\''.$name.'\',this.value);"';	
+		$out .= ' placeholder="' . $pre_label . '" class="span2"';
 		$out .= ' value="'.$value.'" />'.$post_label;	
-		$out .= '</td></tr>';
+		$out .= '</div>';
 		return $out;
 			
 	}

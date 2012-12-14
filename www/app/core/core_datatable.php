@@ -286,8 +286,10 @@ class core_datatable
 		else
 		{	
 			# the table is rendered in this order:
-			$this->render_start();
 			$this->render_filter_resizer();
+			
+			
+			$this->render_start();
 			$this->render_no_data();
 			$this->render_column_headers();
 			$this->render_data();
@@ -418,7 +420,7 @@ class core_datatable
 	function render_filter_resizer()
 	{
 		global $core;
-		echo('<tr><td class="dt_filter_resizer" colspan="'.count($this->columns).'"');
+		echo('<div class="dt_filter_resizer"');
 		if(!$this->display_filter_resizer)
 			echo(' style="display: none;"');
 		echo('>');
@@ -427,36 +429,12 @@ class core_datatable
 		
 		if($this->filter_html != '')
 		{
+			echo('<h4 class="pull-left">Filter Results:</h4> ');
 			$this->render_filter_expander();
-			echo('<div class="dt_filter_area"><table class="form">'.$this->filter_html.'</table></div>');
+			echo('<div class="dt_filter_area">'.$this->filter_html.'</div>');
 		}
+		echo('</div><div class="clearfix"></div>');
 		echo('</div>');
-		
-		echo('<div class="dt_resizer">');
-			if($this->render_resizer)
-			{
-				echo('<select class="dt" name="dt_'.$this->name.'_resizer" id="dt_'.$this->name.'_resizer"');
-				echo(' onchange="core.ui.dataTables[\''.$this->name.'\'].changeSize(this.options[this.selectedIndex].value);">');
-				for ($i = 0; $i < count($this->size_options); $i++)
-				{
-					echo('<option value="'.$this->size_options[$i].'"');
-					if($this->size == $this->size_options[$i])
-						echo(' selected="selected"');
-					echo('>Show '.$this->size_options[$i].' rows</option>');
-				}
-				
-				if($this->size_allow_all)
-				{
-					echo('<option value="-1"');
-					if($this->size == (-1))
-						echo(' selected="selected"');
-					echo('>Show all rows</option>');
-				}
-				echo('</select>');
-			}
-		echo('</div>');
-		
-		echo('</td></tr>');
 	}
 	
 	function render_filter_expander()
@@ -544,15 +522,15 @@ class core_datatable
 			echo('<div class="dt_exporter">');
 			if($this->render_exporter)
 			{
-				echo('Save as: <a class="dt" onclick="core.ui.dataTables[\''.$this->name.'\'].loadData(\'csv\');">CSV</a> | <a onclick="core.ui.dataTables[\''.$this->name.'\'].loadData(\'pdf\');" class="dt">PDF</a>');
+				echo('<a class="dt" onclick="core.ui.dataTables[\''.$this->name.'\'].loadData(\'csv\');"><i class="icon-table"></i> Export CSV</a> &nbsp; <a onclick="core.ui.dataTables[\''.$this->name.'\'].loadData(\'pdf\');" class="dt"><i class="icon-file"></i> Export PDF</a>');
 			}
 			echo('</div>');
+			
 			echo('<div class="dt_pager">');
 				if($this->render_page_arrows)
 				{
-					echo('<a class="dt_pager" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'first\');">First</a>&nbsp;&nbsp;');
-					echo('<a class="dt_pager" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'previous\');">Previous</a>');
-					echo('&nbsp;&nbsp;');
+					echo('<a class="dt_pager first" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'first\');"><i class="icon-caret-left"></i> First</a>&nbsp;&nbsp;&nbsp;');
+					echo('<a class="dt_pager previous" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'previous\');"><i class="icon-caret-left"></i> Previous</a>');
 				}
 				if($this->render_page_select)
 				{
@@ -569,10 +547,35 @@ class core_datatable
 				if($this->render_page_arrows)
 				{
 					echo('&nbsp;&nbsp;');
-					echo('<a class="dt_pager" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'next\');">Next</a>&nbsp;&nbsp;');
-					echo('<a class="dt_pager" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'last\');">Last</a>&nbsp;&nbsp;');
+					echo('<a class="dt_pager next" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'next\');">Next <i class="icon-caret-right"></i></a>&nbsp;&nbsp;&nbsp;');
+					echo('<a class="dt_pager last" onclick="core.ui.dataTables[\''.$this->name.'\'].changePage(\'last\');">Last <i class="icon-caret-right"></i></a>');
 				}
 			echo('</div>');
+			
+			echo('<div class="dt_resizer">');
+				if($this->render_resizer)
+				{
+					echo('<select class="dt" name="dt_'.$this->name.'_resizer" id="dt_'.$this->name.'_resizer"');
+					echo(' onchange="core.ui.dataTables[\''.$this->name.'\'].changeSize(this.options[this.selectedIndex].value);">');
+					for ($i = 0; $i < count($this->size_options); $i++)
+					{
+						echo('<option value="'.$this->size_options[$i].'"');
+						if($this->size == $this->size_options[$i])
+							echo(' selected="selected"');
+						echo('>Show '.$this->size_options[$i].' rows</option>');
+					}
+				
+					if($this->size_allow_all)
+					{
+						echo('<option value="-1"');
+						if($this->size == (-1))
+							echo(' selected="selected"');
+						echo('>Show all rows</option>');
+					}
+					echo('</select>');
+				}
+			echo('</div>');
+			
 		echo('</td></tr>');
 	}
 	

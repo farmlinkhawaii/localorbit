@@ -115,23 +115,24 @@ $codes->render();
 
 # now we need an html structure to contain the totals
 ?>
-<br />
-<h1>Total Discounts</h1>
-<table class="dt">
-	<col width="20%" />
-	<col width="17%" />
-	<col width="26%" />
-	<col width="20%" />
-	<tr>
-		<th class="dt">Gross Discounts</th>
-		<th class="dt">LO Discounts</th>
-		<th class="dt">Payment Processing Discounts</th>
-		<th class="dt">Net Discounts</th>
-	</tr>
-	<tr class="dt">
-		<td class="dt" id="discount_gross">$0.00</td>
-		<td class="dt" id="discount_lo">$0.00</td>
-		<td class="dt" id="discount_payment">$0.00</td>
-		<td class="dt" id="discount_net">$0.00</td>
-	</tr>
+<hr>
+
+<h2>Total Discounts</h2>
+<table class="table">
+	<thead>
+		<tr>
+			<th class="dt">Gross Discounts</th>
+			<th class="dt">LO Discounts</th>
+			<th class="dt">Payment Processing Discounts</th>
+			<th class="dt">Net Discounts</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="dt">
+			<td class="dt" id="discount_gross">$0.00</td>
+			<td class="dt" id="discount_lo">$0.00</td>
+			<td class="dt" id="discount_payment">$0.00</td>
+			<td class="dt" id="discount_net">$0.00</td>
+		</tr>
+	</tbody>
 </table>
