@@ -266,7 +266,7 @@ EOT;
 			$value = '';
 
 		core::js('$(\'#'.$field_name_id.'\').datePicker('.$onchange_js.');');
-		return '<input type="text" format="'.$core->config['formats']['dates']['jsshort'].'" class="datepicker" name="'.$field_name_id.'" id="'.$field_name_id.'" value="'.$value.'" />';
+		return '<input type="text" format="'.$core->config['formats']['dates']['jsshort'].'" class="datepicker input-small" name="'.$field_name_id.'" id="'.$field_name_id.'" value="'.$value.'" />';
 	}
 
 
