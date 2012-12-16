@@ -42,15 +42,13 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
 	<base href="<?=$prtcl?><?=$_SERVER['SERVER_NAME']?><?=str_replace('index.php','',$_SERVER['SCRIPT_NAME'])?>" />
 
-	<!--
-	<link rel="stylesheet" type="text/css" href="css/reset.css" />
-	-->
-	<link rel="stylesheet" type="text/css" href="css/loader.php?time=<?php echo time();?>" />
-	<link rel="stylesheet" type="text/css" href="homepage/includes/popup.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
+	<link rel="stylesheet" type="text/css" href="css/loader.php?time=<?php echo time();?>" media="all" /> <? # Loads forms.css, datatable.css, popups.css, rte.css ?>
 
-	<link rel="stylesheet" type="text/css" href="css/less.php" />
-	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700|Open+Sans+Condensed:300,300italic,700"/>
-	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
+	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style2" title="styles2" media="all" />
+	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style3" title="styles3" media="all" />
+	
 	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
 
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/console.min.js"></script>-->
@@ -64,6 +62,9 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<script language="Javascript" type="text/javascript" src="js/jquery.rte.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/lo3.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/slides.jquery.js"></script>
+	
+	<script language="Javascript" type="text/javascript" src="js/stylesheetToggle.js"></script>
+	
 	<script type="text/javascript" src="js/jquery.autocomplete.pack.js"></script>
 	<script type="text/javascript" src="js/jquery.select-autocomplete.js"></script>
 	<!--<script language="Javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>-->

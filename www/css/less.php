@@ -1,8 +1,4 @@
 <?
-$files = array(
-  'fonts','tags','structure','nav','forms','catalog','headings','datatable','popups','rte','misc','slideshow','public',
-);
-
 function is_color ($value) {
   return preg_match('/^\s*#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\s*$/', $value);
 }
@@ -60,5 +56,10 @@ $less->setVariables(array_map('format_value', $options));//array('p1c' => '#333'
 $less->setImportDir($path . '/../less');
 
 header("Content-type: text/css; charset: UTF-8");
-echo $less->compileFile($path . '/../less/bootstrap.less');
+
+if ($_GET['which']):
+	echo $less->compileFile($path . '/../less/bootstrap-tmp_' . $_GET['which'] . '.less');
+else:
+	echo $less->compileFile($path . '/../less/bootstrap.less');
+endif;
 ?>
