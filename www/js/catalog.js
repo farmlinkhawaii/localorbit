@@ -33,6 +33,7 @@ core.catalog.hideSpecial=function(){
 
 core.catalog.setFilter=function(type,id,parentId,updateListing){
 	var newfilter; 
+	core.catalog.hideSpecial();
 	if(arguments.length <4)
 		updateListing=true;
 	switch(type){
