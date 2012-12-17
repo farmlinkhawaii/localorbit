@@ -188,11 +188,18 @@ function page_header($title,$extrafunction='',$function_text='',$link_style='lin
 	{
 		if($link_style == 'link')
 		{
-			$out .= '<a class="form_add_button btn btn-link cancel_link" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
+			$out .= '<a class="btn btn-link cancel_link" href="'.$extrafunction.'" onclick="core.go(this.href);">';
+
+			if ($icon != '')
+			{
+				$out .= '<i class="' . $icon . '" /> ';
+			}
+			
+			$out .= $function_text . '</a>';
 		}
 		else
 		{
-			$out .= '<a class="btn btn-primary pull-right" onclick="core.go(\''.$extrafunction.'\');">';
+			$out .= '<a class="btn btn-primary pull-right" href="'.$extrafunction.'" onclick="core.go(this.href);">';
 			
 			if ($icon != '')
 			{
