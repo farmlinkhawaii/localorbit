@@ -154,15 +154,14 @@ class core_ui
 		return $html;
 	}*/
 
-	public static function radiodiv($name,$text,$checked=false,$radiogroup='',$allow_radio_unselect=false,$onclick='')
+	public static function radiodiv($value,$text,$checked=false,$radiogroup='',$allow_radio_unselect=false,$onclick='')
 	{
 		$unselectable_value = ($allow_radio_unselect)?1:0;
 		$checked_attr =($checked)?' checked="checked"':'';
 		$value = ($checked)?1:0;
 		$html = '';
 		$html .= '<label class="radio">';
-			$html .= '<input type="hidden" name="radiodiv_'.$name.'_value" value="'.$value.'" id="radiodiv_'.$name.'_value" />';
-			$html .= '<input type="radio" name="radiodiv_'.$name.'_radio" id="radiodiv_'.$name.'_radio" onclick="'.$onclick.'"'.$checked.' />';
+			$html .= '<input type="radio" name="radiodiv_'.$radiogroup.'_radio" value="'.$value.'" id="radiodiv_'.$name.'_radio" onclick="'.$onclick.'"'.$checked.' />';
 			$html .= $text;
 		$html .= '</label>';
 		return $html;
