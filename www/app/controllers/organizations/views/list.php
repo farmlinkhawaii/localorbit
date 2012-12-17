@@ -90,9 +90,9 @@ $orgs->add(new core_datacolumn('orgtype_id','Role',true,'10%','{role}','{role}',
 
 if(lo3::is_admin() || lo3::is_market()) {
 	$orgs->add(new core_datacolumn('name',' ',false,'46%','
-		<a class="btn btn-small" href="javascript:core.doRequest(\'/organizations/{activate_action}\',{\'org_id\':{org_id}});">{activate_action}&nbsp;&raquo;</a>
-		<a class="btn btn-small btn-info" href="javascript:core.doRequest(\'/organizations/{enable_action}\',{\'org_id\':{org_id}});" class="text-warning">{enable_action}&nbsp;&raquo;</a>
-		<a class="btn btn-small btn-danger" href="#!organizations-list" class="text-error" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>
+		<a class="btn btn-small" href="javascript:core.doRequest(\'/organizations/{activate_action}\',{\'org_id\':{org_id}});"><i class="icon-off" /> {activate_action}</a>
+		<a class="btn btn-small btn-info" href="javascript:core.doRequest(\'/organizations/{enable_action}\',{\'org_id\':{org_id}});" class="text-warning"><i class="icon-eye-close" /> {enable_action}</a>
+		<a class="btn btn-small btn-danger" href="#!organizations-list" class="text-error" onclick="org.deleteOrg({org_id},\'{name}\',this);"><i class="icon-ban-circle" /> Delete</a>
 	',' ',' '));
 } else {
 	$orgs->add(new core_datacolumn('','&nbsp;',false,'12%','<a href="#!organizations-list" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>',' ',' '));
