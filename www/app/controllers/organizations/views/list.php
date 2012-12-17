@@ -83,13 +83,17 @@ $orgs->add_filter(new core_datatable_filter('allow_sell','organizations.allow_se
 echo(core_datatable_filter::make_checkbox('organizations','allow_sell',($orgs->filter_states['organizations__filter__allow_sell'] == 1),'Only show sellers'));
 
 # add the columns
-$orgs->add(new core_datacolumn('name','Name',true,'40%','<a href="#!organizations-edit--org_id-{org_id}">{name}</a>','{name}','{name}'));
-$orgs->add(new core_datacolumn('domains.name','Domain',true,'25%','{domain_name}','{domain_name}','{domain_name}'));
+$orgs->add(new core_datacolumn('name','Name',true,'22%','<a href="#!organizations-edit--org_id-{org_id}">{name}</a>','{name}','{name}'));
+$orgs->add(new core_datacolumn('domains.name','Domain',true,'22%','{domain_name}','{domain_name}','{domain_name}'));
 $orgs->add(new core_datacolumn('creation_date','Registered On',true,'15%','{creation_date}','{creation_date}','{creation_date}'));
 $orgs->add(new core_datacolumn('orgtype_id','Role',true,'10%','{role}','{role}','{role}'));
 
 if(lo3::is_admin() || lo3::is_market()) {
-	$orgs->add(new core_datacolumn('name',' ',false,'10%','<a href="javascript:core.doRequest(\'/organizations/{activate_action}\',{\'org_id\':{org_id}});">{activate_action}&nbsp;&raquo;</a><br /><a href="javascript:core.doRequest(\'/organizations/{enable_action}\',{\'org_id\':{org_id}});" class="text-warning">{enable_action}&nbsp;&raquo;</a><br><a href="#!organizations-list" class="text-error" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>',' ',' '));
+	$orgs->add(new core_datacolumn('name',' ',false,'46%','
+		<a class="btn btn-small" href="javascript:core.doRequest(\'/organizations/{activate_action}\',{\'org_id\':{org_id}});">{activate_action}&nbsp;&raquo;</a>
+		<a class="btn btn-small btn-info" href="javascript:core.doRequest(\'/organizations/{enable_action}\',{\'org_id\':{org_id}});" class="text-warning">{enable_action}&nbsp;&raquo;</a>
+		<a class="btn btn-small btn-danger" href="#!organizations-list" class="text-error" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>
+	',' ',' '));
 } else {
 	$orgs->add(new core_datacolumn('','&nbsp;',false,'12%','<a href="#!organizations-list" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>',' ',' '));
 }

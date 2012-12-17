@@ -24,6 +24,12 @@ p.note {
 
 hr.tight { margin-top: 5px; margin-bottom: 5px; }
 
+.btn { text-transform: capitalize;}
+
+form.form-horizontal .alert h3 { background: none; }
+
+.cancel_link { line-height: 45px; vertical-align: bottom;}
+
 /* Structure --------------- */
 
 
@@ -244,15 +250,37 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 	.form-horizontal .control-label {
 		/* original: width: 140px; */
 		width: 30%;
+		position: relative;
 		}
+		
+		.form-horizontal .control-label .helpslug {
+			position: absolute;
+			right: -1.2em;
+			}
+	
+.helpslug { font-size: 130%; color: @mastercolor; .opacity(50) }
+	.helpslug:hover { .opacity(100) }
 
 	.form-horizontal .controls {
 		/* original: margin-left: 160px; */
-		margin-left: 33%;
+		margin-left: 35%;
 		}
 
 
+.popover { font-size: 12px; line-height: 15px; }
+	.popover-title { 
+		font-family: @baseFontFamily; 
+		text-transform: capitalize; 
+		font-weight: bold; 
+		font-size: 13px;
+		}
+
+
+
 /* Catalog Page */
+
+#weekly_special {
+}
 
 .product-row {
 	border-bottom: 1px #efefef solid;
@@ -281,11 +309,13 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 	height: 2em;
 	margin-left: 10px;
 	.opacity(50);
+	position: relative;
 	}
 
 	.prodTotal_text i {
 		line-height: 2em;
-		margin-top: 0.25em;
+		position: absolute;
+		right: -8px;
 		}
 
 .priceList {
@@ -390,17 +420,29 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 @media (max-width: 767px) {
 
 	body { background-image: none; background: #fff;}
-
+	
 	#logocontainer {
 		max-width: 400px;
 		margin: 0 auto;
+		text-align: center;
 		}
 		
 		#header img {
 			max-height: 180px !important;
 			height: 180px;
-		}
+			}
+	
+	#navrow { text-align: center; }
 
+	.product-image { float: left; max-width: 60px; }
+	.product-info { float: left; }
+	.product-quantity { max-width: 60px; float: left;}
+
+	.prodTotal_text i {
+		line-height: 2em;
+		position: relative;
+		right: 0;
+		}
 
 	#footer {
 		margin-left: -20px;
@@ -409,4 +451,13 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 		padding-right: 20px;
 		}
 
+}
+
+/* Phone */
+
+@media (max-width:480px) {
+	
+	.form-horizontal .control-label .helpslug {
+		right: 0;
+		}
 }

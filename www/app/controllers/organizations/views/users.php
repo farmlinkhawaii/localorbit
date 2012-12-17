@@ -33,22 +33,24 @@
 	$col->filter('is_deleted','=',0);	
 	$users = new core_datatable('org_users','organizations/users?org_id='.$core->data['org_id'],$col);
 	#$users->add_filter(new core_datatable_filter('org_id'));
-	$users->add(new core_datacolumn('first_name','Name',true,'30%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b>'));
-	$users->add(new core_datacolumn('email','E-mail',true,'40%','<a href="mailTo:{email}">{email}</a>'));
-	$users->add(new core_datacolumn('created_at','Registered On',true,'17%','<a href="#!users-edit--entity_id-{entity_id}">{created_at}</a>'));
+	$users->add(new core_datacolumn('first_name','Name',true,'25%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b>'));
+	$users->add(new core_datacolumn('email','E-mail',true,'25%','<a href="mailTo:{email}">{email}</a>'));
+	$users->add(new core_datacolumn('created_at','Registered On',true,'25%','{created_at}'));
 	
 	# They are an admin or a MM in their home hub so let them login as users
 	$actions = '';
 	if(lo3::is_market() ||  lo3::is_admin())
 	{
-		$actions = '<a href="#!auth-loginas--entity_id-{entity_id}">Login &raquo;</a><br /><a href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a><br />';
+		$actions = '
+			<a class="btn btn-info btn-small" href="#!auth-loginas--entity_id-{entity_id}">Login &raquo;</a> 
+			<a class="btn btn-warning btn-small" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a> ';
 	}
 	else
 	{
-		$actions = '<a href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a><br />';
+		$actions = '<a class="btn btn-warning btn-small" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'org_users\'});">{enable_action} &raquo;</a> ';
 	}
-	$actions .= '<a href="#!organizations-edit--org_id-{org_id}" onclick="org.deleteUser({entity_id},this,'.$core->session['user_id'].');">Delete&nbsp;&raquo;</a>';
-	$users->add(new core_datacolumn('entity_id','&nbsp;',false,'13%',$actions,' ',' '));
+	$actions .= '<a class="btn btn-danger btn-small" href="#!organizations-edit--org_id-{org_id}" onclick="org.deleteUser({entity_id},this,'.$core->session['user_id'].');">Delete&nbsp;&raquo;</a>';
+	$users->add(new core_datacolumn('entity_id','&nbsp;',false,'25%',$actions,' ',' '));
 
 	$users->columns[2]->autoformat='date-short';
 	$users->display_filter_resizer = false;
@@ -58,7 +60,7 @@
 	?>
 	<br />
 	<input type="text" name="invite_email" placeholder="Email for Invitation" value="" />
-	<input type="button" class="btn" value="Invite New User" onclick="org.inviteUser(<?=$data['domain_id']?>);" />
+	<a class="btn btn-primary btn-small" type="button" onclick="org.inviteUser(<?=$data['domain_id']?>);">Invite New User</a>
 	<?if($core->config['stage'] != 'production'){?>
-	<input type="button" class="btn" value="Testing/qa only" onclick="document.organizationsForm.invite_email.value='localorbit.testing+'+(new String((Math.floor(Math.random() * 1000))))+'@gmail.com';org.inviteUser(<?=$data['domain_id']?>);" />
+	<a class="btn btn-small" onclick="document.organizationsForm.invite_email.value='localorbit.testing+'+(new String((Math.floor(Math.random() * 1000))))+'@gmail.com';org.inviteUser(<?=$data['domain_id']?>);">Testing/qa only</a>
 	<?}?>

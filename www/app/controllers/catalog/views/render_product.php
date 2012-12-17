@@ -33,47 +33,52 @@ foreach($dd_ids as $dd_id)
 $rendered_prices = 0;
 ?>
 <div class="row">
+
 	<div id="product_<?=$prod['prod_id']?>" class="product-row">
-		<div class="span1">
+
+		<div class="span1 product-image">
 			<? if(intval($prod['pimg_id']) > 0){?>
 			<img class="img-polaroid catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
 			<?}else{?>
 			<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
 			<?}?>
 		</div>
-		<div class="span4">
+
+		<div class="span4 product-info">
 			<p><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
 			<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small></p>
 			<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>
 		</div>
+
 		<ol class="span2 priceList">
-			<?for ($i=0; $i < count($pricing); $i++){?>
+			<? for ($i=0; $i < count($pricing); $i++) { ?>
 				<li>
 
 					<?if($pricing[$i]['org_id'] != 0){ ?>
 						<div class="error">Your price:
 					<?}?>
 
-					<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
-					min <?=floatval($pricing[$i]['min_qty'])?>
-					<?}?>
+					<?=$pricing[$i]['price']?><small><? if($prod['single_unit'] != '') { ?>/<?=$prod['single_unit']?><? } ?><? if($pricing[$i]['min_qty'] >1){ ?>, min <?=floatval($pricing[$i]['min_qty'])?><?}?></small>
 
 					<?if($pricing[$i]['org_id'] != 0){ ?>
 						</div>
 					<?}?>
 
-					</td>
 				</li>
-				<?$rendered_prices++; }?>
+				<?$rendered_prices++;
+			} ?>
 		</ol>
-		<div class="span2">
-			<input class="prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
 
-			<div class="prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text">
-				<i class="icon-remove-sign"/><span class="value"><?=$total?></span> 
-			</div>
+		<div class="span1 product-quantity">
+			<input class="span1 prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
 		</div>
+		
+		<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text">
+			<span class="value"><?=$total?></span> <i class="remove icon-remove-sign"/>
+		</div>
+		
 		<div class="clearfix"></div>
+
 		<div id="moreInfo<?=$prod['prod_id']?>" class="collapse">
 			<div class="clearfix" style="padding-top: 15px;"></div>
 			<div class="span5">
@@ -93,7 +98,9 @@ $rendered_prices = 0;
 				</p>
 			</div>
 		</div> <!-- /#moreInfo-->
+		
 	</div> <!-- /.product-row-->
+	
 </div> <!-- /.row-->
 
 <? /*

@@ -114,15 +114,20 @@ class core_ui
 
 
 	/* Standard HTML checkbox */
-	public static function checkdiv($name,$text,$checked=false,$onclick='',$clickable=true,$label="")
+	public static function checkdiv($name, $text, $checked = false, $onclick = '', $clickable = true, $label='', $popover='')
 	{
 		$html = '<div class="control-group">';
-		$html .= '	<label class="control-label">' . $text . '</label>';
-		$html .= '	<div class="controls">';
-		$html .= '		<input type="checkbox" id="checkdiv_'.$name.'_value" name="'.$name.'" checked="'.(($checked)?1:0).'" />';
-		if ($label):
-		 	$html .= '<small class="help-inline">' . $label . '</small>';
+		$html .= '	<label class="control-label">' . $text;
+		
+		if ($popover != ''):
+			$html .= '<i class="helpslug icon-question-sign" rel="popover" 
+					data-title="' . $text . '" 
+					data-content="' . $popover . '" />';
 		endif;
+		
+		$html .= '</label>';
+		$html .= '	<div class="controls">';
+		$html .= '		<input type="checkbox" id="checkdiv_'.$name.'_value" name="'.$name.'" checked="'.(($checked)?1:0).'"> <span class="help-inline">' . $label . '</span>';
 		$html .= '	</div>';
 		$html .= '</div>';
 

@@ -36,8 +36,8 @@ $addr_model->get_table('organizations',$col,'organizations/addresses?org_id='.$c
 
 ?>
 <div id="addAddressButton">
-	<input type="button" class="btn" value="Add New Address" onclick="core.address.editAddress('organizations',0);" />
-	<input type="button" class="btn pull-right" value="Remove Checked" onclick="core.address.removeCheckedAddresses(this.form);" />
+	<a class="btn btn-primary btn-small pull-right" onclick="core.address.editAddress('organizations',0);"><i class="icon-plus" /> New Address</a>
+	<a class="btn btn-danger btn-small" onclick="core.address.removeCheckedAddresses(this.form);"><i class="icon-trash" /> Remove Checked</a>
 </div>
 
 <fieldset id="editAddress" style="display: none;">
@@ -102,8 +102,8 @@ $addr_model->get_table('organizations',$col,'organizations/addresses?org_id='.$c
 		</div>
 	</div>
 
+	<div id="bad_address" class="alert alert-block info_area info_area_speech" style="display: none;">We cannot locate your address. The address must be valid before you may save it.</div>
 
-	<div id="bad_address" class="alert alert-block info_area info_area_speech">We cannot locate your address. The address must be valid before you may save it.</div>
 	<input type="hidden" name="latitude" id="latitude" value="" />
 	<input type="hidden" name="longitude" id="longitude" value="" />
 	<input type="hidden" name="address_id" value="" />

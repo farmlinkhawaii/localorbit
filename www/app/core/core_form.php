@@ -83,7 +83,7 @@ class core_form
 	{
 		$out = '<div class="form_header clearfix">';
 		if($extrafunction!=''):
-			$out .= '<a class="pull-right btn btn-primary" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
+			$out .= '<a class="pull-right btn btn-small" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
 		endif;
 		$out .= '<h2>'.$title.'</h2>';
 		$out .= '</div><div class="clearfix"></div>';

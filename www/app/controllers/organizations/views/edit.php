@@ -88,7 +88,7 @@ if($is_mm && lo3::is_admin())
 }
 
 # print out the form
-page_header('Editing '.$data['name'],'#!organizations-list','cancel');
+page_header('Editing Organization: '.$data['name'],'#!organizations-list','Cancel');
 
 if($data['is_deleted'] == 1)
 {
