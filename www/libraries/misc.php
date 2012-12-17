@@ -179,13 +179,21 @@ function address($formname='',$data=array(),$prefix='')
 	return $out;
 }
 
-function page_header($title,$extrafunction='',$function_text='',$icon='')
+function page_header($title,$extrafunction='',$function_text='',$link_style='link')
 {
 	$out = '<div class="form_header clearfix">';
 	$out .= '<h2 class="pull-left">'.$title.'</h2>';
+	
 	if($extrafunction!='')
 	{
-		$out .= '<a class="form_add_button btn btn-link cancel_link" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
+		if($link_style == 'link')
+		{
+			$out .= '<a class="form_add_button btn btn-link cancel_link" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
+		}
+		else
+		{
+			$out .= '<div class="pull-right"><input type="button" class="btn btn-primary"  onclick="core.go(\''.$extrafunction.'\');" value="'.$function_text.'" /></div>';
+		}
 	}
 	$out .= '</div><div class="clearfix"></div>';
 	echo $out;
