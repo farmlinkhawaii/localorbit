@@ -23,7 +23,9 @@ core.catalog.resetFilters=function(){
 	$('.filtercheck').attr('checked','checked');
 	$('.filter_subcat').removeClass('subheader_off');
 	$('.filter').removeClass('active');
+	$('#filter_list').empty();
 	core.catalog.updateListing();
+	$('#weekly_special').slideDown(1000);
 }
 
 core.catalog.hideSpecial=function(){
@@ -33,7 +35,7 @@ core.catalog.hideSpecial=function(){
 
 core.catalog.setFilter=function(type,id,parentId,updateListing){
 	var newfilter; 
-	core.catalog.hideSpecial();
+	$('#weekly_special').slideUp(1000);
 	if(arguments.length <4)
 		updateListing=true;
 	switch(type){
