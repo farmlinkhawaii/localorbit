@@ -84,7 +84,7 @@ $(function() {
 	<h3>Organization Payment Methods</h3>
 
 	<? if($domain['payment_allow_paypal'] == 1 || $data['payment_allow_paypal']): ?>
-		<?= core_ui::checkdiv('payment_allow_paypal','Allow Credit Card',$data['payment_allow_paypal'], null, null, 'Customers will pay up-front using PayPal credit processing.'); ?>
+		<?= core_form::input_check('Allow Credit Card','payment_allow_paypal',$data['payment_allow_paypal'],array('popover'=>'Customers will pay up-front using PayPal credit processing.')); ?>
 	<? endif; ?>
 
 	<? if($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder']): ?>
