@@ -116,15 +116,13 @@ class core_ui
 	/* Standard HTML checkbox */
 	public static function checkdiv($name, $text, $checked = false, $onclick='')
 	{
-		$html = '<label class="checkbox">&nbsp;';
-		$html .='<input type="checkbox" name="'.$name.'"';
+		$html = '<input type="checkbox" id="'.$name.'" name="'.$name.'"';
 		if($checked)
 			$html .= ' checked="checked"';
 		if($onclick !='')
 			$html .= ' onclick="'.$onclick.'"';
 			
-		$html .= ' />'.$text;
-		$html .='</label>';
+		$html .= ' /><span class="help-inline">'.$text . '</span>';
 		return $html;
 		
 		

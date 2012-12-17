@@ -163,7 +163,7 @@ class core_form
 
 		$html = '
 		<div class="control-group">
-			<label class="control-label" for="inputEmail">'.$label;
+			<label class="control-label" for="' . $options['field_name'] . '">'.$label;
 			
 		if(isset($options['popover']) && $options['popover']!='')
 		{
@@ -173,8 +173,6 @@ class core_form
 		$html .='</label>
 		    <div class="controls">
 				'. $value .'
-				
-				
 		    </div>
 		</div>
 		';
@@ -326,6 +324,7 @@ class core_form
 			'info_icon'=>null,
 			'info_show'=>false,
 			'render'=>true,
+			'field_name' => $name
 		));
 		if($options['render'] != true)	return '';
 		return core_form::tr_nv($label,core_ui::checkdiv($name,'',$value,$options['onclick']),$options);
