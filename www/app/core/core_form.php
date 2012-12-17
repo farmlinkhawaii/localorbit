@@ -163,9 +163,18 @@ class core_form
 
 		$html = '
 		<div class="control-group">
-			<label class="control-label" for="inputEmail">'.$label.'</label>
+			<label class="control-label" for="inputEmail">'.$label;
+			
+		if(isset($options['popover']) && $options['popover']!='')
+		{
+			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $text . '" data-content="' . $popover . '" />';
+		}
+		
+		$html .='</label>
 		    <div class="controls">
 				'. $value .'
+				
+				
 		    </div>
 		</div>
 		';
