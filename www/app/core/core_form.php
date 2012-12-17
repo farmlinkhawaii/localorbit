@@ -167,7 +167,7 @@ class core_form
 			
 		if(isset($options['popover']) && $options['popover']!='')
 		{
-			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $text . '" data-content="' . $popover . '" />';
+			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $label . '" data-content="' . $options['popover'] . '" />';
 		}
 		
 		$html .='</label>
