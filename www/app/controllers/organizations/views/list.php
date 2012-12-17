@@ -104,6 +104,6 @@ $orgs->sort_direction = 'desc';
 
 core::replace('datatable_filters');
 $orgs->filter_html .= core::getclear_position('datatable_filters');
-page_header('Organizations','#!organizations-add','Add new organization');
+page_header('Organizations','#!organizations-add','Add new organization','button');
 $orgs->render();
 ?>
