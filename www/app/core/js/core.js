@@ -75,16 +75,16 @@ core.init=function(autoredirect){
 }
 
 core.jqInit=function(){
-	/*
-	$('input.datePicker').datePicker();
-	$('.tTip').tinyTips('light','title');
-	$('.tabs').tabs();
-	$('.button').each(function(){
-		$(this).replaceWith('<span class="button_outer">'+$(this).outerHTML()+'</div>');
+	$(function() {
+		$(".helpslug").each(function() {
+			$(this).popover({
+				placement : "left",
+				trigger : "hover",
+				delay: { show: 250, hide: 100 }
+			});
+		});
 	});
-	//$('.button').each(function(){ alert($(this).html());$(this).replaceWith('<div>'+$(this).html()+'</div>');});
-	$('div.process').process();
-	*/ 
+	
 }
 
 
