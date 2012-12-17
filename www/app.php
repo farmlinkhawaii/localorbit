@@ -151,7 +151,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 
 
-	<div id="dashboardnav" class="container"></div>
+	<div id="dashboardnav"></div>
 
 
 

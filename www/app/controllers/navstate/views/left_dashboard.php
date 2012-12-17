@@ -1,6 +1,6 @@
 <? if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>
 
-<div class="navbar">
+<div class="navbar navbar-static-top">
 	<div class="navbar-inner">
 		
 		<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
@@ -28,6 +28,7 @@
 					<li><a href="#!organizations-list" onclick="core.go(this.href);"><i class="icon-cog"></i> <?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
 					<li><a href="#!events-list" onclick="core.go(this.href);"><i class="icon-tasks"></i> <?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
 					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><i class="icon-font"></i> <?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
+					<li><a href="https://us1.admin.mailchimp.com/campaigns/">Mailchimp Statistics</a></li>
 				</ul>
 			</li>
 		</ul>
