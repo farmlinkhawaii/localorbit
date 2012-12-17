@@ -179,7 +179,7 @@ function address($formname='',$data=array(),$prefix='')
 	return $out;
 }
 
-function page_header($title,$extrafunction='',$function_text='',$link_style='link')
+function page_header($title,$extrafunction='',$function_text='',$link_style='link', $icon = '')
 {
 	$out = '<div class="form_header clearfix">';
 	$out .= '<h2 class="pull-left">'.$title.'</h2>';
@@ -192,7 +192,14 @@ function page_header($title,$extrafunction='',$function_text='',$link_style='lin
 		}
 		else
 		{
-			$out .= '<div class="pull-right"><input type="button" class="btn btn-primary"  onclick="core.go(\''.$extrafunction.'\');" value="'.$function_text.'" /></div>';
+			$out .= '<a class="btn btn-primary pull-right" onclick="core.go(\''.$extrafunction.'\');">';
+			
+			if ($icon != '')
+			{
+				$out .= '<i class="' . $icon . '" /> ';
+			}
+			
+			$out .= $function_text . '</a>';
 		}
 	}
 	$out .= '</div><div class="clearfix"></div>';
