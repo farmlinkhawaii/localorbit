@@ -79,7 +79,7 @@ $(function() {
 
 <? if(lo3::is_admin() || lo3::is_market()): ?>
 		
-	<?= core_ui::checkdiv('allow_sell','Allowed to sell products',$data['allow_sell'],null,null,"True","Make this customer a Seller as well as a Buyer."); ?>
+	<?= core_form::input_check('Allowed to sell products','allow_sell',$data['allow_sell'],array('popover'=>'Make this customer a Seller as well as a Buyer.')); ?>
 	
 	<h3>Organization Payment Methods</h3>
 
@@ -88,7 +88,7 @@ $(function() {
 	<? endif; ?>
 
 	<? if($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder']): ?>
-		<?= core_ui::checkdiv('payment_allow_purchaseorder','Allow Purchase Orders',$data['payment_allow_purchaseorder']); ?>
+		<?= core_form::input_check('Allow Purchase Orders','payment_allow_purchaseorder',$data['payment_allow_purchaseorder'],array('popover'=>'Customers will create purchase orders, which they will then be invoiced for.')); ?>
 	<? endif; ?>
 
 <? endif; ?>

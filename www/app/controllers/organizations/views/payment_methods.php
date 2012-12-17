@@ -28,8 +28,8 @@
 	
 	?>
 	<div id="addPaymentButton">
-		<a class="btn btn-primary btn-small pull-right" onclick="org.editPaymentMethod(0,'','');"><i class="icon-plus" /> New Bank Account</a>
-		<a class="btn btn-danger btn-small" onclick="org.deletePaymentMethods(this.form);"><i class="icon-trash" /> Remove Checked</a>
+		<a class="btn btn-primary btn-small" onclick="org.editPaymentMethod(0,'','');"><i class="icon-plus" /> New Bank Account</a>
+		<a class="btn btn-danger btn-small pull-right" onclick="org.deletePaymentMethods(this.form);"><i class="icon-trash" /> Remove Checked</a>
 	</div>
 
 	<fieldset id="editPaymentMethod" style="display: none;">

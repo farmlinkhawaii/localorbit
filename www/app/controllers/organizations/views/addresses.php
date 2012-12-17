@@ -36,8 +36,8 @@ $addr_model->get_table('organizations',$col,'organizations/addresses?org_id='.$c
 
 ?>
 <div id="addAddressButton">
-	<a class="btn btn-primary btn-small pull-right" onclick="core.address.editAddress('organizations',0);"><i class="icon-plus" /> New Address</a>
-	<a class="btn btn-danger btn-small" onclick="core.address.removeCheckedAddresses(this.form);"><i class="icon-trash" /> Remove Checked</a>
+	<a class="btn btn-danger btn-small pull-right" onclick="core.address.removeCheckedAddresses(this.form);"><i class="icon-trash" /> Remove Checked</a>
+	<a class="btn btn-primary btn-small" onclick="core.address.editAddress('organizations',0);"><i class="icon-plus" /> New Address</a>
 </div>
 
 <fieldset id="editAddress" style="display: none;">

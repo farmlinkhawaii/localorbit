@@ -19,12 +19,12 @@ class core_model_addresses extends core_model_base_addresses
 		#core::log('tring to determine class: '.print_r(get_class_methods(get_class($col->__model)),true));
 		$col->add_formatter('address_formatter');
 		$addresses = new core_datatable('addresses',$url,$col);
-		$addresses->add(new core_datacolumn('address_id',core_ui::check_all('addresses'),false,'4%',core_ui::check_all('addresses','address_id')));
 		$addresses->add(new core_datacolumn('address','Address',true,'','<a href="Javascript:core.address.editAddress(\''.$type.'\',\'{address_id}\');">{label}</a><br>{formatted_address}'));
 		$addresses->add(new core_datacolumn('telephone','Telephone',true,'','<a href="Javascript:core.address.editAddress(\''.$type.'\',\'{address_id}\');">{telephone}</a>'));
 		#$addresses->add(new core_datacolumn('fax','Fax',true,'12%','<a href="Javascript:core.address.editAddress(\''.$type.'\',\'{address_id}\');">{fax}</a>'));
 		$addresses->add(new core_datacolumn('address_id','Default Bill',false,'',core_ui::radiodiv('default_billing_{address_id}','&nbsp;',false,'is_default_billing',false,'core.address.setDefaultBill({address_id},{org_id});')));
 		$addresses->add(new core_datacolumn('address_id','Default Ship',false,'',core_ui::radiodiv('default_shipping_{address_id}','&nbsp;',false,'is_default_shipping',false,'core.address.setDefaultShip({address_id},{org_id});')));
+		$addresses->add(new core_datacolumn('address_id',core_ui::check_all('addresses'),false,'4%',core_ui::check_all('addresses','address_id')));
 
 		$addresses->size = (-1);
 		$addresses->display_filter_resizer = false;
