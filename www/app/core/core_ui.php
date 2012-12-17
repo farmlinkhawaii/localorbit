@@ -114,8 +114,21 @@ class core_ui
 
 
 	/* Standard HTML checkbox */
-	public static function checkdiv($name, $text, $checked = false, $onclick = '', $clickable = true, $label='', $popover='')
+	public static function checkdiv($name, $text, $checked = false, $onclick='')
 	{
+		$html = '<label class="checkbox">&nbsp;';
+		$html .='<input type="checkbox" name="'.$name.'"';
+		if($checked)
+			$html .= ' checked="checked"';
+		if($onclick !='')
+			$html .= ' onclick="'.$onclick.'"';
+			
+		$html .= ' />'.$text;
+		$html .='</label>';
+		return $html;
+		
+		
+		/*
 		$html = '<div class="control-group">';
 		$html .= '	<label class="control-label">' . $text;
 		
@@ -132,6 +145,7 @@ class core_ui
 		$html .= '</div>';
 
 		return $html;
+		*/
 	}
 
 	/* Old Image-Based Method
