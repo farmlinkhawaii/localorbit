@@ -28,18 +28,6 @@ echo(
 
 ?>
 
-<script type="text/javascript" charset="utf-8">
-$(function() {
-	$(".helpslug").each(function() {
-	    $(this).popover({
-			placement : "left",
-			trigger : "hover",
-			delay: { show: 250, hide: 100 }
-	    });
-	});
-});
-</script>
-
 <h3>Organization Info</h3>
 
 <div class="alert note alert-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vulputate feugiat est non posuere. Fusce semper enim eu risus ullamcorper hendrerit. Quisque congue velit id tellus molestie tincidunt. Donec luctus libero sed massa viverra sit amet aliquet orci pretium.</div>
