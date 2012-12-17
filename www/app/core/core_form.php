@@ -328,7 +328,7 @@ class core_form
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		return core_form::tr_nv('&nbsp;',core_ui::checkdiv($name,$label,$value,$options['onclick']),$options);
+		return core_form::tr_nv($label,core_ui::checkdiv($name,'',$value,$options['onclick']),$options);
 	}
 
 	public static function input_password($label,$name,$value='',$options=null)
