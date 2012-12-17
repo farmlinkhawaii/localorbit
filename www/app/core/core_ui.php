@@ -156,19 +156,19 @@ class core_ui
 
 	public static function radiodiv($name,$text,$checked=false,$radiogroup='',$allow_radio_unselect=false,$onclick='')
 	{
-		/*
-		$unselectable_value = $allow_radio_unselect)?1:0;
-		$checked_attr =($checked)?' checked':'';
-		$value =($checked)?1:0;
-		return <<<EOT
-		<label class="radio">
-		  <input type="hidden" name="radiodiv_{$name}_value" value="{$value}" id="radiodiv_{$name}_value" onclick="{$onclick}" >
-		  <input type="radio" name="radiodiv_{$name}_radio" id="radiodiv_{$name}_radio" onclick="{$onclick}"{$checked}>
-		  {$text}
-		</label>
-EOT;
-*/
+		$unselectable_value = ($allow_radio_unselect)?1:0;
+		$checked_attr =($checked)?' checked="checked"':'';
+		$value = ($checked)?1:0;
+		$html = '';
+		$html .= '<label class="radio">';
+			$html .= '<input type="hidden" name="radiodiv_'.$name.'_value" value="'.$value.'" id="radiodiv_'.$name.'_value" />';
+			$html .= '<input type="radio" name="radiodiv_'.$name.'_radio" id="radiodiv_'.$name.'_radio" onclick="'.$onclick.'"'.$checked.' />';
+			$html .= $text;
+		$html .= '</label>';
+		return $html;
 		
+		
+		# old code, pre lo 3.8
 		$html = '<div id="radiodiv_'.$name.'" class="radiodiv';
 		if($radiogroup != '')
 			$html .= ' radiodiv_group_'.$radiogroup;
