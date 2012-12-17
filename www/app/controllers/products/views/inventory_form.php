@@ -26,12 +26,8 @@ if($lots->__num_rows == 1 && $lot['good_from'] == 0 && $lot['expires_on'] == 0 &
 
 ?>
 <div id="inventory_basic">
-	<table class="form">
-		<tr>
-			<td class="label">Quantity</td>
-			<td class="value"><input type="text" name="qty" value="<?=floatval($lot['qty'])?>" /><?=info('You must have at least one in inventory for your product to show up in the store')?></td>
-		</tr>
-	</table>
+	<?=core_form::input_text('Simple Inventory Quantity','qty',floatval($lot['qty']))?>
+
 	<br />
 	<a href="Javascript:product.switchToAdvancedInventory();">&raquo; Switch to advanced inventory mode.</a>
 	<br /><?=$core->i18n['note:inventorymode']?>
@@ -44,20 +40,17 @@ if($lots->__num_rows == 1 && $lot['good_from'] == 0 && $lot['expires_on'] == 0 &
 }
 else
 {
-	echo('<input type="hidden" name="inventory_mode" value="advanced" />');
+	echo(core_form::input_hidden('inventory_mode','advanced'));
 }
 ?>
 <div id="inventory_advanced"<?=$style?>>
-	<?=core_ui::checkdiv('sell_oldest_first','Sell from oldest lot first',true)?>
 	<?
-
-
 	$inv = new core_datatable('inventory','products/inventory_form?prod_id='.$core->data['prod_id'],$lots);
-	$inv->add(new core_datacolumn('lot_id',core_ui::check_all('inventory'),false,'4%',core_ui::check_all('inventory','inv_id')));
 	$inv->add(new core_datacolumn('lot_id','Lot #',true,'11%','<a href="Javascript:product.editLot(\'{inv_id}\',\'{lot_id}\',\'{good_from}\',\'{expires_on}\',\'{qty}\');">{lot_id}</a>'));
 	$inv->add(new core_datacolumn('good_from','Good from',true,'30%','<a href="Javascript:product.editLot(\'{inv_id}\',\'{lot_id}\',\'{good_from}\',\'{expires_on}\',\'{qty}\');">{good_from}</a>'));
 	$inv->add(new core_datacolumn('expires_on','Expires on',true,'30%','<a href="Javascript:product.editLot(\'{inv_id}\',\'{lot_id}\',\'{good_from}\',\'{expires_on}\',\'{qty}\');">{expires_on}</a>'));
 	$inv->add(new core_datacolumn('qty','Qty',true,'25%','<a href="Javascript:product.editLot(\'{inv_id}\',\'{lot_id}\',\'{good_from}\',\'{expires_on}\',\'{qty}\');">{qty}</a>'));
+	$inv->add(new core_datacolumn('lot_id',core_ui::check_all('inventory'),false,'4%',core_ui::check_all('inventory','inv_id')));
 
 	$inv->size = (-1);
 	$inv->display_filter_resizer = false;
@@ -65,11 +58,16 @@ else
 	$inv->render_page_arrows = false;
 	$inv->render();
 	?>
+	<!--
 	<br />
 	<?=$core->i18n['note:inventoryadvanced']?>
+	-->
 	<div class="buttonset" id="addLotButton">
-		<input type="button" class="button_secondary" value="Add New Lot" onclick="product.editLot(0);" />
-		<input type="button" class="button_secondary" value="Remove Checked" onclick="product.removeCheckedLots(this.form);" />
+		<div style="float:left;">
+			<?=core_ui::checkdiv('sell_oldest_first','Sell from oldest lot first',true)?>	
+		</div>
+		<input type="button" class="btn" value="Add New Lot" onclick="product.editLot(0);" />
+		<input type="button" class="btn" value="Remove Checked" onclick="product.removeCheckedLots(this.form);" />
 	</div>
 	<br />
 	<fieldset id="editLot" style="display: none;">

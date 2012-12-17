@@ -81,17 +81,23 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 			<?if(lo3::is_admin() || lo3::is_market()){?>
 				<?=core_form::value('Seller',$data['org_name'])?>
 			<?}?>
-			<?=core_form::input_text('Name','product_name',$data['name'],true)?>
+			<?=core_form::input_text('Title','product_name',$data['name'],true)?>
 			<div class="control-group">
-			    <label class="control-label" for="">Categories:</label>
+			    <label class="control-label" for="">Product Category</label>
 				<div class="controls">
 				<?foreach($data->taxonomy as $category){?>
 					/ <?=$category['cat_name']?>
 				<?}?>	
 				</div>
 			</div>
-
-			<?=core_form::value('Unit<div class="sublabel">Type to search</div>','
+			<?=core_form::input_textarea($core->i18n['products:what:label'],$core->i18n['products:what:description'],$data['description'],array(
+				'required'=>true,
+				'rows'=>5,
+				'cols'=>50,
+				'sublabel'=>'Buyers want to know how you grow or prepare your products. Tell them how you do it!'
+			))?>
+			
+			<?=core_form::value('Unit','
 				<select name="unit_id" id="unit_id">
 					<option value="Select a unit"></option>'.core_ui::options($units,$data['unit_id'],'UNIT_ID','PLURAL').'
 				</select>
@@ -99,10 +105,10 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 				<div style="line-height: 30px;">
 					<a href="#!units-request_new--prod_id-'.$data['prod_id'].'-prod_name-'.urlencode($data['name']).'">Request new unit</a> (if you can\'t find what you need)
 				</div>',
-				true
+				array('sublabel'=>'Type to search')
 			)?>  
 			<? core::js('$("#unit_id").select_autocomplete();$("#unit_id").show();');?>
-			<?=core_form::value('Produced at','<select name="addr_id" style="width:500px;">'.core_ui::options(core::model('addresses')->get_selector($data['org_id']),$data['addr_id'],'address_id','formatted_address').'</select>')?>
+			<?=core_form::value('Production Location',core::model('addresses')->get_radios($data['org_id']),$data['addr_id'],'address_id','formatted_address',array())?>
 			<?
 			if(lo3::is_customer())
 			{
@@ -115,7 +121,6 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 				$how_msg = $core->i18n('products:how:admin',$data['org_id']);
 			}
 			?>		
-			<?=core_form::input_textarea($core->i18n['products:what:label'],$core->i18n['products:what:description'],'description',$data,true,7,53)?>
 			<?=core_form::input_textarea($core->i18n['products:who:label'],$core->i18n['products:who:description'],'who',$data,false,7,53,$who_msg,'edit',true)?>
 			<?=core_form::input_textarea($core->i18n['products:how:label'],$core->i18n['products:how:description'],'how',$data,false,7,53,$how_msg,'edit',true)?>
 
@@ -138,9 +143,9 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 		<?}?>
 		<input type="hidden" name="prod_id" value="<?=$data['prod_id']?>" />
 	</div>
-	<div class="buttonset" id="main_save_buttons">
-		<input type="submit" class="button_primary" name="save" value="save and continue editing" />
-		<input type="button" onclick="product.doSubmit(true)" class="button_primary" value="save and go back" />
+	<div class="form-actions">
+		<input type="submit" class="btn btn-primary" name="save" value="save and continue editing" />
+		<input type="button" onclick="product.doSubmit(true)" class="btn btn-primary" value="save and go back" />
 	</div>
 </form>
 <?

@@ -97,6 +97,7 @@ else
 $style = '';
 
 #print_r($aprices);
+$mode = 'advanced';
 if($mode == 'basic')
 {
 	$style = ' style="display: none;"';
@@ -158,15 +159,17 @@ else
 
 # now, render the advanced pricing form
 ?>
-<div id="pricing_advanced"<?=$style?>>
-
+<div id="pricing_advanced">
+You can set a single universal price, or individual prices for certain Markets 
+(if applicable), certain Buyers, as well as prices for certain quantities.
+<br />&nbsp;<br />
 <?
 	$prc = new core_datatable('pricing','products/pricing_form?prod_id='.$core->data['prod_id'],$prices);
-	$prc->add(new core_datacolumn('price_id',core_ui::check_all('pricing'),false,'4%',core_ui::check_all('pricing','price_id')));
-	$prc->add(new core_datacolumn('domain_id','Hub',true,'26%','<a href="Javascript:product.editPrice(\'{price_id}\',\'{domain_id}\',\'{org_id}\',\'{price}\',\'{min_qty}\',\''.$seller['total_fees'].'\',\''.$seller['feature_sellers_enter_price_without_fees'].'\');">{domain}</a>'));
-	$prc->add(new core_datacolumn('org_id','Customer',true,'30%','<a href="Javascript:product.editPrice(\'{price_id}\',\'{domain_id}\',\'{org_id}\',\'{price}\',\'{min_qty}\',\''.$seller['total_fees'].'\',\''.$seller['feature_sellers_enter_price_without_fees'].'\');">{org_name}</a>'));
+	$prc->add(new core_datacolumn('domain_id','Markets',true,'26%','<a href="Javascript:product.editPrice(\'{price_id}\',\'{domain_id}\',\'{org_id}\',\'{price}\',\'{min_qty}\',\''.$seller['total_fees'].'\',\''.$seller['feature_sellers_enter_price_without_fees'].'\');">{domain}</a>'));
+	$prc->add(new core_datacolumn('org_id','Buyer',true,'30%','<a href="Javascript:product.editPrice(\'{price_id}\',\'{domain_id}\',\'{org_id}\',\'{price}\',\'{min_qty}\',\''.$seller['total_fees'].'\',\''.$seller['feature_sellers_enter_price_without_fees'].'\');">{org_name}</a>'));
 	$prc->add(new core_datacolumn('price','Price',true,'20%','<a href="Javascript:product.editPrice(\'{price_id}\',\'{domain_id}\',\'{org_id}\',\'{price}\',\'{min_qty}\',\''.$seller['total_fees'].'\',\''.$seller['feature_sellers_enter_price_without_fees'].'\');">{display_price}</a>'));
-	$prc->add(new core_datacolumn('min_qty','Min Qty',true,'20%','<a href="Javascript:product.editPrice(\'{price_id}\',\'{domain_id}\',\'{org_id}\',\'{price}\',\'{min_qty}\',\''.$seller['total_fees'].'\',\''.$seller['feature_sellers_enter_price_without_fees'].'\');">{min_qty}</a>'));
+	$prc->add(new core_datacolumn('min_qty','Minimum Qty',true,'20%','<a href="Javascript:product.editPrice(\'{price_id}\',\'{domain_id}\',\'{org_id}\',\'{price}\',\'{min_qty}\',\''.$seller['total_fees'].'\',\''.$seller['feature_sellers_enter_price_without_fees'].'\');">{min_qty}</a>'));
+	$prc->add(new core_datacolumn('price_id',core_ui::check_all('pricing'),false,'4%',core_ui::check_all('pricing','price_id')));
 	
 	$prc->size = (-1);
 	$prc->display_filter_resizer = false;
@@ -174,12 +177,15 @@ else
 	$prc->render_page_arrows = false;
 	$prc->render();
 ?>
+	<!--
 	<br />
 	<?=$core->i18n['note:pricingadvanced']?>
+	-->
 	<div class="buttonset" id="addPriceButton">
-		<input type="button" class="button_secondary" value="Add New Price" onclick="product.editPrice(0);" />
-		<input type="button" class="button_secondary" value="Remove Checked" onclick="product.removeCheckedPrices(this.form);" />
+		<input type="button" class="btn" value="Add New Price" onclick="product.editPrice(0);" />
+		<input type="button" class="btn" value="Remove Checked" onclick="product.removeCheckedPrices(this.form);" />
 	</div>
+	<br />&nbsp;<br />
 	<br />
 	
 <?
@@ -201,53 +207,40 @@ foreach($domains as $domain)
 $orgs    = core::model('organizations')->collection()->filter('is_active',1)->filter('domains.domain_id','in',$domain_ids)->sort('name');
 
 ?>
-	<fieldset id="editPrice" style="display: none;">
-		<legend>Price Info</legend>
-		<table class="form">
-			<tr>
-				<td class="label">Hub</td>
-				<td class="value">
-					<select name="domain_id">
-						<option value="0">Everywhere</option>
-						<?=core_ui::options($domains,null,'domain_id','name')?>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td class="label">Customer</td>
-				<td class="value">
-					<select name="org_id">
-						<option value="0">Everyone</option>
-						<?=core_ui::options($orgs,null,'org_id','name')?>
-					</select>
-				</td>
-			</tr>
-			<?if(!lo3::is_admin() && $data['feature_sellers_enter_price_without_fees'] == 1){?>
-			<tr>
-				<td class="label">Net Price</td>
-				<td class="value"><input type="text" name="seller_net_price" onkeyup="product.syncPrices(this,'price');" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label">Sales Price</td>
-				<td class="value"><input type="text" name="price" onkeyup="product.syncPrices(this,'seller_net_price');" value="" /></td>
-			</tr>
-			<?}else{?>
-			<tr>
-				<td class="label">Price</td>
-				<td class="value"><input type="text" name="price" value="" /></td>
-			</tr>			
-			<?}?>
-			<tr>
-				<td class="label">Minimum Quantity</td>
-				<td class="value"><input type="text" name="min_qty" value="" /></td>
-			</tr>
-		</table>
-		<input type="hidden" name="price_id" value="" />
-		
-		<input type="hidden" name="feature_sellers_enter_price_without_fees" value="" />
-		<div class="buttonset">
-			<input type="button" class="button_secondary" value="save this price" onclick="product.savePrice();" />
-			<input type="button" class="button_secondary" value="cancel" onclick="product.cancelPriceChanges();" />
-		</div>
-	</fieldset>
+	
 </div>
+
+<fieldset id="editPrice" style="display: none;">
+	<legend>Price Info</legend>
+	<?=core_form::input_select(
+		'Market','domain_id',0,$domains,array(
+			'text_column'=>'name',
+			'value_column'=>'domain_id',
+			'default_show'=>true,
+			'default_text'=>'All Markets',
+			'default_value'=>0,
+		)
+	)?>
+	<?=core_form::input_select(
+		'Buyer','org_id',0,$orgs,array(
+			'text_column'=>'name',
+			'value_column'=>'org_id',
+			'default_show'=>true,
+			'default_text'=>'All Buyers',
+			'default_value'=>0,
+		)
+	)?>
+	<?if(!lo3::is_admin() && $data['feature_sellers_enter_price_without_fees'] == 1){?>	
+		<?=core_form::input_text('Net Price','seller_net_price',$data['seller_net_price'],array())?>
+		<?=core_form::input_text('Sales Price','price',$data['price'],array('onkeyup'=>"product.syncPrices(this,'price');"))?>
+	<?}else{?>
+		<?=core_form::input_text('Price','price',$data['price'])?>		
+	<?}?>
+	<?=core_form::input_text('Minimum Quantity','min_qty',$data['min_qty'])?>
+	<?=core_form::input_hidden('price_id',0)?>
+	<?=core_form::input_hidden('feature_sellers_enter_price_without_fees',0)?>
+	<div class="form-actions">
+		<input type="button" class="btn btn-primary" value="save this price" onclick="product.savePrice();" />
+		<input type="button" class="btn btn-primary" value="cancel" onclick="product.cancelPriceChanges();" />
+	</div>
+</fieldset>
