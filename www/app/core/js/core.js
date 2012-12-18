@@ -83,6 +83,11 @@ core.jqInit=function(){
 				delay: { show: 250, hide: 100 }
 			});
 		});
+		$(".tooltipper").each(function() {
+			$(this).tooltip({
+				placement : "left"
+			});
+		});
 	});
 	
 }
