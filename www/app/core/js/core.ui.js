@@ -18,7 +18,7 @@ core.ui.error=function(content){
 	
 	setTimeout(function() {
         errorbox.modal('hide');
-    }, 2000);
+    }, 3000);
 	
 	/*
 	$('#notification_content').html(content);

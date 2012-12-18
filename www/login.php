@@ -143,7 +143,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 				
 				<div id="loginform">
 					<form class="form" name="authform" action="app/auth/process" style="margin-bottom: 0;">
-					<fieldset>
+
 						<h4>Login</h4>
 
 						<label style="display: none;">E-mail Address</label>
@@ -155,11 +155,11 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 						<input type="submit" value="Log In" tabindex="3" class="btn btn-primary button_primary" />
 						<input type="hidden" name="postauth_url" value="" />
 						
-						<ul class="margin: 0;">
-							<li><a href="app.php#!registration-form" tabindex="5" />Request an account</a></li>
+						<ul>
+							<li><a href="app.php#!registration-form" tabindex="5" /><strong>Request an account</strong></a></li>
 							<li><a href="app.php#!auth-forgot_password" tabindex="4" />Having trouble logging in?</a></li>
 						</ul>
-					<fieldset>
+
 					</form>
 				</div>
 				
@@ -197,10 +197,10 @@ core.doRequest('/navstate/left_hub_info','');
 ///-->
 
 <?if($_REQUEST['login_fail'] == 1){?>
-bootbox.alert('Whoops! Your user name and password don\'t match. Please try again.');
+core.ui.error('Whoops! Your user name and password don\'t match. Please try again.');
 <?}?>
 <?if($_REQUEST['account_suspended'] == 1){?>
-bootbox.alert('Your account has been suspended. Please <a href="https://localorbit.zendesk.com/anonymous_requests/new">contact customer support</a>');
+core.ui.error('Your account has been suspended. Please <a href="https://localorbit.zendesk.com/anonymous_requests/new">contact customer support</a>');
 <?}?>
 
 </script>
