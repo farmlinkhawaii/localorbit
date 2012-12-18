@@ -47,7 +47,39 @@ class core_controller_users extends core_controller
 			array('type'=>'min_length','name'=>'password','data1'=>8,'data2'=>'yes','msg'=>$core->i18n['error:customer:password']),
 			array('type'=>'match_confirm_field','name'=>'password','data1'=>'confirm_password','msg'=>$core->i18n['error:customer:password-match']),
 		));
-	}	
+	}
+	
+	function do_change_password()
+	{
+		global $core;
+		core::load_library('crypto');
+		
+		if(is_null($do_notify))	$do_notify=true;
+		$user = core::model('customer_entity')->load($core->session['user_id']);
+		
+		
+		$user['password'] = core_crypto::encode_password($core->data['password']);
+		$user->save();
+		
+		# handle a password update
+		$core->data['password'] = trim($core->data['password']);
+		$core->data['confirm_password'] = trim($core->data['confirm_password']);
+		if(isset($core->data['password']) && $core->data['password'] !='' && $core->data['password'] == $core->data['confirm_password'])
+		{
+			core::load_library('crypto');
+			$user['password'] = core_crypto::encode_password($core->data['password']);
+			if($user['entity_id'] != $core->session['user_id'])
+			{	
+				core::process_command('emails/reset_password',false,
+					$user['email'],
+					$core->data['password'],
+					$org['domain_id']
+				);
+			}
+		}
+		core_ui::notification('password changed');
+		
+	}
 	
 	function delete()
 	{
@@ -115,22 +147,7 @@ class core_controller_users extends core_controller
 		
 		$user->import_fields('entity_id','first_name','last_name','email');
 
-		# handle a password update
-		$core->data['password'] = trim($core->data['password']);
-		$core->data['confirm_password'] = trim($core->data['confirm_password']);
-		if(isset($core->data['password']) && $core->data['password'] !='' && $core->data['password'] == $core->data['confirm_password'])
-		{
-			core::load_library('crypto');
-			$user['password'] = core_crypto::encode_password($core->data['password']);
-			if($user['entity_id'] != $core->session['user_id'])
-			{	
-				core::process_command('emails/reset_password',false,
-					$user['email'],
-					$core->data['password'],
-					$org['domain_id']
-				);
-			}
-		}
+		
 		$user->save();
 		
 		if($user['entity_id'] == $core->session['user_id'])

@@ -208,14 +208,15 @@
 	<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
 	<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
 	<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
-	<?if(lo3::is_customer() && !lo3::is_seller()){?>
-	<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
-	<?}?>
 	<li><a href="#!orders-purchase_history" onclick="core.go(this.href);">Purchase History</a></li>
 		<? if(!lo3::is_seller()){?>
 		<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
 		<?}?>
 	<?}?>
+	<?if(lo3::is_customer() && !lo3::is_seller()){?>
+	<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
+	<?}?>
+	<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>					
 	<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>					
 </ul>
 <? core::replace('left'); ?>
