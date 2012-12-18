@@ -251,7 +251,7 @@ core.validatePopup=function(errorString){
 	$('body').scrollTop(0);
 	$('html').scrollTop(0);
 	//core.ui.popup('','','errors have occurred');
-	core.ui.popup('','','<h2>The following errors have occurred</h2>'+errorString+'<br />Please correct these errors and try again.','close');
+	core.ui.popup('','','<strong>Error: '+errorString+'</strong><br />Please correct these errors and try again.','close');
 }
 
 core.validate.showFails=function(form,fails){

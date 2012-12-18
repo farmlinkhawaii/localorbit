@@ -117,12 +117,13 @@ if(lo3::is_admin())
 					</div>
 				</div>
 			
-				<?=core_ui::checkdiv('do_daylight_savings','Apply Daylight Savings',$data['do_daylight_savings'])?>
-				<?=core_ui::checkdiv('is_live','Is Live',$data['is_live'])?>
-				<?=core_ui::checkdiv('is_closed','Close Store',$data['is_closed'])?>
-				<?=core_ui::checkdiv('show_on_homepage','Show on Registration',$data['show_on_homepage'])?>
+				<?= core_form::input_check('Apply Daylight Savings','do_daylight_savings',$data['do_daylight_savings']); ?>
+				<?= core_form::input_check('Is Live','is_live',$data['is_live']); ?>
+				<?= core_form::input_check('Close Store','is_closed',$data['is_closed']); ?>
+				<?= core_form::input_check('Show on Registration','show_on_homepage',$data['show_on_homepage']); ?>
+
 				<?if(lo3::is_admin()){?>
-					<?=core_ui::checkdiv('autoactivate_organization','Auto-activate Organizations',$data['autoactivate_organization'])?>
+					<?= core_form::input_check('Auto-activate Organizations','autoactivate_organization',$data['autoactivate_organization']); ?>
 				<?}?>
 
 			</fieldset>
@@ -146,14 +147,15 @@ if(lo3::is_admin())
 		<? if(lo3::is_admin()){?>
 		<div class="tab-pane tabarea" id="markettabs-a7">
 
-			<?php foreach($domains as $domain){ ?>				
-				<?=core_ui::checkdiv('accept_products_from_'.$domain['domain_id'],'<small>Accept products from</small><br><strong style="position: relative; top: -3px;">'.$domain['name'].'</strong>',$allows[$domain['domain_id']])?>
+			<?php foreach($domains as $domain){ ?>
+				<?=core_form::input_check('<small>Accept products from</small><br><strong style="position: relative; top: -3px;">'.$domain['name'].'</strong>','accept_products_from_'.$domain['domain_id'],$allows[$domain['domain_id']])?>
 			<?}?>
 
 		</div>
 
 		<div class="tab-pane tabarea" id="markettabs-a8">
 			<fieldset>
+				
 				<?=core_form::input_check('Require sellers to accept all delivery options','feature_require_seller_all_delivery_opts',$data,false,$core->i18n['hub:features:req_selr_all_delv_opts'])?>			
 				<?=core_form::input_check('Force items at checkout to soonest delivery option','feature_force_items_to_soonest_delivery',$data,false,$core->i18n['hub:features:items_to_1st_delv'])?>			
 				<?=core_form::input_check('Sellers enter prices before fees','feature_sellers_enter_price_without_fees',$data,false,$core->i18n['hub:features:sellers_enter_price_without_fees'])?>			

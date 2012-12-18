@@ -71,21 +71,49 @@ core.ui.notificationClose=function(){
 
 core.ui.popup=function(icon,title,content,buttonSet){
 	
-	$('#popup_content').html(content);
+	//$('#popup_content').html(content);
 	switch(buttonSet){
 		case 'cancel':
-			$('#popup_foot').html('<input type="button" class="button_primary" value="Cancel" onclick="core.ui.popupClose();" />');
+		
+			var modalbox = bootbox.dialog(content, [{
+		        "label" : "Cancel",
+		        "icon"  : "icon-remove icon-white"
+		    }], { 'animate' : false });
+	
+			setTimeout(function() {
+		        modalbox.modal('hide');
+		    }, 3000);
+		
+			//$('#popup_foot').html('<input type="button" class="button_primary" value="Cancel" onclick="core.ui.popupClose();" />');
 			break;
 		case 'close':
-			$('#popup_foot').html('<input type="button" class="button_primary" value="Close" onclick="core.ui.popupClose();" />');
+		
+			var modalbox = bootbox.dialog(content, [{
+		        "label" : "Close",
+		        "icon"  : "icon-remove icon-white"
+		    }], { 'animate' : false });
+	
+			setTimeout(function() {
+		        modalbox.modal('hide');
+		    }, 3000);
+		
+			//$('#popup_foot').html('<input type="button" class="button_primary" value="Close" onclick="core.ui.popupClose();" />');
 			break;
 		default:
-			$('#popup_foot').html(buttonSet);
+		
+			var modalbox = bootbox.dialog(content, { 'animate' : false });
+	
+			setTimeout(function() {
+		        modalbox.modal('hide');
+		    }, 3000);
+		
+			//$('#popup_foot').html(buttonSet);
 			break;
 	}
-	core.ui.scrollTop();
-	$('#overlay').fadeIn('fast');
-	$('#popup').fadeIn('fast');
+	
+	//core.ui.scrollTop();
+	//$('#overlay').fadeIn('fast');
+	//$('#popup').fadeIn('fast');
 }
 
 core.ui.popupClose=function(){

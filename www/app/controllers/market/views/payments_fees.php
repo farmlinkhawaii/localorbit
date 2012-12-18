@@ -111,11 +111,11 @@ $payment_methods = core::model('organization_payment_methods')
 	))?>
 	
 	<? if($data['payment_allow_paypal'] == 1): ?>
-		<?=core_ui::checkdiv('payment_default_paypal','CC via Paypal',$data['payment_default_paypal'],'market.defaultPaymentChanged(\'paypal\');')?>
+		<?= core_form::input_check('CC via Paypal','payment_default_paypal', $data['payment_default_paypal'], array('checked' => 'market.defaultPaymentChanged(\'paypal\');')); ?>
 	<? endif; ?>
 
 	<? if($data['payment_allow_purchaseorder'] == 1): ?>
-		<?=core_ui::checkdiv('payment_default_purchaseorder','Purchase Orders',$data['payment_default_purchaseorder'],'market.defaultPaymentChanged(\'purchaseorder\');')?>
+		<?= core_form::input_check('Purchase Orders','payment_default_purchaseorder', $data['payment_default_purchaseorder'], array('checked' => 'market.defaultPaymentChanged(\'purchaseorder\');')); ?>
 	<? endif; ?>
 
 	<?if(lo3::is_admin()){?>
