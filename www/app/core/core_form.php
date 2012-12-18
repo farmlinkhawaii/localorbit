@@ -289,10 +289,29 @@ class core_form
 			'info'=>'',
 			'info_icon'=>null,
 			'info_show'=>false,
+			'size'=>'input-large',
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
+		if ($options['required'] == true): $required = '<i class="icon-asterisk icon-required tooltipper" rel="tooltip" title="Required" /> '; endif;
+		#return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
+		
+		$html = '<div class="control-group">';
+		$html .= '<label class="control-label" for="' . $name . '">' . $required . $label;
+		
+		if ($options['popover']):
+			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $label . '" data-content="' . $options['popover'] . '" />';
+		endif;
+		
+		$html .= '</label>';
+		$html .= '<div class="controls"><input type="text" name="'.$name.'" class="' . $options['size'] . '" value="'.$value.'" />';
+		
+		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
+
+		$html .= '</div>
+		</div>';
+		
+		return $html;
 	}
 
 	public static function input_datepicker($label,$name,$value,$options=null)

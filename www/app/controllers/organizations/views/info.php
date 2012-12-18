@@ -31,14 +31,9 @@ echo(
 <h3>Organization Info</h3>
 
 <div class="alert note alert-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vulputate feugiat est non posuere. Fusce semper enim eu risus ullamcorper hendrerit. Quisque congue velit id tellus molestie tincidunt. Donec luctus libero sed massa viverra sit amet aliquet orci pretium.</div>
-	
-<div class="control-group">
-	<label class="control-label" for="name">Name</label>
-	<div class="controls">
-		<input type="text" name="name" value="<?=$data['name']?>" />
-	</div>
-</div>
-	
+
+<?=core_form::input_text('Title','name',$data['name'],array('required' => true))?>
+
 <div class="control-group">
 	<label class="control-label" for="facebook"><?=$core->i18n['organizations:facebook']?></label>
 	<div class="controls">

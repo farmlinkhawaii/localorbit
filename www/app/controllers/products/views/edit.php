@@ -81,7 +81,8 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 			<?if(lo3::is_admin() || lo3::is_market()){?>
 				<?=core_form::value('Seller',$data['org_name'])?>
 			<?}?>
-			<?=core_form::input_text('Title','product_name',$data['name'],true)?>
+			
+			<?=core_form::input_text('Title','product_name',$data['name'],array('required' => true))?>
 			
 			<div class="control-group">
 			    <label class="control-label" for="">Product Category</label>
