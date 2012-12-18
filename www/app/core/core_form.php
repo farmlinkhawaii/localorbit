@@ -526,8 +526,8 @@ class core_form
 		{
 			$out = '
 				<div class="form-actions unlock_area" id="unlock_area">
-					<input type="password" name="sec_pin" id="sec_pin" class="input-mini" placeholder="4 Digit Pin" value="" />
-					<input type="button" class="btn btn-primary btn-large" value="Unlock to Save" onclick="core.doRequest(\'/auth/unlock_pin\',{\'formname\':this.form.getAttribute(\'name\'),\'sec_pin\':$(\'#sec_pin\').val()});" />
+					<input type="password" name="sec_pin" id="sec_pin" class="input-small" placeholder="4 Digit Pin" value="" />
+					<input type="button" class="btn btn-primary" value="Unlock to Save" onclick="core.doRequest(\'/auth/unlock_pin\',{\'formname\':this.form.getAttribute(\'name\'),\'sec_pin\':$(\'#sec_pin\').val()});" />
 				</div>
 			';
 		}

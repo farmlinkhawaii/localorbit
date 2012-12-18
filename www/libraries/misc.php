@@ -28,10 +28,10 @@ function save_buttons($require_pin = false)
 	if($require_pin)
 	{
 		?>
-	<div class="form-actions buttonset unlock_area" id="unlock_area"<?=((!$require_pin)?' style="display:none;"':'')?>>
-		4 Digit Pin: <input type="password" name="sec_pin" id="sec_pin" value="" />
+	<div class="form-actions unlock_area" id="unlock_area">
+		<input type="password" name="sec_pin" id="sec_pin" class="input-small" placeholder="4 Digit Pin" value="" />
 		<input type="button" class="btn btn-primary" value="Unlock to Save" onclick="core.doRequest('/auth/unlock_pin',{'formname':this.form.getAttribute('name'),'sec_pin':$('#sec_pin').val()});" />
-	</div>
+	</div>	
 	<?}?>
 	<div class="form-actions" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
 		<input type="<?=(($require_pin)?'button':'submit')?>" class="btn btn-primary" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
