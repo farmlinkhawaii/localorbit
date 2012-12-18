@@ -119,7 +119,7 @@ echo(
 	<div class="control-group">
 		<label class="control-label" for="domain_id">Market</label>
 		<div class="controls">
-			<select name="domain_id" class="input-large chzn-select" data-placeholder="Choose a Market">
+			<select name="domain_id" class="chzn-select" style="width: 270px;" data-placeholder="Choose a Market">
 				<?=core_ui::options($all_domains,$data['domain_id'],'domain_id','name')?>
 			</select>
 			<span class="help-inline">Choose the market that this organization should be part of.</span>
