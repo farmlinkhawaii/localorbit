@@ -13,8 +13,8 @@ h1, h2, h3, h4 {
 	cursor: pointer;
 	}
 
-p.note { 
-	font-size: 90%; 
+p.note {
+	font-size: 90%;
 	}
 
 .caps {
@@ -93,11 +93,11 @@ body {
 #header {
 	margin-bottom: 20px;
 	}
-	
+
 	#header h2 {
 		text-transform: capitalize;
 		}
-	
+
 	#header #logo img {
 		max-height: 180px !important;
 		height: 180px;
@@ -134,8 +134,13 @@ body {
 	padding: 9px 0;
 	}
 
+.yourCart {
+	padding: 15px;
+}
 
-
+.yourCart .btn:last-of-type{
+	padding: 5px;
+}
 /* Content Area --------------- */
 
 
@@ -149,7 +154,7 @@ table.table td { vertical-align: middle; font-size: 90%; }
 
 a.dt_pager i { font-size: 120%; margin-right: 3px; position: relative; top: 1px; color: #666; }
 	a.dt_pager:hover i { text-decoration: none; }
-	
+
 	a.dt_pager.previous i,
 	a.dt_pager.next i, { font-size: 90% !important; top: 0; }
 
@@ -165,15 +170,15 @@ select.dt { font-size: 95%; height: auto; position: relative; top: -2px; margin:
 	padding: 5px 10px 3px;
 	background: #efefef;
 	}
-	
+
 	.dt_filter_resizer h4 {
 		position: relative;
 		top: 3px;
 		margin-right: 10px;
 		}
-	
+
 .dt_filter_resizer select {
-	width: auto; 
+	width: auto;
 	max-width:200px;
 	height: auto;
 	font-size: 85%;
@@ -185,11 +190,11 @@ select.dt { font-size: 95%; height: auto; position: relative; top: -2px; margin:
 	.dt_filter_resizer .date-filter {
 		margin-right: 10px;
 		}
-		
+
 		.dt_filter_resizer .date-filter input {
 			font-size:85%;
 			}
-		
+
 		.dt_filter_resizer .date-filter small {
 			position: relative;
 			top: -8px;
@@ -207,13 +212,13 @@ select.dt { font-size: 95%; height: auto; position: relative; top: -2px; margin:
 	border-width: 5px;
 	padding: 5px 10px 3px;
 	}
-	
+
 	.dt_action_options strong {
 		margin-right: 8px;
 		}
-	
+
 	.dt_action_options select {
-		width: auto; 
+		width: auto;
 		max-width:200px;
 		height: auto;
 		font-size: 85%;
@@ -221,7 +226,7 @@ select.dt { font-size: 95%; height: auto; position: relative; top: -2px; margin:
 		position: relative;
 		top: 3px;
 		}
-		
+
 	.dt_action_options .btn {
 		position: relative;
 		top: -2px;
@@ -238,7 +243,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 	text-transform: uppercase;
 	.box-shadow(0px 0px 15px rgba(50, 50, 50, 1));
 	}
-	
+
 	#notification_content { padding-top: 25px;}
 
 .form-horizontal .control-group {
@@ -246,21 +251,21 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 	margin-bottom: 10px;
 	border-bottom: 1px #efefef solid;
 	}
-	
+
 	.form-horizontal .required .control-label { font-weight: bold; }
 	.form-horizontal .icon-required { font-size: 80%; color: #990000; }
-	
+
 	.form-horizontal .control-label {
 		/* original: width: 140px; */
 		width: 30%;
 		position: relative;
 		}
-		
+
 		.form-horizontal .control-label .helpslug {
 			position: absolute;
 			right: -1.2em;
 			}
-	
+
 .helpslug { font-size: 130%; color: @mastercolor; .opacity(50) }
 	.helpslug:hover { .opacity(100) }
 
@@ -271,10 +276,10 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 
 
 .popover { font-size: 12px; line-height: 15px; }
-	.popover-title { 
-		font-family: @baseFontFamily; 
-		text-transform: capitalize; 
-		font-weight: bold; 
+	.popover-title {
+		font-family: @baseFontFamily;
+		text-transform: capitalize;
+		font-weight: bold;
 		font-size: 13px;
 		}
 
@@ -288,7 +293,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 	background: fade(@mastercolor, 20%);
 	padding: 15px;
 	}
-	
+
 	#loginform input { max-width: 80%; }
 	#loginform ul { list-style: none; margin: 8px 0 0 0; padding: 0; font-size: 90%; }
 
@@ -362,7 +367,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 		border: 1px solid #fbeed5;
 		.border-radius(4px);
 		}
-	
+
 		#filter_list ol {
 			}
 
@@ -373,7 +378,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 
 			#filter_list > li:first-child:before:hover {
 					text-decoration: none;
-				
+
 				}
 
 			#filter_list > li {
@@ -382,7 +387,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 				margin-right: 5px;
 				cursor: pointer;
 				}
-			
+
 				#filter_list > li:hover {
 					text-decoration: underline;
 					}
@@ -394,7 +399,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 					margin-left: 6px;
 					.opacity(50);
 					}
-				
+
 					#filter_list > li:hover > i {
 						.opacity(100);
 						}
@@ -418,7 +423,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 		}
 
 }
- 
+
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 1199px) {
 
@@ -437,18 +442,18 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 @media (max-width: 767px) {
 
 	body { background-image: none; background: #fff;}
-	
+
 	#logocontainer {
 		max-width: 400px;
 		margin: 0 auto;
 		text-align: center;
 		}
-		
+
 		#header img {
 			max-height: 180px !important;
 			height: 180px;
 			}
-	
+
 	#navrow { text-align: center; }
 
 	.product-image { float: left; max-width: 60px; }
@@ -473,7 +478,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; }
 /* Phone */
 
 @media (max-width:480px) {
-	
+
 	.form-horizontal .control-label .helpslug {
 		right: 0;
 		}
