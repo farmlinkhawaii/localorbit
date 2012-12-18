@@ -52,7 +52,7 @@ $(function()
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
 		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-shopping-cart icon-white"></i> Your Cart</a>
-		<div class="dropdown-menu span3 yourCart">
+		<div class="dropdown-menu span4 yourCart">
 			<?
 		$cart = core::model('lo_order')->get_cart();
 		$cart->load_items();
@@ -69,8 +69,8 @@ $(function()
 						<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
 						<?}?>
 					</span>
-					<span class="span2">
-						<div><?=$item[0]['product_name']?></div>
+					<span class="span3">
+						<div class="productName"><?=$item[0]['product_name']?></div>
 						<div>Quantity: <?=$item[0]['qty_ordered']?> <?=(($item[0]['qty_ordered']>1)?$item[0]['unit_plural']:$item[0]['unit'])?></div>
 					</span>
 				</div>
@@ -89,11 +89,11 @@ lo_liid] => 6796 [lo_oid] => 3520 [lo_foid] => 0 [seller_mage_customer_id] => [s
 		}
 		?>
 			<div class="row">
-				<span class="span3">
-					<a class="btn btn-block" href="#!catalog-checkout">
-						<span class="pull-left">View Cart</span>
+				<span class="span4">
+					<a class="btn btn-block btn-warning" href="#!catalog-checkout">
+						<span class="viewCart pull-left">View Cart</span>
 						&nbsp;
-						<span class="pull-right">Subtotal</span>
+						<span class="pull-right">Subtotal: <?=core_format::price($cart['grand_total'])?></span>
 					</a>
 				</span>
 			</a>
