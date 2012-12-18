@@ -70,50 +70,52 @@ else
 
 <div class="row">
 	<div class="span5">
-		<img src="<?= image('profile') ?>?_time_=<?=$core->config['time']?>" style="max-height: 325px;" />
-	</div>
-	
-	<div class="span4">
-		<? if($has_address):
-			echo(core_ui::map('hubmap','100%','325px',8));
-			core_ui::map_center('hubmap',$lat,$long);
-			core_ui::map_add_point('hubmap',$lat,$long,'<h1>'.$market['name'].'</h1>'.$address,image('hub_bubble'));
-			
-			foreach($sellers as $seller)
-			{
-				if(is_numeric($seller['latitude']) && is_numeric($seller['longitude']))
-				{
-					$address = $seller['address'].', '.$seller['city'].', '.$seller['code'].', '.$seller['postal_code'];
-					core_ui::map_add_point('hubmap',$seller['latitude'],$seller['longitude'],'<h4>'.$seller['name'].'</h4><p class="note">'.$address.'</p>',image('farm_bubble'));
-				}
-			}
-			?>
-		<? endif; ?>
-	</div>
-</div>
-
-<div class="row">
-	<div class="span5">
+		
 		<h3>About <?=$market['name']?></h3>
 		
 		<? if(trim($market['market_profile']) != ''){?>
-			<?=core_format::plaintext2html($market['market_profile'])?>
+			<p class="note"><?=core_format::plaintext2html($market['market_profile'])?></p>
 		<?}?>
 
 		<? if (trim($market['market_policies']) != ''): ?>
-		<h3>Our Policies</h3>
-		<?=core_format::plaintext2html($market['market_policies'])?>
+			<h3>Our Policies</h3>
+			<p class="note"><?=core_format::plaintext2html($market['market_policies'])?></p>
 		<? endif; ?>
-
-	</div>
-	<div class="span4">
+		
+		<hr>
+		
 		<h3>Our Sellers</h3>
 		
 		<? foreach($sellers as $seller): ?>
 			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
 		<? endforeach; ?>
+		
+	</div>
+	
+	<div class="span4">
+		<h4 style="line-height: 40px; vertical-align: text-bottom;"><?= $address ?></h4>
+		
+		<img src="<?= image('profile') ?>?_time_=<?=$core->config['time']?>" />
+		
+		<? if($has_address):
+			echo(core_ui::map('hubmap','100%','300px',6));
+			core_ui::map_center('hubmap',$lat,$long);
+			
+			foreach($sellers as $seller)
+			{
+				if(is_numeric($seller['latitude']) && is_numeric($seller['longitude']))
+				{
+					$seller_address = $seller['address'].', '.$seller['city'].', '.$seller['code'].', '.$seller['postal_code'];
+					core_ui::map_add_point('hubmap',$seller['latitude'],$seller['longitude'],'<strong><small>'.$seller['name'].'</small></strong><br><small>'.$seller_address.'</small>',image('farm_map_marker'));
+				}
+			}
+			
+			core_ui::map_add_point('hubmap',$lat,$long,'<strong>'.$market['name'].'</strong><br>'.$address,image('farmstand_map_marker'));
+			?>
+		<? endif; ?>
 	</div>
 </div>
+
 
 <div class="row">
 	<div class="span9">

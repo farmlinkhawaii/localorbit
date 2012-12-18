@@ -71,7 +71,7 @@ class core_ui
 	{
 
 		core::js('
-			core.ui.maps[\''.$id.'\'] = new google.maps.Map(document.getElementById("'.$id.'"),{zoom:'.intval($zoom).', mapTypeId: google.maps.MapTypeId.ROADMAP});
+			core.ui.maps[\''.$id.'\'] = new google.maps.Map(document.getElementById("'.$id.'"),{zoom:'.intval($zoom).', scaleControl: false, panControl: false, streetViewControl: false, scrollwheel: false, mapTypeControl: false, mapTypeId: google.maps.MapTypeId.TERRAIN});
 		');
 		return '<div class="google_map" id="'.$id.'" style="width: '.$width.';height: '.$height.';"></div>';
 	}
