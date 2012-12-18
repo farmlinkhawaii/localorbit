@@ -85,8 +85,8 @@ $domains->filter_html .= core_datatable_filter::make_select(
 $domains->add_filter(new core_datatable_filter('name','name','~'));
 $domains->filter_html .= core_datatable_filter::make_text('domains','name',$domains->filter_states['domains__filter__name'],'Search by name');
 
-$domains->add(new core_datacolumn('name','Name',true,$cols[0],'<a href="#!market-edit--domain_id-{domain_id}"><b>{name}</b></a><br /><a href="https://{hostname}/app.php#!dashboard-home">Switch to {hostname}</a>'));
-$domains->add(new core_datacolumn('secondary_contact_name','Market Contact',true,$cols[1],'<a href="#!market-edit--domain_id-{domain_id}">{secondary_contact_name}</a> (<a href="mailTo:{secondary_contact_email}">e-mail</a>)<br />Tel. {secondary_contact_phone} '));
+$domains->add(new core_datacolumn('name','Name',true,$cols[0],'<a href="#!market-edit--domain_id-{domain_id}"><b>{name}</b></a><br /><i class="icon-signin" /> <a href="https://{hostname}/app.php#!dashboard-home">Switch to {hostname}</a>'));
+$domains->add(new core_datacolumn('secondary_contact_name','Market Contact',true,$cols[1],'{secondary_contact_name} (<a href="mailTo:{secondary_contact_email}">e-mail</a>)<br />Tel. {secondary_contact_phone} '));
 
 if(lo3::is_admin())
 {

@@ -62,6 +62,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<script language="Javascript" type="text/javascript" src="js/jquery.rte.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/lo3.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/slides.jquery.js"></script>
+	<script language="Javascript" type="text/javascript" src="js/chosen.jquery.min.js"></script>
 	
 	<script language="Javascript" type="text/javascript" src="js/stylesheetToggle.js"></script>
 	
