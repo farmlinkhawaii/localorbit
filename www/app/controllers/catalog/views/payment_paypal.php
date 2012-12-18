@@ -7,13 +7,11 @@ if($org['payment_allow_paypal'] == 1)
 <div id="payment_paypal" class="span6"<?=$style?>>
 <div class="span6">
 <div class="row">
-<div class="span3">
-	<!--
-		<a style="clear: none;" class="pull-right" href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=700, height=600');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a>
-	-->
-	<img style="pull-right" src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"/>
-	
+<div class="span6">
 	<span style="float: left">Credit Card Information</span>
+		<a class="pull-right" style="position: relative; left: -30px;" href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=700, height=600');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a>
+
+
 </div>
 <div class="span6">
 	<div class="row">
