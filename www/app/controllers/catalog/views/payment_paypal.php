@@ -8,10 +8,12 @@ if($org['payment_allow_paypal'] == 1)
 <div class="span6">
 <div class="row">
 <div class="span3">
-	Credit Card Information
-</div>
-<div class="span3">
-<table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></div></tr><tr><td align="center"><a href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=700, height=600');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></div></tr></table>
+	<!--
+		<a style="clear: none;" class="pull-right" href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=700, height=600');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a>
+	-->
+	<img style="pull-right" src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"/>
+	
+	<span style="float: left">Credit Card Information</span>
 </div>
 <div class="span6">
 	<div class="row">
