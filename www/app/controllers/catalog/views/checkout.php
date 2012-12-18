@@ -50,12 +50,12 @@ core::replace('full_width');
 $cart->arrange_by_next_delivery();
 ?>
 
-<form name="checkoutForm" class="checkout" method="post" action="app/catalog/order_confirmation">
+<form id="checkoutForm" name="checkoutForm" class="checkout" method="post" action="app/catalog/order_confirmation">
 <div class="row">
 	<div class="span6">
 		<div class="row">
 			<span class="span3">
-				Your Order
+				<h1>Your Order</h1>
 			</span>
 			<span class="span1">
 				Quantity
@@ -92,10 +92,10 @@ $cart->arrange_by_next_delivery();
 			foreach ($items as $item) {
 			?>
 		<div class="row">
-			<div class="span3"><?=$item['product_name']?></div>
+			<div class="span3"><strong><?=$item['product_name']?></strong></div>
 			<div class="span1"><?=$item['qty_ordered']?></div>
-			<div class="span1"><?=$item['unit_price']?></div>
-			<div class="span1"><?=$item['row_total']?></div>
+			<div class="span1"><?=core_format::price($item['unit_price'])?></div>
+			<div class="span1"><?=core_format::price($item['row_total'])?></div>
 		</div>
 			<?
 			}
@@ -119,14 +119,14 @@ $cart->arrange_by_next_delivery();
 	</div>
 	<span class="span6">
 		<div class="row">
-			<div class="span6">Billing</div>
+			<div class="span6"><h1>Billing</h1></div>
 			<div class="span3">Have a discount code? Enter it here.</div>
 			<div class="span3 form-inline">
 				<input class="input-small"  type="text" id="discount_code" name="discount_code" value="<?=$cart->discount_codes[0]['code']?>" />
 				<input class="btn" type="button" value="Apply" onclick="core.checkout.requestUpdatedFees();" />
-			</div>				
+			</div>
 			<hr class="span6"/>
-			<? 
+			<?
 				$this->checkout_payment_info();
 			?>
 		</div>

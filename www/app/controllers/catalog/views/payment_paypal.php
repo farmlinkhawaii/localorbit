@@ -8,7 +8,7 @@ if($org['payment_allow_paypal'] == 1)
 <div class="span6">
 <div class="row">
 <div class="span6">
-	<span style="float: left">Credit Card Information</span>
+	<span style="float: left"><h2>Credit Card Information</h2></span>
 		<a class="pull-right" style="position: relative; left: -30px;" href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=700, height=600');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a>
 
 
@@ -65,7 +65,7 @@ if($org['payment_allow_paypal'] == 1)
 	</div>
 	<div class="row">
 		<div class="span6">
-			Billing Address
+			<h2>Billing Address</h2>
 		</div>
 	</div>
 	<div class="row">

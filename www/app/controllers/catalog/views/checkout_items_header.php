@@ -1,4 +1,4 @@
-<div class="row"><div class="span6">
+<div class="row"><div class="span6"><h2>
 <?
 global $core;
 $lodeliv_id = $core->view[0];
@@ -34,4 +34,4 @@ else
 	echo('<h1>'.$core->i18n['field:checkout_pickup'].'</h1>');
 }
 ?>
-</div></div>
+</h2></div></div>
