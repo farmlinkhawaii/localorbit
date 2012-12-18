@@ -10,11 +10,23 @@ core.ui.scrollTop=function(){
 }
 
 core.ui.error=function(content){
+	
+	var errorbox = bootbox.dialog(content, [{
+        "label" : "Bummer",
+        "icon"  : "icon-remove icon-white"
+    }], { 'animate' : false });
+	
+	setTimeout(function() {
+        errorbox.modal('hide');
+    }, 2000);
+	
+	/*
 	$('#notification_content').html(content);
 	$('#notification').fadeIn('fast');
 	core.ui.scrollTop();
 	window.clearTimeout(core.ui.closeHandle);
 	core.ui.closeHandle = core.ui.setCloseTimout('core.ui.errorClose();');
+	*/
 }
 
 core.ui.errorClose=function(){
@@ -32,11 +44,23 @@ core.ui.setCloseTimout=function(cmd){
 }
 
 core.ui.notification=function(content){
+	
+	var modalbox = bootbox.dialog(content, [{
+        "label" : "Ok!",
+        "icon"  : "icon-ok-sign icon-white"
+    }], { 'animate' : false });
+	
+	setTimeout(function() {
+        modalbox.modal('hide');
+    }, 2000);
+	
+	/*
 	core.ui.scrollTop();
 	$('#notification_content').html(content);
 	$('#notification').fadeIn('fast');
 	window.clearTimeout(core.ui.closeHandle);
 	core.ui.closeHandle = core.ui.setCloseTimout('core.ui.notificationClose();');
+	*/
 }
 
 core.ui.notificationClose=function(){

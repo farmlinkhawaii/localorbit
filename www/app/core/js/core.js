@@ -83,15 +83,23 @@ core.jqInit=function(){
 				delay: { show: 250, hide: 100 }
 			});
 		});
-		$(".tooltipper").each(function() {
+		$("[rel=tooltip]").each(function() {
 			$(this).tooltip({
 				placement : "left"
 			});
 		});
+		$('.control-label i.icon-required').hover(function() { changeTooltipColorTo('#990000') });
 	});
 	
 }
 
+function changeTooltipColorTo(color) {
+    $('.tooltip-inner').css('background-color', color)
+    $('.tooltip.top .tooltip-arrow').css('border-top-color', color);
+    $('.tooltip.right .tooltip-arrow').css('border-right-color', color);
+    $('.tooltip.left .tooltip-arrow').css('border-left-color', color);
+    $('.tooltip.bottom .tooltip-arrow').css('border-bottom-color', color);
+}
 
 
 

@@ -293,7 +293,7 @@ class core_form
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		if ($options['required'] == true): $required = '<i class="icon-asterisk icon-required tooltipper" rel="tooltip" title="Required" /> '; endif;
+		if ($options['required'] == true): $required = '<i class="icon-asterisk icon-required" rel="tooltip" title="Required" /> '; endif;
 		#return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
 		
 		$html = '<div class="control-group">';

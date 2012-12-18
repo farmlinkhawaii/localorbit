@@ -25,17 +25,17 @@ core.catalog.resetFilters=function(){
 	$('.filter').removeClass('active');
 	$('#filter_list').empty();
 	core.catalog.updateListing();
-	$('#weekly_special').slideDown(1000);
+	$('#weekly_special').show();
 }
 
 core.catalog.hideSpecial=function(){
 	core.doRequest('/catalog/hide_special');
-	$('#weekly_special').slideUp(1000);
+	$('#weekly_special').hide();
 }
 
 core.catalog.setFilter=function(type,id,parentId,updateListing){
 	var newfilter; 
-	$('#weekly_special').slideUp(1000);
+	$('#weekly_special').hide();
 	if(arguments.length <4)
 		updateListing=true;
 	switch(type){
