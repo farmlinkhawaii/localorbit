@@ -1,12 +1,10 @@
 <?php global $data; ?>
-
 <div class="control-group">
 	<label class="control-label">Dashboard Note</label>
 	<div class="controls">
-		<input type="text" name="dashboard_note" value="<?=$data['dashboard_note']?>" />
+		<textarea rows="5" class="input-xxlarge" name="dashboard_note"><?=htmlentities($data['dashboard_note'])?></textarea>
 	</div>
 </div>
-
 <?/*
 <div class="control-group">
 	<label class="control-label">Note Offset</label>
