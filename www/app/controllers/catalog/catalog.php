@@ -296,7 +296,7 @@ class core_controller_catalog extends core_controller
 			$id_cat = $cat3_id;
 		?>
 		<div id="start_cat2_<?=$id_cat?>">
-			<h3><?=$cat2_name?></h3>
+			<h4 class="subcategory"><?=$cat2_name?></h4>
 			<hr class="tight"/>
 		</div>
 		<?
