@@ -59,7 +59,6 @@ $(function()
 		$item_hash = $cart->items->to_hash('prod_id');
 		foreach ($item_hash as $prod_id => $item) {
 			$prod = core::model('products')->load($item[0]['prod_id']);
-			//print_r($prod->__data);
 			?>
 				<div class="row">
 					<span class="span1 product-image">
@@ -75,22 +74,11 @@ $(function()
 					</span>
 				</div>
 			<?
-/*
-rray ( [1844] => Array ( [0] => Array (
-lo_liid] => 6796 [lo_oid] => 3520 [lo_foid] => 0 [seller_mage_customer_id] => [seller_name] => DuRussel Farms [sku] => [product_name] => Baking Potatoes - #1 [qty_ordered] => 1
-[qty_adjusted] => 0 [qty_delivered] => 0 [unit] => Bag [unit_price] => 9.6000 [row_total] => 9.6000 [unit_plural] => Bags
- [row_adjusted_total] => 9.6000 [adjusted_description] => [prod_id] => 1844 [addr_id] => [dd_id] => 34 [due_time] => 1356321600
- [deliv_time] => [seller_org_id] => 1067 [lodeliv_id] => 2186 [last_status_date] => 1355775456 [lbps_id] => 1 [ldstat_id] => 1
- [lsps_id] => 1 [category_ids] => 2,227,232,272,477 [final_cat_id] => 477 [producedat_address_id] => 1118 [producedat_org_id] => 1067
- [producedat_address] => 4800 Esch Rd [producedat_city] => Manchester [producedat_region_id] => 33 [producedat_postal_code] => 48158
- [producedat_telephone] => (734) 428-8900 [producedat_fax] => [producedat_delivery_instructions] => [producedat_longitude] => [producedat_latitude] =>
- [has_valid_inventory] => 1 [has_valid_delivs] => 1 [has_valid_prices] => 1 ) ) )
-*/
 		}
 		?>
 			<div class="row">
 				<span class="span4">
-					<a class="btn btn-block btn-warning" href="#!catalog-checkout">
+					<a class="btn btn-block btn-warning" href="#!catalog-your_cart">
 						<span class="viewCart pull-left">View Cart</span>
 						&nbsp;
 						<span class="pull-right">Subtotal: <?=core_format::price($cart['grand_total'])?></span>
