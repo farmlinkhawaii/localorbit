@@ -47,7 +47,14 @@ $rendered_prices = 0;
 		<div class="span4 product-info">
 			<p><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
 			<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small></p>
-			<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>
+			
+			<p><small>
+				<a href="#" rel="popover" data-placement="bottom" data-content="<?=$prod['description']?>"><i class="icon-adjust" /> What</a>&nbsp;
+				<a href="#" rel="popover" data-placement="bottom" data-content="<?=$seller['product_how']?>"><i class="icon-bullhorn" /> How</a>&nbsp;
+				<a href="#" rel="popover" data-placement="bottom" data-title="<?=$seller['name']?><br><small><?=$prod['city']?>, <?=$prod['code']?></small>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon-map-marker" /> Where</a>
+			</p></small>
+			
+			<?/*<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>*/?>
 		</div>
 
 		<ol class="span2 priceList">

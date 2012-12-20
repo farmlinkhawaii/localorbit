@@ -76,10 +76,11 @@ core.init=function(autoredirect){
 
 core.jqInit=function(){
 	$(function() {
-		$(".helpslug").each(function() {
+		$(".helpslug, [rel=popover]").each(function() {
 			$(this).popover({
 				placement : "left",
 				trigger : "hover",
+				html : true,
 				delay: { show: 250, hide: 100 }
 			});
 		});
