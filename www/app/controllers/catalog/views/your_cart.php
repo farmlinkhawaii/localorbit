@@ -3,7 +3,11 @@
 global $core;
 
 #$start = microtime();
-
+$index = strrpos($core->data['_requestor_url'], '#');
+$hash = substr($core->data['_requestor_url'], $index+1);
+if ($hash[0] === '!') {
+	$hash = 'cat';
+}
 
 if($core->config['domain']['is_closed'] == 1)
 {
@@ -74,6 +78,8 @@ else
 		$prices    = core::model('product_prices')->get_valid_prices($price_ids, $core->config['domain']['domain_id'],$core->session['org_id']);
  		//collection()->filter('price_id','in',$price_ids)->filter('price','>',0)->to_hash('prod_id');
 		$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids)->to_hash('dd_id');
+
+		$prod_hash = $prods->to_hash('prod_id');
 
 		# reformat the products to an array
 		$prods = $prods->to_array();
@@ -149,11 +155,11 @@ else
 		?>
 <div class="row">
 	<h1 class="span5">Your Shopping Cart</h1>
-	<span class="span4 pull-right">
+	<span class="span4 pull-right grouping">
 		Group By:
-		<a href="" class="active">Category</a> /
-		<a href="">Delivery Date</a> /
-		<a href="">Seller</a>
+		<a href="#!catalog-your_cart#cat" class="active">Category</a> /
+		<a href="#!catalog-your_cart">Delivery Date</a> /
+		<a href="#!catalog-your_cart#seller">Seller</a>
 	</span>
 </div>
 <div class="row">
@@ -165,8 +171,11 @@ else
 		$this->render_no_products_line();
 		$this->render_cart_empty_line();
 
-		foreach($prods as $prod)
+		foreach($item_hash as $prod_id=>$item)
 		{
+			//echo $prod_id;
+				$prod = $prod_hash[$prod_id][0];
+				//print_r($prod);
 			# only render products with prices
 			if(count($prices[$prod['prod_id']]) > 0)
 			{
