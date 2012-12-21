@@ -47,13 +47,13 @@ $rendered_prices = 0;
 		<div class="span4 product-info">
 			<p><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
 			<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small></p>
-			
+
 			<p><small>
 				<a href="#" rel="popover" data-placement="bottom" data-content="<?=$prod['description']?>"><i class="icon-adjust" /> What</a>&nbsp;
 				<a href="#" rel="popover" data-placement="bottom" data-content="<?=$seller['product_how']?>"><i class="icon-bullhorn" /> How</a>&nbsp;
 				<a href="#" rel="popover" data-placement="bottom" data-title="<?=$seller['name']?><br><small><?=$prod['city']?>, <?=$prod['code']?></small>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon-map-marker" /> Where</a>
 			</p></small>
-			
+
 			<?/*<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>*/?>
 		</div>
 
@@ -76,14 +76,21 @@ $rendered_prices = 0;
 			} ?>
 		</ol>
 
-		<div class="span1 product-quantity">
-			<input class="span1 prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
+		<div class="span2">
+			<div class="row">
+				<div class="span1 product-quantity">
+					<input class="span1 prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
+				</div>
+
+				<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text">
+					<span class="value"><?=$total?></span> <i class="remove icon-remove-sign"/>
+				</div>
+			</div>
+			<div class="row">
+			</div>
 		</div>
-		
-		<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text">
-			<span class="value"><?=$total?></span> <i class="remove icon-remove-sign"/>
-		</div>
-		
+
+
 		<div class="clearfix"></div>
 
 		<div id="moreInfo<?=$prod['prod_id']?>" class="collapse">
@@ -105,9 +112,9 @@ $rendered_prices = 0;
 				</p>
 			</div>
 		</div> <!-- /#moreInfo-->
-		
+
 	</div> <!-- /.product-row-->
-	
+
 </div> <!-- /.row-->
 
 <? /*
