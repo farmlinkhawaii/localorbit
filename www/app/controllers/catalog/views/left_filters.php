@@ -20,16 +20,27 @@ $hashUrl = $core->view[3];
 
 <ul class="nav nav-list">
 <?php
+$days = array();
 foreach($delivs as $deliv)
 {
+	$time = ($deliv[0]['pickup_address_id'] ? 'Picked Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
+	if (!array_key_exists($time, $days)) {
+		$days[$time] = array();
+	}
+	foreach ($deliv as $value) {
+		//print_r($deliv);
+		$days[$time][$value['dd_id']] = $value;
+	}
+}
+
+foreach($days as $key => $day)
+{
+	$dd_ids = implode('_', array_keys($day));
+	list($type, $time) = explode('-', $key);
 	?>
-	<li class="filter dd" id="filter_dd_<?=$deliv[0]['dd_id']?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$deliv[0]['dd_id']:'#')?>" onclick="core.catalog.setFilter('seller',<?=$deliv[0]['dd_id']?>);">
-	<?
-	//print_r($deliv[0]);
-	$time = $deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time'];
-	echo $time;
-	?></a>
-	<input type="hidden" id="filtercheck_<?=$deliv[0]['dd_id']?>" class="filtercheck" checked="checked" /></li>
+	<li class="filter dd" id="filter_dd_<?=$dd_ids?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids:'#')?>" onclick="core.catalog.setFilter('dd',<?=$dd_ids?>);">
+	<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+	<input type="hidden" id="filtercheck_<?=$dd_ids?>" class="filtercheck" checked="checked" /></li>
 	<?
 }
 ?>

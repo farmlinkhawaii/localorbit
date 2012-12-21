@@ -87,6 +87,7 @@ $rendered_prices = 0;
 				</div>
 			</div>
 			<div class="row">
+				<!--
 				<select>
 				<?
 				foreach ($dds as $dd) {
@@ -95,6 +96,7 @@ $rendered_prices = 0;
 				}
 				?>
 				</select>
+			-->
 			</div>
 		</div>
 
