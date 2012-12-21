@@ -289,6 +289,24 @@ class core_controller_catalog extends core_controller
 	{
 	}
 
+
+	function render_seller_start($org_id,$org_name,$style)
+	{
+		core::log(print_r($cat1_name,true));
+		?>
+		<div id="start_seller_<?=$org_id?>" class="row header">
+
+			<h2 class="span8"><?=$org_name?></h2>
+				<hr class="span8" class="tight"/>
+		</div>
+		<?
+	}
+
+
+	function render_seller_end($org_id,$org_name)
+	{
+	}
+
 	function render_cat2_start($cat2_id,$cat2_name,$cat3_id=0,$cat3_name='',$style)
 	{
 		$id_cat = $cat2_id;
