@@ -74,8 +74,17 @@ else
 			) = $orgmodel->get_image($sellers[$key][0]['org_id']);
 		$prices    = core::model('product_prices')->get_valid_prices($price_ids, $core->config['domain']['domain_id'],$core->session['org_id']);
  		//collection()->filter('price_id','in',$price_ids)->filter('price','>',0)->to_hash('prod_id');
-		$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids)->to_hash('dd_id');
+		$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
+		$deliveries = array();
+		foreach ($delivs as $value) {
+			$value->next_time();
+			$deliveries[$value['dd_id']] = array($value->__data);
+		}
 
+		$delivs = $deliveries;
+		//print_r($deliveries);
+		//print_r($delivs->to_hash('dd_id'));
+		
 		# reformat the products to an array
 		$prods = $prods->to_array();
 		
@@ -128,7 +137,7 @@ else
 		# render the filters on the left side
 		core::ensure_navstate(array('left'=>'left_blank'));
 		core::write_navstate();
-		$this->left_filters($cats,$sellers);
+		$this->left_filters($cats,$sellers,$delivs);
 
 		#===============================
 		# now render the main product listing

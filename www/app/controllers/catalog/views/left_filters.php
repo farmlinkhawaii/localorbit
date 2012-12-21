@@ -3,7 +3,8 @@
 global $core;
 $cats = $core->view[0];
 $sellers = $core->view[1];
-$hashUrl = $core->view[2];
+$delivs = $core->view[2];
+$hashUrl = $core->view[3];
 ?>
 
 <!--
@@ -15,8 +16,27 @@ $hashUrl = $core->view[2];
 <h2>Catalog</h2>
 
 <hr class="tight">
+<span class="caps"><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />By Availablity Date</span>
 
-<span class="caps"><!--<input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" />--><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />By Seller</span>
+<ul class="nav nav-list">
+<?php
+foreach($delivs as $deliv)
+{
+	?>
+	<li class="filter dd" id="filter_dd_<?=$deliv[0]['dd_id']?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$deliv[0]['dd_id']:'#')?>" onclick="core.catalog.setFilter('seller',<?=$deliv[0]['dd_id']?>);">
+	<?
+	//print_r($deliv[0]);
+	$time = $deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time'];
+	echo $time;
+	?></a>
+	<input type="hidden" id="filtercheck_<?=$deliv[0]['dd_id']?>" class="filtercheck" checked="checked" /></li>
+	<?
+}
+?>
+</ul>
+
+<hr class="tight">
+<span class="caps"><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />By Seller</span>
 
 <ul class="nav nav-list">
 <?php

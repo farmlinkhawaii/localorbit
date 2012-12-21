@@ -87,6 +87,14 @@ $rendered_prices = 0;
 				</div>
 			</div>
 			<div class="row">
+				<select>
+				<?
+				foreach ($dds as $dd) {
+					//$dd->next_time();
+					//print_r($dd);
+				}
+				?>
+				</select>
 			</div>
 		</div>
 
