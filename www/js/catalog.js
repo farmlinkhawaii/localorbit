@@ -103,7 +103,7 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 				$('.filter_dd').addClass('subheader_off');
 				$('#filter_dd_'+id).removeClass('subheader_off');
 				$('#filter_list .dd').remove();
-				newfilter = $('<li class="dd dd_' + id + '"><i class="icon-remove-sign"/>' + 'dd' + '</li>').appendTo($('#filter_list'));
+				newfilter = $('<li class="dd dd_' + id + '"><i class="icon-remove-sign"/>' + $.trim($('#filter_dd_' + id).text()) + '</li>').appendTo($('#filter_list'));
 				$('.filter.dd').removeClass('active');
 				$('#filter_dd_'+id).addClass('active');
 			}
