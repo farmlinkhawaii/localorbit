@@ -108,7 +108,18 @@ else
 			# make sense to the user
 			$prods[$i]['sort_col'] = strtolower($prods[$i]['sort_col']);	
 		}
-		
+		$days = array();
+		foreach($delivs as $deliv)
+		{
+			$time = ($deliv[0]['pickup_address_id'] ? 'Picked Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
+			if (!array_key_exists($time, $days)) {
+				$days[$time] = array();
+			}
+			foreach ($deliv as $value) {
+				//print_r($deliv);
+				$days[$time][$value['dd_id']] = $value;
+			}
+		}
 		# define a custom sorting function that uses our new sort column
 		function prod_sort($a,$b)
 		{
@@ -129,6 +140,7 @@ else
 		core::js('core.prices ='.json_encode($prices).';');
 		core::js('core.delivs ='.json_encode($delivs).';');
 		core::js('core.cart = '.$cart->write_js(true).';');
+		core::js('core.dds = '.json_encode($days) . ';');
 
 		# reorganize the cart into a hash by prod_id, so we can look up quantities easier 
 		# while rendering the catalog
@@ -137,7 +149,7 @@ else
 		# render the filters on the left side
 		core::ensure_navstate(array('left'=>'left_blank'));
 		core::write_navstate();
-		$this->left_filters($cats,$sellers,$delivs);
+		$this->left_filters($cats,$sellers,$days);
 
 		#===============================
 		# now render the main product listing

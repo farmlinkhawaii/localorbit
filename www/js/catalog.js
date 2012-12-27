@@ -4,7 +4,8 @@ core.catalog={
 		cat1:0,
 		cat2:0,
 		priceType:0,
-		cartOnly:0
+		cartOnly:0,
+		dd:0
 	},
 	addressCoords:{
 	},
@@ -18,7 +19,8 @@ core.catalog.resetFilters=function(){
 		cat1:0,
 		cat2:0,
 		priceType:0,
-		cartOnly:0
+		cartOnly:0,
+		dd:0
 	};
 	$('.filtercheck').attr('checked','checked');
 	$('.filter_subcat').removeClass('subheader_off');
@@ -87,6 +89,24 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 			}
 			break;
 		case 'pricetype':
+			break;
+		case 'dd':
+		console.log(id);
+			core.catalog.filters.dd = (core.catalog.filters.dd == id)?0:id;
+			if(core.catalog.filters.dd == 0){
+				// if we were turning off the filter, turn all on
+				$('.filter_dd').removeClass('subheader_off');
+				$('#filter_list .dd_' + id).remove();
+				$('#filter_dd_'+id).removeClass('active');
+			}else{
+				// otherwise JUST turn on this selelr filter, turn the rest off
+				$('.filter_dd').addClass('subheader_off');
+				$('#filter_dd_'+id).removeClass('subheader_off');
+				$('#filter_list .dd').remove();
+				newfilter = $('<li class="dd dd_' + id + '"><i class="icon-remove-sign"/>' + 'dd' + '</li>').appendTo($('#filter_list'));
+				$('.filter.dd').removeClass('active');
+				$('#filter_dd_'+id).addClass('active');
+			}
 			break;
 		case 'cartOnly':
 			core.catalog.filters.cartOnly = (core.catalog.filters.cartOnly == 1)?0:1;
@@ -157,6 +177,10 @@ core.catalog.updateListing=function(){
 			// apply the cat2 filter if necessary
 			if(core.catalog.filters.cat2 > 0 && (!core.lo3.inArray(core.products[i].category_ids,core.catalog.filters.cat2)))
 				core.products[i].show = false;
+
+			if(core.catalog.filters.dd !== 0 && !(core.catalog.matchesDeliveryDay(core.catalog.filters.dd, core.products[i]))) {
+				core.products[i].show = false;
+			}
 		}
 
 
@@ -243,6 +267,21 @@ core.catalog.updateListing=function(){
 	//core.ui.scrollTop();
 }
 
+core.catalog.matchesDeliveryDay=function(deliveryDays, product) {
+	var a = deliveryDays.split('_');
+	var b = product.dd_ids.split(',');
+	while( a.length > 0 && b.length > 0 )
+	{  
+		if      (a[0] < b[0] ){ a.shift(); }
+		else if (a[0] > b[0] ){ b.shift(); }
+		else /* they're equal */
+		{
+		  return true;
+		}
+	}
+	return false;
+}
+
 core.catalog.initCatalog=function(){
 	core.addHandler('onrequest',core.catalog.closeAllPopups);
 	core.prodIndex={};
@@ -285,7 +324,7 @@ core.catalog.initCatalog=function(){
 
 	var cmpnts = document.URL.split('#');
 	var pair = cmpnts[cmpnts.length - 1].split('=');
-	console.log(pair);
+
 	if (pair.length === 2) {
 		$(document).ready( function () {
 			core.catalog.setFilter(pair[0], pair[1], true);
@@ -303,7 +342,7 @@ core.catalog.updateTotalViews = function () {
 };
 
 core.catalog.setAddressCache=function(address,gcResult){
-	if(gcResult[0]){
+	if(gcResult && gcResult[0]){
 		core.catalog.addressCoords[core.base64_decode(address)] = [
 			gcResult[0].geometry.location.lat(),
 			gcResult[0].geometry.location.lng()
