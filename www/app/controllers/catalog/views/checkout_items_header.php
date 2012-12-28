@@ -2,7 +2,10 @@
 <?
 global $core;
 $lodeliv_id = $core->view[0];
+$options = $core->view[1];
 
+//print_r($options);
+//echo $core->config['domain']['feature_force_items_to_soonest_delivery'];
 # the header changes due to this setting
 # because if this is OFF, Then the user must
 # choose the delivery day that they want
@@ -31,7 +34,20 @@ else
 {
 	# print a generic header than will be updated by JS
 	# when the user picks a delivery day
-	echo('<h1>'.$core->i18n['field:checkout_pickup'].'</h1>');
+	echo($core->i18n['field:checkout_pickup']);
 }
 ?>
-</h2></div></div>
+</h2>
+<?
+if(count($options) > 1) {
+?>
+<?
+} 
+else 
+{
+?>
+<?=$options[0]['address']?>
+<?
+}
+?>
+</div></div>

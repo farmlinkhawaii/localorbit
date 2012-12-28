@@ -70,7 +70,7 @@ $cart->arrange_by_next_delivery();
 		</div>
 	<?php
 	foreach($cart->items_by_delivery as $delivery_opt_key=>$items){
-	$this->checkout_items_header($items[0]['lodeliv_id']);
+	$this->checkout_items_header($items[0]['lodeliv_id'], $options);
 	?>
 		<div class="row">
 			<hr class="span6"/>
@@ -169,8 +169,6 @@ $cart->arrange_by_next_delivery();
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td class="delivery_area">
 							<?php
-							$options = $this->determine_options($delivery_opt_key,$cart->delivery_options,$all_addrs);
-							$this->checkout_render_delivery_options($options,$delivery_opt_key);
 							?>
 						</td>
 					</tr>

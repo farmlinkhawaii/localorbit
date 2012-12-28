@@ -77,8 +77,14 @@ else
 			) = $orgmodel->get_image($sellers[$key][0]['org_id']);
 		$prices    = core::model('product_prices')->get_valid_prices($price_ids, $core->config['domain']['domain_id'],$core->session['org_id']);
  		//collection()->filter('price_id','in',$price_ids)->filter('price','>',0)->to_hash('prod_id');
-		$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids)->to_hash('dd_id');
+		$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
+		$deliveries = array();
+		foreach ($delivs as $value) {
+			$value->next_time();
+			$deliveries[$value['dd_id']] = array($value->__data);
+		}
 
+		$delivs = $deliveries;
 		$prod_hash = $prods->to_hash('prod_id');
 
 		# reformat the products to an array
@@ -105,6 +111,18 @@ else
 			$prods[$i]['sort_col'] = strtolower($prods[$i]['sort_col']);
 		}
 
+		$days = array();
+		foreach($delivs as $deliv)
+		{
+			$time = ($deliv[0]['pickup_address_id'] ? 'Picked Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
+			if (!array_key_exists($time, $days)) {
+				$days[$time] = array();
+			}
+			foreach ($deliv as $value) {
+				//print_r($deliv);
+				$days[$time][$value['dd_id']] = $value;
+			}
+		}
 		# define a custom sorting function that uses our new sort column
 		function prod_sort($a,$b)
 		{
@@ -133,7 +151,7 @@ else
 		# render the filters on the left side
 		core::ensure_navstate(array('left'=>'left_blank'));
 		core::write_navstate();
-		$this->left_filters($cats,$sellers);
+		$this->left_filters($cats,$sellers, $days);
 
 		#===============================
 		# now render the main product listing
