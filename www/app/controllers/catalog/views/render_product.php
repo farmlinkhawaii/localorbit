@@ -10,6 +10,7 @@ $style1  = $core->view[5];
 $style2  = $core->view[6];
 $qty     = $core->view[7];
 $total   = $core->view[8];
+$days 	 = $core->view[9];
 
 
 # format the total a bit
@@ -87,6 +88,31 @@ $rendered_prices = 0;
 				</div>
 			</div>
 			<div class="row">
+				<div class="span2">
+					<div class="dropdown">
+					<?
+					$first = true;
+					foreach($days as $key => $day)
+					{
+						$dd_ids = implode('_', array_keys($day));
+						list($type, $time) = explode('-', $key);
+						if ($first) {
+							$first = false;
+							?>
+						<a class="dropdown-toggle" data-toggle="dropdown"><?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+  						<?
+						}
+						?>
+						<li class="filter dd" id="filter_dd_<?=$dd_ids?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids?>');">
+						<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+						<input type="hidden" id="filtercheck_<?=$dd_ids?>" class="filtercheck" checked="checked" /></li>
+						<?
+					}
+					?>
+				</ul>
+					</div>
+				</div>
 				<!--
 				<select>
 				<?
@@ -99,7 +125,6 @@ $rendered_prices = 0;
 			-->
 			</div>
 		</div>
-
 
 		<div class="clearfix"></div>
 
