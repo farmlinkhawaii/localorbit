@@ -36,7 +36,7 @@ core.catalog.hideSpecial=function(){
 }
 
 core.catalog.setFilter=function(type,id,parentId,updateListing){
-	var newfilter; 
+	var newfilter;
 	$('#weekly_special').hide();
 	if(arguments.length <4)
 		updateListing=true;
@@ -91,7 +91,6 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 		case 'pricetype':
 			break;
 		case 'dd':
-		console.log(id);
 			core.catalog.filters.dd = (core.catalog.filters.dd == id)?0:id;
 			if(core.catalog.filters.dd == 0){
 				// if we were turning off the filter, turn all on
@@ -99,11 +98,13 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 				$('#filter_list .dd_' + id).remove();
 				$('#filter_dd_'+id).removeClass('active');
 			}else{
+				var text = $.trim($('#filter_dd_' + id).text());
 				// otherwise JUST turn on this selelr filter, turn the rest off
 				$('.filter_dd').addClass('subheader_off');
 				$('#filter_dd_'+id).removeClass('subheader_off');
 				$('#filter_list .dd').remove();
-				newfilter = $('<li class="dd dd_' + id + '"><i class="icon-remove-sign"/>' + $.trim($('#filter_dd_' + id).text()) + '</li>').appendTo($('#filter_list'));
+				$('.dd_selector').text(text);
+				newfilter = $('<li class="dd dd_' + id + '"><i class="icon-remove-sign"/>' + text + '</li>').appendTo($('#filter_list'));
 				$('.filter.dd').removeClass('active');
 				$('#filter_dd_'+id).addClass('active');
 			}
@@ -271,7 +272,7 @@ core.catalog.matchesDeliveryDay=function(deliveryDays, product) {
 	var a = deliveryDays.split('_');
 	var b = product.dd_ids.split(',');
 	while( a.length > 0 && b.length > 0 )
-	{  
+	{
 		if      (a[0] < b[0] ){ a.shift(); }
 		else if (a[0] > b[0] ){ b.shift(); }
 		else /* they're equal */

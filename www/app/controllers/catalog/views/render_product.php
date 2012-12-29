@@ -91,23 +91,29 @@ $rendered_prices = 0;
 				<div class="span2">
 					<div class="dropdown">
 					<?
+					//print_r($dd_ids);
+					//print_r($days);
 					$first = true;
 					foreach($days as $key => $day)
 					{
-						$dd_ids = implode('_', array_keys($day));
-						list($type, $time) = explode('-', $key);
-						if ($first) {
-							$first = false;
+						//array_intersect($dds,
+						if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
+							$dd_ids_id = implode('_', array_keys($day));
+							//echo $dd_ids_id;
+							list($type, $time) = explode('-', $key);
+							if ($first) {
+								$first = false;
+								?>
+							<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+	  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+	  						<?
+							}
 							?>
-						<a class="dropdown-toggle" data-toggle="dropdown"><?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
-  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-  						<?
+							<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
+							<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+							<input type="hidden" id="filtercheck_<?=$dd_ids_id?>" class="filtercheck" checked="checked" /></li>
+							<?
 						}
-						?>
-						<li class="filter dd" id="filter_dd_<?=$dd_ids?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids?>');">
-						<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
-						<input type="hidden" id="filtercheck_<?=$dd_ids?>" class="filtercheck" checked="checked" /></li>
-						<?
 					}
 					?>
 				</ul>
