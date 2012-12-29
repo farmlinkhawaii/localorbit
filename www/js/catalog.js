@@ -269,8 +269,8 @@ core.catalog.updateListing=function(){
 }
 
 core.catalog.matchesDeliveryDay=function(deliveryDays, product) {
-	var a = deliveryDays.split('_');
-	var b = product.dd_ids.split(',');
+	var a = deliveryDays.split('_').sort();
+	var b = product.dd_ids.split(',').sort();
 	while( a.length > 0 && b.length > 0 )
 	{
 		if      (a[0] < b[0] ){ a.shift(); }

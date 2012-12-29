@@ -91,15 +91,11 @@ $rendered_prices = 0;
 				<div class="span2">
 					<div class="dropdown">
 					<?
-					//print_r($dd_ids);
-					//print_r($days);
 					$first = true;
 					foreach($days as $key => $day)
 					{
-						//array_intersect($dds,
 						if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
 							$dd_ids_id = implode('_', array_keys($day));
-							//echo $dd_ids_id;
 							list($type, $time) = explode('-', $key);
 							if ($first) {
 								$first = false;
@@ -119,16 +115,6 @@ $rendered_prices = 0;
 				</ul>
 					</div>
 				</div>
-				<!--
-				<select>
-				<?
-				foreach ($dds as $dd) {
-					//$dd->next_time();
-					//print_r($dd);
-				}
-				?>
-				</select>
-			-->
 			</div>
 		</div>
 
