@@ -20,7 +20,7 @@ foreach ($prods as $value) {
 
 $pricing = $allPrices[$special['product_id']];
 $rendered_prices = 0;
-if($special)
+if($special && $special['product_id'] != 0)
 {
 	list($has_image,$webpath) = $special->get_image();
 ?>
@@ -63,7 +63,7 @@ if($special)
 			</li>
 			<?$rendered_prices++; }?>
 	</ol>
-	
+
 	<div class="span1">
 		<!--<input class="prodTotal" readonly="readonly" type="text" name="prodTotal_<?=$prod['prod_id']?>" id="prodTotal_<?=$prod['prod_id']?>" size="3" style="width: 57px;" value="<?=$total?>" />-->
 		<input class="span1 prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="weeklySpecial_prodQty_<?=$prod['prod_id']?>" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
