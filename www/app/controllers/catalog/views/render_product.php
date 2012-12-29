@@ -102,12 +102,13 @@ $rendered_prices = 0;
 								?>
 							<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
 	  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
 	  						<?
 							}
 							?>
 							<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
 							<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
-							<input type="hidden" id="filtercheck_<?=$dd_ids_id?>" class="filtercheck" checked="checked" /></li>
+							</li>
 							<?
 						}
 					}

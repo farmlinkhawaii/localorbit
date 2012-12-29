@@ -107,6 +107,9 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 				newfilter = $('<li class="dd dd_' + id + '"><i class="icon-remove-sign"/>' + text + '</li>').appendTo($('#filter_list'));
 				$('.filter.dd').removeClass('active');
 				$('#filter_dd_'+id).addClass('active');
+				$('#myModal').modal();
+				$('.prodDd').val(id);
+
 			}
 			break;
 		case 'cartOnly':
