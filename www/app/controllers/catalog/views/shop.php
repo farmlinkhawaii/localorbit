@@ -266,16 +266,16 @@ core::js("window.setTimeout('core.catalog.initCatalog();',1000);");
 core_ui::showLeftNav();
 
 #core::log('total time on server: '.($end - $start))
-?><div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+?><div id="deliveryDateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
+    <h3 id="myModalLabel">Delivery Date Change</h3>
   </div>
   <div class="modal-body">
-    <p>One fine body…</p>
+    <p>Are you sure you want to change the delivery date<br/> to &quot;<span id="modalDeliveryDate"></span>&quot;?</p><p>This may remove some of your items from your cart.</p>
   </div>
   <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="core.catalog.confirmDeliveryDateChange(false);">No</button>
+    <button class="btn btn-primary" data-dismiss="modal" onclick="core.catalog.confirmDeliveryDateChange(true);">Yes</button>
   </div>
 </div>

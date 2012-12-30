@@ -98,18 +98,9 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 				$('#filter_list .dd_' + id).remove();
 				$('#filter_dd_'+id).removeClass('active');
 			}else{
-				var text = $.trim($('#filter_dd_' + id).text());
-				// otherwise JUST turn on this selelr filter, turn the rest off
-				$('.filter_dd').addClass('subheader_off');
-				$('#filter_dd_'+id).removeClass('subheader_off');
-				$('#filter_list .dd').remove();
-				$('.dd_selector').text(text);
-				newfilter = $('<li class="dd dd_' + id + '"><i class="icon-remove-sign"/>' + text + '</li>').appendTo($('#filter_list'));
-				$('.filter.dd').removeClass('active');
-				$('#filter_dd_'+id).addClass('active');
-				$('#myModal').modal();
-				$('.prodDd').val(id);
-
+				updateListing = false;
+				core.catalog.modalPopup();
+				//$('.prodDd').val(id);
 			}
 			break;
 		case 'cartOnly':
@@ -131,6 +122,53 @@ core.catalog.setFilter=function(type,id,parentId,updateListing){
 		core.catalog.updateListing();
 }
 
+core.catalog.modalPopup = function () {
+	var text = $.trim($('#filter_dd_' + core.catalog.filters.dd).text());
+	$('#modalDeliveryDate').text(text);
+	$('#deliveryDateModal').modal();
+}
+
+core.catalog.confirmDeliveryDateChange = function (confirmed) {
+	var fdds = core.catalog.filters.dd.split('_');
+	if (!confirmed) {
+		//core.catalog.setFilter('dd',core.catalog.filters.dd,undefined,true);
+	} else {
+		$('.product-row').each(function () {
+			var jq = $(this);
+			var prodQtyJq = jq.find('.prodQty');
+			var prodQty = $.trim(prodQtyJq.val());
+			if (prodQty !== '' && prodQty !== '0') {
+				var prodId = $(this).attr('id').split('_')[1];
+				var dds = jq.find('.prodDdSet').val().split('_');
+				var isValid = false;
+				$.each(dds, function () {
+					console.log(this.toString());
+					isValid = ($.inArray(this.toString(), fdds) >= 0);
+					if (isValid) {
+						return false;
+					}
+				});
+				var text = $.trim($('#filter_dd_' + core.catalog.filters.dd).text());
+				$('.filter_dd').addClass('subheader_off');
+				$('#filter_dd_'+core.catalog.filters.dd).removeClass('subheader_off');
+				$('#filter_list .dd').remove();
+				newfilter = $('<li class="dd dd_' + core.catalog.filters.dd + '"><i class="icon-remove-sign"/>' + text + '</li>').appendTo($('#filter_list'));
+				$('.filter.dd').removeClass('active');
+				$('#filter_dd_'+core.catalog.filters.dd).addClass('active');
+				if (!isValid) {
+					console.log('removing ' + prodId);
+					prodQtyJq.val('');
+					core.catalog.updateRow(prodId, 0);
+				} else {
+					jq.find('.dd_selector').text(text);
+				}
+			} else {
+				jq.find('.dd_selector').text(text);
+			}
+		});
+		core.catalog.updateListing();
+	}
+}
 
 core.catalog.updateListing=function(){
 

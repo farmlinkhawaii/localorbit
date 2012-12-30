@@ -90,6 +90,7 @@ $rendered_prices = 0;
 			<div class="row">
 				<div class="span2">
 					<div class="dropdown">
+					<input class="prodDdSet" type="hidden" name="prodDdSet_<?=$prod['prod_id']?>" id="prodDdSet_<?=$prod['prod_id']?>" value="<?=implode('_', $dd_ids)?>"/>
 					<?
 					$first = true;
 					foreach($days as $key => $day)
