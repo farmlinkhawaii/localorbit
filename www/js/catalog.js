@@ -137,18 +137,17 @@ core.catalog.confirmDeliveryDateChange = function (confirmed) {
 			var jq = $(this);
 			var prodQtyJq = jq.find('.prodQty');
 			var prodQty = $.trim(prodQtyJq.val());
+			var prodId = $(this).attr('id').split('_')[1];
+				var text = $.trim($('#filter_dd_' + core.catalog.filters.dd).text());
 			if (prodQty !== '' && prodQty !== '0') {
-				var prodId = $(this).attr('id').split('_')[1];
 				var dds = jq.find('.prodDdSet').val().split('_');
 				var isValid = false;
 				$.each(dds, function () {
-					console.log(this.toString());
 					isValid = ($.inArray(this.toString(), fdds) >= 0);
 					if (isValid) {
 						return false;
 					}
 				});
-				var text = $.trim($('#filter_dd_' + core.catalog.filters.dd).text());
 				$('.filter_dd').addClass('subheader_off');
 				$('#filter_dd_'+core.catalog.filters.dd).removeClass('subheader_off');
 				$('#filter_list .dd').remove();
@@ -514,7 +513,7 @@ core.catalog.sendNewQtys=function(){
 	var items=[];
 	var data = '';
 	for (var i = 0; i < core.cart.items.length; i++){
-		data += '&prod_'+core.cart.items[i].prod_id+'='+core.cart.items[i].qty_ordered;
+		data += '&prod_'+core.cart.items[i].prod_id+'='+core.cart.items[i].qty_ordered + ';' + $('#product_' + core.cart.items[i].prod_id + ' .prodDd').val();
 		items.push(core.cart.items[i].prod_id);
 	}
 	data += '&items='+items.join('_');

@@ -78,21 +78,19 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 		}
 	}
 
-	function find_deliveries ($product)
+	function find_deliveries ($product, $dd_id)
 	{
 		global $core;
 		$deliveries = array();
 
 		$deliveries = $this->find_possible_deliveries($this['lo_oid'], array());
-		$deliv = $this->find_next_possible_delivery($this['lo_oid'], $deliveries);
+		$deliv = $this->find_next_possible_delivery($this['lo_oid'], $deliveries, $dd_id);
 
 		if($core->config['domain']['feature_force_items_to_soonest_delivery'] == 1) {
 			$deliveries = array($this->delivery['dd_id'] => $deliv[$this->delivery['dd_id']]);
 			$this->dd_ids = array_keys($deliveries);
 			$this->delivery_hash = implode('-',$this->dd_ids);
 		}
-
-		core::log(print_r($this->delivery, true));
 
 		return core::model('lo_order_deliveries')->create($this['lo_oid'], $this->delivery, $deliveries);
 	}
@@ -130,37 +128,47 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 
 	# this is used to find the next possible delivery. Any subsequent
 	# delivery possibilities are tossed, and only the next is returned.
-	function find_next_possible_delivery($lo_oid,$order_deliveries)
+	function find_next_possible_delivery($lo_oid,$order_deliveries, $dd_id)
 	{
 		global $core;
 
-		# load up all possible delivery days
-		$dds = core::model('delivery_days')->get_days_for_prod($this['prod_id'],$core->config['domain']['domain_id']);
-
-		# set a date WAY in the future, then loop through teh possible delivery days and find the
-		# earliest one.
-		$best_time = 10000000000000;
-		$best = array(
-			'dd_id'=>0,
-			'delivery_start_time'=>10000000000000,
-			'delivery_end_time'=>0,
-			'pickup_start_time'=>0,
-			'pickup_end_time'=>0,
-			'addr_id'=>0,
-			'status'=>'pending',
-		);
-
-		# loop through the possible delivery days,
-		# determine the next possible time. If it is sooner
-		# than our previous best time, use that delivery day.
-		foreach($dds as $dd)
-		{
+		if (isset($dd_id)) {
+			$dd = core::model('delivery_days')->load($dd_id);
 			$new_time = $dd->next_time();
-			if($new_time < $best_time && $dd->is_valid($this))
-			{
+
 				core::log('found a better time: '.core_format::date($dd['due_time']));
 				$best_time = $dd['due_time'];
 				$this->delivery = $dd->__data;
+		} else {
+
+			# load up all possible delivery days
+			$dds = core::model('delivery_days')->get_days_for_prod($this['prod_id'],$core->config['domain']['domain_id']);
+
+			# set a date WAY in the future, then loop through teh possible delivery days and find the
+			# earliest one.
+			$best_time = 10000000000000;
+			$best = array(
+				'dd_id'=>0,
+				'delivery_start_time'=>10000000000000,
+				'delivery_end_time'=>0,
+				'pickup_start_time'=>0,
+				'pickup_end_time'=>0,
+				'addr_id'=>0,
+				'status'=>'pending',
+			);
+
+			# loop through the possible delivery days,
+			# determine the next possible time. If it is sooner
+			# than our previous best time, use that delivery day.
+			foreach($dds as $dd)
+			{
+				$new_time = $dd->next_time();
+				if($new_time < $best_time && $dd->is_valid($this))
+				{
+					core::log('found a better time: '.core_format::date($dd['due_time']));
+					$best_time = $dd['due_time'];
+					$this->delivery = $dd->__data;
+				}
 			}
 		}
 
@@ -246,8 +254,8 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 		}
 
 		$this['dd_id']   = $this->delivery['dd_id'];
-
 		$order_deliveries[$this['dd_id']]->load();
+		core::log(print_r($order_deliveries[$this['dd_id']], true));
 
 		#core::log('combination is: '.$this['addr_id'].'-'.$this['due_time']);
 		# see if this delivery already exists.

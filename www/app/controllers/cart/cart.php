@@ -188,12 +188,14 @@ class core_controller_cart extends core_controller
 				{
 					$product = core::model('products')->load($item['prod_id']);
 					core::log('new qty on '.$item['prod_id']);
-
-					$item['qty_ordered'] = $core->data['prod_'.$item['prod_id']];
+					core::log($core->data['prod_'.$item['prod_id']]);
+					list($qty, $dd_id) = explode(';', $core->data['prod_'.$item['prod_id']]);
+					$item['qty_ordered'] = $qty;
+					$item['dd_id'] = $dd_id;
 					$item['category_ids']  = $product['category_ids'];
 					$item['final_cat_id']  = trim(substr($product['category_ids'], strrpos($product['category_ids'],',') +1 ));
 
-					$order_deliv = $item->find_deliveries($product);
+					$order_deliv = $item->find_deliveries($product, $dd_id);
 					$this->delete_old_deliveries();
 					//$deliveries = $new_item->find_possible_deliveries($new_item['lo_oid'], array());
 					//$deliv = $new_item->find_next_possible_delivery($new_item['lo_oid'], $deliveries);
@@ -229,7 +231,8 @@ class core_controller_cart extends core_controller
 						'addresses.latitude as producedat_latitude')
 			)->load($prod_id);
 			$new_item = core::model('lo_order_line_item');
-
+			list($newQty, $dd_id) = explode(';', $core->data['prod_'.$item['prod_id']]);
+			core::log('DELIVERY : ' . $dd_id);
 			$new_item['lo_oid'] = $cart['lo_oid'];
 			$new_item['prod_id'] = $prod_id;
 			$new_item['qty_ordered'] = $qty;
@@ -256,7 +259,7 @@ class core_controller_cart extends core_controller
 			$new_item['producedat_delivery_instructions'] = $product['producedat_delivery_instructions'];
 			$new_item['producedat_longitude'] = $product['producedat_longitude'];
 			$new_item['producedat_latitude'] = $product['producedat_latitude'];
-			$order_deliv = $new_item->find_deliveries($product);
+			$order_deliv = $new_item->find_deliveries($product, $dd_id);
 			$new_item['lodeliv_id'] = $order_deliv['lodeliv_id'];
 			$new_item->save();
 		}
