@@ -130,7 +130,7 @@ class core_controller_cart extends core_controller
 		$a_items = explode('_',$core->data['items']);
 		$items = array();
 		foreach($a_items as $item)
-			$items[$item] = $core->data['prod_'.$item];
+			$items[$item] = explode(';', $core->data['prod_'.$item]);
 
 		return $items;
 	}
@@ -172,9 +172,9 @@ class core_controller_cart extends core_controller
 		# update it
 		foreach($cart->items as $item)
 		{
-			core::log("examinig: ".$item['prod_id'].'/'.$item['lo_liid'].'/'.$items[$item['prod_id']]);
+			core::log("examinig: ".$item['prod_id'].'/'.$item['lo_liid'].'/'.$items[$item['prod_id']][0]);
 			# delete this item if qty doesn't exist
-			if(!isset($items[$item['prod_id']]) || floatval($items[$item['prod_id']]) == 0)
+			if(!isset($items[$item['prod_id']][0]) || floatval($items[$item['prod_id']][0]) == 0)
 			{
 				core::log('deleting '.$item['prod_id']);
 				$this->delete_old_deliveries();
@@ -184,14 +184,13 @@ class core_controller_cart extends core_controller
 			{
 
 				# if the qty has changed, set the new quantity and find the best price
-				if(floatval($items[$item['prod_id']]) != floatval($item['qty_ordered']))
+				if(floatval($items[$item['prod_id']][0]) != floatval($item['qty_ordered']))
 				{
 					$product = core::model('products')->load($item['prod_id']);
 					core::log('new qty on '.$item['prod_id']);
 					core::log($core->data['prod_'.$item['prod_id']]);
-					list($qty, $dd_id) = explode(';', $core->data['prod_'.$item['prod_id']]);
-					$item['qty_ordered'] = $qty;
-					$item['dd_id'] = $dd_id;
+					$item['qty_ordered'] = $items[$item['prod_id']][0];
+					$item['dd_id'] = $items[$item['prod_id']][1];
 					$item['category_ids']  = $product['category_ids'];
 					$item['final_cat_id']  = trim(substr($product['category_ids'], strrpos($product['category_ids'],',') +1 ));
 
@@ -207,11 +206,11 @@ class core_controller_cart extends core_controller
 				# unset the item array
 				$item->save();
 			}
-			unset($items[$item['prod_id']]);
+			unset($items[$item['prod_id']][0]);
 		}
 
 		# now, look for any entirely new items. Insert them
-		foreach($items as $prod_id=>$qty)
+		foreach($items as $prod_id=>$data)
 		{
 			$product = core::model('products')->autojoin(
 				'left',
@@ -231,7 +230,7 @@ class core_controller_cart extends core_controller
 						'addresses.latitude as producedat_latitude')
 			)->load($prod_id);
 			$new_item = core::model('lo_order_line_item');
-			list($newQty, $dd_id) = explode(';', $core->data['prod_'.$item['prod_id']]);
+			list($qty, $dd_id) = $data;
 			core::log('DELIVERY : ' . $dd_id);
 			$new_item['lo_oid'] = $cart['lo_oid'];
 			$new_item['prod_id'] = $prod_id;

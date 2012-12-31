@@ -82,8 +82,8 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 	{
 		global $core;
 		$deliveries = array();
-
-		$deliveries = $this->find_possible_deliveries($this['lo_oid'], array());
+		core::log('find_deliveries ' . $dd_id);
+		$deliveries = $this->find_possible_deliveries($this['lo_oid'], array(), $dd_id);
 		$deliv = $this->find_next_possible_delivery($this['lo_oid'], $deliveries, $dd_id);
 
 		if($core->config['domain']['feature_force_items_to_soonest_delivery'] == 1) {
@@ -99,32 +99,48 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 	# for a particular item. A hash key is generated using all of the dd_ids,
 	# such that a list of items can be grouped by their common available
 	# delivery days.
-	function find_possible_deliveries($lo_oid,$order_deliveries)
+	function find_possible_deliveries($lo_oid,$order_deliveries, $dd_id)
 	{
 		global $core;
 		$order->delivery_options = array();
 		$this->dd_ids=array();
-		$dds = core::model('delivery_days')->get_days_for_prod($this['prod_id'],$core->config['domain']['domain_id']);
-		foreach($dds as $dd)
-		{
-			$dd->next_time();
-			core::log('checking ' . $this['qty_ordered'] .' on '. date('r', $dd['delivery_end_time']));
-			core::log('checking ' . $this['qty_ordered'] . ' on '. date('r', $dd['pickup_end_time']));
-			if ($dd->is_valid($this)) {
-				core::log($dd['dd_id'] . ' is valid!');
-				#echo('saving deliveyr into into order for ddid '.$dd['dd_id'].'<br />');
-				$order_deliveries[$dd['dd_id']] = $dd;
-				#echo('order now contains: '.$order->delivery_options[$dd['dd_id']]['dd_id'].'<br />');
-				$this->dd_ids[] = $dd['dd_id'];
-			//} else {
-			}
-
+		if (isset($dd_id)) {
+			$dd = core::model('delivery_days')->load($dd_id);
+		} else {
+			$dds = core::model('delivery_days')->get_days_for_prod($this['prod_id'],$core->config['domain']['domain_id']);
 		}
+		if (isset($dd)) {
+			core::log('using dd '. $dd['dd_id']);
+			$this->check_validity($dd, $order_deliveries);
+		} else {
+			core::log('finding possible deliveries');
+			core::log(print_r($dds, true));
+			foreach($dds as $dd)
+			{
+				$this->check_validity($dd, $order_deliveries);
+			}
+		}
+		core::log(print_r($order_deliveries, true));
 		asort($this->dd_ids);
 		$this->delivery_hash = implode('-',$this->dd_ids);
 		return $order_deliveries;
 	}
 
+	function check_validity ($dd, &$order_deliveries)
+	{
+		$dd->next_time();
+		core::log('checking ' . $this['qty_ordered'] .' on '. date('r', $dd['delivery_end_time']));
+		core::log('checking ' . $this['qty_ordered'] . ' on '. date('r', $dd['pickup_end_time']));
+		if ($dd->is_valid($this)) {
+			core::log($dd['dd_id'] . ' is valid!');
+			#echo('saving deliveyr into into order for ddid '.$dd['dd_id'].'<br />');
+			$order_deliveries[$dd['dd_id']] = $dd;
+			core::log(print_r($order_deliveries, true));
+			#echo('order now contains: '.$order->delivery_options[$dd['dd_id']]['dd_id'].'<br />');
+			$this->dd_ids[] = $dd['dd_id'];
+		//} else {
+		}
+	}
 
 	# this is used to find the next possible delivery. Any subsequent
 	# delivery possibilities are tossed, and only the next is returned.
@@ -132,13 +148,14 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 	{
 		global $core;
 
+
 		if (isset($dd_id)) {
 			$dd = core::model('delivery_days')->load($dd_id);
 			$new_time = $dd->next_time();
 
-				core::log('found a better time: '.core_format::date($dd['due_time']));
-				$best_time = $dd['due_time'];
-				$this->delivery = $dd->__data;
+			core::log('using set delivery day: '. $dd_id . ':' .core_format::date($dd['due_time']));
+			$best_time = $dd['due_time'];
+			$this->delivery = $dd->__data;
 		} else {
 
 			# load up all possible delivery days
@@ -252,10 +269,12 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 			$this['pickup_longitude']   = $pickup_address['longitude'];
 			$this['pickup_latitude']    = $pickup_address['latitude'];
 		}
-
 		$this['dd_id']   = $this->delivery['dd_id'];
+core::log(print_r(array_keys($order_deliveries), true));
 		$order_deliveries[$this['dd_id']]->load();
+core::log('test');
 		core::log(print_r($order_deliveries[$this['dd_id']], true));
+core::log('test');
 
 		#core::log('combination is: '.$this['addr_id'].'-'.$this['due_time']);
 		# see if this delivery already exists.
