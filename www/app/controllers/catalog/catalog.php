@@ -279,7 +279,7 @@ class core_controller_catalog extends core_controller
 		core::log(print_r($cat1_name,true));
 		?>
 		<div id="start_cat1_<?=$cat1_id?>" class="row header">
-			<h2 class="span8"><?=$cat1_name?></h2>
+			<h2 class="span9"><?=$cat1_name?></h2>
 		</div>
 		<?
 	}
@@ -296,8 +296,8 @@ class core_controller_catalog extends core_controller
 		?>
 		<div id="start_seller_<?=$org_id?>" class="row header">
 
-			<h2 class="span8"><?=$org_name?></h2>
-				<hr class="span8" class="tight"/>
+			<h2 class="span9"><?=$org_name?></h2>
+			<hr class="span9" class="tight"/>
 		</div>
 		<?
 	}
@@ -314,11 +314,9 @@ class core_controller_catalog extends core_controller
 			$id_cat = $cat3_id;
 		?>
 		<div id="start_cat2_<?=$id_cat?>" class="row header">
-			<div class="span8">
+			<div class="span9">
 				<h4 class="subcategory"><?=$cat2_name?></h4>
 			</div>
-
-				<hr class="span9" class="tight"/>
 		</div>
 		<?
 	}

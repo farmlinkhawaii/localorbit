@@ -39,21 +39,21 @@ $rendered_prices = 0;
 
 		<div class="span1 product-image">
 			<? if(intval($prod['pimg_id']) > 0){?>
-			<img class="img-polaroid catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+			<img class="img-circle catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
 			<?}else{?>
-			<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+			<img class="img-circle catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
 			<?}?>
 		</div>
 
 		<div class="span4 product-info">
-			<p><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
-			<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small></p>
+			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
+				<!--<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small>-->
 
-			<p><small>
-				<a href="#" rel="popover" data-placement="bottom" data-content="<?=$prod['description']?>"><i class="icon-adjust" /> What</a>&nbsp;
-				<a href="#" rel="popover" data-placement="bottom" data-content="<?=$seller['product_how']?>"><i class="icon-bullhorn" /> How</a>&nbsp;
-				<a href="#" rel="popover" data-placement="bottom" data-title="<?=$seller['name']?><br><small><?=$prod['city']?>, <?=$prod['code']?></small>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon-map-marker" /> Where</a>
-			</p></small>
+			<small class="whowhatwhere">
+				<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>" rel="popover" data-placement="bottom" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> What</a>&nbsp;
+				<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>" rel="popover" data-placement="bottom" data-content="<?=$seller['product_how']?>"><i class="icon icon-heart-empty" /> How</a>&nbsp;
+				<a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>" rel="popover" data-placement="bottom" data-title="<?=$seller['name']?><br><small><?=$prod['city']?>, <?=$prod['code']?></small>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Who</a>
+			</small>
 
 			<?/*<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>*/?>
 		</div>
@@ -101,7 +101,7 @@ $rendered_prices = 0;
 							if ($first) {
 								$first = false;
 								?>
-							<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
+							<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
 	  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 							<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
 	  						<?
@@ -142,6 +142,7 @@ $rendered_prices = 0;
 			</div>
 		</div> <!-- /#moreInfo-->
 
+		<hr class="span9" />
 	</div> <!-- /.product-row-->
 
 </div> <!-- /.row-->
