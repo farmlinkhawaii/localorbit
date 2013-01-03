@@ -13,7 +13,7 @@ $hashUrl = $core->view[3];
 <div id="catalog_note"><div>To view a single category, click once, then click again to view all!</div></div>
 -->
 
-<small style="position: relative; bottom: -1.6em;" class="pull-right hoverpointer" onclick="core.catalog.resetFilters();"><button class="close pull-left">&times;&nbsp;</button> Reset Filter</small>
+<small style="position: relative; bottom: -1.6em;" class="pull-right hoverpointer" onclick="core.catalog.resetFilters();"><i class="icon-remove-sign"/> Reset Filter</small>
 <h2>Catalog</h2>
 
 <hr class="tight">

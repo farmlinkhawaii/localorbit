@@ -29,7 +29,7 @@ if($special && $special['product_id'] != 0)
 
 	<div class="span9">
 		<h2 class="pull-left">The Featured Deal</h2>
-		<small><a class="note pull-right" href="#!catalog-shop" style="line-height: 4.5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon-remove-sign"/>&nbsp;Hide this special...</a></small>
+		<small><a class="note pull-right" href="#!catalog-shop" style="line-height: 4.5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon icon-remove-sign"/>&nbsp;Hide this special...</a></small>
 	</div>
 
 	<div class="clear"></div>
