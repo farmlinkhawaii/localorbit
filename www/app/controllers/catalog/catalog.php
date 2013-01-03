@@ -428,6 +428,7 @@ class core_controller_catalog extends core_controller
 				print_r($options_data);
 				echo('</pre>');
 			}
+			print_r($opt);
 			$dd = core::model('delivery_days')->load($opt);
 			$dd->next_time();
 			$opt = $dd->__data;
@@ -450,6 +451,7 @@ class core_controller_catalog extends core_controller
 						'end_time'=>$opt[(($onestep)?'delivery':'pickup').'_end_time'],
 						'fee_calc_type_id'=>$opt['fee_calc_type_id'],
 						'amount'=>$opt['amount'],
+						'address_id'=>$address['address_id']
 					);
 					$final_opts[$new_opt['end_time'].'--'.$address['address_id']] = $new_opt;
 				}
@@ -467,6 +469,7 @@ class core_controller_catalog extends core_controller
 					'end_time'=>$opt['pickup_end_time'],
 					'fee_calc_type_id'=>$opt['fee_calc_type_id'],
 					'amount'=>$opt['amount'],
+					'address_id'=>$address['address_id']
 				);
 				$final_opts[$new_opt['end_time'].'--'.$address['pickup_address_id']] = $new_opt;
 			}
