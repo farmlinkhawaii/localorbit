@@ -1,11 +1,7 @@
 <?
 core::ensure_navstate(array('left'=>'left_dashboard'));
 
-if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()):
-	core_ui::fullWidth();
-else:
-	core_ui::showLeftNav();
-endif;
+core_ui::fullWidth();
 
 core::head('View Order','');
 lo3::require_permission();

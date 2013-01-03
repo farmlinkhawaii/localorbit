@@ -18,16 +18,16 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-cogs"></i>
+					<i class="icon-cog icon-large"></i>
 					<?=$core->i18n['nav2:marketadmin']?>
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!market-list" onclick="core.go(this.href);"><i class="icon-sitemap"></i> <?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
-					<li><a href="#!users-list" onclick="core.go(this.href);"><i class="icon-group"></i> <?=$core->i18n['nav2:marketadmin:users']?></a></li>
-					<li><a href="#!organizations-list" onclick="core.go(this.href);"><i class="icon-cog"></i> <?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
-					<li><a href="#!events-list" onclick="core.go(this.href);"><i class="icon-tasks"></i> <?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
-					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><i class="icon-font"></i> <?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
+					<li><a href="#!users-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:users']?></a></li>
+					<li><a href="#!organizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
+					<li><a href="#!events-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
+					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
 					<li><a href="https://us1.admin.mailchimp.com/campaigns/">Mailchimp Statistics</a></li>
 				</ul>
 			</li>
@@ -36,7 +36,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-money"></i>
+					<i class="icon-truck icon-large"></i>
 					Products & Delivery
 					<b class="caret"></b>
 				</a>
@@ -52,7 +52,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-eye-open"></i>
+					<i class="icon-qrcode icon-large"></i>
 					Marketing
 					<b class="caret"></b>
 				</a>
@@ -72,7 +72,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-bar-chart"></i>
+					<i class="icon-bar-chart icon-large"></i>
 					Reports
 					<b class="caret"></b>
 				</a>
@@ -98,7 +98,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-wrench"></i>
+					<i class="icon-wrench icon-large"></i>
 					<?=$core->i18n['nav2:marketadmin']?>
 					<b class="caret"></b>
 				</a>
@@ -116,7 +116,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-money"></i>
+					<i class="icon-truck icon-large"></i>
 					Products & Delivery
 					<b class="caret"></b>
 				</a>
@@ -131,7 +131,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-eye-open"></i>
+					<i class="icon-truck icon-large"></i>
 					Marketing
 					<b class="caret"></b>
 				</a>
@@ -154,7 +154,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-signal"></i>
+					<i class="icon-signal icon-large"></i>
 					Sales Information
 					<b class="caret"></b>
 				</a>
@@ -174,7 +174,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-user"></i>
+					<i class="icon-user icon-large"></i>
 					Account Information
 					<b class="caret"></b>
 				</a>

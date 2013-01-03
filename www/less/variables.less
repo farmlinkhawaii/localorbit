@@ -98,17 +98,17 @@
 @btnPrimaryBackground:              @linkColor;
 @btnPrimaryBackgroundHighlight:     darken(@btnPrimaryBackground, 15%);
 
-@btnInfoBackground:                 #5bc0de;
-@btnInfoBackgroundHighlight:        #2f96b4;
+@btnInfoBackground:                 desaturate(#5bc0de, 15%);
+@btnInfoBackgroundHighlight:        darken(@btnInfoBackground, 15%);
 
 @btnSuccessBackground:              #62c462;
 @btnSuccessBackgroundHighlight:     #51a351;
 
-@btnWarningBackground:              lighten(@orange, 15%);
-@btnWarningBackgroundHighlight:     @orange;
+@btnWarningBackground:              desaturate(@orange, 15%);
+@btnWarningBackgroundHighlight:     darken(@btnWarningBackground, 15%);
 
-@btnDangerBackground:               #ee5f5b;
-@btnDangerBackgroundHighlight:      #bd362f;
+@btnDangerBackground:               desaturate(#ee5f5b, 15%);
+@btnDangerBackgroundHighlight:      darken(@btnDangerBackground, 15%);
 
 @btnInverseBackground:              #444;
 @btnInverseBackgroundHighlight:     @grayDarker;
@@ -265,7 +265,7 @@
 @popoverBackground:       #fff;
 @popoverArrowWidth:       10px;
 @popoverArrowColor:       #fff;
-@popoverTitleBackground:  darken(@popoverBackground, 3%);
+@popoverTitleBackground:  lighten(desaturate(@secondarycolor, 25%), 40%);
 
 // Special enhancement for popovers
 @popoverArrowOuterWidth:  @popoverArrowWidth + 1;
