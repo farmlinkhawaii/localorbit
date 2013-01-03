@@ -114,6 +114,7 @@ $core->config['formats']['dates']['jsshort'] = 'M j, y';
 $core->config['formats']['dates']['time'] = 'g:i a';
 $core->config['formats']['dates']['short-weekday'] = 'l, M j, Y';
 $core->config['formats']['dates']['shorter-weekday'] = 'l, M j';
+$core->config['formats']['dates']['shortest-weekday'] = 'D, M jS';
 
 # some messages/config options used
 $core->config['error_ui_msg']= 'An error has occured. We apologize for the inconvenience';

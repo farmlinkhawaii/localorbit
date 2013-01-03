@@ -140,13 +140,9 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
 			</div><!--/span-->
 			<div id="navrow" class="span9">
-				<h2><span id="tagline"></span></h2>
 				<ul id="mainnav" class="nav nav-pills">
-					<li class="active"><a href="#">Shop</a></li>
-					<li><a href="#">News</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Contact</a></li>
 				</ul>
+				<h3><span id="tagline"></span></h3>
 			</div> <!-- /#navrow-->
 		</div> <!-- /.row-->
 	</div> <!-- /#header-->
