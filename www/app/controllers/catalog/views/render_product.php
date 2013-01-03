@@ -46,13 +46,13 @@ $rendered_prices = 0;
 		</div>
 
 		<div class="span4 product-info">
+			<small><a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small><br>
 			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
-				<!--<small>from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small>-->
 
 			<small class="whowhatwhere">
-				<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>" rel="popover" data-placement="bottom" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> What</a>&nbsp;
-				<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>" rel="popover" data-placement="bottom" data-content="<?=$seller['product_how']?>"><i class="icon icon-heart-empty" /> How</a>&nbsp;
-				<a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>" rel="popover" data-placement="bottom" data-title="<?=$seller['name']?><br><small><?=$prod['city']?>, <?=$prod['code']?></small>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Who</a>
+				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> What</a>&nbsp;
+				<? if ($seller['product_how'] !== ''): ?><a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$seller['product_how']?>"><i class="icon icon-heart-empty" /> How</a>&nbsp;<? endif; ?>
+				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Where</a>
 			</small>
 
 			<?/*<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>*/?>

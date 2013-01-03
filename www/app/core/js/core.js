@@ -91,6 +91,8 @@ core.jqInit=function(){
 		});
 		$('.control-label i.icon-required').hover(function() { changeTooltipColorTo('#990000') });
 		$(".chzn-select").chosen();
+		
+		$('[rel="clickover"]').clickover({ html : true });
 	});
 	
 }
