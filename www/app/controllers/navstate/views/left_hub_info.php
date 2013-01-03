@@ -1,30 +1,17 @@
-<!--
-<?if(trim($core->config['domain']['buyer_types_description']) != ''){?>
-	<h3>Currently Selling To</h3>
-	<p><?=$core->config['domain']['buyer_types_description']?></p>
-<?}?>
--->
+<?
 
-
-<?if(trim($core->config['domain']['secondary_contact_name']) != ''){?>
-	<h3>Contact</h3>
-	<p><a href="mailTo:<?=$core->config['domain']['secondary_contact_email']?>"><?=$core->config['domain']['secondary_contact_name']?></a><br />
-	<?if(trim($core->config['domain']['secondary_contact_phone']) != ''){?>
-		T: <?=$core->config['domain']['secondary_contact_phone']?><br>
-	<?}?>
-	</p>
-
-<?}?>
-
-
-<? if($core->config['domain']['domain_id'] > 1){?>
-	<h3>Pickup/Delivery</h3>
-	<?
-	$delivs = core::model('delivery_days')->collection()->filter('domain_id',$core->config['domain']['domain_id']);
-	foreach($delivs as $deliv)
-	{
-		echo('<p>'.$deliv['buyer_formatted_cycle'].'</p>');
-	}
+$market = $core->config['domain'];	
+$address = $market->get_addresses();
+$address->__source .= ' and default_shipping=1';
+$address = $address->load()->row();
 ?>
-<?}?>
+
+
+<img src="<?= image('profile') ?>?_time_=<?=$core->config['time']?>" />
+
+<hr class="tight">
+
+<a class="twitter-timeline" href="https://twitter.com/EasternMarket" data-widget-id="286885721258725376">Tweets by @EasternMarket</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
 <? core::replace('left'); ?>

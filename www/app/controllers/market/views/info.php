@@ -29,7 +29,7 @@ else
 		$has_address = true;
 		$lat = $address['latitude'];
 		$long = $address['longitude'];
-		$address = $address['address'].', '.$address['city'].', '.$address['code'].', '.$address['postal_code'];
+		$address_string = $address['address'].', '.$address['city'].', '.$address['code'].', '.$address['postal_code'];
 	}
 	else
 	{
@@ -69,34 +69,72 @@ else
 ?>
 
 <div class="row">
+	<div class="span9">
+		<h1><?=$market['name']?>, <?= $address['city'] ?>, <?= $address['code'] ?></h1>
+	</div>
+</div>
+
+<div class="row">
 	<div class="span5">
 		
-		<h3>About <?=$market['name']?></h3>
-		
 		<? if(trim($market['market_profile']) != ''){?>
+			<h3>About Us</h3>
 			<p class="note"><?=core_format::plaintext2html($market['market_profile'])?></p>
 		<?}?>
 
 		<? if (trim($market['market_policies']) != ''): ?>
 			<h3>Our Policies</h3>
 			<p class="note"><?=core_format::plaintext2html($market['market_policies'])?></p>
+		<? else: ?>
+			<h3>Our Policies</h3>
+			<p class="note">We only source our products from Michigan producers, and insist on only the finest results and sustainable manufacturing processes.</p>
 		<? endif; ?>
-		
-		<hr>
-		
-		<h3>Our Sellers</h3>
-		
-		<? foreach($sellers as $seller): ?>
-			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
-		<? endforeach; ?>
-		
+
 	</div>
-	
+
 	<div class="span4">
-		<h4 style="line-height: 40px; vertical-align: text-bottom;"><?= $address ?></h4>
 		
-		<img src="<?= image('profile') ?>?_time_=<?=$core->config['time']?>" />
+		<?if(trim($core->config['domain']['secondary_contact_name']) != ''){?>
+			<h3>Contact</h3>
+			<p><a href="mailTo:<?=$core->config['domain']['secondary_contact_email']?>"><?=$core->config['domain']['secondary_contact_name']?></a><br />
+			<?if(trim($core->config['domain']['secondary_contact_phone']) != ''){?>
+				T: <?=$core->config['domain']['secondary_contact_phone']?><br>
+			<?}?>
+	
+			<? if ($address): ?>
+			<?= $address['address'] ?><br>
+			<?= $address['city'] ?>, <?= $address['code'] ?> <?= $address['postal_code'] ?>
+			<? endif; ?>
+			</p>
+
+		<?}?>
+
+		<? if($core->config['domain']['domain_id'] > 1){?>
+			<h3>Pickup/Delivery</h3>
+			<?
+			$delivs = core::model('delivery_days')->collection()->filter('domain_id',$core->config['domain']['domain_id']);
+			foreach($delivs as $deliv)
+			{
+				echo('<p>'.$deliv['buyer_formatted_cycle'].'</p>');
+			}
+		?>
+		<?}?>
+
+		<?if(trim($core->config['domain']['buyer_types_description']) != ''){?>
+			<h3>Currently Selling To</h3>
+			<p><?=$core->config['domain']['buyer_types_description']?></p>
+		<?}?>
+
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	
+	<div class="span5">
 		
+		<h3>Our Seller Locations</h3>
 		<? if($has_address):
 			echo(core_ui::map('hubmap','100%','300px',6));
 			core_ui::map_center('hubmap',$lat,$long);
@@ -113,7 +151,19 @@ else
 			core_ui::map_add_point('hubmap',$lat,$long,'<strong>'.$market['name'].'</strong><br>'.$address,image('farmstand_map_marker'));
 			?>
 		<? endif; ?>
+	
 	</div>
+	
+	<div class="span4">
+		
+		<h3>Our Sellers</h3>
+		
+		<? foreach($sellers as $seller): ?>
+			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
+		<? endforeach; ?>
+		
+	</div>
+	
 </div>
 
 
