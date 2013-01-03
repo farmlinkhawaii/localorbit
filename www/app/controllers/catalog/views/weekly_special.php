@@ -35,7 +35,7 @@ if($special && $special['product_id'] != 0)
 	<div class="clear"></div>
 
 	<div class="span2">
-		<img class="img-polaroid" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
+		<img class="img-rounded" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
 	</div>
 
 	<div class="span3">

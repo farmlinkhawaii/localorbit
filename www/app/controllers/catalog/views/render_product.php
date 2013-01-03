@@ -39,9 +39,9 @@ $rendered_prices = 0;
 
 		<div class="span1 product-image">
 			<? if(intval($prod['pimg_id']) > 0){?>
-			<img class="img-circle catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+			<img class="img-rounded catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
 			<?}else{?>
-			<img class="img-circle catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+			<img class="img-rounded catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
 			<?}?>
 		</div>
 
