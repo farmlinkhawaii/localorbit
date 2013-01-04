@@ -1,5 +1,22 @@
 <?php 
 $opts = core::model('template_options')->get_options(array('footer'));
+
+$market = $core->config['domain'];
+$address = $market->get_addresses();
+$address->__source .= ' and default_shipping=1';
+$address = $address->load()->row();
+if($address)
+{
+	$has_address = true;
+	$lat = $address['latitude'];
+	$long = $address['longitude'];
+	$address_string = $address['address'].', '.$address['city'].', '.$address['code'].', '.$address['postal_code'];
+}
+else
+{
+	$has_address = false;
+}
+
 ?>
 
 <div class="container">
@@ -23,13 +40,16 @@ $opts = core::model('template_options')->get_options(array('footer'));
 
 		<div class="span6 tos">
 			<?if(trim($core->config['domain']['secondary_contact_name']) != ''){?>
-				<b>Contact <?=$core->config['domain']['name']?></b><br />
-				<small><a href="mailTo:<?=$core->config['domain']['secondary_contact_email']?>"><?=$core->config['domain']['secondary_contact_name']?></a><br />
+				<h4>Contact <?=$core->config['domain']['name']?></h4>
+				<p class="note"><a href="mailTo:<?=$core->config['domain']['secondary_contact_email']?>"><?=$core->config['domain']['secondary_contact_name']?></a><br />
 				<?if(trim($core->config['domain']['secondary_contact_phone']) != ''){?>
 					T: <?=$core->config['domain']['secondary_contact_phone']?><br>
 				<?}?>
-				</small>
-				<br />
+				<? if ($address): ?>
+				<?= $address['address'] ?><br>
+				<?= $address['city'] ?>, <?= $address['code'] ?> <?= $address['postal_code'] ?>
+				<? endif; ?>
+				</p>
 			<?}?>
 		</div>
 	

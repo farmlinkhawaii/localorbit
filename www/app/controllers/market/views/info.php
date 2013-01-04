@@ -82,6 +82,10 @@ else
 			<p class="note"><?=core_format::plaintext2html($market['market_profile'])?></p>
 		<?}?>
 
+	</div>
+
+	<div class="span4">
+		
 		<? if (trim($market['market_policies']) != ''): ?>
 			<h3>Our Policies</h3>
 			<p class="note"><?=core_format::plaintext2html($market['market_policies'])?></p>
@@ -89,25 +93,6 @@ else
 			<h3>Our Policies</h3>
 			<p class="note">We only source our products from Michigan producers, and insist on only the finest results and sustainable manufacturing processes.</p>
 		<? endif; ?>
-
-	</div>
-
-	<div class="span4">
-		
-		<?if(trim($core->config['domain']['secondary_contact_name']) != ''){?>
-			<h3>Contact</h3>
-			<p><a href="mailTo:<?=$core->config['domain']['secondary_contact_email']?>"><?=$core->config['domain']['secondary_contact_name']?></a><br />
-			<?if(trim($core->config['domain']['secondary_contact_phone']) != ''){?>
-				T: <?=$core->config['domain']['secondary_contact_phone']?><br>
-			<?}?>
-	
-			<? if ($address): ?>
-			<?= $address['address'] ?><br>
-			<?= $address['city'] ?>, <?= $address['code'] ?> <?= $address['postal_code'] ?>
-			<? endif; ?>
-			</p>
-
-		<?}?>
 
 		<? if($core->config['domain']['domain_id'] > 1){?>
 			<h3>Pickup/Delivery</h3>

@@ -10,7 +10,7 @@
 			<span class="icon-bar"></span>
 		</a>
 		
-		<small class="brand visible-phone">Administration</small>
+		<!--<small class="brand visible-phone">Administration</small>-->
 
 		<div id="dashnav" class="nav-collapse collapse">
 		<? if(lo3::is_admin()){?>

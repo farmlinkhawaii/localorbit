@@ -40,7 +40,8 @@ form.form-horizontal .alert h3 { background: none; }
 
 .cancel_link { line-height: 45px; vertical-align: bottom;}
 
-a.altcolor { color: desaturate(@secondarycolor, 50%); }
+a.altcolor,
+.altcolor { color: desaturate(@secondarycolor, 50%); }
 a i.icon, a i.icon:hover { text-decoration: none; color: #666; }
 
 .btn [class^="icon-"], .btn [class*=" icon-"], .nav [class^="icon-"], .nav [class*=" icon-"] { line-height: normal !important; }
@@ -151,7 +152,8 @@ body {
 				
 				#mainnav li.last a {  }
 			
-				#mainnav li a:hover { 
+				#mainnav li a:hover
+				#mainnav li a.active { 
 					background-color: @mastercolor; 
 					color: #fff;
 					text-decoration: none;
@@ -171,14 +173,15 @@ body {
 						color: #333;
 						}
 						
-						#mainnav li a:hover .nav-sec { color: #fff;}
+						#mainnav li a:hover .nav-sec,
+						#mainnav li a.active .nav-sec { color: #fff;}
 
 	h3.taglinecontainer { clear: both; font-size: 16px; }
 
 
 
 #dashboardnav {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 	}
 
 
@@ -443,6 +446,8 @@ h4.subcategory {
 	.box-shadow(0px 0px 5px hsla(hue(fade(@secondarycolor, 10%)), saturation(fade(@secondarycolor, 5%)), lightness(darken(@secondarycolor, 5%)), .5));
 	.border-radius(8px);
 	}
+	
+	#left #weekly_special { margin: 0 !important; }
 
 	#weekly_special h1 i { color: @secondarycolor; }
 	

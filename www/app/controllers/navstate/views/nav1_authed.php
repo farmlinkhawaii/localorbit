@@ -121,7 +121,7 @@ $(function()
 	</a>
 </li>
 <li>
-	<a href="#">
+	<a href="<?=$core->config['app_page']?>#!news-list">
 		<span class="nav-actual">News</span>
 		<span class="nav-sec">Latest from our market</span>
 	</a>
