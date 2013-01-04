@@ -46,10 +46,8 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<link rel="stylesheet" type="text/css" href="css/loader.php?time=<?php echo time();?>" media="all" /> <? # Loads forms.css, datatable.css, popups.css, rte.css ?>
 
 	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style2" title="styles2" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style3" title="styles3" media="all" />
 	
-	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
+	<!--<link rel="stylesheet" type="text/css" href="css/responsive.css" />-->
 
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/console.min.js"></script>-->
 	<script language="Javascript" type="text/javascript" src="js/jquery.min.js"></script>
@@ -137,14 +135,16 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 	<div id="header" class="container">
 		<div class="row">
+
 			<div class="span3" id="logocontainer">
 				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
 			</div><!--/span-->
-			<div id="navrow" class="span9">
-				<ul id="mainnav" class="nav nav-pills">
-				</ul>
-				<h3><span id="tagline"></span></h3>
-			</div> <!-- /#navrow-->
+			
+			<div id="mainnavcontainer" class="span9">
+				<ul id="mainnav" class=""></ul>
+				<h3 class="taglinecontainer"><span id="tagline"></span></h3>
+			</div>
+
 		</div> <!-- /.row-->
 	</div> <!-- /#header-->
 

@@ -27,21 +27,26 @@ if($special && $special['product_id'] != 0)
 
 <div class="row" id="weekly_special"<?=(($core->session['weekly_special_noshow'] == 1)?' style="display:none;"':'')?>>
 
-	<div class="span9">
-		<h2 class="pull-left">The Featured Deal</h2>
-		<small><a class="note pull-right" href="#!catalog-shop" style="line-height: 4.5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon icon-remove-sign"/>&nbsp;Hide this special...</a></small>
+	<div class="span9 first">
+		<h1 class="pull-left"><i class="icon icon-tags" /> Featured Deal</h1>
+		<!--<small class="hideit"><a class="note pull-right" href="#!catalog-shop" style="line-height: 4.5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon icon-remove-sign"/>&nbsp;Hide this special...</a></small>-->
 	</div>
 
 	<div class="clear"></div>
 
-	<div class="span2">
+	<div class="span1 first">
 		<img class="img-rounded" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
 	</div>
 
-	<div class="span3">
-		<h3 style="margin: 0;"><a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a></h3>
-		<p style="margin-top: 0;">from <a href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></p>
-		<p class="note"><?=$special['body']?></p>
+	<div class="span4 product-info">
+		<small><a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small><br>
+		<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a><br>
+
+		<small class="whowhatwhere">
+			<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> What</a>&nbsp;
+			<? if ($seller['product_how'] !== ''): ?><a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$seller['product_how']?>"><i class="icon icon-heart-empty" /> How</a>&nbsp;<? endif; ?>
+			<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Where</a>
+		</small>
 	</div>
 
 	<ol class="span2 priceList">
@@ -61,16 +66,58 @@ if($special && $special['product_id'] != 0)
 				<?}?>
 
 			</li>
-			<?$rendered_prices++; }?>
+		<?$rendered_prices++; }?>
 	</ol>
 
-	<div class="span1">
-		<!--<input class="prodTotal" readonly="readonly" type="text" name="prodTotal_<?=$prod['prod_id']?>" id="prodTotal_<?=$prod['prod_id']?>" size="3" style="width: 57px;" value="<?=$total?>" />-->
-		<input class="span1 prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="weeklySpecial_prodQty_<?=$prod['prod_id']?>" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
-	</div>
 
-	<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="weeklySpecial_prodTotal_<?=$prod['prod_id']?>_text">
-		<!--<i class="icon-remove-sign"/>--><span class="value"><?=$total?></span>
+	
+	
+	<div class="span2 cartstuff">
+		<div class="row">
+			<div class="span1 product-quantity">
+				<input class="span1 prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty"/>
+			</div>
+
+			<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text">
+				<span class="value"><?=$total?></span> <i class="remove icon-remove-sign"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span2">
+				<div class="dropdown">
+				<input class="prodDdSet" type="hidden" name="prodDdSet_<?=$prod['prod_id']?>" id="prodDdSet_<?=$prod['prod_id']?>" value="<?=implode('_', $dd_ids)?>"/>
+				<?
+				$first = true;
+				foreach($days as $key => $day)
+				{
+					if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
+						$dd_ids_id = implode('_', array_keys($day));
+						list($type, $time) = explode('-', $key);
+						if ($first) {
+							$first = false;
+							?>
+						<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
+  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
+  						<?
+						}
+						?>
+						<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
+						<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+						</li>
+						<?
+					}
+				}
+				?>
+			</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="span9 first">
+		<p class="note"><?=$special['body']?></p>
 	</div>
 
 </div>

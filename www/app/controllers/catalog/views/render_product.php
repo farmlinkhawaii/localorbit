@@ -120,28 +120,6 @@ $rendered_prices = 0;
 			</div>
 		</div>
 
-		<div class="clearfix"></div>
-
-		<div id="moreInfo<?=$prod['prod_id']?>" class="collapse">
-			<div class="clearfix" style="padding-top: 15px;"></div>
-			<div class="span5">
-				<p class="note">
-					<strong>What:</strong> <?=$prod['description']?>
-				</p>
-				<p class="note">
-					<strong>How:</strong> <?=$seller['product_how']?>
-				</p>
-			</div>
-			<div class="span4">
-				<p class="note">
-					<strong>Where:</strong> <?=$seller['name']?>, <?=$prod['city']?>, <?=$prod['state']?>
-				</p>
-				<p class="note">
-					<img src="//maps.googleapis.com/maps/api/staticmap?center=<?=$prod['latitude']?>,<?=$prod['longitude']?>&zoom=7&size=370x220&sensor=false&markers=size:small%7Ccolor:white%7C<?=$prod['latitude']?>,<?=$prod['longitude']?>"/>
-				</p>
-			</div>
-		</div> <!-- /#moreInfo-->
-
 		<hr class="span9" />
 	</div> <!-- /.product-row-->
 
