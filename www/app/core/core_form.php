@@ -79,15 +79,38 @@ class core_form
 		return $out .= '</form>';
 	}
 
-	public static function page_header($title,$extrafunction='',$function_text='',$icon='')
+	public static function page_header($title, $extrafunction='', $function_text='', $link_style='link', $button_icon='', $title_icon = '')
 	{
+		# Start div
 		$out = '<div class="form_header clearfix">';
-		if($extrafunction!=''):
-			$out .= '<a class="pull-right btn btn-small" href="'.$extrafunction.'" onclick="core.go(this.href);">'.$function_text.'</a>';
+	
+		# Make title, with or without icon
+		if ($title_icon != ''):
+			$out .= '<h2 class="pull-left"><i class="icon icon-' . $title_icon . '" /> '.$title.'</h2>';
+		else:
+			$out .= '<h2 class="pull-left">'.$title.'</h2>';
 		endif;
-		$out .= '<h2>'.$title.'</h2>';
+	
+		# If more than just the title
+		if($extrafunction!=''):
+		
+			# Get link style (link or button)
+			if($link_style == 'link'):
+				$link_class = 'btn-link cancel_link'; #simple link
+			else:
+				$link_class = 'btn-primary pull-right'; #button floated right
+			endif;
+
+			# Make link/button
+			$out .= '<a class="btn ' . $link_class . '" href="'.$extrafunction.'" onclick="core.go(this.href);">';
+			if ($button_icon != ''): $out .= '<i class="icon icon-' . $button_icon . '" /> '; endif; # Button icon
+			$out .= $function_text . '</a>';
+
+		endif;
+
 		$out .= '</div><div class="clearfix"></div>';
-		return $out;
+		echo $out;
+		
 	}
 
 

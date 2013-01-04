@@ -109,6 +109,6 @@ $users->sort_direction = 'desc';
 $users->columns[3]->autoformat='date-short';
 
 
-page_header('Users','#!users-add_new','Add new user');
+page_header('Users','#!users-add_new','New user', null, 'plus', 'cog');
 $users->render();
 ?>

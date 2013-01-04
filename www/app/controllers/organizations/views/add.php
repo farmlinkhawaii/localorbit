@@ -15,7 +15,7 @@ if (lo3::is_market()) {
 } 
 $hubs = $hubs->sort('name');
 
-page_header('Create an organization','#!organizations-list','cancel');
+page_header('Create New Organization','#!organizations-list','cancel', 'link', null, 'cog');
 ?>
 
 <form class="form-horizontal" name="organizationsForm" method="post" action="/organizations/add_new" onsubmit="return core.submit('/organizations/add_new',this);" enctype="multipart/form-data">
@@ -38,7 +38,7 @@ page_header('Create an organization','#!organizations-list','cancel');
 		</div>
 	</div>
 	
-	<?=core_ui::checkdiv('allow_sell','Allowed to sell products',$data['allow_sell'])?>
+	<?= core_form::input_check('Allowed to sell products','allow_sell',$data['allow_sell']); ?>
 
 	<h3>Address Info</h3>
 	

@@ -20,12 +20,12 @@ $data = core::model('domains')->load();
 # make sure the user is actually an admin. Otherwise, they can be a market manager
 if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2]) > 1)
 {
-	page_header('Editing '.$data['name'],'#!market-list','Back to hubs');
+	page_header('Editing Market: '.$data['name'],'#!market-list','Cancel', 'link', null, 'cog');
 }
 else
 {
 	lo3::require_orgtype('market');
-	page_header('Editing '.$data['name']);
+	page_header('Editing Market: '.$data['name'], null, null, null, null, 'cog');
 }
 
 $managed = new core_collection('

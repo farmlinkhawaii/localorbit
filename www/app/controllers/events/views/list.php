@@ -22,7 +22,7 @@ $events->add(new core_datacolumn('customer_id','User',true,'35%','<a href="#!use
 $events->add(new core_datacolumn('ip_address','IP Address',true,'10%','<a href="http://www.geobytes.com/IpLocator.htm?GetLocation&IpAddress={ip_address}" target="_blank">{ip_address}</a>','{ip_address}','{ip_address}'));
 $events->columns[0]->autoformat='date-long';
 $events->sort_direction = 'desc';
-page_header('User Event Log');
+page_header('User Event Log', null, null, null, null, 'cog');
 
 $events->render();
 ?> 

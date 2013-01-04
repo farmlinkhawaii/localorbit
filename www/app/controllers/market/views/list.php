@@ -95,7 +95,7 @@ if(lo3::is_admin())
 }
 
 $domains->add(new core_datacolumn('is_closed','Closed',true,$cols[4],'{is_closed}','{is_closed_printable}','{is_closed_printable}'));
-page_header('Markets');
+page_header('Markets', null, null, null, null, 'cog');
 #,'#!market-edit','Create new hub'
 $domains->render();
 ?>

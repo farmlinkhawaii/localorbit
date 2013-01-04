@@ -70,7 +70,7 @@ else
 
 <div class="row">
 	<div class="span9">
-		<h1><?=$market['name']?>, <?= $address['city'] ?>, <?= $address['code'] ?></h1>
+		<h1><?=$market['name']?> <small><?= $address['city'] ?>, <?= $address['code'] ?></small></h1>
 	</div>
 </div>
 
@@ -151,7 +151,7 @@ else
 	
 </div>
 
-
+<? /*
 <div class="row">
 	<div class="span9">
 		<? if($market_news->__num_rows > 0 ){?>
@@ -165,5 +165,7 @@ else
 		<?}?>
 	</div>
 </div>
+*/?>
+
 
 <? } ?>

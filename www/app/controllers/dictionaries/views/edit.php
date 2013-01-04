@@ -31,7 +31,8 @@ lo3::require_permission();
 
 $tag_classes=array('customer','address');
 ?>
-<h2>Editing Dictionary</h2>
+
+<? page_header('Editing Dictionary',null,null, null, null, 'cog'); ?>
 
 <form class="form-horizontal" method="post" name="dictform" action="dictionaries/update" onsubmit="return core.submit('/dictionaries/update',this);">
 	<ul class="nav nav-tabs">
