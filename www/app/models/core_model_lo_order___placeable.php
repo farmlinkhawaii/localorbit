@@ -140,7 +140,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 			$method = 'authorize';
 		if($core->data['show_payment_purchaseorder'] == 1)
 			$method = 'purchaseorder';
-		
+
 		if(!isset($method))
 		{
 			//core::log('unable to locate an appropriate delivery_days/addresses combination');
@@ -164,6 +164,45 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 				->collection()
 				->filter('org_id',$core->session['org_id'])
 				->filter('is_deleted',0);
+			foreach ($this->deliveries as $id => $order_deliv) {
+				$address = core::model('addresses')->load($core->data['delivgroup-'.$order_deliv['dd_id']]);
+				if(isset($deliv['deliv_address_id']) && $deliv['deliv_address_id'] != 0)						{
+					    //$order_deliv['deliv_address_id'] = $deliv['deliv_address_id'];
+					    if(isset($deliv['pickup_address_id']) &&$deliv['pickup_address_id'] != 0)
+					    {
+					        core::log('using delivery_days-specified pickup address');
+					        //$order_deliv['pickup_address_id'] = $deliv['pickup_address_id'];
+					    }
+					    else
+					    {
+							$order_deliv['pickup_address_id'] = $address['address_id'];
+					    }
+					} else {
+						//$order_deliv['deliv_address_id'] = $address['address_id'];
+						if(isset($deliv['pickup_address_id']) && $deliv['pickup_address_id'] != 0)
+					    {
+					        core::log('using delivery_days-specified pickup address');
+					        //$order_deliv['pickup_address_id'] = $deliv['pickup_address_id'];
+					    }
+					    else
+					    {
+							$order_deliv['pickup_address_id'] = $address['address_id'];
+					    }
+					}
+					# did we correctly create a delivery? if no, inform user.
+					# if yes, continue!
+					if(is_null($order_deliv))
+					{
+						core::log('unable to locate an appropriate delivery_days/addresses combination');
+						core_ui::error('An error has occured while trying to place this order.');
+						core::deinit();
+					}
+					$order_deliv->save();
+				/*
+				core::log($id);
+				core::log(print_r($delivery, true));
+				*/
+			}
 		}
 		else
 		{
@@ -195,7 +234,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 
 				core::log('checking on specific day '.$deliv_id);
 				$deliveries = $byddid_deliveries[$deliv_id];
-				core::log(print_r($deliveries, true));
+
 				//foreach ($byddid_deliveries[$deliv_id] => $deliveries)
 				//{
 					$address = core::model('addresses')->load($core->data['delivgroup-'.$deliv_id]);
