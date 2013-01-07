@@ -8,13 +8,14 @@ $addresses = array();
 
 if(intval($deliv['deliv_address_id'])==0 || intval($deliv['pickup_address_id'])==0)
 {
-	$addresses = $all_addrs->to_hash('address_id');
-} 
-else 
+	foreach ($all_addrs as $addr) {
+		$addresses[$addr['address_id']] = $addr['formatted_address'];
+	}
+}
+else
 {
 	$addresses[$deliv['pickup_address_id']] =  $deliv['pickup_address'].', '.$deliv['pickup_city'].', '.$deliv['pickup_code'].', '.$deliv['pickup_postal_code'];
 }
-print_r($addresses);
 //print_r($options);
 //echo $core->config['domain']['feature_force_items_to_soonest_delivery'];
 # the header changes due to this setting
@@ -62,16 +63,17 @@ else
 </h2>
 <select name="delivgroup-<?=$lodeliv_id?>">
 <?
-if(count($options) > 1) {
-	for($i=0;$i<count($options);$i++)
+if(count($addresses) > 1) {
+	foreach($addresses as $id=>$address)
 {
-	$label = $options[$i]['address'].' on '.core_format::date($options[$i]['start_time'],'short');
+	/*
+	$label = $address.' on '.core_format::date($options[$i]['start_time'],'short');
 	$label .= ' between '.core_format::date($options[$i]['start_time'],'time').' and '.core_format::date($options[$i]['end_time'],'time');
 	if(floatval($options[$i]['amount']) > 0)
 	{
 		$label .= ', '.(($options[$i]['fee_calc_type_id']==1)?'':'$').''.floatval($options[$i]['amount']).''.(($options[$i]['fee_calc_type_id']==1)?'%':'').' delivery fee';
 	}
-
+*/
 	//echo(($i==0)?'Please choose one...<br />':'<hr />');
 /*
 	echo(core_ui::radiodiv(
@@ -84,7 +86,7 @@ if(count($options) > 1) {
 	));
 */
 	?>
-	<option value="<?=$options[$i]['address_id']?>"><?=$options[$i]['address']?></option>
+	<option value="<?=$id?>"><?=$address?></option>
 	<?
 	#print_r($options[$i]);
 }
