@@ -60,9 +60,11 @@ else
 }
 ?>
 </h2>
-<select name="delivgroup-<?=$deliv['dd_id_group']?>">
 <?
 if(count($addresses) > 1) {
+	?>
+<select name="delivgroup-<?=$deliv['dd_id_group']?>">
+	<?
 	foreach($addresses as $id=>$address)
 {
 	/*
@@ -99,8 +101,11 @@ if(count($addresses) > 1) {
 }
 else
 {
+	list($id, $address) = each($addresses);
+
 ?>
-<?=$options[0]['address']?>
+<input name="delivgroup-<?=$deliv['dd_id_group']?>" type="hidden" value="<?=$id?>"/>
+<?=$address?>
 <?
 }
 ?>
