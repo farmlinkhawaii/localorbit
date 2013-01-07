@@ -172,7 +172,7 @@ class core
 		# build path info
 		$this->paths = array();
 		$this->paths['libraries'] = dirname(__FILE__);
-		$this->paths['base']      = str_replace('/core','',$this->paths['libraries']);
+		$this->paths['base'] = str_replace('\core','',str_replace('/core','',$this->paths['libraries']));
 		$this->paths['logs']      = $this->paths['base'].'/../../logs';
 		$this->paths['web']       = str_replace('/index.php','',$_SERVER['SCRIPT_NAME']);
 		$this->paths['domain']    = strtolower($_SERVER['HTTP_HOST']);	
