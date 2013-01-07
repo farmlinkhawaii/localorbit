@@ -4,6 +4,7 @@ global $core;
 $lodeliv_id = $core->view[0];
 $all_addrs = $core->view[1];
 
+$deliv = core::model('lo_order_deliveries')->load($lodeliv_id);
 $addresses = array();
 
 if(intval($deliv['deliv_address_id'])==0 || intval($deliv['pickup_address_id'])==0)
@@ -25,7 +26,6 @@ if($core->config['domain']['feature_force_items_to_soonest_delivery'] == 1)
 {
 	# get the delivery information for this group
 	#echo('the deliv we\'re trying to load is: '.$lodeliv_id.'<br />');
-	$deliv = core::model('lo_order_deliveries')->load($lodeliv_id);
 	#echo('<pre>');
 	#print_r($deliv->__data);
 	#echo('</pre>');
@@ -44,7 +44,6 @@ if($core->config['domain']['feature_force_items_to_soonest_delivery'] == 1)
 }
 else
 {
-	$deliv = core::model('lo_order_deliveries')->load($lodeliv_id);
 		if ($deliv['pickup_address_id']) {
 ?>
 	Pickup: <?=core_format::date($deliv['pickup_start_time'],'short-weekday')?> between <?=date('g:i a',$deliv['pickup_start_time'])?>-<?=date('g:i a',$deliv['pickup_end_time'])?>
@@ -61,7 +60,7 @@ else
 }
 ?>
 </h2>
-<select name="delivgroup-<?=$lodeliv_id?>">
+<select name="delivgroup-<?=$deliv['dd_id_group']?>">
 <?
 if(count($addresses) > 1) {
 	foreach($addresses as $id=>$address)
