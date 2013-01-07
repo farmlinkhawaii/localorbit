@@ -44,7 +44,11 @@ else
 }
 
 
+
 $col->add_formatter('enable_suspend_links');
+
+
+
 $users = new core_datatable('customer_entity','users/list',$col);
 
 
@@ -91,24 +95,24 @@ core::replace('datatable_filters');
 $users->filter_html .= core::getclear_position('datatable_filters');
 
 $actions = '
-	<a href="#!auth-loginas--entity_id-{entity_id}">Login&nbsp;&raquo;</a><br />
-	<a class="text-warning" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'customer_entity\'});">{enable_action}&nbsp;&raquo;</a><br />
-	<a class="text-error" href="#!users-list" onclick="org.deleteUser({entity_id},\'{first_name} {last_name}\',this,'.$core->session['user_id'].');">Delete&nbsp;&raquo;</a>
+	<a class="btn btn-primary btn-small" href="#!auth-loginas--entity_id-{entity_id}"><i class="icon-arrow-right" /> Login</a>
+	<a class="btn btn-warning btn-small" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'customer_entity\'});" style="width:64px;"><i class="icon-{enable_icon}" /> {enable_action}</a>
+	<a class="btn btn-danger btn-small" href="#!users-list" onclick="org.deleteUser({entity_id},\'{first_name} {last_name}\',this,'.$core->session['user_id'].');"><i class="icon-ban-circle" /> Delete</a>
 ';
 
 #$users->add_filter(new core_datatable_filter('org_id'));
-$users->add(new core_datacolumn('first_name','Name',true,'35%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b></a><br /><small><i class="icon-envelope"></i> <a href="mailTo:{email}">{email}</a></small>','{first_name} {last_name}','{first_name} {last_name}'));
-$users->add(new core_datacolumn('o.name','Organization',true,'30%','<b>{org_name}</b><br /><small>{domain_name}</small>','{org_name}','{org_name}'));
-$users->add(new core_datacolumn('organization_types.name','Org Type',true,'11%','{orgtype_name}','{orgtype_name}','{orgtype_name}'));
+$users->add(new core_datacolumn('first_name','Name',true,'25%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b></a><br /><small><i class="icon-envelope"></i> <a href="mailTo:{email}">{email}</a></small>','{first_name} {last_name}','{first_name} {last_name}'));
+$users->add(new core_datacolumn('o.name','Organization',true,'20%','<b>{org_name}</b><br /><small>{domain_name}</small>','{org_name}','{org_name}'));
 $users->add(new core_datacolumn('created_at','Registered On',true,'15%','{created_at}','{created_at}','{created_at}'));
-$users->add(new core_datacolumn('entity_id',' ',false,'10%',$actions,'  ','  '));
+$users->add(new core_datacolumn('organization_types.name','Org Type',true,'10%','{orgtype_name}','{orgtype_name}','{orgtype_name}'));
+$users->add(new core_datacolumn('entity_id',' ',false,'30%',$actions,'  ','  '));
 
-$users->sort_column = 3;
+$users->sort_column = 2;
 $users->sort_direction = 'desc';
 
-$users->columns[3]->autoformat='date-short';
+$users->columns[2]->autoformat='date-short';
 
 
-page_header('Users','#!users-add_new','New user', null, 'plus', 'cog');
+page_header('Users','#!users-add_new','Add new user','button','icon-plus');
 $users->render();
 ?>
