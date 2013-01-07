@@ -42,10 +42,10 @@ else if ($cart['grand_total'] < $core->config['domain']['order_minimum'])
 	core_ui::notification(str_replace('{1}', core_format::price($core->config['domain']['order_minimum']), $core->session['i18n']['error:customer:minimum_error']));
 	core::deinit();
 }
-
 $cart->items_by_delivery = array();
 $options = $this->determine_options($delivery_opt_key,$cart->delivery_options,$all_addrs);
 core::replace('full_width');
+
 # rearrange the items so that they're grouped by delivery options.
 $cart->arrange_by_next_delivery();
 ?>
@@ -70,7 +70,7 @@ $cart->arrange_by_next_delivery();
 		</div>
 	<?php
 	foreach($cart->items_by_delivery as $delivery_opt_key=>$items){
-	$this->checkout_items_header($items[0]['lodeliv_id'], $options);
+	$this->checkout_items_header($items[0]['lodeliv_id'], $all_addrs);
 	?>
 		<div class="row">
 			<hr class="span6"/>

@@ -2,8 +2,19 @@
 <?
 global $core;
 $lodeliv_id = $core->view[0];
-$options = $core->view[1];
+$all_addrs = $core->view[1];
 
+$addresses = array();
+
+if(intval($deliv['deliv_address_id'])==0 || intval($deliv['pickup_address_id'])==0)
+{
+	$addresses = $all_addrs->to_hash('address_id');
+} 
+else 
+{
+	$addresses[$deliv['pickup_address_id']] =  $deliv['pickup_address'].', '.$deliv['pickup_city'].', '.$deliv['pickup_code'].', '.$deliv['pickup_postal_code'];
+}
+print_r($addresses);
 //print_r($options);
 //echo $core->config['domain']['feature_force_items_to_soonest_delivery'];
 # the header changes due to this setting
