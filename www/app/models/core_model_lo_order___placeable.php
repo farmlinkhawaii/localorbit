@@ -227,6 +227,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 							core_ui::error('An error has occured while trying to place this order.');
 							core::deinit();
 						}
+						$order_deliv->save();
 					}
 				//}
 			}

@@ -70,7 +70,6 @@ $cart->arrange_by_next_delivery();
 		</div>
 	<?php
 	foreach($cart->items_by_delivery as $delivery_opt_key=>$items){
-		echo $delivery_opt_key;
 	$this->checkout_items_header($items[0]['lodeliv_id'], $all_addrs);
 	?>
 		<div class="row">
