@@ -105,6 +105,7 @@ $cart->arrange_by_next_delivery();
 		</div>
 		<?
 	}
+}
 	?>
 		<div class="row">
 			<div class="span3">
@@ -138,8 +139,6 @@ $cart->arrange_by_next_delivery();
 		<input type="button" value="Confirm Order" class="btn" onclick="core.checkout.process();" />
 	</div>
 </div>
-</form>
-				<?}?>
 <?
 /*
 ?>
@@ -194,3 +193,4 @@ $cart->arrange_by_next_delivery();
 # this is used to dynamically update the fees and such.
 core::js('window.setTimeout("core.checkout.requestUpdatedFees();",1000);');
 ?>
+</form>

@@ -4,7 +4,7 @@ if($org['payment_allow_paypal'] == 1)
 {
 	$style = ($core->view[0] > 1)?' style="display:none;"':'';
 	?>
-<div id="payment_paypal" class="span6"<?=$style?>>
+<div id="payment_paypal" class="span6 payment_option"<?=$style?>>
 <div class="span6">
 <div class="row">
 <div class="span6">

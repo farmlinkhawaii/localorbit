@@ -129,6 +129,8 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 	function place_order($rules)
 	{
 		global $core;
+
+		core::log(print_r($rules, true));
 		core::model('events')->add_record('Checkout Attempt',$this['lo_oid']);
 
 		core::log(print_r($core->data, true));
