@@ -151,7 +151,7 @@ else
 		# render the filters on the left side
 		core::ensure_navstate(array('left'=>'left_blank'));
 		core::write_navstate();
-		$this->left_filters($cats,$sellers, $days);
+		$this->left_filters($cats,$sellers, $days, true);
 
 		#===============================
 		# now render the main product listing
