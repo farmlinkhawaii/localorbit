@@ -658,4 +658,4 @@ core.catalog.popupLoginRegister=function(idx){
 	core.doRequest('/catalog/popup_login_register',{});
 }
 
-core.catalog.initCatalog();
+//core.catalog.initCatalog();
