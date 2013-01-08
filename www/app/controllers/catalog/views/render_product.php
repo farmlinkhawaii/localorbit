@@ -92,26 +92,39 @@ $rendered_prices = 0;
 					<div class="dropdown">
 					<input class="prodDdSet" type="hidden" name="prodDdSet_<?=$prod['prod_id']?>" id="prodDdSet_<?=$prod['prod_id']?>" value="<?=implode('_', $dd_ids)?>"/>
 					<?
-					$first = true;
-					foreach($days as $key => $day)
+					if (count($days) > 1)
 					{
-						if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
-							$dd_ids_id = implode('_', array_keys($day));
-							list($type, $time) = explode('-', $key);
-							if ($first) {
-								$first = false;
+						$first = true;
+						foreach($days as $key => $day)
+						{
+							if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
+								$dd_ids_id = implode('_', array_keys($day));
+								list($type, $time) = explode('-', $key);
+								if ($first) {
+									$first = false;
+									?>
+								<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
+		  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
+		  						<?
+								}
 								?>
-							<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
-	  						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
-	  						<?
+								<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
+								<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+								</li>
+								<?
 							}
-							?>
-							<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
-							<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
-							</li>
-							<?
 						}
+					}
+					else
+					{
+						list($key, $day) = each($days);
+						list($type, $time) = explode('-', $key);
+						$dd_ids_id = implode('_', array_keys($day));
+						?>
+								<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
+								<i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?>
+						<?
 					}
 					?>
 				</ul>

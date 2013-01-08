@@ -15,22 +15,27 @@ $hashUrl = $core->view[3];
 
 <small style="position: relative; bottom: -1.6em;" class="pull-right hoverpointer" onclick="core.catalog.resetFilters();"><i class="icon-remove-sign"/> Reset Filter</small>
 <h2>Catalog</h2>
+<?
 
+if (count($days) > 1)
+{
+?>
 <hr class="tight">
 <span class="caps"><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />By Availablity Date</span>
 
 <ul class="nav nav-list">
 <?php
-foreach($days as $key => $day)
-{
-	$name = core_format::date($time, 'shorter-weekday');
-	$dd_ids = implode('_', array_keys($day));
-	list($type, $time) = explode('-', $key);
-	?>
-	<li class="filter dd" id="filter_dd_<?=$dd_ids?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids?>');">
-	<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
-	<input type="hidden" id="filtercheck_<?=$dd_ids?>" class="filtercheck" checked="checked" /></li>
-	<?
+	foreach($days as $key => $day)
+	{
+		$name = core_format::date($time, 'shorter-weekday');
+		$dd_ids = implode('_', array_keys($day));
+		list($type, $time) = explode('-', $key);
+		?>
+		<li class="filter dd" id="filter_dd_<?=$dd_ids?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids?>');">
+		<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+		<input type="hidden" id="filtercheck_<?=$dd_ids?>" class="filtercheck" checked="checked" /></li>
+		<?
+	}
 }
 ?>
 </ul>
