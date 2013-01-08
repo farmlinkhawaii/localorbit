@@ -52,10 +52,6 @@ $col->add_formatter('enable_suspend_links');
 $users = new core_datatable('customer_entity','users/list',$col);
 
 
-$users->add_filter(new core_datatable_filter('name','concat(first_name,last_name,email)','~'));
-echo(core_datatable_filter::make_text('customer_entity','name',$users->filter_states['customer_entity__filter__name'],'Search by name'));
-
-
 # filter by domains
 if(lo3::is_admin() || lo3::is_market() && count($core->session['domains_by_orgtype_id'][2])>1)
 {
@@ -91,6 +87,12 @@ if(lo3::is_admin())
 	));
 }
 
+
+$users->add_filter(new core_datatable_filter('name','concat(first_name,last_name,email)','~'));
+echo(core_datatable_filter::make_text('customer_entity','name',$users->filter_states['customer_entity__filter__name'],'Search by name'));
+
+
+
 core::replace('datatable_filters');
 $users->filter_html .= core::getclear_position('datatable_filters');
 
@@ -104,7 +106,7 @@ $actions = '
 $users->add(new core_datacolumn('first_name','Name',true,'25%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b></a><br /><small><i class="icon-envelope"></i> <a href="mailTo:{email}">{email}</a></small>','{first_name} {last_name}','{first_name} {last_name}'));
 $users->add(new core_datacolumn('o.name','Organization',true,'20%','<b>{org_name}</b><br /><small>{domain_name}</small>','{org_name}','{org_name}'));
 $users->add(new core_datacolumn('created_at','Registered On',true,'15%','{created_at}','{created_at}','{created_at}'));
-$users->add(new core_datacolumn('organization_types.name','Org Type',true,'10%','{orgtype_name}','{orgtype_name}','{orgtype_name}'));
+$users->add(new core_datacolumn('organization_types.name','Role',true,'10%','{orgtype_name}','{orgtype_name}','{orgtype_name}'));
 $users->add(new core_datacolumn('entity_id',' ',false,'30%',$actions,'  ','  '));
 
 $users->sort_column = 2;

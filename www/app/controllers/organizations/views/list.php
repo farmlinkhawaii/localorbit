@@ -1,4 +1,6 @@
 <?php 
+
+
 core::ensure_navstate(array('left'=>'left_dashboard'));
 core_ui::fullWidth();
 core::head('Org Management','This page is used to manage organizations');
@@ -62,6 +64,7 @@ if(lo3::is_admin() || (lo3::is_market() && count($core->session['domains_by_orgt
 	));
 }
 
+core::log('here');
 if(lo3::is_admin())
 {
 	$orgs->add_filter(new core_datatable_filter('organizations_to_domains.orgtype_id'));
@@ -76,26 +79,42 @@ if(lo3::is_admin())
 	));
 }
 
+core::log('here');
+
 $orgs->add_filter(new core_datatable_filter('name','organizations.name','~'));
 echo(core_datatable_filter::make_text('organizations','name',$orgs->filter_states['organizations__filter__name'],'Search by name'));
 
 $orgs->add_filter(new core_datatable_filter('allow_sell','organizations.allow_sell'));
 echo(core_datatable_filter::make_checkbox('organizations','allow_sell',($orgs->filter_states['organizations__filter__allow_sell'] == 1),'Only show sellers'));
 
-# add the columns
-$orgs->add(new core_datacolumn('name','Name',true,'22%','<a href="#!organizations-edit--org_id-{org_id}">{name}</a>','{name}','{name}'));
-$orgs->add(new core_datacolumn('domains.name','Domain',true,'22%','{domain_name}','{domain_name}','{domain_name}'));
-$orgs->add(new core_datacolumn('creation_date','Registered On',true,'15%','{creation_date}','{creation_date}','{creation_date}'));
-$orgs->add(new core_datacolumn('orgtype_id','Role',true,'10%','{role}','{role}','{role}'));
+if(lo3::is_admin() || lo3::is_market())
+{
+	$widths = array('19%','21%','14%','10%','44%');
+}
+else
+{
+	$widths = array('31%','25%','12%','10%','20%');
+}
 
-if(lo3::is_admin() || lo3::is_market()) {
-	$orgs->add(new core_datacolumn('name',' ',false,'46%','
+
+
+# add the columns
+$orgs->add(new core_datacolumn('name','Name',true,$widths[0],'<a href="#!organizations-edit--org_id-{org_id}">{name}</a>','{name}','{name}'));
+$orgs->add(new core_datacolumn('domains.name','Hub',true,$widths[1],'{domain_name}','{domain_name}','{domain_name}'));
+$orgs->add(new core_datacolumn('creation_date','Registered On',true,$widths[2],'{creation_date}','{creation_date}','{creation_date}'));
+$orgs->add(new core_datacolumn('orgtype_id','Role',true,$widths[3],'{role}','{role}','{role}'));
+
+if(lo3::is_admin() || lo3::is_market())
+{
+	$orgs->add(new core_datacolumn('name',' ',false,$widths[4],'
 		<a class="btn btn-small" href="javascript:core.doRequest(\'/organizations/{activate_action}\',{\'org_id\':{org_id}});"><i class="icon-off" /> {activate_action}</a>
 		<a class="btn btn-small btn-info" href="javascript:core.doRequest(\'/organizations/{enable_action}\',{\'org_id\':{org_id}});" class="text-warning"><i class="icon-eye-close" /> {enable_action}</a>
 		<a class="btn btn-small btn-danger" href="#!organizations-list" class="text-error" onclick="org.deleteOrg({org_id},\'{name}\',this);"><i class="icon-ban-circle" /> Delete</a>
 	',' ',' '));
-} else {
-	$orgs->add(new core_datacolumn('','&nbsp;',false,'12%','<a href="#!organizations-list" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>',' ',' '));
+}
+else
+{
+	$orgs->add(new core_datacolumn('','&nbsp;',false,$widths[4],'<a href="#!organizations-list" onclick="org.deleteOrg({org_id},\'{name}\',this);">Delete&nbsp;&raquo;</a>',' ',' '));
 }
 
 $orgs->columns[2]->autoformat='date-short';
