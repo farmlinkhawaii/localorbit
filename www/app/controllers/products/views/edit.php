@@ -79,7 +79,7 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 		<div class="tabarea tab-pane active" id="producttabs-a1">
 			
 			<?if(lo3::is_admin() || lo3::is_market()){?>
-				<?=core_form::value('Seller',$data['org_name'])?>
+				<?=core_form::value('Seller','<a href="#!organizations-edit--org_id-'.$data['org_id'].'">'.$data['org_name'].'</a>')?>
 			<?}?>
 			
 			<?=core_form::input_text('Title','product_name',$data['name'],array('required' => true))?>
@@ -116,7 +116,10 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 			<? 
 			#core::js('$("#unit_id").select_autocomplete();$("#unit_id").show();');
 			?>
-			<?=core_form::value('Production Location',core::model('addresses')->get_radios($data['org_id']),$data['addr_id'],'address_id','formatted_address',array())?>
+			<?=core_form::value('Production Location',
+				core::model('addresses')->get_radios($data['org_id'],$data['addr_id'],'address_id'),
+				array('sublabel'=>'Edit addresses in <a href="#!organizations-edit--org_id-'.$data['org_id'].'">My Account</a>')
+			)?>
 			<?
 			if(lo3::is_customer())
 			{
