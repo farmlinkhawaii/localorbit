@@ -168,8 +168,8 @@ class core_form
 	public static function tr_nv($label,$value,$options)
 	{
 		#$label .= ($label != '&nbsp;')?':':'';
-		$label .= (isset($options['sublabel']) && $options['sublabel'] !='')?
-			'<div class="sublabel">'.$options['sublabel'].'</div>':'';
+		#$label .= (isset($options['sublabel']) && $options['sublabel'] !='')?
+		#	'<div class="sublabel">'.$options['sublabel'].'</div>':'';
 		if($label == '&nbsp;')
 		{
 			$value .= (isset($options['required']) && $options['required'] == true)?
@@ -187,6 +187,7 @@ class core_form
 		$html = '
 		<div class="control-group">
 			<label class="control-label" for="' . $options['field_name'] . '">'.$label;
+		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
 			
 		if(isset($options['popover']) && $options['popover']!='')
 		{
@@ -195,7 +196,9 @@ class core_form
 		
 		$html .='</label>
 		    <div class="controls">
-				'. $value .'
+				'. $value;
+
+		$html .= '
 		    </div>
 		</div>
 		';
@@ -322,6 +325,8 @@ class core_form
 		$html = '<div class="control-group">';
 		$html .= '<label class="control-label" for="' . $name . '">' . $required . $label;
 		
+		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
+
 		if ($options['popover']):
 			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $label . '" data-content="' . $options['popover'] . '" />';
 		endif;
@@ -478,7 +483,9 @@ class core_form
 			
 		$html = '<div class="control-group">';
 		$html .= '<label class="control-label" for="' . $name . '">' . $required . $label;
-		
+	
+		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
+
 		if ($options['popover']):
 			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $label . '" data-content="' . $options['popover'] . '" />';
 		endif;
