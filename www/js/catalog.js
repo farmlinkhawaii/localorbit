@@ -138,7 +138,7 @@ core.catalog.confirmDeliveryDateChange = function (confirmed) {
 			var prodQtyJq = jq.find('.prodQty');
 			var prodQty = $.trim(prodQtyJq.val());
 			var prodId = $(this).attr('id').split('_')[1];
-				var text = $.trim($('#filter_dd_' + core.catalog.filters.dd).text());
+			var text = $.trim($('#filter_dd_' + core.catalog.filters.dd).text());
 			if (prodQty !== '' && prodQty !== '0') {
 				var dds = jq.find('.prodDdSet').val().split('_');
 				var isValid = false;
@@ -160,6 +160,8 @@ core.catalog.confirmDeliveryDateChange = function (confirmed) {
 					core.catalog.updateRow(prodId, 0);
 				} else {
 					jq.find('.dd_selector').text(text);
+					jq.find('.prodDd').val(core.catalog.filters.dd);
+					core.catalog.updateRow(prodId, prodQtyJq.val());
 				}
 			} else {
 				jq.find('.dd_selector').text(text);
@@ -393,11 +395,11 @@ core.catalog.setAddressCache=function(address,gcResult){
 	}
 }
 
-core.catalog.checkInventoryFailure=function(prodId, maximumQuantity){
+core.catalog.checkInventoryFailure=function(prodId, maximumQuantity, dd_id){
 	core.log('failure...');
 	$('.prodQty_'+prodId).val(parseFloat(maximumQuantity));
 	$('#qtyBelowInv_'+prodId).html(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.').fadeIn(300);
-	core.catalog.updateRowContinue(prodId, maximumQuantity);
+	core.catalog.updateRowContinue(prodId, maximumQuantity, dd_id);
 }
 
 core.catalog.doWeeklySpecial=function(prodId){
@@ -406,7 +408,7 @@ core.catalog.doWeeklySpecial=function(prodId){
 	$('#weekly_special').fadeOut('fast');
 }
 
-core.catalog.updateRowContinue=function(prodId, newQty) {
+core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
 	// loop through all the products
 	var priceId = -1;
 	var lowestMin = 100000000000000;
@@ -458,23 +460,13 @@ core.catalog.updateRowContinue=function(prodId, newQty) {
 	}
 }
 
-core.catalog.updateRow=function(prodId,newQty){
+core.catalog.updateRow=function(prodId,newQty,dd){
 	if(newQty == '')
 		newQty = 0;
 	var newQty = parseInt(newQty);
+	dd = dd | $('#prodDd_' + prodId).val() | core.catalog.filters.dd;
 	$('#qtyBelowInv_'+prodId).hide();
-	core.doRequest('/catalog/check_inventory', '&prod_id=' + prodId +'&newQty=' + newQty);
-	/*
-	var rowTotal = 100000000000000;
-
-	// check the inventory, show warning if below
-	if(core.prodIndex[prodId].inventory < newQty){
-		newQty = core.prodIndex[prodId].inventory;
-		$('#prodQty_'+prodId).val(parseFloat(newQty));
-		$('#qtyBelowInv_'+prodId).html('Only '+parseFloat(newQty)+' available').fadeIn(300);
-	}else{
-	}
-	*/
+	core.doRequest('/catalog/check_inventory', '&prod_id=' + prodId +'&newQty=' + newQty +'&dd_id='+dd);
 }
 
 core.catalog.setQty=function(prodId,newQty,rowTotal){
