@@ -11,6 +11,7 @@ $style2  = $core->view[6];
 $qty     = $core->view[7];
 $total   = $core->view[8];
 $days 	 = $core->view[9];
+$dd_id 	 = $core->view[10];
 
 
 # format the total a bit
@@ -27,9 +28,9 @@ else
 $prod['category_ids'] = explode(',',$prod['category_ids']);
 $dd_ids = explode(',',$prod['dd_ids']);
 $dds = array();
-foreach($dd_ids as $dd_id)
+foreach($dd_ids as $dd_id_key)
 {
-	$dds[] = $delivs[$dd_id][0];
+	$dds[] = $delivs[$dd_id_key][0];
 }
 $rendered_prices = 0;
 ?>
@@ -94,13 +95,13 @@ $rendered_prices = 0;
 					<?
 					if (count($days) > 1)
 					{
-						$first = true;
+						$first = isset($dd_id) ? false : true;
 						foreach($days as $key => $day)
 						{
 							if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
 								$dd_ids_id = implode('_', array_keys($day));
 								list($type, $time) = explode('-', $key);
-								if ($first) {
+								if ($first || array_key_exists($dd_id, $day)) {
 									$first = false;
 									?>
 								<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
@@ -110,7 +111,7 @@ $rendered_prices = 0;
 								}
 								?>
 								<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
-								<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+								<?=$type?> <?=core_format::date($time, 'shorter-weekday')?> <?=$dd_ids_id?></a>
 								</li>
 								<?
 							}

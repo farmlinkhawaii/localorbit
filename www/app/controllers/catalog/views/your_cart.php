@@ -301,7 +301,8 @@ else
 					$styles[1],
 					$item_hash[$prod['prod_id']][0]['qty_ordered'],
 					$item_hash[$prod['prod_id']][0]['row_total'],
-					$days
+					$days,
+					$item_hash[$prod['prod_id']][0]['dd_id']
 				);
 				$styles[1] = ($styles[1] == 1)?2:1;
 			}

@@ -269,6 +269,7 @@ class core_controller_cart extends core_controller
 		$cart->verify_integrity();
 		$cart->update_totals();
 		$cart->write_js();
+		core::log($core->data);
 	}
 }
 

@@ -161,10 +161,11 @@ core.catalog.confirmDeliveryDateChange = function (confirmed) {
 				} else {
 					jq.find('.dd_selector').text(text);
 					jq.find('.prodDd').val(core.catalog.filters.dd);
-					core.catalog.updateRow(prodId, prodQtyJq.val());
+					//core.catalog.updateRow(prodId, prodQtyJq.val());
 				}
 			} else {
 				jq.find('.dd_selector').text(text);
+				jq.find('.prodDd').val(core.catalog.filters.dd);
 			}
 		});
 		core.catalog.updateListing();
@@ -505,7 +506,8 @@ core.catalog.sendNewQtys=function(){
 	var items=[];
 	var data = '';
 	for (var i = 0; i < core.cart.items.length; i++){
-		data += '&prod_'+core.cart.items[i].prod_id+'='+core.cart.items[i].qty_ordered + ';' + $('#product_' + core.cart.items[i].prod_id + ' .prodDd').val();
+		data += '&prod_'+core.cart.items[i].prod_id+'='+core.cart.items[i].qty_ordered + ';' + $('#prodDd_' + core.cart.items[i].prod_id).val();
+		alert($('#prodDd_' + core.cart.items[i].prod_id).val());
 		items.push(core.cart.items[i].prod_id);
 	}
 	data += '&items='+items.join('_');
