@@ -493,7 +493,7 @@ class core_form
 		$html .= '</label>';
 		$html .= '<div class="controls"><textarea name="'.$name.'" class="' . $options['size'] . '" rows="'.$options['rows'].'" cols="'.$options['cols'].'">'.$value.'</textarea>';
 		
-		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
+		#if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
 
 		$html .= '</div>
 		</div>';

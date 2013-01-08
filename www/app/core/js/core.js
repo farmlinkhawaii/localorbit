@@ -332,7 +332,6 @@ core.doRequest=function(path,data){
 		
 		
 		//$('#loading').hide();
-		core.jqInit();
 		//alert(Base64.decode(jsondata.js));
 		core.log(Base64.decode(jsondata.js));
 		if(mainChanged){
@@ -364,6 +363,8 @@ core.doRequest=function(path,data){
 			//~ 
 			//~ core.alertHash(e);
 		}
+		core.jqInit();
+		
 		core.cleanupEndTime = new Date().valueOf();
 		core.log('cleanup time: '+(core.cleanupEndTime - core.cleanupStartTime));
 
