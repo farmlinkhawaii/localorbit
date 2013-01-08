@@ -54,8 +54,7 @@ else
 
 	$inv->size = (-1);
 	$inv->display_filter_resizer = false;
-	$inv->render_page_select = false;
-	$inv->render_page_arrows = false;
+	$inv->display_exporter_pager = false;
 	$inv->render();
 	?>
 	<!--
@@ -66,8 +65,10 @@ else
 		<div style="float:left;">
 			<?=core_ui::checkdiv('sell_oldest_first','Sell from oldest lot first',true)?>	
 		</div>
-		<input type="button" class="btn" value="Add New Lot" onclick="product.editLot(0);" />
-		<input type="button" class="btn" value="Remove Checked" onclick="product.removeCheckedLots(this.form);" />
+		<div style="float:right;">
+			<input type="button" class="btn" value="Add New Lot" onclick="product.editLot(0);" />
+			<input type="button" class="btn btn-danger" value="Remove Checked" onclick="product.removeCheckedLots(this.form);" />
+		</div>
 	</div>
 	<br />
 	<fieldset id="editLot" style="display: none;">

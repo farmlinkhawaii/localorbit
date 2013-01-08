@@ -65,7 +65,7 @@ $this->inventory_basic_rules()->js();
 $this->pricing_advanced_rules()->js(); 
 $this->inventory_advanced_rules()->js(); 
 
-page_header('Editing '.$data['name'],'#!products-list','cancel');
+page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 ?>
 <form name="prodForm" class="form-horizontal" method="post" action="/products/update" target="uploadArea" onsubmit="return product.doSubmit(false)" enctype="multipart/form-data">
 	<?
@@ -113,7 +113,9 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 				</div>',
 				array('sublabel'=>'Type to search')
 			)?>  
-			<? core::js('$("#unit_id").select_autocomplete();$("#unit_id").show();');?>
+			<? 
+			#core::js('$("#unit_id").select_autocomplete();$("#unit_id").show();');
+			?>
 			<?=core_form::value('Production Location',core::model('addresses')->get_radios($data['org_id']),$data['addr_id'],'address_id','formatted_address',array())?>
 			<?
 			if(lo3::is_customer())
@@ -165,8 +167,8 @@ page_header('Editing '.$data['name'],'#!products-list','cancel');
 		<?}?>
 		<input type="hidden" name="prod_id" value="<?=$data['prod_id']?>" />
 	</div>
-	<div class="form-actions">
-		<input type="submit" class="btn" name="save" value="save and continue editing" />
+	<div class="form-actions" id="main_save_buttons">
+		<input type="submit" class="btn btn-primary" name="save" value="save and continue editing" />
 		<input type="button" onclick="product.doSubmit(true)" class="btn btn-primary" value="save and go back" />
 	</div>
 </form>

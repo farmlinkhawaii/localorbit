@@ -175,15 +175,17 @@ You can set a single universal price, or individual prices for certain Markets
 	$prc->display_filter_resizer = false;
 	$prc->render_page_select = false;
 	$prc->render_page_arrows = false;
+	$prc->display_filter_resizer = false;
+	$prc->display_exporter_pager = false;
 	$prc->render();
 ?>
 	<!--
 	<br />
 	<?=$core->i18n['note:pricingadvanced']?>
 	-->
-	<div class="buttonset" id="addPriceButton">
+	<div class="pull-right" id="addPriceButton">
 		<input type="button" class="btn" value="Add New Price" onclick="product.editPrice(0);" />
-		<input type="button" class="btn" value="Remove Checked" onclick="product.removeCheckedPrices(this.form);" />
+		<input type="button" class="btn btn-danger" value="Remove Checked" onclick="product.removeCheckedPrices(this.form);" />
 	</div>
 	<br />&nbsp;<br />
 	<br />

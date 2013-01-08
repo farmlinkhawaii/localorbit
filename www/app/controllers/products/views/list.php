@@ -186,7 +186,7 @@ function product_pricing($data)
 }
 
 # render the page
-page_header('Products','#!products-select_cat','Add new product');
+page_header('Products','#!products-select_cat','Add new product', null, 'plus', 'truck');
 echo('<form name="prodTable">');
 $products->render();
 echo('</form>');
