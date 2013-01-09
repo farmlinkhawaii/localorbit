@@ -111,7 +111,10 @@ class core_model_products extends core_model_base_products
 			$org_id = intval($core->session['org_id']);
 
 		$sql = '
-			select p.prod_id,p.name,how,p.who as product_who,description,category_ids,p.org_id,
+			select p.prod_id,p.name,p.how,p.how,p.who as product_who,description,
+			p.short_description,p.short_who,p.short_how,
+			o.short_profile,o.short_product_how,
+			category_ids,p.org_id,
 			pi.pimg_id,pi.width,pi.height,pi.extension,u.NAME as single_unit,u.PLURAL as plural_unit,
 			o.name as org_name,
 			(

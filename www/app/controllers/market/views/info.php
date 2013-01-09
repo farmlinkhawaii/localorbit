@@ -70,7 +70,7 @@ else
 
 <div class="row">
 	<div class="span9">
-		<h1><?=$market['name']?> <small><?= $address['city'] ?>, <?= $address['code'] ?></small></h1>
+		<h1><?=$market['name']?></h1>
 	</div>
 </div>
 
@@ -85,6 +85,16 @@ else
 	</div>
 
 	<div class="span4">
+		<? if($core->config['domain']['domain_id'] > 1){?>
+		<h3>Pickup/Delivery</h3>
+		<?
+		$delivs = core::model('delivery_days')->collection()->filter('domain_id',$core->config['domain']['domain_id']);
+		foreach($delivs as $deliv)
+		{
+			echo('<p>'.$deliv['buyer_formatted_cycle'].'</p>');
+		}
+		?>
+		<?}?>
 		
 		<? if (trim($market['market_policies']) != ''): ?>
 			<h3>Our Policies</h3>
@@ -94,22 +104,9 @@ else
 			<p class="note">We only source our products from Michigan producers, and insist on only the finest results and sustainable manufacturing processes.</p>
 		<? endif; ?>
 
-		<? if($core->config['domain']['domain_id'] > 1){?>
-			<h3>Pickup/Delivery</h3>
-			<?
-			$delivs = core::model('delivery_days')->collection()->filter('domain_id',$core->config['domain']['domain_id']);
-			foreach($delivs as $deliv)
-			{
-				echo('<p>'.$deliv['buyer_formatted_cycle'].'</p>');
-			}
-		?>
-		<?}?>
+	
 
-		<?if(trim($core->config['domain']['buyer_types_description']) != ''){?>
-			<h3>Currently Selling To</h3>
-			<p><?=$core->config['domain']['buyer_types_description']?></p>
-		<?}?>
-
+		
 	</div>
 </div>
 
@@ -119,7 +116,7 @@ else
 	
 	<div class="span5">
 		
-		<h3>Our Seller Locations</h3>
+		<h3>Our Sellers</h3>
 		<? if($has_address):
 			echo(core_ui::map('hubmap','100%','300px',6));
 			core_ui::map_center('hubmap',$lat,$long);
@@ -141,7 +138,7 @@ else
 	
 	<div class="span4">
 		
-		<h3>Our Sellers</h3>
+		<h3>&nbsp;</h3>
 		
 		<? foreach($sellers as $seller): ?>
 			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />

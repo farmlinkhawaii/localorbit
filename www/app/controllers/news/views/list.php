@@ -37,9 +37,28 @@ else
 		<? if($market_news->__num_rows > 0 ){?>
 			<h2>Latest Market News</h2>
 			<? foreach($market_news as $market_newsitem){?>
-				<h3 class="altcolor"><?=$market_news['title']?> <small><?=core_format::date($market_news['creation_date'],'short')?></small></h3>
-				<p><?=$market_news['content']?></p>
-				<hr>
+				<div class="row">
+					
+					<div class="span3">
+						<h3 class="altcolor">
+							<?=$market_news['title']?> 
+							<br /><small><?=core_format::date($market_news['creation_date'],'short')?></small>
+						</h3>
+					</div>
+					<div class="span6">
+						<div id="mnews_<?= $market_newsitem['mnews_id']?>">
+						<p style="padding-top: 10px;"><?=$market_news['content']?></p>
+						</div>
+						<!--
+						 style="height: 65px;overflow:hidden;"
+						<div class="pull-right"><a class="btn btn-info mnews_toggle_<?= $market_newsitem['mnews_id']?>" onclick="$('.mnews_toggle_<?= $market_newsitem['mnews_id']?>').toggle();$('#mnews_<?= $market_newsitem['mnews_id']?>').css('overflow','visible');"><i class="icon-plus" /></a></div>
+						<div class="pull-right"><a class="btn btn-info mnews_toggle_<?= $market_newsitem['mnews_id']?>" style="display: none;"  onclick="$('.mnews_toggle_<?= $market_newsitem['mnews_id']?>').toggle();$('#mnews_<?= $market_newsitem['mnews_id']?>').css('overflow','hidden');"><i class="icon-minus" /></a></div>
+						-->
+					</div>
+				</div>
+				
+				
+				<hr />
 			<?}?>
 		<?}?>
 	</div>

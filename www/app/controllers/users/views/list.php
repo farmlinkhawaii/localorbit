@@ -11,7 +11,7 @@ $col->__model->autojoin(
 	'left',
 	'organizations o',
 	'(o.org_id=customer_entity.org_id)',
-	array('o.name as org_name')
+	array('o.name as org_name','o.allow_sell',)
 );
 $col->__model->autojoin(
 	'left',
@@ -43,9 +43,14 @@ else
 	lo3::require_orgtype('admin');
 }
 
-
+function user_role_formatter($data)
+{
+	$data['role'] = ($data['allow_sell'] == 1)?'Seller':'Buyer';
+	return $data;
+}
 
 $col->add_formatter('enable_suspend_links');
+$col->add_formatter('user_role_formatter');
 
 
 
@@ -106,7 +111,7 @@ $actions = '
 $users->add(new core_datacolumn('first_name','Name',true,'25%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b></a><br /><small><i class="icon-envelope"></i> <a href="mailTo:{email}">{email}</a></small>','{first_name} {last_name}','{first_name} {last_name}'));
 $users->add(new core_datacolumn('o.name','Organization',true,'20%','<b>{org_name}</b><br /><small>{domain_name}</small>','{org_name}','{org_name}'));
 $users->add(new core_datacolumn('created_at','Registered On',true,'15%','{created_at}','{created_at}','{created_at}'));
-$users->add(new core_datacolumn('organization_types.name','Role',true,'10%','{orgtype_name}','{orgtype_name}','{orgtype_name}'));
+$users->add(new core_datacolumn('organization_types.name','Role',true,'10%','{role}','{role}','{role}'));
 $users->add(new core_datacolumn('entity_id',' ',false,'30%',$actions,'  ','  '));
 
 $users->sort_column = 2;

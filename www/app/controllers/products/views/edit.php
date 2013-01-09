@@ -92,10 +92,23 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 					<?}?>
 				</div>
 			</div>
-			
+
 			<?=core_form::input_textarea(
-				$core->i18n['products:what:label'],
-				$core->i18n['products:what:description'],
+				'Short Description',
+				'short_description',
+				$data['short_description'],
+				array(
+					'required'=>true,
+					'size'=>'input-xxlarge',
+					'popover'=>'',
+					'rows'=>2,
+					'sublabel'=>'Please limit this to 50 characters',
+			))?>
+
+		
+			<?=core_form::input_textarea(
+				'Long Description',
+				'description',
 				$data['description'],
 				array(
 					'required'=>true,
@@ -103,6 +116,8 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 					'popover'=>'Buyers want to know how you grow or prepare your products. Tell them how you do it!'
 			))?>
 			
+			
+						
 			<?=core_form::value('Unit','
 				<select name="unit_id" id="unit_id">
 					<option value="Select a unit"></option>'.core_ui::options($units,$data['unit_id'],'UNIT_ID','PLURAL').'
@@ -132,20 +147,43 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 				$how_msg = $core->i18n('products:how:admin',$data['org_id']);
 			}
 			?>	
+			
+			
+			<?=core_form::input_textarea(
+				'Short '.$core->i18n['products:who:label'],
+				'short_who',
+				$data['short_who'],
+				array(
+					'sublabel' => $who_msg,
+					'size'=>'input-xxlarge',
+					'rows'=>2,
+					'sublabel'=>'Please limit this to 50 characters',
+			))?>
 				
 			<?=core_form::input_textarea(
-				$core->i18n['products:who:label'],
-				$core->i18n['products:who:description'],
+				'Long '.$core->i18n['products:who:label'],
 				'who',
+				$data['who'],
 				array(
 					'sublabel' => $who_msg,
 					'size'=>'input-xxlarge',
 			))?>
 			
 			<?=core_form::input_textarea(
-				$core->i18n['products:how:label'],
-				$core->i18n['products:how:description'],
+				'Short '.$core->i18n['products:how:label'],
+				'short_how',
+				$data['short_how'],
+				array(
+					'sublabel' => $how_msg,
+					'size'=>'input-xxlarge',
+					'rows'=>2,
+					'sublabel'=>'Please limit this to 50 characters',
+			))?>
+			
+			<?=core_form::input_textarea(
+				'Long '.$core->i18n['products:how:label'],
 				'how',
+				$data['how'],
 				array(
 					'sublabel' => $how_msg,
 					'size'=>'input-xxlarge',

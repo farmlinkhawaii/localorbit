@@ -146,10 +146,10 @@ class core_controller_organizations extends core_controller
 			$rules[] = array('type'=>'min_length','name'=>'product_how','data1'=>2,'msg'=>$core->i18n['error:organizations:product_how']);
 		}
 
-		if(!lo3::is_customer())
-		{
-			$rules[] = array('type'=>'at_least_one_checked','name'=>'payment_allow_purchaseorder','data1'=>array('payment_allow_paypal','payment_allow_purchaseorder'),'msg'=>$core->i18n['error:organizations:one_allowed_payment']);
-		}
+		#if(!lo3::is_customer())
+		#{
+		#	$rules[] = array('type'=>'at_least_one_checked','name'=>'payment_allow_purchaseorder','data1'=>array('payment_allow_paypal','payment_allow_purchaseorder'),'msg'=>$core->i18n['error:organizations:one_allowed_payment']);
+		#}
 		return new core_ruleset('organizationsForm',$rules);
 	}
 
@@ -344,11 +344,11 @@ class core_controller_organizations extends core_controller
 
 		# figure out which fields to import, based on role
 		if(lo3::is_admin())
-			$org->import_fields('org_id','name','domain_id','allow_sell','payment_allow_paypal','payment_allow_purchaseorder','buyer_type','profile','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days');
+			$org->import_fields('org_id','name','domain_id','allow_sell','payment_allow_paypal','payment_allow_purchaseorder','buyer_type','profile','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days','short_profile','short_product_how');
 		else if(lo3::is_market())
-			$org->import_fields('org_id','name','allow_sell','profile','payment_allow_paypal','payment_allow_purchaseorder','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days');
+			$org->import_fields('org_id','name','allow_sell','profile','payment_allow_paypal','payment_allow_purchaseorder','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days','short_profile','short_product_how');
 		else
-			$org->import_fields('org_id','name','profile','product_how','public_profile','facebook','twitter', 'payment_entity_id');
+			$org->import_fields('org_id','name','profile','product_how','public_profile','facebook','twitter', 'payment_entity_id','short_profile','short_product_how');
 
 		# save the data, and reload
 		$org->save();

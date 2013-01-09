@@ -15,6 +15,9 @@ class core_model_base_products extends core_model
 		$this->add_field(new core_model_field(9,'who','string',8000,'','products'));
 		$this->add_field(new core_model_field(10,'last_modified','timestamp',4,'','products'));
 		$this->add_field(new core_model_field(11,'is_deleted','int',8,'','products'));
+		$this->add_field(new core_model_field(12,'short_description','string',8000,'','products'));
+		$this->add_field(new core_model_field(13,'short_how','string',8000,'','products'));
+		$this->add_field(new core_model_field(14,'short_who','string',8000,'','products'));
 		$this->init_data();
 	}
 }

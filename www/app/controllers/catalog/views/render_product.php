@@ -14,6 +14,35 @@ $days 	 = $core->view[9];
 $dd_id 	 = $core->view[10];
 
 
+$desc = $prod['short_description'];
+$farm_name = $prod['org_name'];
+$learn_more = '<br /><a href="#!sellers-oursellers--org_id-'.$prod['org_id'].'">Learn More</a>';
+
+$description_popup = $prod['short_who'];
+if($description_popup == '')
+	$description_popup = $prod['short_profile'];
+$description_popup .= $learn_more;
+$description_popup = htmlentities($description_popup);
+
+
+$how_popup = $prod['short_how'];
+if($how_popup == '')
+	$how_popup = $prod['short_product_how'];
+if($how_popup !=='')
+	$how_popup .= '<br /><a href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a>';
+	
+$how_popup = htmlentities($how_popup);
+
+# remove this code
+$first_period = strpos($desc,'.');
+$first_exclam = strpos($desc,'!');
+$index = ($first_period < $first_exclam)?$first_period:$first_exclam;
+$desc = substr($desc,0,$index+1);
+
+#$farm_name = substr($prod['org_name'],0,20);
+#$farm_name .= (strlen($prod['org_name'])>=20)?'&hellip;':'';
+
+
 # format the total a bit
 if(floatval($total) > 0)
 {
@@ -47,12 +76,20 @@ $rendered_prices = 0;
 		</div>
 
 		<div class="span4 product-info">
-			<small><a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small><br>
-			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a><br>
-
+			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a>
+			<small> from <a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small>
+			<br />
+			<?=$desc?>
+			<br />
 			<small class="whowhatwhere">
-				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> What</a>&nbsp;
-				<? if ($seller['product_how'] !== ''): ?><a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$seller['product_how']?>"><i class="icon icon-heart-empty" /> How</a>&nbsp;<? endif; ?>
+				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$farm_name?>" data-content="<?=$description_popup?>">
+					<i class="icon icon-info-sign" /> 
+					Who
+				</a>&nbsp;
+				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$how_popup?>">
+					<i class="icon icon-heart-empty" /> 
+					How
+				</a>&nbsp;
 				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Where</a>
 			</small>
 

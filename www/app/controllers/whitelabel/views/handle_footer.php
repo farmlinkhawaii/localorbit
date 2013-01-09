@@ -40,15 +40,16 @@ else
 
 		<div class="span6 tos">
 			<?if(trim($core->config['domain']['secondary_contact_name']) != ''){?>
-				<h4>Contact <?=$core->config['domain']['name']?></h4>
-				<p class="note"><a href="mailTo:<?=$core->config['domain']['secondary_contact_email']?>"><?=$core->config['domain']['secondary_contact_name']?></a><br />
+				<p class="note"><a href="mailTo:<?=$core->config['domain']['secondary_contact_email']?>"><i class="icon-envelope" /> <?=$core->config['domain']['secondary_contact_name']?></a><br />
 				<?if(trim($core->config['domain']['secondary_contact_phone']) != ''){?>
 					T: <?=$core->config['domain']['secondary_contact_phone']?><br>
 				<?}?>
+
 				<? if ($address): ?>
 				<?= $address['address'] ?><br>
 				<?= $address['city'] ?>, <?= $address['code'] ?> <?= $address['postal_code'] ?>
 				<? endif; ?>
+				
 				</p>
 			<?}?>
 		</div>

@@ -233,7 +233,7 @@ function delivery_days_formatter($data)
 	switch($data['cycle'])
 	{
 		case 'weekly':
-			$data['short_formatted_cycle'] = 'Every '.$days[$data['day_nbr']];
+			$data['short_formatted_cycle'] = $days[$data['day_nbr']].'s';
 			$data['formatted_cycle'] = $data['short_formatted_cycle'].', order cutoff '.$data['hours_due_before'].' hours before delivery';
 
 			break;
@@ -266,33 +266,33 @@ function delivery_days_formatter($data)
 	$data['buyer_formatted_cycle'] = $data['short_formatted_cycle'];
 	if($data['deliv_address_id'] == 0)
 	{
-		$data['seller_formatted_cycle'] .= ', delivered direct to customer';
+		$data['seller_formatted_cycle'] .= ', delivered direct to customer - ';
 core::log($data['delivery_start_time']);
-		$data['seller_formatted_cycle'] .= ' between '.core_format::time($data['delivery_start_time']);
-		$data['seller_formatted_cycle'] .= ' and '.core_format::time($data['delivery_end_time']);
+		$data['seller_formatted_cycle'] .= ' '.core_format::time($data['delivery_start_time']);
+		$data['seller_formatted_cycle'] .= ' to '.core_format::time($data['delivery_end_time']);
 		$data['buyer_formatted_cycle']  = $data['seller_formatted_cycle'];
 	}
 	else
 	{
-		$data['seller_formatted_cycle'] .= ', delivered to '.$data['address'];
+		$data['seller_formatted_cycle'] .= ', delivered to '.$data['address'].' - ';
 		$data['seller_formatted_cycle'] .= ', '.$data['city'];
 		$data['seller_formatted_cycle'] .= ', '.$data['state'].' '.$data['postal_code'];
-		$data['seller_formatted_cycle'] .= ' between '.core_format::time($data['delivery_start_time']);
-		$data['seller_formatted_cycle'] .= ' and '.core_format::time($data['delivery_end_time']);
+		$data['seller_formatted_cycle'] .= ' '.core_format::time($data['delivery_start_time']);
+		$data['seller_formatted_cycle'] .= ' to '.core_format::time($data['delivery_end_time']);
 
 		if($data['pickup_address_id'] == 0)
 		{
-			$data['buyer_formatted_cycle']  .= ', delivered direct to customer';
-			$data['buyer_formatted_cycle'] .= ' between '.core_format::time($data['pickup_start_time']);
-			$data['buyer_formatted_cycle'] .= ' and '.core_format::time($data['pickup_end_time']);
+			$data['buyer_formatted_cycle']  .= ', delivered direct to customer - ';
+			$data['buyer_formatted_cycle'] .= ' '.core_format::time($data['pickup_start_time']);
+			$data['buyer_formatted_cycle'] .= ' to '.core_format::time($data['pickup_end_time']);
 		}
 		else
 		{
-			$data['buyer_formatted_cycle'] .= ', pick up at '.$data['pickup_address'];
+			$data['buyer_formatted_cycle'] .= ', pick up at '.$data['pickup_address'].' - ';
 			$data['buyer_formatted_cycle'] .= ', '.$data['pickup_city'];
 			$data['buyer_formatted_cycle'] .= ', '.$data['pickup_state'].' '.$data['pickup_postal_code'];
-			$data['buyer_formatted_cycle'] .= ' between '.core_format::time($data['pickup_start_time']);
-			$data['buyer_formatted_cycle'] .= ' and '.core_format::time($data['pickup_end_time']);
+			$data['buyer_formatted_cycle'] .= ' '.core_format::time($data['pickup_start_time']);
+			$data['buyer_formatted_cycle'] .= ' to '.core_format::time($data['pickup_end_time']);
 		}
 	}
 

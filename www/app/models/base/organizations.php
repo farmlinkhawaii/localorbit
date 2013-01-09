@@ -22,6 +22,8 @@ class core_model_base_organizations extends core_model
 		$this->add_field(new core_model_field(16,'is_deleted','int',8,'','organizations'));
 		$this->add_field(new core_model_field(17,'payment_entity_id','int',8,'','organizations'));
 		$this->add_field(new core_model_field(18,'po_due_within_days','int',8,'','organizations'));
+		$this->add_field(new core_model_field(19,'short_profile','string',8000,'','organizations'));
+		$this->add_field(new core_model_field(20,'short_product_how','string',8000,'','organizations'));
 		$this->init_data();
 	}
 }
