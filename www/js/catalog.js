@@ -507,7 +507,6 @@ core.catalog.sendNewQtys=function(){
 	var data = '';
 	for (var i = 0; i < core.cart.items.length; i++){
 		data += '&prod_'+core.cart.items[i].prod_id+'='+core.cart.items[i].qty_ordered + ';' + $('#prodDd_' + core.cart.items[i].prod_id).val();
-		alert($('#prodDd_' + core.cart.items[i].prod_id).val());
 		items.push(core.cart.items[i].prod_id);
 	}
 	data += '&items='+items.join('_');
