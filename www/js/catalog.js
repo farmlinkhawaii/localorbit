@@ -130,9 +130,8 @@ core.catalog.modalPopup = function () {
 
 core.catalog.confirmDeliveryDateChange = function (confirmed) {
 	var fdds = core.catalog.filters.dd.split('_');
-	if (!confirmed) {
-		//core.catalog.setFilter('dd',core.catalog.filters.dd,undefined,true);
-	} else {
+	if (confirmed)
+	{
 		$('.product-row').each(function () {
 			var jq = $(this);
 			var prodQtyJq = jq.find('.prodQty');
@@ -158,8 +157,18 @@ core.catalog.confirmDeliveryDateChange = function (confirmed) {
 					//core.catalog.updateRow(prodId, prodQtyJq.val());
 				}
 			} else {
-				jq.find('.dd_selector').text(text);
-				jq.find('.prodDd').val(core.catalog.filters.dd);
+				var dds = jq.find('.prodDdSet').val().split('_');
+				var isValid = false;
+				$.each(dds, function () {
+					isValid = ($.inArray(this.toString(), fdds) >= 0);
+					if (isValid) {
+						return false;
+					}
+				});
+				if (isValid) {
+					jq.find('.dd_selector').text(text);
+					jq.find('.prodDd').val(core.catalog.filters.dd);
+				}
 			}
 		});
 		var text = $.trim($('#filter_dd_' + core.catalog.filters.dd).text());

@@ -30,7 +30,7 @@ if($how_popup == '')
 	$how_popup = $prod['short_product_how'];
 if($how_popup !=='')
 	$how_popup .= '<br /><a href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a>';
-	
+
 $how_popup = htmlentities($how_popup);
 
 # remove this code
@@ -83,11 +83,11 @@ $rendered_prices = 0;
 			<br />
 			<small class="whowhatwhere">
 				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$farm_name?>" data-content="<?=$description_popup?>">
-					<i class="icon icon-info-sign" /> 
+					<i class="icon icon-info-sign" />
 					Who
 				</a>&nbsp;
 				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$how_popup?>">
-					<i class="icon icon-heart-empty" /> 
+					<i class="icon icon-heart-empty" />
 					How
 				</a>&nbsp;
 				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Where</a>
@@ -150,7 +150,7 @@ $rendered_prices = 0;
 						list($type, $time) = explode('-', $key);
 						?>
 						<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
-		  				<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>		
+		  				<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 						<?
 						foreach($days as $key => $day)
@@ -160,7 +160,7 @@ $rendered_prices = 0;
 								list($type, $time) = explode('-', $key);
 								?>
 								<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
-								<?=$type?> <?=core_format::date($time, 'shorter-weekday')?> <?=$dd_ids_id?></a>
+								<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
 								</li>
 								<?
 							}
