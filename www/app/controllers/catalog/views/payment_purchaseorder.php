@@ -6,7 +6,7 @@ if($org['payment_allow_purchaseorder'] == 1)
 	$style = ($core->view[0] > 1)?' style="display:none;"':'';
 ?>
 <div id="payment_purchaseorder" class="payment_option form"<?=$style?>>
-	<h3>Purchase Order Information</h3>
+	<h4>Purchase Order Information</h4>
 	<br />
 	<table class="form">
 		<? if ($core->config['domain']['po_due_within_days'] > 0) { ?>

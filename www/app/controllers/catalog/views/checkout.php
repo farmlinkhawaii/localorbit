@@ -50,94 +50,110 @@ core::replace('full_width');
 $cart->arrange_by_next_delivery();
 ?>
 
+<link href="/css/checkout.css" rel="stylesheet">
+
 <form id="checkoutForm" name="checkoutForm" class="checkout" method="post" action="app/catalog/order_confirmation">
 <div class="row">
 	<div class="span6">
 		<div class="row">
 			<span class="span3">
-				<h1>Your Order</h1>
-			</span>
-			<span class="span1">
+				<h3>Your Order</h3>
+			</span>			
+			<span class="span1 checkout_labels">
 				Quantity
 			</span>
-			<span class="span1">
-				Unit Price
+			<span class="span1 checkout_labels">
+				UnitPrice
 			</span>
-			<span class="span1">
+			<span class="span1 checkout_labels">
 				Subtotal
 			</span>
-			<hr class="span6"/>
+			
+			<hr class="span6 hr_pad_bottom"/>
 		</div>
-	<?php
-	foreach($cart->items_by_delivery as $delivery_opt_key=>$items){
-	$this->checkout_items_header($items[0]['lodeliv_id'], $all_addrs);
-	?>
-		<div class="row">
-			<hr class="span6"/>
-		</div>
-	<?
-	$items_by_seller = array();
-	foreach ($items as $item) {
-		if (!array_key_exists($item['seller_name'], $items_by_seller)){
-			$items_by_seller[$item['seller_name']] = array();
-		}
-		$items_by_seller[$item['seller_name']][] = $item;
-	}
-	foreach ($items_by_seller as $seller_name => $items) {
+		<?php
+			$count = 0;
+			foreach($cart->items_by_delivery as $delivery_opt_key=>$items) {
+				// delivery date
+				
+				$count++;
+				$this->checkout_items_header($items[0]['lodeliv_id'], $all_addrs, $count);
+				
+				?>
+					<div class="row">
+						<hr class="span6"/>
+					</div>
+				<?
+				$items_by_seller = array();
+				foreach ($items as $item) {
+					if (!array_key_exists($item['seller_name'], $items_by_seller)){
+						$items_by_seller[$item['seller_name']] = array();
+					}
+					$items_by_seller[$item['seller_name']][] = $item;
+				}
+				foreach ($items_by_seller as $seller_name => $items) {
+					?>
+					<div class="row">
+						<div class="span6"><?=$seller_name?></div>
+					</div>
+						<?
+						foreach ($items as $item) {
+						?>
+					<div class="row">
+						<div class="span3"><strong><?=$item['product_name']?></strong></div>
+						<div class="span1"><?=$item['qty_ordered']?></div>
+						<div class="span1"><?=core_format::price($item['unit_price'])?></div>
+						<div class="span1"><?=core_format::price($item['row_total'])?></div>
+					</div>
+						<?
+						}
+						?>
+					<div class="row">
+						<hr class="span6 hr_pad_bottom"/>
+					</div>
+					<?
+				}
+			}
 		?>
 		<div class="row">
-			<div class="span6"><?=$seller_name?></div>
-		</div>
-			<?
-			foreach ($items as $item) {
-			?>
-		<div class="row">
-			<div class="span3"><strong><?=$item['product_name']?></strong></div>
-			<div class="span1"><?=$item['qty_ordered']?></div>
-			<div class="span1"><?=core_format::price($item['unit_price'])?></div>
-			<div class="span1"><?=core_format::price($item['row_total'])?></div>
-		</div>
-			<?
-			}
-			?>
-		<div class="row">
-			<hr class="span6"/>
-		</div>
-		<?
-	}
-}
-	?>
-		<div class="row">
 			<div class="span3">
+				<i>Need to change quantities or delivery and pickup dates?</i><br/>
 				<a class="btn" href="#!catalog-shop">Modify Your Cart</a>
 			 </div>
 			 <div class="span3">
-			 	<?
-	$this->checkout_totals($cart);
-	?>
+				<?
+					$this->checkout_totals($cart);
+				?>
 			 </div>
 		</div>
 	</div>
-	<span class="span6">
+	<span class="span6">				
+		<!-- Billing -->
 		<div class="row">
-			<div class="span6"><h1>Billing</h1></div>
+			<div class="span6"><h3>Billing</h3></div>
+			<hr class="span6"/>
 			<div class="span3">Have a discount code? Enter it here.</div>
 			<div class="span3 form-inline">
 				<input class="input-small"  type="text" id="discount_code" name="discount_code" value="<?=$cart->discount_codes[0]['code']?>" />
 				<input class="btn" type="button" value="Apply" onclick="core.checkout.requestUpdatedFees();" />
 			</div>
-			<hr class="span6"/>
-			<?
-				$this->checkout_payment_info();
-			?>
+			<hr class="span6 hr_pad_bottom"/>			
 		</div>
+		
+		
+		<!-- Payment Method -->
+		<?
+			$this->checkout_payment_info();
+		?>
 	</span>
 </div>
 <div class="row">
-	<hr class="span12"/>
-	<div class="span4">
-		<input type="button" value="Confirm Order" class="btn" onclick="core.checkout.process();" />
+	<hr class="span12 hr_thick"/>
+	<div class="span5"></div>
+	<div class="span2">
+		<input type="button" value="Confirm Order" class="btn btn-large btn-success" onclick="core.checkout.process();" />
 	</div>
+	<div class="span5"></div>
 </div>
 <?
 /*
@@ -158,7 +174,7 @@ $cart->arrange_by_next_delivery();
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td>
-							<h1>Location</h1>
+							<h3>Location</h3>
 						</td>
 					</tr>
 					<tr>
