@@ -131,7 +131,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-truck icon-large"></i>
+					<i class="icon-qrcode icon-large"></i>
 					Marketing
 					<b class="caret"></b>
 				</a>
@@ -186,9 +186,11 @@
 					<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
 					<?}?>
 					<li><a href="#!orders-purchase_history" onclick="core.go(this.href);">Purchase History</a></li>
+						<!--
 						<? if(!lo3::is_seller()){?>
 						<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
 						<?}?>
+						-->
 					<?}?>
 					<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>					
 				</ul>
@@ -209,9 +211,11 @@
 	<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
 	<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
 	<li><a href="#!orders-purchase_history" onclick="core.go(this.href);">Purchase History</a></li>
+		<!--
 		<? if(!lo3::is_seller()){?>
 		<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
 		<?}?>
+		-->
 	<?}?>
 	<?if(lo3::is_customer() && !lo3::is_seller()){?>
 	<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>

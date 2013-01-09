@@ -97,7 +97,7 @@ core::replace('datatable_filters');
 $users->filter_html .= core::getclear_position('datatable_filters');
 
 $actions = '
-	<a class="btn btn-primary btn-small" href="#!auth-loginas--entity_id-{entity_id}"><i class="icon-arrow-right" /> Login</a>
+	<a class="btn btn-primary btn-small" href="#!auth-loginas--entity_id-{entity_id}"><i class="icon-arrow-right" /> Log in</a>
 	<a class="btn btn-warning btn-small" href="javascript:core.doRequest(\'/users/{enable_action}\',{\'entity_id\':{entity_id},\'table\':\'customer_entity\'});" style="width:64px;"><i class="icon-{enable_icon}" /> {enable_action}</a>
 	<a class="btn btn-danger btn-small" href="#!users-list" onclick="org.deleteUser({entity_id},\'{first_name} {last_name}\',this,'.$core->session['user_id'].');"><i class="icon-ban-circle" /> Delete</a>
 ';

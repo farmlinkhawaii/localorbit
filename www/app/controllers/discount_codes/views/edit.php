@@ -46,12 +46,12 @@ echo(
 		core_form::tab_switchers('discounttabs',array('Discounts')),
 		core_form::tab('discounttabs',
 			core_form::table_nv(
-				core_form::input_text('Name','name',$data),
+				core_form::input_text('Discount Name','name',$data),
 				core_form::input_text('Code','code',$data),
 				(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)?
-					core_form::input_select('Hub','domain_id',$data,$hubs,array(
+					core_form::input_select('Market','domain_id',$data,$hubs,array(
 						'default_show'=>(lo3::is_admin()),
-						'default_text'=>'All Hubs',
+						'default_text'=>'All Markets',
 						'text_column'=>'name',
 						'value_column'=>'domain_id',
 					))
@@ -81,10 +81,10 @@ echo(
 					'value_column'=>'org_id',
 					'select_style'=>'width:300px;',
 				)),
-				core_form::input_text('Minimum order total (0 for no min)','min_order',lo3_display_negative($data['min_order'])),
-				core_form::input_text('Maximum order total (0 for no max)','max_order',lo3_display_negative($data['max_order'])),
-				core_form::input_text('Max global uses (0 for no limit)','nbr_uses_global',$data),
-				core_form::input_text('Max per org uses (0 for no limit)','nbr_uses_org',$data)
+				core_form::input_text('Minimum order total','min_order',lo3_display_negative($data['min_order']),array('sublabel'=>'0 for no min')),
+				core_form::input_text('Maximum order total','max_order',lo3_display_negative($data['max_order']),array('sublabel'=>'0 for no min')),
+				core_form::input_text('Max global uses','nbr_uses_global',$data,array('sublabel'=>'0 for no min')),
+				core_form::input_text('Max per org uses','nbr_uses_org',$data,array('sublabel'=>'0 for no min'))
 			)
 		),
 		core_form::input_hidden('disc_id',$data),

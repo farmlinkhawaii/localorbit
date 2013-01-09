@@ -15,7 +15,7 @@ function row_formatter($data)
 		$data['domain_name'] = 'Everywhere';
 	}
 	
-	$data['discount_type'] = ($data['discount_type']=='Fixed')?'Dollar Amount':'Percentage';
+	$data['discount_type'] = '<strong>'.(($data['discount_type']=='Fixed')?'$':'%').'</strong>';
 	
 	if($data['nbr_uses_global'] != 0)
 	{
@@ -27,8 +27,11 @@ function row_formatter($data)
 	}
 	else
 	{
-		$data['available_uses'] = '∞';
+		$data['available_uses'] = 'Unlimited';
 	}
+	
+
+	
 	return $data;
 }
 
@@ -55,20 +58,24 @@ if(lo3::is_admin())
 		new core_collection('select domain_id,name from domains order by name'),
 		'domain_id',
 		'name',
-		'Show from all hubs',
+		'Show from all markets',
 		'width: 250px;'
 	);
 }
 
-$discount_codes->add(new core_datacolumn('name','Name',true,'25%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{name}</a>','{name}','{name}'));
+
+$discount_codes->add(new core_datacolumn('domain_id','Market',true,'25%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{domain_name}</a>','{domain_name}','{domain_name}'));
+
+$discount_codes->add(new core_datacolumn('name','Discount Name',true,'15%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{name}</a>','{name}','{name}'));
 $discount_codes->add(new core_datacolumn('code','Code',true,'15%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{code}</a>','{code}','{code}'));
 $discount_codes->add(new core_datacolumn('discount_amount','Amount',true,'5%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{discount_amount}</a>','{discount_amount}','{discount_amount}'));
 $discount_codes->add(new core_datacolumn('discount_type','Type',true,'5%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{discount_type}</a>','{discount_type}','{discount_type}'));
-$discount_codes->add(new core_datacolumn('domain_id','Hub',true,'10%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{domain_name}</a>','{domain_name}','{domain_name}'));
-$discount_codes->add(new core_datacolumn('nbr_uses_global','Uses',true,'5%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{nbr_discount_uses}</a>','{nbr_discount_uses}','{nbr_discount_uses}'));
-$discount_codes->add(new core_datacolumn('nbr_uses_global','Avlble',true,'5%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{available_uses}</a>','{available_uses}','{available_uses}'));
-$discount_codes->add(new core_datacolumn('disc_id',' ',false,'10%','<a href="#!discount_codes-list" onclick="if(confirm(\'Are you sure you want to delete this discount?\')){core.doRequest(\'/discount_codes/delete\',\'&disc_id={disc_id}\');return false;}">Delete</a>',' ',' '));
-$discount_codes->add(new core_datacolumn('disc_id',' ',false,'10%','<a href="#!discount_codes-list" onclick="core.doRequest(\'/discount_codes/copy_code\',{\'disc_id\':{disc_id}});">Copy</a>',' ',' '));
-page_header('Discount Codes','#!discount_codes-edit','Create new code');
+$discount_codes->add(new core_datacolumn('nbr_uses_global','Uses',true,'6%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{nbr_discount_uses}</a>','{nbr_discount_uses}','{nbr_discount_uses}'));
+$discount_codes->add(new core_datacolumn('nbr_uses_global','Available',true,'10%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{available_uses}</a>','{available_uses}','{available_uses}'));
+$discount_codes->add(new core_datacolumn('disc_id',' ',false,'24%','
+	<a class="btn btn-danger" href="#!discount_codes-list" onclick="if(confirm(\'Are you sure you want to delete this discount?\')){core.doRequest(\'/discount_codes/delete\',\'&disc_id={disc_id}\');return false;}"><i class="icon-minus" /> Delete</a>
+	<a class="btn btn-info" href="#!discount_codes-list" onclick="core.doRequest(\'/discount_codes/copy_code\',{\'disc_id\':{disc_id}});"><i class="icon-copy" /> Copy</a>
+',' ',' '));
+page_header('Discount Codes','#!discount_codes-edit','Create new code','button');
 $discount_codes->render();
 ?>

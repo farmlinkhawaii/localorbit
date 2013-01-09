@@ -319,7 +319,7 @@ class core_form
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		if ($options['required'] == true): $required = '<i class="icon-asterisk icon-required" rel="tooltip" title="Required" /> '; endif;
+		if ($options['required'] == true): $required = '<i class="icon-asterisk icon-required" style="vertical-align: text-top;" rel="tooltip" title="Required" /> '; endif;
 		#return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
 		
 		$html = '<div class="control-group">';
@@ -334,7 +334,7 @@ class core_form
 		$html .= '</label>';
 		$html .= '<div class="controls"><input type="text" name="'.$name.'" class="' . $options['size'] . '" value="'.$value.'" />';
 		
-		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
+		#if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
 
 		$html .= '</div>
 		</div>';
@@ -555,7 +555,7 @@ class core_form
 		if($options['require_pin'])
 		{
 			$out = '
-				<div class="form-actions unlock_area" id="unlock_area">
+				<div class="form-actions unlock_area pull-right" id="unlock_area">
 					<input type="password" name="sec_pin" id="sec_pin" class="input-small" placeholder="4 Digit Pin" value="" />
 					<input type="button" class="btn btn-primary" value="Unlock to Save" onclick="core.doRequest(\'/auth/unlock_pin\',{\'formname\':this.form.getAttribute(\'name\'),\'sec_pin\':$(\'#sec_pin\').val()});" />
 				</div>
@@ -564,7 +564,7 @@ class core_form
 		else
 		{
 			$out = '
-				<div class="form-actions" id="main_save_buttons"'.(($options['require_pin'])?' style="display:none;"':'').'>
+				<div class="form-actions pull-right" id="main_save_buttons"'.(($options['require_pin'])?' style="display:none;"':'').'>
 					<input type="'.(($require_pin)?'button':'submit').'" class="btn btn-primary" name="save" value="'.$core->i18n['button:save_and_continue'].'" />
 					<input type="button" onclick="core.submit(this.form.action,this.form,{\'do_redirect\':1});" class="btn btn-primary" value="'.$core->i18n['button:save_and_go_back'].'" />
 				</div>
@@ -582,11 +582,11 @@ class core_form
 			'on_save'=>'',
 			'require_pin' => false,
 		));
-		$out = '<div class="form-actions" id="main_save_buttons">';
-		$out .= '<input type="submit" class="btn btn-primary" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /> ';
+		$out = '<div class="form-actions pull-right" id="main_save_buttons">';
 		if ($options['cancel_button']):
-			$out .= '<input type="button" class="btn" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" />';
+			$out .= '<input type="button" class="btn" name="cancel" onclick="'.$options['on_cancel'].'" value="'.$core->i18n['button:cancel'].'" /> ';
 		endif;
+		$out .= '<input type="submit" class="btn btn-primary" onclick="'.$options['on_save'].' name="save" value="'.$core->i18n['button:save'].'" /> ';
 		$out .= '</div>';
 
 		return $out;

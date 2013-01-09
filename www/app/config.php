@@ -169,6 +169,24 @@ if($_SERVER['HTTP_HOST'] == 'testing.localorb.it' || strpos(__FILE__,'/testing/'
 	$core->config['hostname_prefix']  = $core->config['stage'];
 }
 
+if($_SERVER['HTTP_HOST'] == 'newui.localorb.it' || strpos(__FILE__,'/newui/') > 0)
+{
+	$core->config['stage'] = 'newui';
+	$core->config['default_hostname'] = 'annarbor-mi.localorb.it';
+	$core->config['session_domain']   = '.localorb.it';
+	$core->config['session_name']    .= 'newui';
+	$core->config['db']['database']   = 'localorb_www_newui';
+
+	$core->config['payments']['paypal'] = array(
+		'password'=>'1331153423',
+		'username'=>'test_1331153383_biz_api1.localorb.it',
+		'signature'=>'AFYqE2DluOQPGVmQcxxRIFQ289lfAeR95YuTxuE7wJSX68MHHvPRQIr.',
+		'url'=>'https://api-3t.sandbox.paypal.com/nvp',
+	);
+	$core->config['hostname_prefix']  = 'newui';
+	$core->config['db']['hostname'] = '127.0.0.1';
+}
+
 if($_SERVER['HTTP_HOST'] == 'dev.localorb.it' || strpos(__FILE__,'/dev/') > 0 || strpos(__FILE__,'/Clients/') > 0)
 {
 	$core->config['stage'] = 'dev';

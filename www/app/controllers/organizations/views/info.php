@@ -30,12 +30,23 @@ echo(
 
 <h3>Organization Info</h3>
 
-<div class="alert note alert-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vulputate feugiat est non posuere. Fusce semper enim eu risus ullamcorper hendrerit. Quisque congue velit id tellus molestie tincidunt. Donec luctus libero sed massa viverra sit amet aliquet orci pretium.</div>
+<div class="alert note alert-info">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>What should I be doing here?</strong>
+	<br />
+	This is a placeholder for an inline tutorial using a jquery plugin (TBD). It may appear significantly different from this in our future release.
+</div>
 
-<?=core_form::input_text('Title','name',$data['name'],array('required' => true))?>
+<?=core_form::input_text('Organization','name',$data['name'],array('required' => true))?>
 
 <div class="control-group">
-	<label class="control-label" for="facebook"><?=$core->i18n['organizations:facebook']?></label>
+	<label class="control-label" for="facebook">
+		<?=$core->i18n['organizations:facebook']?>
+		<i class="helpslug icon-question-sign" rel="popover" 
+			data-title="<?=$core->i18n['organizations:facebook']?>" 
+			data-content="If you have a Facebook account, enter your facebook page name here and we'll display your recent updates." />
+
+	</label>
 	<div class="controls">
 		<div class="input-prepend">
 			<span class="add-on">facebook.com/</span>

@@ -59,7 +59,7 @@ core_ui::load_library('js','org.js');
 core_ui::load_library('js','address.js');
 
 # determine which tabs we're going to show, and store the right tabid
-$tabs = array('Organization Info','Addresses','Users','Bank Account');
+$tabs = array('Organization Info','Addresses','Users');
 if(
 	$data['allow_sell'] == 1 and 
 	$domains->__num_rows > 0 and
@@ -84,7 +84,7 @@ if($is_mm && lo3::is_admin())
 }
 
 # print out the form
-page_header('Editing Organization: '.$data['name'],'#!organizations-list','Cancel', 'link', null, 'cog');
+page_header('Editing Organization: '.$data['name'],'#!organizations-list','Cancel', 'cancel', null, 'cog');
 
 if($data['is_deleted'] == 1)
 {
@@ -98,10 +98,10 @@ if($data['is_deleted'] == 1)
 		<div class="tab-pane active" id="orgtabs-a1"><? $this->info($is_mm); ?></div>
 		<div class="tab-pane" id="orgtabs-a2"><? $this->addresses(); ?></div>
 		<div class="tab-pane" id="orgtabs-a3"><? $this->users(); ?></div>
-		<div class="tab-pane" id="orgtabs-a4"><? $this->payment_methods(); ?></div>
-		<div class="tab-pane" id="orgtabs-a5"><? $this->cross_sell($crosssell_tab_id); ?></div>
-		<div class="tab-pane" id="orgtabs-a6"><? $this->profile($profile_tab_id); ?></div>
-		<div class="tab-pane" id="orgtabs-a7"><? $this->managed_hubs($managehubs_tab_id,$is_mm); ?></div>
+		<!--<div class="tab-pane" id="orgtabs-a4"><? $this->payment_methods(); ?></div>-->
+		<div class="tab-pane" id="orgtabs-a4"><? $this->cross_sell($crosssell_tab_id); ?></div>
+		<div class="tab-pane" id="orgtabs-a5"><? $this->profile($profile_tab_id); ?></div>
+		<div class="tab-pane" id="orgtabs-a6"><? $this->managed_hubs($managehubs_tab_id,$is_mm); ?></div>
 	</div>
 	
 	<?
