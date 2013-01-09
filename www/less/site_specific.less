@@ -109,19 +109,20 @@ body {
 
 
 #header {
-	margin-bottom: 40px;
-	padding-top: 60px;
+	margin-bottom: 10px;
+	padding-top: 48px;
 	}
 
 	#header h2 {
 		text-transform: capitalize;
 		}
 
-	#header #logocontainer { text-align: center;}
+	#header #logocontainer { text-align: left;}
 
 		#header #logo img {
-			max-height: 140px !important;
-			height: 140px;
+			max-height: 80px !important;
+			height: 80px;
+			overflow:hidden;
 			margin: 0 auto;
 			}
 	
@@ -131,7 +132,7 @@ body {
 	#mainnavcontainer { text-align: right;}
 
 	#mainnav {
-		margin: 20px -10px 0 0;
+		margin: 40px -10px 0 0;
 	    font-size: 24px;
 	    font-weight:bold;
 	    float:right;
@@ -146,7 +147,7 @@ body {
 				font-family: @headingsFontFamily;
 				text-transform: capitalize;
 				display: block;
-				padding: 4px 10px;
+				padding: 4px 14px;
 				text-align: right;
 				}
 				
@@ -167,16 +168,17 @@ body {
 						}
  
 					#mainnav li a .nav-sec {
-					    display: block;
+					    display: none;
 					    font-size: 12px;
 					    font-weight: normal;
 						color: #333;
+						
 						}
 						
 						#mainnav li a:hover .nav-sec,
 						#mainnav li a.active .nav-sec { color: #fff;}
 
-	h3.taglinecontainer { clear: both; font-size: 16px; }
+	h3.taglinecontainer { text-align: left; font-size: 16px; }
 
 
 
