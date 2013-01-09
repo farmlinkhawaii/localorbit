@@ -117,8 +117,8 @@ $cart->arrange_by_next_delivery();
 		?>
 		<div class="row">
 			<div class="span3">
-				<i>Need to change quantities or delivery and pickup dates?</i><br/>
-				<a class="btn" href="#!catalog-shop">Modify Your Cart</a>
+				<!--<i>Need to change quantities or delivery and pickup dates?</i><br/>-->
+				
 			 </div>
 			 <div class="span3">
 				<?
@@ -147,13 +147,12 @@ $cart->arrange_by_next_delivery();
 		?>
 	</span>
 </div>
-<div class="row">
-	<hr class="span12 hr_thick"/>
-	<div class="span5"></div>
-	<div class="span2">
-		<input type="button" value="Confirm Order" class="btn btn-large btn-success" onclick="core.checkout.process();" />
-	</div>
-	<div class="span5"></div>
+<hr class="span12 hr_thick"/>
+	
+<div class="pull-right">
+	<a class="btn btn-large btn-info" href="#!catalog-shop">Modify Your Cart</a>
+	<input type="button" value="Place Order" class="btn btn-large btn-success" onclick="core.checkout.process();" />
+		
 </div>
 <?
 /*

@@ -33,7 +33,7 @@ function save_buttons($require_pin = false)
 		<input type="button" class="btn btn-primary" value="Unlock to Save" onclick="core.doRequest('/auth/unlock_pin',{'formname':this.form.getAttribute('name'),'sec_pin':$('#sec_pin').val()});" />
 	</div>	
 	<?}?>
-	<div class="form-actions" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
+	<div class="form-actions pull-right" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
 		<input type="<?=(($require_pin)?'button':'submit')?>" class="btn btn-primary" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
 		<input type="button" onclick="core.submit(this.form.action,this.form,{'do_redirect':1});" class="btn btn-primary" value="<?=$core->i18n['button:save_and_go_back']?>" />
 	</div>
@@ -43,7 +43,7 @@ function save_only_button($cancel_button=false,$oncancel_js='',$require_pin = fa
 {
 	global $core;
 	?>
-	<div class="form-actions buttonset" id="main_save_buttons">
+	<div class="form-actions buttonset pull-right" id="main_save_buttons">
 		<?if($cancel_button){?>
 		<input type="button" class="btn" name="cancel" onclick="<?=$oncancel_js?>" value="<?=$core->i18n['button:cancel']?>" />
 		<?}?>
@@ -197,6 +197,8 @@ function page_header($title,$extrafunction='',$function_text='',$link_style='lin
 		# Get link style (link or button)
 		if($link_style == 'link'):
 			$link_class = 'btn-link cancel_link'; #simple link
+		elseif($link_style == 'cancel'):
+			$link_class = 'btn-warning pull-right'; #button floated right
 		else:
 			$link_class = 'btn-primary pull-right'; #button floated right
 		endif;

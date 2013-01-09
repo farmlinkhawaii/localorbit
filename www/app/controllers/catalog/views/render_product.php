@@ -16,7 +16,7 @@ $dd_id 	 = $core->view[10];
 
 $desc = $prod['short_description'];
 $farm_name = $prod['org_name'];
-$learn_more = '<br /><a href="#!sellers-oursellers--org_id-'.$prod['org_id'].'">Learn More</a>';
+$learn_more = '<p><a class="btn btn-small btn-info pull-right" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
 
 $description_popup = $prod['short_who'];
 if($description_popup == '')
@@ -29,7 +29,7 @@ $how_popup = $prod['short_how'];
 if($how_popup == '')
 	$how_popup = $prod['short_product_how'];
 if($how_popup !=='')
-	$how_popup .= '<br /><a href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a>';
+	$how_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
 
 $how_popup = htmlentities($how_popup);
 
@@ -77,22 +77,36 @@ $rendered_prices = 0;
 
 		<div class="span4 product-info">
 			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a>
+			<!--
 			<small> from <a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small>
+			-->
 			<br />
 			<?=$desc?>
+			
 			<br />
 			<small class="whowhatwhere">
-				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$farm_name?>" data-content="<?=$description_popup?>">
+				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$description_popup?>">
 					<i class="icon icon-info-sign" />
-					Who
+					<?=$farm_name?>
 				</a>&nbsp;
 				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$how_popup?>">
 					<i class="icon icon-heart-empty" />
 					How
 				</a>&nbsp;
-				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Where</a>
+				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=310x225&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>">
+					<i class="icon icon-screenshot" /> Where
+				</a>
 			</small>
-
+			
+			<!--
+			<br />
+			<a onclick="$('#prodinfo_<?=$prod['prod_id']?>,#prodexpand_<?=$prod['prod_id']?>').toggle(300);" id="prodexpand_<?=$prod['prod_id']?>"> 
+				<small class="whowhatwhere">
+					<i class="icon icon-plus" />
+					Get the story behind this product
+				</small>
+			</a>
+			-->
 			<?/*<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>*/?>
 		</div>
 
@@ -187,7 +201,25 @@ $rendered_prices = 0;
 	</div> <!-- /.product-row-->
 
 </div> <!-- /.row-->
-
+<div class="row" id="prodinfo_<?=$prod['prod_id']?>" style="display: none;">
+	<div class="span2">
+		<h5>Where</h5>
+		<? echo('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />')?>
+	</div>
+	<div class="span4">
+		<h5>What</h5>
+		<?=substr(html_entity_decode($description_popup),0,100)?>
+		<a class="btn btn-info" onclick="$('#prodinfo_<?=$prod['prod_id']?>,#prodexpand_<?=$prod['prod_id']?>').toggle(300);">Reading is hard</a>
+	</div>
+	<div class="span3">
+		<h5>How</h5>
+		<?=substr(html_entity_decode($how_popup),0,100)?>
+		<a class="btn btn-info" onclick="$('#prodinfo_<?=$prod['prod_id']?>,#prodexpand_<?=$prod['prod_id']?>').toggle(300);">Reading is hard</a>
+	</div>
+	<br />
+	<hr />
+	<br />
+</div>
 <? /*
 <tr id="product_<?=$prod['prod_id']?>" class="catalog catalog_<?=$style1?>_<?=$style2?> category_<?=$prod['category_ids'][2]?> category_<?=$prod['category_ids'][3]?>">
 	<td class="catalog">

@@ -136,13 +136,14 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<div id="header" class="container">
 		<div class="row">
 
-			<div class="span3" id="logocontainer">
+			<div class="span5" id="logocontainer">
 				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
+				<h3 class="taglinecontainer"><span id="tagline"></span></h3>
 			</div><!--/span-->
 			
-			<div id="mainnavcontainer" class="span9">
+			<div id="mainnavcontainer" class="span7">
 				<ul id="mainnav" class=""></ul>
-				<h3 class="taglinecontainer"><span id="tagline"></span></h3>
+				
 			</div>
 
 		</div> <!-- /.row-->
