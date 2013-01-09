@@ -112,6 +112,7 @@ else
 		}
 
 		$days = array();
+		$dd_days = array();
 		foreach($delivs as $deliv)
 		{
 			$time = ($deliv[0]['pickup_address_id'] ? 'Picked Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
@@ -121,8 +122,10 @@ else
 			foreach ($deliv as $value) {
 				//print_r($deliv);
 				$days[$time][$value['dd_id']] = $value;
+				$dd_days[$value['dd_id']]  = $time;
 			}
 		}
+
 		# define a custom sorting function that uses our new sort column
 		function prod_sort($a,$b)
 		{
@@ -165,6 +168,8 @@ else
 		# this array is used to keep track of whether or not to render a new category start row
 		$rendering_cats = array(0,0,0);
 		$rendering_sellers = 0;
+		$rendering_time = '';
+
 		# this array keeps track of the style for each row type
 		$styles =array(1,1);
 
@@ -177,7 +182,7 @@ else
 	<span class="span4 pull-right grouping">
 		Group By:
 		<a href="#!catalog-your_cart#cat" class="active">Category</a> /
-		<a href="#!catalog-your_cart">Delivery Date</a> /
+		<a href="#!catalog-your_cart#dd">Delivery Date</a> /
 		<a href="#!catalog-your_cart#seller">Seller</a>
 	</span>
 </div>
@@ -274,7 +279,7 @@ else
 						$styles[0] = ($styles[0]==1)?2:1;
 						$this->render_seller_start($seller['org_id'],$seller['name'],$styles[0]);
 					}
-
+/*
 					# if this is a new 2nd or 3rd level cat
 					if($rendering_cats[1] != $prod['cats'][2])
 					{
@@ -288,6 +293,17 @@ else
 						$rendering_cats[1] = $prod['cats'][2];
 						$rendering_cats[2] = $prod['cats'][3];
 						$this->render_cat2_start($rendering_cats[1],$cats->by_id[$rendering_cats[1]][0]['cat_name'],$rendering_cats[2],$cats->by_id[$rendering_cats[2]][0]['cat_name'],$styles[0]);
+					}
+*/
+				} else if ($hash === 'dd') {
+					# get the actual starting categories
+					# If this is a new 1st level cat, render it.
+					$item = $item_hash[$prod['prod_id']][0];
+					if($rendering_time != $dd_days[$item['dd_id']])
+					{
+						list($type, $time) = explode('-',$dd_days[$item['dd_id']]);
+						$this->render_delivery_day($type, $time, implode('_',array_keys($days[$time])));
+						$rendering_time = $dd_days[$item['dd_id']];
 					}
 				}
 				# actually render the product

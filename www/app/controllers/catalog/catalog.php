@@ -14,7 +14,7 @@ class core_controller_catalog extends core_controller
 		if ($core->data['dd_id']) {
 			$dds = array(core::model('delivery_days')->load($core->data['dd_id']));
 		} else {
-			$dds = core::model('delivery_days')->get_days_for_prod($core->data['prod_id'],$core->config['domain']['domain_id']);			
+			$dds = core::model('delivery_days')->get_days_for_prod($core->data['prod_id'],$core->config['domain']['domain_id']);
 		}
 
 		foreach($dds as $dd)
@@ -332,6 +332,15 @@ class core_controller_catalog extends core_controller
 		$id_cat = $cat2_id;
 		if($cat3_id != 0 && $cat3_id != '')
 			$id_cat = $cat3_id;
+	}
+
+	function render_delivery_day($type, $time, $dd_ids) {		?>
+		<div id="start_seller_<?=$dd_ids?>" class="row header">
+
+			<h2 class="span9"><?=$type?> <?=core_format::date($time, 'shorter-weekday')?></h2>
+			<hr class="span9" class="tight"/>
+		</div>
+		<?
 	}
 
 	function render_total_line($idx)
