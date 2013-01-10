@@ -25,6 +25,8 @@ core.address.setLatLng=function(address,gcResult,gcStatus){
 }
 
 core.address.editAddress=function(addrType,AddressId){
+	//alert('atttempting to edit address '+AddressId);
+	//core.alertHash(core);
 	if(!$('#addAddressButton').is(':hidden') || $('#sec_pin').length==0){
 		//core.alertHash(core.addresses);
 		core.address.addrOk = true;
@@ -36,14 +38,14 @@ core.address.editAddress=function(addrType,AddressId){
 			core.ui.clearFields(document[addrType+'Form'],['label','region_id','address','city','postal_code','telephone','fax','delivery_instructions','latitude','longitude'],['address_id']);
 			//core.ui.setCheckdiv('default_billing',0);
 		}
-		$('#addAddressButton,#main_save_buttons').hide();
+		$('#addAddressButton,#main_save_buttons,#addressTable').hide();
 		$('#editAddress').fadeIn('fast');
 		document[addrType+'Form'].label.focus();
 	}
 }
 core.address.cancelAddressChanges=function(){
 	$('#editAddress').hide();
-	$('#addAddressButton,#main_save_buttons').fadeIn('fast');
+	$('#addAddressButton,#main_save_buttons,#addressTable').fadeIn('fast');
 }
 
 core.address.saveAddress=function(saveType){
@@ -64,9 +66,8 @@ core.address.removeCheckedAddresses=function(form){
 	var hasDeletes=false;
 	for (var i = 0; i < addresses.length; i++){
 		if(
-		
-			form['default_billing_'+addresses[i]].value == 1 ||
-			form['default_shipping_'+addresses[i]].value == 1
+			$('#default_billing_'+addresses[i]).prop('checked') ||
+			$('#default_shipping_'+addresses[i]).prop('checked') 
 		){
 			doPopup = true;
 		}else{

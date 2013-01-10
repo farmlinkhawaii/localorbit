@@ -303,7 +303,7 @@ class core_ui
 	public static function tabset($name)
 	{
 		global $core;
-		core::js('$.fn.tabset(\''.$name.'\');');
+		#core::js('$.fn.tabset(\''.$name.'\');');
 		if(is_numeric($core->data['tabautoswitch_'.$name]))
 		{
 			#core::Log("$('#".$name."-s".$core->data['tabautoswitch_'.$name]."').click();");

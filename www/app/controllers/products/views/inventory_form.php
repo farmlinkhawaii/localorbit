@@ -59,13 +59,13 @@ else
 	<br />
 	<?=$core->i18n['note:inventoryadvanced']?>
 	-->
-	<div class="buttonset" id="addLotButton">
+	<div id="addLotButton">
 		<div class="pull-left">
 			<?=core_ui::checkdiv('sell_oldest_first','Sell from oldest lot first',true)?>	
 		</div>
 		<div class="pull-right">
-			<input type="button" class="btn btn-info" value="Add New Lot" onclick="product.editLot(0);" />
-			<input type="button" class="btn btn-danger" value="Remove Checked" onclick="product.removeCheckedLots(this.form);" />
+			<a class="btn btn-small btn-info" onclick="product.editLot(0);"><i class="icon-plus" /> Add New Lot</a>
+			<a class="btn btn-small btn-danger" onclick="product.removeCheckedLots(this.form);"><i class="icon-trash" />  Remove Checked</a>
 		</div>
 	</div>
 	

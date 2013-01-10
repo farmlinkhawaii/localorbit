@@ -184,8 +184,8 @@ You can set a single universal price, or individual prices for certain Markets
 	<?=$core->i18n['note:pricingadvanced']?>
 	-->
 	<div class="pull-right" id="addPriceButton">
-		<input type="button" class="btn btn-info" value="Add New Price" onclick="product.editPrice(0);" />
-		<input type="button" class="btn btn-danger" value="Remove Checked" onclick="product.removeCheckedPrices(this.form);" />
+		<a class="btn btn-small btn-info" onclick="product.editPrice(0);"><i class="icon-plus" />  Add New Price</a>
+		<a class="btn btn-small btn-danger" onclick="product.removeCheckedPrices(this.form);"><i class="icon-trash" /> Remove Checked</a>
 	</div>
 	<br />&nbsp;<br />
 	<br />
