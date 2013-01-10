@@ -50,21 +50,8 @@ if($special && $special['product_id'] != 0)
 		?>
 	</div>
 	<ol class="span2 priceList">
-		<?for ($i=0; $i < count($pricing); $i++){?>
-			<li>
-				<?if($pricing[$i]['org_id'] != 0){ ?>
-					<div class="error">Your price:
-				<?}?>
-
-				<?=$pricing[$i]['price']?><small><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
-				min <?=floatval($pricing[$i]['min_qty'])?>
-				<?}?></small>
-
-				<?if($pricing[$i]['org_id'] != 0){ ?>
-					</div>
-				<?}?>
-			</li>
-		<?$rendered_prices++; }?>
+		<? $this->render_product_pricing($pricing); ?>	
+	
 	</ol>
 	<div class="span2 cartstuff">
 		<div class="row">

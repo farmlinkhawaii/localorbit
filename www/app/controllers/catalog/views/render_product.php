@@ -57,39 +57,11 @@ $rendered_prices = 0;
 		</div>
 
 		<div class="span4 product-info">
-			<? $this->render_product_description($prod,$seller); ?>
-			
-			
-			
-			<!--
-			<br />
-			<a onclick="$('#prodinfo_<?=$prod['prod_id']?>,#prodexpand_<?=$prod['prod_id']?>').toggle(300);" id="prodexpand_<?=$prod['prod_id']?>"> 
-				<small class="whowhatwhere">
-					<i class="icon icon-plus" />
-					Get the story behind this product
-				</small>
-			</a>
-			-->
-			<?/*<p style="margin-bottom: 0;"><a class="accordion-toggle note" data-toggle="collapse" href="#moreInfo<?=$prod['prod_id']?>"><small>More Information...</small></a></p>*/?>
+			<? $this->render_product_description($prod,$seller); ?>	
 		</div>
 
 		<ol class="span2 priceList">
-			<? for ($i=0; $i < count($pricing); $i++) { ?>
-				<li>
-
-					<?if($pricing[$i]['org_id'] != 0){ ?>
-						<div class="error">Your price:
-					<?}?>
-
-					<?=$pricing[$i]['price']?><small><? if($prod['single_unit'] != '') { ?>/<?=$prod['single_unit']?><? } ?><? if($pricing[$i]['min_qty'] >1){ ?>, min <?=floatval($pricing[$i]['min_qty'])?><?}?></small>
-
-					<?if($pricing[$i]['org_id'] != 0){ ?>
-						</div>
-					<?}?>
-
-				</li>
-				<?$rendered_prices++;
-			} ?>
+			<? $this->render_product_pricing($pricing); ?>	
 		</ol>
 
 		<div class="span2">
