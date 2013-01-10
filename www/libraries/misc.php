@@ -16,9 +16,29 @@ function custom_image()
 }
 
 
-function save_buttons($require_pin = false)
+function subform_buttons($saveaction='',$save_label='',$cancelaction='',$cancel_label='cancel')
+{
+	?>
+	<div class="form-actions pull-right">
+		<input type="button" class="btn btn-warning" value="<?=$cancel_label?>" onclick="<?=$cancelaction?>" />
+		<input type="button" class="btn btn-primary" value="<?=$save_label?>" onclick="<?=$saveaction?>" />
+	</div>
+	<?
+}
+
+function save_buttons($require_pin = false,$save_continue='',$save_go_back='')
 {
 	global $core;
+
+	if($save_continue == '')
+	{
+		$save_continue = 'core.submit(this.form.action,this.form);';
+	}
+	
+	if($save_go_back == '')
+	{
+		$save_go_back = 'core.submit(this.form.action,this.form,{\'do_redirect\':1});';
+	}
 	
 	if($core->session['sec_pin'] == 1)
 	{
@@ -34,8 +54,8 @@ function save_buttons($require_pin = false)
 	</div>	
 	<?}?>
 	<div class="form-actions pull-right" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
-		<input type="<?=(($require_pin)?'button':'submit')?>" class="btn btn-primary" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
-		<input type="button" onclick="core.submit(this.form.action,this.form,{'do_redirect':1});" class="btn btn-primary" value="<?=$core->i18n['button:save_and_go_back']?>" />
+		<input type="button" onclick="<?=$save_continue?>" class="btn btn-primary" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
+		<input type="button" onclick="<?=$save_go_back?>" class="btn btn-primary" value="<?=$core->i18n['button:save_and_go_back']?>" />
 	</div>
 	<?
 }
@@ -196,15 +216,16 @@ function page_header($title,$extrafunction='',$function_text='',$link_style='lin
 		
 		# Get link style (link or button)
 		if($link_style == 'link'):
-			$link_class = 'btn-link cancel_link'; #simple link
+			$link_class = 'btn-link pull-right'; #simple link
 		elseif($link_style == 'cancel'):
-			$link_class = 'btn-warning pull-right'; #button floated right
+			$function_text = '<i class="icon icon-remove" /> '.ucfirst($function_text);
+			$link_class = 'pull-right'; #button floated right
 		else:
-			$link_class = 'btn-primary pull-right'; #button floated right
+			$link_class = 'btn btn-primary pull-right'; #button floated right
 		endif;
 
 		# Make link/button
-		$out .= '<a class="btn ' . $link_class . '" href="'.$extrafunction.'" onclick="core.go(this.href);">';
+		$out .= '<a style="margin-top: 10px;" class="' . $link_class . '" href="'.$extrafunction.'" onclick="core.go(this.href);">';
 		if ($button_icon != ''): $out .= '<i class="icon icon-' . $button_icon . '" /> '; endif; # Button icon
 		$out .= $function_text . '</a>';
 

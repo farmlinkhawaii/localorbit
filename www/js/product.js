@@ -200,14 +200,14 @@ product.editLot=function(invId,lotId,goodFrom,expiresOn,qty){
 		document.prodForm.expires_on.value = '';
 		document.prodForm.lot_qty.value = 0;
 	}
-	$('#addLotButton,#main_save_buttons').hide();
+	$('#addLotButton,#main_save_buttons,#inventory_advanced').hide();
 	$('#editLot').fadeIn('fast');
 	document.prodForm.lot_id.focus();
 }
 
 product.cancelLotChanges=function(){
 	$('#editLot').hide();
-	$('#addLotButton,#main_save_buttons').fadeIn('fast');
+	$('#addLotButton,#main_save_buttons,#inventory_advanced').fadeIn('fast');
 }
 
 product.saveLot=function(){

@@ -65,7 +65,7 @@ $this->inventory_basic_rules()->js();
 $this->pricing_advanced_rules()->js(); 
 $this->inventory_advanced_rules()->js(); 
 
-page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
+page_header('Editing Product: '.$data['name'],'#!products-list','cancel','cancel');
 ?>
 <form name="prodForm" class="form-horizontal" method="post" action="/products/update" target="uploadArea" onsubmit="return product.doSubmit(false)" enctype="multipart/form-data">
 	<?
@@ -79,10 +79,10 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 		<div class="tabarea tab-pane active" id="producttabs-a1">
 			
 			<?if(lo3::is_admin() || lo3::is_market()){?>
-				<?=core_form::value('Seller','<a href="#!organizations-edit--org_id-'.$data['org_id'].'">'.$data['org_name'].'</a>')?>
+				<?=core_form::value('Seller','<p><a href="#!organizations-edit--org_id-'.$data['org_id'].'">'.$data['org_name'].'</a></p>')?>
 			<?}?>
 			
-			<?=core_form::input_text('Title','product_name',$data['name'],array('required' => true))?>
+			<?=core_form::input_text('Product','product_name',$data['name'],array('required' => true))?>
 			
 			<div class="control-group">
 			    <label class="control-label" for="">Product Category</label>
@@ -111,7 +111,6 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 				'description',
 				$data['description'],
 				array(
-					'required'=>true,
 					'size'=>'input-xxlarge',
 					'popover'=>'Buyers want to know how you grow or prepare your products. Tell them how you do it!'
 			))?>
@@ -133,7 +132,10 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 			?>
 			<?=core_form::value('Production Location',
 				core::model('addresses')->get_radios($data['org_id'],$data['addr_id'],'address_id'),
-				array('sublabel'=>'Edit addresses in <a href="#!organizations-edit--org_id-'.$data['org_id'].'">My Account</a>')
+				array(
+					'sublabel'=>'Edit addresses in <a href="#!organizations-edit--org_id-'.$data['org_id'].'">My Account</a>.',
+					'popover'=>'Make sure to save changes before editing addresses. Use your browser\'s back arrow to return to editing this product',
+				)
 			)?>
 			<?
 			if(lo3::is_customer())
@@ -146,10 +148,7 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 				$who_msg = $core->i18n('products:who:admin',$data['org_id']);
 				$how_msg = $core->i18n('products:how:admin',$data['org_id']);
 			}
-			?>	
-			
-			
-		
+			?>			
 			<?=core_form::input_textarea(
 				$core->i18n['products:who:label'],
 				'who',
@@ -188,10 +187,8 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 		<?}?>
 		<input type="hidden" name="prod_id" value="<?=$data['prod_id']?>" />
 	</div>
-	<div class="form-actions" id="main_save_buttons">
-		<input type="submit" class="btn btn-primary" name="save" value="save and continue editing" />
-		<input type="button" onclick="product.doSubmit(true)" class="btn btn-primary" value="save and go back" />
-	</div>
+	<? save_buttons(); ?>
+	
 </form>
 <?
 if($core->data['invmode'] == 'yes')

@@ -184,7 +184,7 @@ You can set a single universal price, or individual prices for certain Markets
 	<?=$core->i18n['note:pricingadvanced']?>
 	-->
 	<div class="pull-right" id="addPriceButton">
-		<input type="button" class="btn" value="Add New Price" onclick="product.editPrice(0);" />
+		<input type="button" class="btn btn-info" value="Add New Price" onclick="product.editPrice(0);" />
 		<input type="button" class="btn btn-danger" value="Remove Checked" onclick="product.removeCheckedPrices(this.form);" />
 	</div>
 	<br />&nbsp;<br />
@@ -210,9 +210,13 @@ $orgs    = core::model('organizations')->collection()->filter('is_active',1)->fi
 
 ?>
 	
+	
 </div>
+<br />
+<div class="row">
+	<div class="span3">&nbsp;</div>
+	<fieldset id="editPrice" class="span6" style="display: none;">
 
-<fieldset id="editPrice" style="display: none;">
 	<legend>Price Info</legend>
 	<?=core_form::input_select(
 		'Market','domain_id',0,$domains,array(
@@ -241,8 +245,8 @@ $orgs    = core::model('organizations')->collection()->filter('is_active',1)->fi
 	<?=core_form::input_text('Minimum Quantity','min_qty',$data['min_qty'])?>
 	<?=core_form::input_hidden('price_id',0)?>
 	<?=core_form::input_hidden('feature_sellers_enter_price_without_fees',0)?>
-	<div class="form-actions">
-		<input type="button" class="btn btn-primary" value="save this price" onclick="product.savePrice();" />
-		<input type="button" class="btn btn-primary" value="cancel" onclick="product.cancelPriceChanges();" />
-	</div>
-</fieldset>
+	<? subform_buttons('product.savePrice();','Save This Price','product.cancelPriceChanges();'); ?>
+		</fieldset>
+	<div class="span3">&nbsp;</div>
+	<div class="clear-both"></div>
+</div>

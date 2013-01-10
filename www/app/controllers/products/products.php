@@ -114,6 +114,11 @@ class core_controller_products extends core_controller
 			$prod['org_id'] = $core->session['org_id'];
 		else
 			$prod['org_id'] = $core->data['org_id'];
+		
+		
+		$org = core::model('organizations')->load($prod['org_id']);
+		$prod['how'] = $org['product_how'];
+		$prod['who'] = $org['profile'];
 
 		$prod['category_ids'] = explode(',',$core->data['category_ids']);
 		$cat = core::model('categories')->load(array_pop($prod['category_ids']));

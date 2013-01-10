@@ -49,6 +49,9 @@ class core_model_addresses extends core_model_base_addresses
 			->sort('label');
 		
 		$html = '';
+		
+		$data->load();
+		
 		foreach($data as $row)
 		{
 			$html .= core_ui::radiodiv(

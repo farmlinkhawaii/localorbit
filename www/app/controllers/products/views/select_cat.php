@@ -13,7 +13,7 @@ $cats = core::model('categories')->collection()->filter('parent_id','is not null
 #echo('var mycats = '.json_encode($cats).';');
 core::js('core.allCats='.json_encode($cats).';');
 
-page_header('Choose a category','#!products-list','Cancel','cancel');
+page_header('Choose a Category','#!products-list','Cancel','cancel');
 
 if(!lo3::is_customer())
 {
@@ -30,35 +30,39 @@ if(!lo3::is_customer())
 	
 ?>
 <form name="catform" action="products/request_new" onsubmit="return core.submit('/products/request_new',this);">
-
+	<div class="row">
+		<div class="span12">
 		<? if(!lo3::is_customer()){?>
-		<tr>
-			<td class="label">Seller</td>
-			<td class="value">
-				<select name="org_id" style="width: 400px;">
-					<option value="">Choose a seller</option>
-					<?foreach($sellers as $seller){?>
-					<option value="<?=$seller['org_id']?>"><?=$seller['full_org_name']?></option>
-					<?}?>
-				</select>
-				<div class="error" id="select_org_msg" style="display: none;">Please select an organization.</div>
-			</td>
-		</tr>
+		<?=core_form::input_select(
+			'Seller',
+			'org_id',
+			null,
+			$sellers,
+			array(
+				'default_show'=>true,
+				'default_text'=>'Choose a seller',
+				'text_column'=>'full_org_name',
+				'value_column'=>'org_id',
+			
+			)
+		)?>
+		<!--<div class="error" id="select_org_msg" style="display: none;">Please select an organization.</div>-->
 		<?}?>
-
+		</div>
+	</div>
 	<div class="row">
 		<? for($i=1;$i<7;$i++){?>
 		<div class="span3" id="cat_col<?=$i?>"<?=(($i>1)?' style="display: none;"':'')?>>
-			<select name="cats<?=$i?>" id="cats<?=$i?>" style="width: 180px;" multiple="multiple" class="col_selector" onchange="product.selectCat(<?=$i?>,this.options[this.selectedIndex].value);"></select>
+			<select name="cats<?=$i?>" id="cats<?=$i?>" multiple="multiple" class="col_selector" onchange="product.selectCat(<?=$i?>,this.options[this.selectedIndex].value);" style="width: 200px !important;"></select>
 		</div>
 		<?}?>
+		<div class="span2" id="picker_button">
+			<input type="hidden" name="category_ids" value="" />
+			<input type="button" class="btn btn-primary" style="display:none;" onclick="core.createProduct(document.catform,document.catform.category_ids.value);" value="add product" id="add_product" />
+		</div>
 	</div>
 	
-	<div style="clear:both;text-align:right;" id="picker_button">
-		<br />		
-		<input type="hidden" name="category_ids" value="" />
-		<input type="button" class="btn btn-primary" style="display:none;" onclick="core.createProduct(document.catform,document.catform.category_ids.value);" value="add product" id="add_product" />
-	</div>
+	
 	<div id="newProdRequestLink">
 	Don't see what you're looking for? <a href="#!products-select_cat" onclick="$('#newProdRequestLink,#newProdRequest,#picker_button,#picker_cols').toggle();">Click here</a> to request a new product category
 	</div>

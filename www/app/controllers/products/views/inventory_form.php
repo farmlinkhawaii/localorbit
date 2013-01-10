@@ -21,16 +21,14 @@ $style = '';
 
 # only show the simple view if there is only one lot, AND that lot only has
 # one field set (the qty)
-if($lots->__num_rows == 1 && $lot['good_from'] == 0 && $lot['expires_on'] == 0 && $lot['lot_id'] == '')
+#$lots->__num_rows == 1 && $lot['good_from'] == 0 && $lot['expires_on'] == 0 && $lot['lot_id'] == ''
+if(false)
 {
 
 ?>
 <div id="inventory_basic">
-	<?=core_form::input_text('Simple Inventory Quantity','qty',floatval($lot['qty']))?>
-
-	<br />
-	<a href="Javascript:product.switchToAdvancedInventory();">&raquo; Switch to advanced inventory mode.</a>
-	<br /><?=$core->i18n['note:inventorymode']?>
+	<?=core_form::input_text('Quantity','qty',floatval($lot['qty']))?>
+	<!--<?=core_form::value('<a class="btn btn-info" href="Javascript:product.switchToAdvancedInventory();"><i class="icon icon-arrow-right" /> Advanced Inventory Mode</a>',$core->i18n['note:inventorymode'])?>-->
 	<input type="hidden" name="basic_inv_id" value="<?=$lot['inv_id']?>" />
 </div>
 <input type="hidden" name="inventory_mode" value="basic" />
@@ -62,39 +60,28 @@ else
 	<?=$core->i18n['note:inventoryadvanced']?>
 	-->
 	<div class="buttonset" id="addLotButton">
-		<div style="float:left;">
+		<div class="pull-left">
 			<?=core_ui::checkdiv('sell_oldest_first','Sell from oldest lot first',true)?>	
 		</div>
-		<div style="float:right;">
-			<input type="button" class="btn" value="Add New Lot" onclick="product.editLot(0);" />
+		<div class="pull-right">
+			<input type="button" class="btn btn-info" value="Add New Lot" onclick="product.editLot(0);" />
 			<input type="button" class="btn btn-danger" value="Remove Checked" onclick="product.removeCheckedLots(this.form);" />
 		</div>
 	</div>
-	<br />
-	<fieldset id="editLot" style="display: none;">
+	
+</div>
+<br />
+<div class="row">
+	<div class="span3">&nbsp;</div>
+	<fieldset id="editLot" class="span6" style="display: none;">
 		<legend>Lot Info</legend>
-		<table class="form">
-			<tr>
-				<td class="label">Lot #</td>
-				<td class="value"><input type="text" name="lot_id" value="" /></td>
-			</tr>
-			<tr>
-				<td class="label">Good from</td>
-				<td class="value"><?=core_ui::date_picker('good_from','')?></td>
-			</tr>
-			<tr>
-				<td class="label">Expires On</td>
-				<td class="value"><?=core_ui::date_picker('expires_on','')?></td>
-			</tr>
-			<tr>
-				<td class="label">Qty</td>
-				<td class="value"><input type="text" name="lot_qty" value="" /></td>
-			</tr>
-		</table>
-		<input type="hidden" name="inv_id" value="" />
-		<div class="buttonset">
-			<input type="button" class="button_secondary" value="save this lot" onclick="product.saveLot();" />
-			<input type="button" class="button_secondary" value="cancel" onclick="product.cancelLotChanges();" />
-		</div>
-	</fieldset>
+		<?=core_form::input_text('Lot #','lot_id','',array())?>
+		<?=core_form::input_datepicker('Good from','good_from','')?>
+		<?=core_form::input_datepicker('Good expires_on','expires_on','')?>
+		<?=core_form::input_text('Qty','lot_qty','',array())?>
+		<?=core_form::input_hidden('inv_id','')?>
+		<? subform_buttons('product.saveLot();','Save This Lot','product.cancelLotChanges();'); ?>
+		</fieldset>
+	<div class="span3">&nbsp;</div>
+	<div class="clear-both"></div>
 </div>
