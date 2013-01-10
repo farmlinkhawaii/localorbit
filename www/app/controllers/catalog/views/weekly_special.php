@@ -2,6 +2,7 @@
 global $core;
 $prods    = $core->view[0];
 $allPrices    = $core->view[1];
+$all_sellers    = $core->view[2];
 
 $special = core::model('weekly_specials')
 	->collection()
@@ -14,6 +15,7 @@ $prod = null;
 foreach ($prods as $value) {
 	if ($value['prod_id'] == $special['product_id']) {
 		$prod = $value;
+		$seller = $all_sellers[$prod['org_id']];
 		break;
 	}
 }
@@ -43,13 +45,9 @@ if($special && $special['product_id'] != 0)
 	</div>
 	<div class="span4 product-info">
 		<!--<small><a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small><br>-->
-		<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a><br />
-		<?=$prod['short_description']?><br />
-		<small class="whowhatwhere">
-			<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> <?=$prod['org_name']?></a>&nbsp;
-			<? if ($seller['product_how'] !== ''): ?><a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$seller['product_how']?>"><i class="icon icon-heart-empty" /> How</a>&nbsp;<? endif; ?>
-			<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Where</a>
-		</small>
+		<?
+		$this->render_product_description($prod,$seller);
+		?>
 	</div>
 	<ol class="span2 priceList">
 		<?for ($i=0; $i < count($pricing); $i++){?>
@@ -110,78 +108,11 @@ if($special && $special['product_id'] != 0)
 			</div>
 		</div>
 	</div>
-	
-	
 	<div class="span9 first">
 	
 	</div>
 
 </div>
-
-	<!--
-	<table>
-		<tr>
-			<td class="weeklyspecial_popup_top">&nbsp;</td>
-		</tr>
-		<tr>
-			<td class="weeklyspecial_popup_middle">
-				<table style="width: 900px;margin: 0px 32px;">
-					<col width="300" />
-					<col width="20" />
-					<col width="660" />
-					<tr>
-						<td style="vertical-align: top;">
-							<img src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
-						</td>
-						<td>&nbsp;&nbsp;</td>
-						<td style="vertical-align: top;">
-							<table>
-								<col width="1%" />
-								<col width="1%" />
-								<col width="98%" />
-								<col width="1%" />
-								<col width="1%" />
-								<tr>
-									<td>
-										<img src="<?=image('weekly_special_large')?>?_time_=<?=$core->config['time']?>" />
-									</td>
-									<td>&nbsp;</td>
-									<td style="vertical-align: top;">
-										<div class="weekly_header">the featured deal:</div>
-										<div class="weekly_title"><?=$special['title']?></div>
-
-									</td>
-									<td>&nbsp;</td>
-									<td style="vertical-align: top;">
-										<a href="#!catalog-shop" onclick="$('#weekly_special').fadeOut('fast');"><img src="<?=image('deal_close')?>" /></a>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="5" style="height: 140px;">
-										<?=$special['body']?>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="5">
-										<div class="buttonset">
-											<input type="button" class="button_primary" onclick="location.href='#!catalog-view_product--prod_id-<?=$special['product_id']?>';core.go('#!catalog-view_product--prod_id-<?=$special['product_id']?>');" value="add to cart" />
-											<input type="button" class="button_secondary" onclick="$('#weekly_special').fadeOut('fast');" value="start shopping" />
-										</div>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td class="weeklyspecial_popup_bottom">&nbsp;</td>
-		</tr>
-	</table>
-
-<a id="weekly_special_icon" href="#!catalog-shop" onclick="$('#weekly_special').fadeIn('fast');"><img src="<?=image('weekly_special_small')?>" /></a>
--->
 <?
 	//$core->session['weekly_special_noshow'] = 1;
 }
