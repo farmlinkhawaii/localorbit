@@ -24,13 +24,18 @@ else
 	
 		<div class="span6">
 			<div class="row">
+				<!--
+						
 				<div class="span1">
 					<a href="#!misc-home">
+						<img src="/img/misc/poweredby_lo.png" />
 						<img src="/img/misc/footer_logo.png" />
+						
 					</a>
 				</div>
-				<div class="span5">
-					<h4 style="margin: 10px 0 0 0;">Proudly Powered by Local Orbit</h4>
+				-->
+				<div class="span6">
+					<h4 style="margin: 10px 0 0 0;">Powered by Local Orbit</h4>
 					<small>Copyright <?=date('Y')?>, All Rights Reserved</small>
 				</div>
 			</div>

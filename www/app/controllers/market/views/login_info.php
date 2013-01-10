@@ -9,7 +9,7 @@
 core::replace('market_profile');
 ?>
 <?if(trim($core->config['domain']['market_policies']) != ''){?>
-	<h3>Market Info</h3>
+	<h3>Market Policies</h3>
 	<?=$core->config['domain']['market_policies']?>
 	<br />&nbsp;<br />
 <?

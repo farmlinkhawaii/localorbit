@@ -120,20 +120,16 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 	<div id="header" class="container">
 		<div class="row">
-			<div class="span3" id="logocontainer">
+			<div class="span6" id="logocontainer">
 				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
+				<br />
+				<h3><span id="tagline"></span></h3>
 			</div><!--/span-->
-			<div class="span3">
-				<h2 class="span3"><span id="tagline"></span></h2>
-			</div>
-			<div id="navrow" class="span4">
-				<ul id="mainnav" class="nav nav-pills pull-right">
-					<li><a href="#">Shop</a></li>
-					<li><a href="#">News</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-			</div> <!-- /#navrow-->
+
+			<div id="navrow" class="span6">
+				<div id="mainnav">
+				</div>
+			</div><!-- /#navrow-->
 		</div> <!-- /.row-->
 	</div> <!-- /#header-->
 
@@ -146,7 +142,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 				<div id="loginform">
 					<form class="form" name="authform" action="app/auth/process" style="margin-bottom: 0;">
 
-						<h4>Login</h4>
+						<h4>Log In</h4>
 
 						<label style="display: none;">E-mail Address</label>
 						<input type="text" class="text" tabindex="1" name="email" value="" placeholder="E-mail Address" />
@@ -164,7 +160,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 					</form>
 				</div>
-
+				<br />&nbsp;<br />
 				<div id="left"></div>
 
 			</div><!--/#left-->
