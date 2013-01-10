@@ -247,7 +247,7 @@ class core_controller_products extends core_controller
 		}
 
 
-		$prod->import_fields('prod_id','name','short_description','description','short_who','who','short_how','how','unit_id','addr_id');
+		$prod->import_fields('prod_id','name','short_description','description','who','how','unit_id','addr_id');
 		 date("Y-m-d H:i:s");
 		$prod->set('last_modified',date("Y-m-d H:i:s"));
 		$prod->set('name',$core->data['product_name']);

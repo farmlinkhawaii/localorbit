@@ -149,39 +149,19 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel');
 			?>	
 			
 			
+		
 			<?=core_form::input_textarea(
-				'Short '.$core->i18n['products:who:label'],
-				'short_who',
-				$data['short_who'],
-				array(
-					'sublabel' => $who_msg,
-					'size'=>'input-xxlarge',
-					'rows'=>2,
-					'sublabel'=>'Please limit this to 50 characters',
-			))?>
-				
-			<?=core_form::input_textarea(
-				'Long '.$core->i18n['products:who:label'],
+				$core->i18n['products:who:label'],
 				'who',
 				$data['who'],
 				array(
 					'sublabel' => $who_msg,
 					'size'=>'input-xxlarge',
 			))?>
+
 			
 			<?=core_form::input_textarea(
-				'Short '.$core->i18n['products:how:label'],
-				'short_how',
-				$data['short_how'],
-				array(
-					'sublabel' => $how_msg,
-					'size'=>'input-xxlarge',
-					'rows'=>2,
-					'sublabel'=>'Please limit this to 50 characters',
-			))?>
-			
-			<?=core_form::input_textarea(
-				'Long '.$core->i18n['products:how:label'],
+				$core->i18n['products:how:label'],
 				'how',
 				$data['how'],
 				array(
