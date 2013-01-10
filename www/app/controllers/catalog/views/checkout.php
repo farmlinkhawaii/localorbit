@@ -150,7 +150,7 @@ $cart->arrange_by_next_delivery();
 <hr class="span12 hr_thick"/>
 	
 <div class="pull-right">
-	<a class="btn btn-large btn-info" href="#!catalog-shop">Modify Your Cart</a>
+	<a class="btn btn-large btn-info" href="#!catalog-shop--cart-yes">Modify Your Cart</a>
 	<input type="button" value="Place Order" class="btn btn-large btn-success" onclick="core.checkout.process();" />
 		
 </div>

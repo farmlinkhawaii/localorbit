@@ -6,6 +6,9 @@ $sellers = $core->view[1];
 //$delivs = $core->view[2];
 $days = $core->view[2];
 $hashUrl = $core->view[3]?'true':'false';
+
+if($core->data['cart'] == 'yes')
+	core::js('$(\'#cartFilterCheck\').prop(\'checked\',true);core.catalog.setFilter(\'cartOnly\',true);');
 ?>
 
 <!--
@@ -20,6 +23,12 @@ $hashUrl = $core->view[3]?'true':'false';
 if (count($days) > 1)
 {
 ?>
+<hr class="tight">
+<span class="caps">
+	 <span style="cursor: pointer;" onclick="core.catalog.setFilter('cartOnly',$('#cartFilterCheck').prop('checked'));$('#cartFilterCheck').prop('checked', !$('#cartFilterCheck').prop('checked'));">My Cart Only</span>
+	 <input onclick="core.catalog.setFilter('cartOnly',this.checked);" id="cartFilterCheck" class="pull-right" type="checkbox" name="in_cart_only" />
+</span>
+
 <hr class="tight">
 <span class="caps"><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />By Availablity Date</span>
 
