@@ -292,7 +292,7 @@ $order_link = '<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">';
 $items->add(new core_datacolumn('lo_liid',array(core_ui::check_all('solditem'),'',''),false,'4%',core_ui::check_all('solditem','lo_liid'),' ',' '));
 
 if (lo3::is_admin() || lo3::is_market()) {
-	$items->add(new core_datacolumn('order_date','&nbsp;',true,'14%','<a onclick="core.sold_items.editAdminNotes({lo_oid}, this);" style="cursor: pointer;"><img src="'.image('generic_note').'" width="20" /></a>'));
+	$items->add(new core_datacolumn('order_date','&nbsp;',true,'14%','<a onclick="core.sold_items.editAdminNotes({lo_oid}, this);" style="cursor: pointer;">Note</a>'));
 }
 
 
