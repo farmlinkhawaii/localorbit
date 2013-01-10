@@ -19,6 +19,18 @@ class core_model_products extends core_model_base_products
 		);
 		parent::init_fields();
 	}
+	
+	function load_dd_ids()
+	{
+		$this->add_custom_field('
+			(
+				select group_concat(dd_id)
+				from product_delivery_cross_sells
+				WHERE product_delivery_cross_sells.prod_id=products.prod_id
+			) as dd_ids
+		');
+		return $this;
+	}
 
 	function get_taxonomy()
 	{

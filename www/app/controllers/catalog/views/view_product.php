@@ -5,7 +5,12 @@ core_ui::showLeftNav();
 core::head('View a product','View a product.');
 lo3::require_permission();
 
-$data = core::model('products')->join_address()->load();
+$data = core::model('products')
+	->join_address()
+	->load_dd_ids()
+	->load($core->data['prod_id']);
+#exit();
+
 $all_products = $data->get_catalog()->to_hash('prod_id');
 
 if (count($all_products[$data['prod_id']]) <= 0) {
@@ -15,12 +20,16 @@ if (count($all_products[$data['prod_id']]) <= 0) {
 } else {
 $inv = $data->get_inventory();
 $prices = core::model('product_prices')->load_for_product($data['prod_id'],$core->config['domain']['domain_id'],intval($core->session['org_id']));
+core::js('core.prices ='.json_encode(array($data['prod_id']=>$prices)).';');
+		
 $img = $data->get_image();
 $org = core::model('organizations')->load($data['org_id']);
 
 $cart_item = array('qty_ordered'=>0);
 $cart = core::model('lo_order')->get_cart();
 $cart->load_items();
+core::js('core.cart = '.$cart->write_js(true).';');
+
 foreach($cart->items as $item)
 {
 	core::log("chekcing item: ".$item['prod_id']);
@@ -29,16 +38,46 @@ foreach($cart->items as $item)
 		
 }
 
-$prods = core::model('products')->get_catalog()->load();
+
+$prods     = core::model('products')->get_catalog()->load();
 $cat_ids   = $prods->get_unique_values('category_ids',true,true);
-$cats  = core::model('categories')->load_for_products($cat_ids);
+$cats      = core::model('categories')->load_for_products($cat_ids);
 $org_ids   = $prods->get_unique_values('org_id');
 $sellers   = core::model('organizations')->collection()->sort('name');
-$sellers	  = $sellers->filter('organizations.org_id','in',$org_ids)->to_hash('org_id');
+$sellers   = $sellers->filter('organizations.org_id','in',$org_ids)->to_hash('org_id');
+
+#print_r($data->__data);
+
+$dd_ids    = explode(',',$data['dd_ids']);
+$dd_ids[]  = 0;
+$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
+$deliveries = array();
+foreach ($delivs as $value) {
+	$value->next_time();
+	$deliveries[$value['dd_id']] = array($value->__data);
+}
+
+$delivs = $deliveries;
+
+$days = array();
+foreach($delivs as $deliv)
+{
+	$time = ($deliv[0]['pickup_address_id'] ? 'Pick Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
+	if (!array_key_exists($time, $days)) {
+		$days[$time] = array();
+	}
+	foreach ($deliv as $value) {
+		//print_r($deliv);
+		$days[$time][$value['dd_id']] = $value;
+	}
+}
+
+
 core::ensure_navstate(array('left'=>'left_blank'));
 core::write_navstate();
 $this->left_filters($cats,$sellers,undefined,true);
-
+core_ui::load_library('js','catalog.js');
+		
 
 $cats  = core::model('categories')->load_for_products(explode(',',$data['category_ids']));//->load()->collection();
 ?>
@@ -48,7 +87,7 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		<h2 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h2>
 		<h3 class="farm_name notcaps" style="margin-top: 0;">from <?=$data['org_name']?>, <?=$data['city']?>, <?=$data['code']?></h3>
 		
-		<hr>
+		<hr />
 		
 		<form name="prodForm" class="form-inline">
 		<div class="row">
@@ -69,14 +108,12 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 				-->
 			</ol>
 			<div class="span2">
-				[FIX:DeliveryDate]
+				<!--[FIX:DeliveryDate]-->
 			</div>
 			<div class="span2">
 				<? if( $inv > 0): ?>
-					<input type="text" name="qty" id="qty" class="input-small" value="<?=$cart_item['qty_ordered']?>" />
-					<div class="error" id="not_enough_inv" style="display: none;"></div>
-					
-					<button type="submit" class="btn" onclick="$('#not_enough_inv').hide();core.doRequest('/cart/update_item',{'prod_id':<?=$data['prod_id']?>,'qty':document.prodForm.qty.value});">Add to Cart</button>
+				
+					<? $this->render_qty_delivery($data,$days,$dd_id,$dd_ids,$cart_item['qty_ordered'],$cart_item['row_total']); ?>
 					
 				<? else: ?>
 					<div class="error">This product is not currently available for ordering.</div>
@@ -110,7 +147,6 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		?>
 		</p>
 		
-		<p><strong>Size:</strong> [FIX: Add size string here]</p>
 		
 		<!--<p><strong>Who:</strong> <?=(($data['who']=='')?$org['profile']:$data['who'])?></p>-->
 		<p><strong>What:</strong> <?=$data['description']?></p>
