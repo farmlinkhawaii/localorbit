@@ -63,7 +63,7 @@ $rendered_prices = 0;
 		</ol>
 
 		<div class="span2">
-			<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty); ?>
+			<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty,$total); ?>
 		</div>
 		<hr class="span9" />
 	</div> <!-- /.product-row-->

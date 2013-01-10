@@ -64,7 +64,7 @@ if($special && $special['product_id'] != 0)
 	
 	</ol>
 	<div class="span2 cartstuff">
-		<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty); ?>
+		<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty,$total); ?>
 	</div>
 </div>
 <?
