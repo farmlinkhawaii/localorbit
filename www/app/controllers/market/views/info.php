@@ -64,7 +64,6 @@ else
 		->filter('is_enabled',1)
 		->filter('public_profile',1);
 		
-	$delivs = core::model('delivery_days')->collection()->filter('domain_id',$market['domain_id']);
 
 ?>
 
@@ -85,16 +84,7 @@ else
 	</div>
 
 	<div class="span4">
-		<? if($core->config['domain']['domain_id'] > 1){?>
-		<h3>Pickup/Delivery</h3>
-		<?
-		$delivs = core::model('delivery_days')->collection()->filter('domain_id',$core->config['domain']['domain_id']);
-		foreach($delivs as $deliv)
-		{
-			echo('<p>'.$deliv['buyer_formatted_cycle'].'</p>');
-		}
-		?>
-		<?}?>
+
 		
 		<? if (trim($market['market_policies']) != ''): ?>
 			<h3>Our Policies</h3>

@@ -74,7 +74,9 @@ $(function()
 		$cart = core::model('lo_order')->get_cart();
 		$cart->load_items();
 		$item_hash = $cart->items->to_hash('prod_id');
+		$cart_count = 0;
 		foreach ($item_hash as $prod_id => $item) {
+			$cart_count++;
 			$prod = core::model('products')->load($item[0]['prod_id']);
 			?>
 				<div class="row">
@@ -95,11 +97,24 @@ $(function()
 		?>
 			<div class="row">
 				<span class="span4">
+					<? if($cart_count == 0){?>
+						You do not have any items in your cart.
+						<a class="btn btn-primary btn-block" href="#!catalog-shop">Shop Now</a>
+
+					<?}else{?>
+					<span class="pull-left" style="padding-top: 8px;"><strong>Subtotal: <?=core_format::price($cart['grand_total'])?></strong></span>
+					<span class="pull-right">
+						<a class="btn btn-info btn-small" href="#!catalog-shop">Modify your cart</a>
+						<a class="btn btn-primary btn-small" href="#!catalog-checkout">Check out</a>
+					</span>
+					<?}?>
+					<!--
 					<a class="btn btn-block btn-warning" href="#!catalog-your_cart">
 						<span class="viewCart pull-left">View Cart</span>
 						&nbsp;
 						<span class="pull-right">Subtotal: <?=core_format::price($cart['grand_total'])?></span>
 					</a>
+					-->
 				</span>
 			</a>
 		</div>

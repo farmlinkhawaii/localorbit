@@ -25,34 +25,35 @@ if($special && $special['product_id'] != 0)
 	list($has_image,$webpath) = $special->get_image();
 ?>
 
-<div class="row" id="weekly_special"<?=(($core->session['weekly_special_noshow'] == 1)?' style="display:none;"':'')?>>
+<div class="row" style="font-size: 12px !important;" id="weekly_special"<?=(($core->session['weekly_special_noshow'] == 1)?' style="display:none;"':'')?>>
+	
 
 	<div class="span9 first">
-		<h1 class="pull-left"><i class="icon icon-tags" /> Featured Deal</h1>
+		<h3 class="pull-left"><i class="icon icon-tags" /> Featured: <a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a></h3>
 		<!--<small class="hideit"><a class="note pull-right" href="#!catalog-shop" style="line-height: 4.5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon icon-remove-sign"/>&nbsp;Hide this special...</a></small>-->
+		<a class="ws_togglers pull-right" style="margin-top: 10px;margin-right: 14px;" onclick="$('.ws_togglers').toggle();$('#weekly_special').css('height','40px').css('overflow','hidden')"><i class="icon icon-minus" /></a>
+		<a class="ws_togglers pull-right" style="margin-top: 10px;display: none;margin-right: 14px;" onclick="$('.ws_togglers').toggle();$('#weekly_special').css('height','auto').css('overflow','')"><i class="icon icon-plus" /></a>
 	</div>
-
+	<p class="note" style="padding-bottom: 10px;">
+		<?=$special['body']?>
+	</p>
 	<div class="clear"></div>
-
 	<div class="span1 first">
 		<img class="img-rounded" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
 	</div>
-
 	<div class="span4 product-info">
-		<small><a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small><br>
-		<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a><br>
-
+		<!--<small><a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small><br>-->
+		<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a><br />
+		<?=$prod['short_description']?><br />
 		<small class="whowhatwhere">
-			<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> What</a>&nbsp;
+			<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$prod['description']?>"><i class="icon icon-info-sign" /> <?=$prod['org_name']?></a>&nbsp;
 			<? if ($seller['product_how'] !== ''): ?><a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$seller['product_how']?>"><i class="icon icon-heart-empty" /> How</a>&nbsp;<? endif; ?>
 			<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>"><i class="icon icon-screenshot" /> Where</a>
 		</small>
 	</div>
-
 	<ol class="span2 priceList">
 		<?for ($i=0; $i < count($pricing); $i++){?>
 			<li>
-
 				<?if($pricing[$i]['org_id'] != 0){ ?>
 					<div class="error">Your price:
 				<?}?>
@@ -64,14 +65,9 @@ if($special && $special['product_id'] != 0)
 				<?if($pricing[$i]['org_id'] != 0){ ?>
 					</div>
 				<?}?>
-
 			</li>
 		<?$rendered_prices++; }?>
 	</ol>
-
-
-	
-	
 	<div class="span2 cartstuff">
 		<div class="row">
 			<div class="span1 product-quantity">
@@ -117,7 +113,7 @@ if($special && $special['product_id'] != 0)
 	
 	
 	<div class="span9 first">
-		<p class="note"><?=$special['body']?></p>
+	
 	</div>
 
 </div>

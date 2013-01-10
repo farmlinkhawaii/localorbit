@@ -446,8 +446,8 @@ h4.subcategory {
 	margin-left: 0;
 	margin-bottom: 20px;
 	margin-right: -10px;
-	background: fade(@secondarycolor, 10%);
-	.box-shadow(0px 0px 5px hsla(hue(fade(@secondarycolor, 10%)), saturation(fade(@secondarycolor, 5%)), lightness(darken(@secondarycolor, 5%)), .5));
+	background: @grayLighter;
+	.box-shadow(0px 0px 5px hsla(hue(fade(@grayLighter, 10%)), saturation(fade(@grayLighter, 5%)), lightness(darken(@grayLighter, 5%)), .5));
 	.border-radius(8px);
 	}
 	
@@ -482,7 +482,10 @@ h4.subcategory {
 	
 	.product-info a i.icon { font-size: 120%; position: relative; top: 1px;}
 	
-	.product-info .whowhatwhere a { color: #666; }
+	.product-info .whowhatwhere a { 
+		color: #666; 
+	
+	}
 
 .priceList {
 	list-style: none;
