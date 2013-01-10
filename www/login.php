@@ -47,7 +47,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
 	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style2" title="styles2" media="all" />
 	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style3" title="styles3" media="all" />
-	
+
 	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
 
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/console.min.js"></script>-->
@@ -56,14 +56,14 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.validator.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.format.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.ui.js?time=<?php echo time();?>"></script>
-	<script language="Javascript" type="text/javascript" src="app/core/js/jquery.datePicker.js?time=<?php echo time();?>"></script>
+	<script laguage="Javascript" type="text/javascript" src="app/core/js/jquery.datePicker.js?time=<?php echo time();?>"></script>
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/jquery.tabset.js?time=<?php echo time();?>"></script>-->
 	<script language="Javascript" type="text/javascript" src="js/jquery.rte.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/lo3.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/slides.jquery.js"></script>
-	
+
 	<script language="Javascript" type="text/javascript" src="js/stylesheetToggle.js"></script>
-	
+
 	<script type="text/javascript" src="js/jquery.autocomplete.pack.js"></script>
 	<script type="text/javascript" src="js/jquery.select-autocomplete.js"></script>
 	<!--<script language="Javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>-->
@@ -86,11 +86,11 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<script language="Javascript" type="text/javascript" src="js/bootbox.min.js"></script>
 </head>
 <body onload="core.init(false);">
-	
-<div id="wrap">
-	
 
-	
+<div id="wrap">
+
+
+
 	<div id="statusnav" class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
@@ -115,17 +115,19 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 			</div><!-- /.container-->
 		</div><!-- /.navbar-inner-->
 	</div><!--/#statusnav -->
-	
-	
-	
+
+
+
 	<div id="header" class="container">
 		<div class="row">
 			<div class="span3" id="logocontainer">
 				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
 			</div><!--/span-->
-			<div id="navrow" class="span9">
-				<h2><span id="tagline"></span></h2>
-				<ul id="mainnav" class="nav nav-pills">
+			<div class="span3">
+				<h2 class="span3"><span id="tagline"></span></h2>
+			</div>
+			<div id="navrow" class="span4">
+				<ul id="mainnav" class="nav nav-pills pull-right">
 					<li><a href="#">Shop</a></li>
 					<li><a href="#">News</a></li>
 					<li><a href="#">About</a></li>
@@ -134,13 +136,13 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 			</div> <!-- /#navrow-->
 		</div> <!-- /.row-->
 	</div> <!-- /#header-->
-	
-	
-	
+
+
+
 	<div id="content" class="container">
 		<div class="row">
 			<div class="span3">
-				
+
 				<div id="loginform">
 					<form class="form" name="authform" action="app/auth/process" style="margin-bottom: 0;">
 
@@ -148,13 +150,13 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 						<label style="display: none;">E-mail Address</label>
 						<input type="text" class="text" tabindex="1" name="email" value="" placeholder="E-mail Address" />
-					
+
 						<label style="display: none;">Password</label>
 						<input type="password" tabindex="2" class="text" name="password" value="" placeholder="Password" />
 
 						<input type="submit" value="Log In" tabindex="3" class="btn btn-primary button_primary" />
 						<input type="hidden" name="postauth_url" value="" />
-						
+
 						<ul>
 							<li><a href="app.php#!registration-form" tabindex="5" /><strong>Request an account</strong></a></li>
 							<li><a href="app.php#!auth-forgot_password" tabindex="4" />Having trouble logging in?</a></li>
@@ -162,18 +164,18 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 					</form>
 				</div>
-				
+
 				<div id="left"></div>
-				
+
 			</div><!--/#left-->
 
 			<div id="center" class="span9">
-				
+
 				<div class="row">
 					<div id="market_profile" class="span5"></div>
 					<div id="market_policies" class="span4"></div>
 				</div>
-				
+
 			</div><!--/#center-->
 		</div>
 	</div><!--/#content-->
