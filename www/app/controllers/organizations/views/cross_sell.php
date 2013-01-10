@@ -63,7 +63,10 @@ if($data['allow_sell'] == 1 and $domains->__num_rows > 0)
 					<?= core_form::input_check(
 						$dd['formatted_cycle'].', '.$dd['formatted_address'],
 						'deliver_on_'.$dd['dd_id'],
-						$ods_list[$dd['dd_id']]
+						$ods_list[$dd['dd_id']],
+						array(
+						
+						)
 					); ?>
 				<? endif; ?>
 			<? } ?>
