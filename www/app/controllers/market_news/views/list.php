@@ -54,13 +54,13 @@ function news_formatter($data)
 }
 
 
-$market_news->add(new core_datacolumn('creation_date','Date Published',true,'18%','{creation_date}','{creation_date}','{creation_date}'));
+$market_news->add(new core_datacolumn('creation_date','Date Published',true,'15%','{creation_date}','{creation_date}','{creation_date}'));
 $market_news->add(new core_datacolumn('title','Title',true,'15%','<a href="#!market_news-edit--mnews_id-{mnews_id}">{title}</a>','{title}','{title}'));
 $market_news->add(new core_datacolumn('hub','Hub',true,'15%','<a href="#!market_news-edit--mnews_id-{mnews_id}">{domain_name}</a>','{domain_name}','{domain_name}'));
-$market_news->add(new core_datacolumn('content','Content',true,'57%','{content}','{content_stripped}','{content_stripped}'));
-$market_news->add(new core_datacolumn('mnews_id',' ',false,'10%','<a href="#!market_news-list" onclick="if(confirm(\'Are you sure you want to delete this market news?\')){core.doRequest(\'/market_news/delete\',\'&mnews_id={mnews_id}\');return false;}">Delete</a>',' ',' '));
+$market_news->add(new core_datacolumn('content','Content',true,'43%','{content}','{content_stripped}','{content_stripped}'));
+$market_news->add(new core_datacolumn('mnews_id',' ',false,'12%','<a class="btn btn-danger" href="#!market_news-list" onclick="if(confirm(\'Are you sure you want to delete this market news?\')){core.doRequest(\'/market_news/delete\',\'&mnews_id={mnews_id}\');return false;}"><i class="icon-minus" /> Delete</a>',' ',' '));
 $market_news->columns[0]->autoformat='date-short';
-page_header('Market News','#!market_news-edit','Create new news item');
+page_header('Market News','#!market_news-edit','Create new news item', 'button');
 $market_news->sort_direction = 'desc';
 $market_news->render();
 ?>

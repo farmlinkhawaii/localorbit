@@ -175,7 +175,7 @@ class core_controller_fresh_sheet extends core_controller
 				$html .= '<td class="dt">'.$prod['name'].' ('.$prod['single_unit'].') from '.$prod['org_name'].' - '.intval($prod['inventory']).' remaining</td>';
 				if($show_edit_links)
 				{
-					$html .= '<td class="dt"><a href="#!products-edit--prod_id-'.$prod['prod_id'].'">Edit Product</a></td>';
+					$html .= '<td class="dt"><a class="btn" href="#!products-edit--prod_id-'.$prod['prod_id'].'"><i class="icon-edit" />Edit Product</a></td>';
 				}
 				$html .= '</tr>';
 				$style = (!$style);

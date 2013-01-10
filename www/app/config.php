@@ -212,10 +212,10 @@ if($_SERVER['SERVER_ENV'] == 'jvavul') {
 	$core->config['default_hostname'] = 'dev.localorb.it';
 	$core->config['session_domain']   = '.localorb.it';
 	$core->config['session_name']    .= 'dev';
-	$core->config['db']['username']   = 'localorb_www';
+	$core->config['db']['username']   = 'root';
 	$core->config['db']['database']   = 'localorb_www_dev';
-	$core->config['db']['password']   = 'localorb_www_dev';
-	$core->config['db']['hostname']   = 'localhost';
+	$core->config['db']['password']   = 'a1b2c3';
+	$core->config['db']['hostname']   = '127.0.0.1';
 	
 	$core->paths['logs'] = 'd:/tmp';
 	$core->config['payments']['paypal'] = array(

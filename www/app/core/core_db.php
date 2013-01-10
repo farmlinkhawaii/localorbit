@@ -1,7 +1,6 @@
 <?php
-
 class core_db
-{
+{	
 	public static function init()
 	{
 		global $core;
@@ -14,7 +13,7 @@ class core_db
 						$core->config['db']['hostname'],
 						$core->config['db']['username'],
 						$core->config['db']['password']
-					);
+					);				
 					mysql_query("SET time_zone ='+00:00';");
 					mysql_select_db($core->config['db']['database']);
 					$core->config['db']['connected'] = true;
@@ -84,7 +83,10 @@ class core_db
 	{
 		global $core;
 		core::log($sql,'sql');
+		$time_start = microtime(true);
 		$result = $core->config['db']['aliases']['query']($sql);
+		$execution_time_ms = round((microtime(true) - $time_start) * 1000);
+		core::log($execution_time_ms.' ms','sql');
 		
 		if(!$result)
 		{
