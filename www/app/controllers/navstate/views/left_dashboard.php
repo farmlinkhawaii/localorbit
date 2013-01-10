@@ -117,16 +117,17 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-truck icon-large"></i>
-					Products & Delivery
+					Orders & Delivery
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<li><a href="#!orders-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
 					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
-					<li><a href="#!products-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:products']?></a></li>
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 				</ul>
 			</li>
+		</ul>
+		<ul class="nav"><li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-tasks"/><?=$core->i18n['nav2:marketadmin:products']?></a></li>
 		</ul>
 		<ul class="nav">
 			<li class="dropdown">
@@ -159,9 +160,9 @@
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!products-list" onclick="core.go(this.href);">Products</a></li>
-					<li><a href="#!orders-current_sales" onclick="core.go(this.href);">Current Sales</a></li>
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);">Upcoming Deliveries</a></li>
+					<li><a href="#!orders-current_sales" onclick="core.go(this.href);">Current Sales</a></li>
+					<li><a href="#!products-list" onclick="core.go(this.href);">Products</a></li>
 					<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
 					<!-- <li><a href="#!orders-sales_report" onclick="core.go(this.href);">Sales History</a></li> -->
 					<!-- <li><a href="#!payment_report-view" onclick="core.go(this.href);">Payment History</a></li> -->					
@@ -175,10 +176,11 @@
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-user icon-large"></i>
-					Account Information
+					Account
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
+					<li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li>	
 					<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
 					<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
 					<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
@@ -191,8 +193,7 @@
 						<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
 						<?}?>
 						-->
-					<?}?>
-					<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>					
+					<?}?>				
 				</ul>
 			</li>
 		</ul>
@@ -206,7 +207,8 @@
 <? else: ?>
 
 <h2>Your Account</h2>
-<ul class="nav nav-list">
+<ul class="nav nav-list">				
+	<li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li>		
 	<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
 	<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
 	<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
@@ -220,8 +222,7 @@
 	<?if(lo3::is_customer() && !lo3::is_seller()){?>
 	<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
 	<?}?>
-	<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>					
-	<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>					
+	<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>				
 </ul>
 <? core::replace('left'); ?>
 
