@@ -17,7 +17,7 @@ $col->__model->autojoin(
 	'left',
 	'organizations_to_domains otd',
 	'(otd.org_id=o.org_id and otd.is_home=1)',
-	array()
+	array('otd.orgtype_id')
 );	
 $col->__model->autojoin(
 	'left',
@@ -43,11 +43,20 @@ else
 	lo3::require_orgtype('admin');
 }
 
+
 function user_role_formatter($data)
 {
+	global $core;
 	$data['role'] = ($data['allow_sell'] == 1)?'Seller':'Buyer';
+	#core::log('orgtype id : '.$data['orgtype_id']);
+	if($data['orgtype_id'] == '2')
+	{
+		$data['role'] = 'Market Manager';
+	}
+	#core::log('role: '.$data['role']);
 	return $data;
 }
+
 
 $col->add_formatter('enable_suspend_links');
 $col->add_formatter('user_role_formatter');
