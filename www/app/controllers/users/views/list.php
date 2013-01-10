@@ -53,6 +53,10 @@ function user_role_formatter($data)
 	{
 		$data['role'] = 'Market Manager';
 	}
+	if($data['orgtype_id'] == '1')
+	{
+		$data['role'] = 'Admin';
+	}
 	#core::log('role: '.$data['role']);
 	return $data;
 }
