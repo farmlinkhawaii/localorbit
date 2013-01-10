@@ -3,6 +3,7 @@ $prod = $core->view[0];
 $days = $core->view[1];
 $dd_id = $core->view[2];
 $dd_ids = $core->view[3];
+$qty = $core->view[4];
 ?>
 <div class="row">
 	<div class="span1 product-quantity">
