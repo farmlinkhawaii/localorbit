@@ -3,11 +3,15 @@ function format_product_prices($data)
 {
 	#core::log("data: ".print_r($data,true));
 	if($data['org_id'] == 0)
-		$data['org_name'] = 'Everyone';
+		$data['org_name'] = 'All';
+	else
+		$data['org_name'] = 'Only '.$data['org_name'];
 	if($data['domain_id'] == 0)
-		$data['domain'] = 'Everywhere';
+		$data['domain'] = 'All';
+	else
+		$data['domain'] = 'Only '.$data['domain'];
 	
-	$data['price'] = core_format::price($data['price']);
+	#$data['price'] = core_format::price($data['price']);
 	
 	return $data;
 }

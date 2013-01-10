@@ -29,15 +29,15 @@ foreach($cart->items as $item)
 		
 }
 
-	$prods = core::model('products')->get_catalog()->load();
-		$cat_ids   = $prods->get_unique_values('category_ids',true,true);
-		$cats  = core::model('categories')->load_for_products($cat_ids);
-		$org_ids   = $prods->get_unique_values('org_id');
-		$sellers   = core::model('organizations')->collection()->sort('name');
-		$sellers	  = $sellers->filter('organizations.org_id','in',$org_ids)->to_hash('org_id');
-		core::ensure_navstate(array('left'=>'left_blank'));
+$prods = core::model('products')->get_catalog()->load();
+$cat_ids   = $prods->get_unique_values('category_ids',true,true);
+$cats  = core::model('categories')->load_for_products($cat_ids);
+$org_ids   = $prods->get_unique_values('org_id');
+$sellers   = core::model('organizations')->collection()->sort('name');
+$sellers	  = $sellers->filter('organizations.org_id','in',$org_ids)->to_hash('org_id');
+core::ensure_navstate(array('left'=>'left_blank'));
 core::write_navstate();
-		$this->left_filters($cats,$sellers,undefined,true);
+$this->left_filters($cats,$sellers,undefined,true);
 
 
 $cats  = core::model('categories')->load_for_products(explode(',',$data['category_ids']));//->load()->collection();
@@ -52,7 +52,9 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		
 		<form name="prodForm" class="form-inline">
 		<div class="row">
-			<div class="span2">
+			<ol class="span2 priceList">
+				<?$this->render_product_pricing($prices);?>
+				<!---
 				<script>
 				
 				$(document).ready(function () {
@@ -64,7 +66,8 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 					<a href="#" id="yourprice" rel="tooltip" data-original-title="YOUR PRICE" data-placement="right"><?= core_format::price($price['price'])?><? if($data['single_unit'] != ''): ?><small> / <?= $data['single_unit']?></small><? endif; ?>
 					<? if($price['min_qty'] > 1): ?>, Min. <?=intval($price['min_qty'])?><? endif; ?></a>
 				<? endforeach; ?>
-			</div>
+				-->
+			</ol>
 			<div class="span2">
 				[FIX:DeliveryDate]
 			</div>

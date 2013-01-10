@@ -31,7 +31,7 @@ core.catalog.resetFilters=function(){
 }
 
 core.catalog.hideSpecial=function(){
-	core.doRequest('/catalog/hide_special');
+	//core.doRequest('/catalog/hide_special');
 	$('#weekly_special').hide();
 }
 
