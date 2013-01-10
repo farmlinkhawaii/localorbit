@@ -13,7 +13,8 @@ class core_model_base_payables extends core_model
 		$this->add_field(new core_model_field(7,'amount','float',10,'2','payables'));
 		$this->add_field(new core_model_field(8,'invoice_id','int',8,'','payables'));
 		$this->add_field(new core_model_field(9,'invoicable','int',8,'','payables'));
-		$this->add_field(new core_model_field(10,'creation_date','timestamp',4,'','payables'));
+		$this->add_field(new core_model_field(10,'is_imported','int',8,'','payables'));
+		$this->add_field(new core_model_field(11,'creation_date','timestamp',4,'','payables'));
 		$this->init_data();
 	}
 }

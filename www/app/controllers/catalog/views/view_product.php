@@ -171,11 +171,13 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		<?}else{?>
 			<img src="<?=image('product_placeholder')?>" />
 		<?}?>
+		<!--
 		
 		<h4>Other Products from this Seller</h4>
 		[FIX: Add other products]
 		
 		<h4>Other Products from this Category</h4>
 		[FIX: Add other products]
+		-->
 	</div>
 </div>

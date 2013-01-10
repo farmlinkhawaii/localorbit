@@ -187,7 +187,7 @@ if($_SERVER['HTTP_HOST'] == 'newui.localorb.it' || strpos(__FILE__,'/newui/') > 
 	$core->config['db']['hostname'] = '127.0.0.1';
 }
 
-if($_SERVER['HTTP_HOST'] == 'dev.localorb.it' || strpos(__FILE__,'/dev/') > 0 || strpos(__FILE__,'/Clients/') > 0)
+if($_SERVER['HTTP_HOST'] == 'dev.localorb.it' || strpos(__FILE__,'/dev/') > 0 || strpos(__FILE__,'/projects/') > 0 ||  strpos(__FILE__,'/Clients/') > 0)
 {
 	$core->config['stage'] = 'dev';
 	$core->config['default_hostname'] = 'annarbor-mi.localorb.it';
@@ -195,7 +195,7 @@ if($_SERVER['HTTP_HOST'] == 'dev.localorb.it' || strpos(__FILE__,'/dev/') > 0 ||
 	$core->config['session_name']    .= 'dev';
 	$core->config['db']['database']   = 'localorb_www_dev';
 	$core->config['db']['password']   = 'localorb_www_dev';
-	$core->config['db']['hostname']   = 'localhost';
+	$core->config['db']['hostname']   = '127.0.0.1';
 	$core->config['payments']['paypal'] = array(
 		'password'=>'1331153423',
 		'username'=>'test_1331153383_biz_api1.localorb.it',
