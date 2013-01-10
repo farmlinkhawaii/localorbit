@@ -49,11 +49,22 @@ if($data['allow_sell'] == 1 and $domains->__num_rows > 0)
 	<div class="tabarea" id="orgtabs-a<?=$tab_id?>">
 
 		<? foreach($domains as $domain) { ?>
-			<?=core_ui::checkdiv('sell_on_'.$domain['domain_id'],'Also sell on '.$domain['name'],$ocs_list[$domain['domain_id']],'org.setCrosssell('.$domain['domain_id'].',['.implode(',',$dd_list[$domain['domain_id']]).']);')?>
-			
+			<?= core_form::input_check(
+				'Also sell on '.$domain['name'],
+				'sell_on_'.$domain['domain_id'],
+				$ocs_list[$domain['domain_id']],
+				array(
+					'onclick'=>'org.setCrosssell('.$domain['domain_id'].',['.implode(',',$dd_list[$domain['domain_id']]).']);',
+				)
+			); ?>
+
 			<? foreach($dds[$domain['domain_id']] as $dd) { ?>
 				<? if($ocs_list[$domain['domain_id']]): ?>
-					<?=core_ui::checkdiv('deliver_on_'.$dd['dd_id'],$dd['formatted_cycle'].', '.$dd['formatted_address'],$ods_list[$dd['dd_id']])?>
+					<?= core_form::input_check(
+						$dd['formatted_cycle'].', '.$dd['formatted_address'],
+						'deliver_on_'.$dd['dd_id'],
+						$ods_list[$dd['dd_id']]
+					); ?>
 				<? endif; ?>
 			<? } ?>
 		<? } ?>
