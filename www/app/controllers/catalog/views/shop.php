@@ -111,7 +111,7 @@ else
 		$days = array();
 		foreach($delivs as $deliv)
 		{
-			$time = ($deliv[0]['pickup_address_id'] ? 'Picked Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
+			$time = ($deliv[0]['pickup_address_id'] ? 'Pick Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
 			if (!array_key_exists($time, $days)) {
 				$days[$time] = array();
 			}

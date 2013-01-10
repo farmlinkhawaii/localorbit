@@ -36,7 +36,10 @@ $qty = $core->view[4];
 			$dd_ids_id = implode('_', array_keys($day));
 			list($type, $time) = explode('-', $key);
 			?>
-			<a class="dropdown-toggle dd_selector" data-toggle="dropdown"><i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?></a>
+			<a class="dropdown-toggle dd_selector" data-toggle="dropdown">
+				<?=$type?> <?=core_format::date($time, 'shortest-weekday')?>
+				<span class="caret"></span>
+			</a>
 			<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 			<?
@@ -60,7 +63,7 @@ $qty = $core->view[4];
 			$dd_ids_id = implode('_', array_keys($day));
 			?>
 			<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
-			<i class="icon icon-truck" /> <?=$type?> <?=core_format::date($time, 'shortest-weekday')?>
+			<?=$type?> <?=core_format::date($time, 'shortest-weekday')?>
 			<?
 		}
 		?>

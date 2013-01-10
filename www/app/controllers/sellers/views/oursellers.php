@@ -39,9 +39,9 @@ else
 	
 	$seller = $seller->row();
 	#core::log(print_r($seller,true));
+	/*
 	
-	
-
+*/
 	# get their address and photo
 	if(intval($seller['org_id']) == 0) 
 	{
@@ -74,6 +74,29 @@ else
 		$products = core::model('products')->get_catalog_for_seller($seller['org_id']);
 
 		$products->load();
+
+	$dd_ids    = $products->get_unique_values('dd_ids',true,true);
+	$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
+	$deliveries = array();
+	foreach ($delivs as $value) {
+		$value->next_time();
+		$deliveries[$value['dd_id']] = array($value->__data);
+	}
+
+	$delivs = $deliveries;
+
+	$days = array();
+	foreach($delivs as $deliv)
+	{
+		$time = ($deliv[0]['pickup_address_id'] ? 'Pick Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
+		if (!array_key_exists($time, $days)) {
+			$days[$time] = array();
+		}
+		foreach ($deliv as $value) {
+			//print_r($deliv);
+			$days[$time][$value['dd_id']] = $value;
+		}
+	}
 				$cart = core::model('lo_order')->get_cart();
 		$cart->load_items();
 		core_ui::load_library('js','catalog.js');
@@ -161,7 +184,9 @@ else
 					$styles[0],
 					$styles[1],
 					$item_hash[$prod['prod_id']][0]['qty_ordered'],
-					$item_hash[$prod['prod_id']][0]['row_total']
+					$item_hash[$prod['prod_id']][0]['row_total'],
+					$days,
+					$item_hash[$prod['prod_id']][0]['dd_id']
 				);
 		?>	</a>
 		</div>
