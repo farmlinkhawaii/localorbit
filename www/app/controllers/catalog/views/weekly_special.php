@@ -52,7 +52,11 @@ if($special && $special['product_id'] != 0)
 	</p>
 	<div class="clear"></div>
 	<div class="span1 first">
-		<img class="img-rounded" src="<?=$webpath?>?_time_=<?=$core->config['time']?>" />
+		<? if(intval($prod['pimg_id']) > 0){?>
+		<img class="img-rounded catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+		<?}else{?>
+		<img class="img-rounded catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+		<?}?>
 	</div>
 	<div class="span4 product-info">
 		<?
