@@ -1,6 +1,7 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
 core::head('Choose category','');
+core_ui::fullWidth();
 lo3::require_permission();
 core_ui::load_library('js','product.js');
 $this->request_rules()->js();
@@ -12,7 +13,7 @@ $cats = core::model('categories')->collection()->filter('parent_id','is not null
 #echo('var mycats = '.json_encode($cats).';');
 core::js('core.allCats='.json_encode($cats).';');
 
-page_header('Choose a category','#!products-list','Cancel');
+page_header('Choose a category','#!products-list','Cancel','cancel');
 
 if(!lo3::is_customer())
 {
@@ -29,7 +30,7 @@ if(!lo3::is_customer())
 	
 ?>
 <form name="catform" action="products/request_new" onsubmit="return core.submit('/products/request_new',this);">
-	<table class="form">
+
 		<? if(!lo3::is_customer()){?>
 		<tr>
 			<td class="label">Seller</td>
@@ -44,33 +45,19 @@ if(!lo3::is_customer())
 			</td>
 		</tr>
 		<?}?>
-	</table>
-	<table style="width:520px;" id="picker_cols">
-		<col width="260" />
-		<col width="260" />
-		<col width="260" />
-		<col width="260" />
-		<col width="260" />
-		<col width="260" />
-		<col width="260" />
-		<col width="260" />
-		<col width="260" />
-		<tr>
-			<td id="cat_col1" class="col_selector"><select name="cats1" id="cats1" multiple="multiple" class="col_selector" onchange="product.selectCat(1,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col2" class="col_selector"><select name="cats2" id="cats2" multiple="multiple" class="col_selector" onchange="product.selectCat(2,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col3" class="col_selector"><select name="cats3" id="cats3" multiple="multiple" class="col_selector" onchange="product.selectCat(3,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col4" class="col_selector"><select name="cats4" id="cats4" multiple="multiple" class="col_selector" onchange="product.selectCat(4,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col5" class="col_selector"><select name="cats5" id="cats5" multiple="multiple" class="col_selector" onchange="product.selectCat(5,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col6" class="col_selector"><select name="cats6" id="cats6" multiple="multiple" class="col_selector" onchange="product.selectCat(6,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col7" class="col_selector"><select name="cats7" id="cats7" multiple="multiple" class="col_selector" onchange="product.selectCat(7,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col8" class="col_selector"><select name="cats8" id="cats8" multiple="multiple" class="col_selector" onchange="product.selectCat(8,this.options[this.selectedIndex].value);"></select></td>
-			<td id="cat_col9" class="col_selector"><select name="cats9" id="cats9" multiple="multiple" class="col_selector" onchange="product.selectCat(9,this.options[this.selectedIndex].value);"></select></td>
-		</tr>
-	</table>
+
+	<div class="row">
+		<? for($i=1;$i<7;$i++){?>
+		<div class="span3" id="cat_col<?=$i?>"<?=(($i>1)?' style="display: none;"':'')?>>
+			<select name="cats<?=$i?>" id="cats<?=$i?>" style="width: 180px;" multiple="multiple" class="col_selector" onchange="product.selectCat(<?=$i?>,this.options[this.selectedIndex].value);"></select>
+		</div>
+		<?}?>
+	</div>
+	
 	<div style="clear:both;text-align:right;" id="picker_button">
 		<br />		
 		<input type="hidden" name="category_ids" value="" />
-		<input type="button" class="button_primary" style="display:none;" onclick="core.createProduct(document.catform,document.catform.category_ids.value);" value="add product" id="add_product" />
+		<input type="button" class="btn btn-primary" style="display:none;" onclick="core.createProduct(document.catform,document.catform.category_ids.value);" value="add product" id="add_product" />
 	</div>
 	<div id="newProdRequestLink">
 	Don't see what you're looking for? <a href="#!products-select_cat" onclick="$('#newProdRequestLink,#newProdRequest,#picker_button,#picker_cols').toggle();">Click here</a> to request a new product category
