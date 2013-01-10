@@ -74,6 +74,12 @@ else
 </div>
 
 <div class="row">
+	<div class="span9">
+		<hr class="tight"/>
+	</div>
+</div>
+
+<div class="row">
 	<div class="span5">
 		
 		<? if(trim($market['market_profile']) != ''){?>
