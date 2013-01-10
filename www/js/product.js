@@ -141,7 +141,7 @@ product.requestNewCategory=function(){
 	}
 }
 
-core.showProdCats={1:true,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false};
+core.showProdCats={1:true,2:false,3:false,4:false,5:false,6:false};
 core.productInitCols=function(){
 	
 	var obj = $('#cats1');
@@ -258,7 +258,7 @@ product.editPrice=function(priceId,domainId,orgId,price,min_qty,totalFees,priceM
 		document.prodForm.total_fees.value = totalFees;
 	}
 	
-	$('#addPriceButton,#main_save_buttons').hide();
+	$('#addPriceButton,#main_save_buttons,#pricing_advanced').hide();
 	$('#editPrice').fadeIn('fast');
 	document.prodForm.price.focus();
 }
@@ -283,7 +283,7 @@ product.syncPrices=function(formField,moveTo){
 
 product.cancelPriceChanges=function(){
 	$('#editPrice').hide();
-	$('#addPriceButton,#main_save_buttons').fadeIn('fast');
+	$('#addPriceButton,#main_save_buttons,#pricing_advanced').fadeIn('fast');
 }
 
 product.savePrice=function(){
@@ -291,15 +291,17 @@ product.savePrice=function(){
 	for (var i = 0; i < core.valRules['pricing_advanced_rules'].length; i++){
 		core.valRules['prodForm'].push(core.valRules['pricing_advanced_rules'][i]);
 	}
-	if(core.validateForm(document.prodForm)){
-		core.doRequest('/products/save_price',{
+	var data = {
 			'prod_id':document.prodForm.prod_id.value,
 			'price_id':document.prodForm.price_id.value,
 			'domain_id':document.prodForm.domain_id.options[document.prodForm.domain_id.selectedIndex].value,
 			'org_id':document.prodForm.org_id.options[document.prodForm.org_id.selectedIndex].value,
 			'price':document.prodForm.price.value,
 			'min_qty':document.prodForm.min_qty.value,
-		});
+	};
+	core.alertHash(data);
+	if(core.validateForm(document.prodForm)){
+		core.doRequest('/products/save_price',data);
 	}
 }
 
