@@ -26,7 +26,8 @@ foreach($items as $item)
 # start rendering us some htmls
 $this->template_preheader();
 ?>
-<h1> Pick List	</h1>
+<div class="span6">
+<h2> Pick List	</h2>
 <h4>Delivery: <?=core_format::date($core->data['start_time'],'short')?> between <?=core_format::date($core->data['start_time'],'time')?> and <?=core_format::date($core->data['end_time'],'time')?>
 <!--	to <?=$item[0]['deliv_address']?>, <?=$item[0]['deliv_city']?>, <?=$item[0]['deliv_state']?> <?=$item[0]['deliv_postal_code']?>-->
 </h4>
@@ -39,6 +40,7 @@ core::log('this cycle is still open: '.((($core->data['start_time'] - ($hours_be
 <?if(($core->data['start_time'] - ($hours_before * 3600)) > $core->config['time']){?>
 Ordering has not yet closed for this delivery
 <?}?>
+</div>
 <?
 $this->template_pagestart($multi_view);
 $this->template_postheader($org,$core->config['delivery_tools_buttons'],$addr_seller);
@@ -47,8 +49,14 @@ $core->config['delivery_tools_buttons'] = 'no';
 # loop through the items and print out the main table
 $cur_item = 0;
 ?>
-<br />&nbsp;<br />
-<table class="pr">
+</div>
+<div class="row">
+	<div class="span12">
+		&nbsp;
+	</div>
+</div>
+<div class="row">
+<table class="table span9">
 	<col width="20%" />
 	<col width="10%" />
 	<col width="10%" />
@@ -56,6 +64,7 @@ $cur_item = 0;
 	<col width="10%" />
 	<col width="15%" />
 	<col width="15%" />
+	<thead>
 	<tr>
 		<th>Item</th>
 		<th>Total Sold</th>
@@ -65,6 +74,8 @@ $cur_item = 0;
 		<th>Initials</th>
 		<th>Notes</th>
 	</tr>
+	<thead>
+	<tbody>
 <?
 	foreach($items as $item)
 	{
@@ -119,7 +130,9 @@ $this->lot_details();
 
 # do some cleanup and end this.
 ?>
+</tbody>
 </table>
+</div>
 <?
 $this->template_footer($multi_view);
 $this->template_pageend($multi_view);

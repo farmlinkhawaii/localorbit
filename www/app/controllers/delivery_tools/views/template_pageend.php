@@ -1,7 +1,7 @@
 <?php
 
 if(!$core->view[0]){
-	echo('</body></html>');
+	echo('</div></body></html>');
 	exit();
 }
 ?>
