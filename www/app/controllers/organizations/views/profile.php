@@ -31,30 +31,18 @@ if($data['allow_sell'] == 1)
 				<td class="label">&nbsp;</td>
 				<td class="value"><?=core_ui::checkdiv('public_profile','Show my profile on Our Sellers page.',($data['public_profile'] == 1))?></td>
 			</tr>
-			<?=core_form::input_textarea('Short Who','short_profile',$data,array(
-				'sublabel'=>'Please limit to 50 characters',
-				'required'=>true,
-				'rows'=>2,
-				'cols'=>50,
-				'info'=>'Customers can view this field when browsing the catalog. Additionally, you can override this on a per-product basis.',
-			))?>
 
-			<?=core_form::input_textarea('Long Who','profile',$data,array(
+
+			<?=core_form::input_textarea('Who','profile',$data,array(
 				'sublabel'=>'Your organization\'s story',
 				'required'=>true,
 				'rows'=>5,
 				'cols'=>50,
 				'info'=>'Customers can view this field when viewing your farm profile or a product. Additionally, you can override this on a per-product basis.',
 			))?>
-			<?=core_form::input_textarea('Short How','short_product_how',$data,array(
-				'sublabel'=>'Please limit to 50 characters',
-				'required'=>true,
-				'rows'=>2,
-				'cols'=>50,
-				'info'=>'Every product has a description of how it is made. The value of this field will be used for your default Short How. Additionally, you can override this on a per-product basis.',
-			))?>
 
-			<?=core_form::input_textarea('Long How','product_how',$data,array(
+
+			<?=core_form::input_textarea('How','product_how',$data,array(
 				'sublabel'=>'Your products\' story',
 				'required'=>true,
 				'rows'=>5,
