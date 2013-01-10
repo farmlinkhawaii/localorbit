@@ -106,7 +106,7 @@ $(function()
 					<?}else{?>
 					<span class="pull-left" style="padding-top: 8px;"><strong>Subtotal: <?=core_format::price($cart['grand_total'])?></strong></span>
 					<span class="pull-right">
-						<a class="btn btn-info btn-small" href="#!catalog-shop">Modify your cart</a>
+						<a class="btn btn-info btn-small" href="#!catalog-shop--cart-yes">Modify your cart</a>
 						<a class="btn btn-primary btn-small" href="#!catalog-checkout">Check out</a>
 					</span>
 					<?}?>
