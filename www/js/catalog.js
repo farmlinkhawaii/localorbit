@@ -479,6 +479,7 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
 core.catalog.updateRow=function(prodId,newQty,dd){
 	if(newQty == '')
 		newQty = 0;
+	var newQty = new String(newQty).replace(/[^0-9\.]+/g, '');
 	var newQty = parseInt(newQty);
 	dd = dd | $('#prodDd_' + prodId).val() | core.catalog.filters.dd;
 	$('#qtyBelowInv_'+prodId).hide();
