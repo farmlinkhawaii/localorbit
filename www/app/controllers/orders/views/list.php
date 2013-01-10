@@ -83,7 +83,7 @@ $orders->add_filter(new core_datatable_filter('ocreatedat2','lo_order.order_date
 if(lo3::is_market() || lo3::is_admin())
 {
 	$orders->add_filter(new core_datatable_filter('name','concat_ws(\' \',customer_entity.first_name,customer_entity.last_name,organizations.name,lo_order.lo3_order_nbr)','~'));
-	$orders->filter_html .= core_datatable_filter::make_text('orders','name',$orders->filter_states['orders__filter__name'],'Search by buyer or Order #');
+	$orders->filter_html .= core_datatable_filter::make_text('orders','name',$orders->filter_states['orders__filter__name'],'Search by Buyer or Order #', '','min-width: 170px;');
 }
 
 $orders->add(new core_datacolumn('order_date','Order #',true,'19%','<a href="#!orders-view_order--lo_oid-{lo_oid}"><b>{lo3_order_nbr}</b></a>','{lo3_order_nbr}','{lo3_order_nbr}'));

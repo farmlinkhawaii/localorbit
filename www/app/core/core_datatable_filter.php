@@ -158,7 +158,7 @@ class core_datatable_filter
 		return $out;
 	}
 	
-	public static function make_text($tablename,$name,$value=__core_datatable_filter_nullval__,$pre_label='',$post_label='')
+	public static function make_text($tablename,$name,$value=__core_datatable_filter_nullval__,$pre_label='',$post_label='',$style='')
 	{
 		if(is_null($value))
 			$value = __core_datatable_filter_nullval__;
@@ -166,8 +166,12 @@ class core_datatable_filter
 		if($value == __core_datatable_filter_nullval__)
 			$value = '';
 		
-		$out  = $out  = '<div class="text-search pull-left">';
-		$out .= '<input type="text"';
+		$out  = $out  = '<div class="text-search pull-left"';
+
+		$out .= '><input type="text"';		
+		if (strlen(trim($style)) > 0) {
+			$out .= ' style="' . $style . '"';
+		}
 		$out .= ' name="'.$tablename.'__filter__'.$name.'"';	
 		$out .= ' id="'.$tablename.'__filter__'.$name.'"';	
 		$out .= ' onkeyup="core.ui.dataTables[\''.$tablename.'\'].handleTextFilter(\''.$name.'\',this.value);"';	
