@@ -168,7 +168,14 @@ else
 		# 1st total line
 		echo('<div id="filter_container"><ol id="filter_list"/></div>');
 		echo('<form name="cartForm">');
-		$this->weekly_special($prods, $prices,$sellers);
+		$this->weekly_special(
+			$prods, 
+			$prices,
+			$sellers,
+			$delivs,
+			$item_hash,
+			$days
+		);
 		//$this->render_total_line(1);
 		$this->render_no_products_line();
 		$this->render_cart_empty_line();
