@@ -1,4 +1,5 @@
 <h3 id="payment_selector">Payment Method</h3>
+<br />
 <?
 global $org;
 if($org['payment_allow_authorize'] == 1) {
