@@ -44,6 +44,8 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 	<!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
 	<link rel="stylesheet" type="text/css" href="css/loader.php?time=<?php echo time();?>" media="all" /> <? # Loads forms.css, datatable.css, popups.css, rte.css ?>
+	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style2" title="styles2" media="all" />
+	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style3" title="styles3" media="all" />
 
 	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
 	
@@ -240,7 +242,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 })();
 </script>
 
-<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<!--<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>-->
 
 </body>
 </html>
