@@ -39,6 +39,27 @@ class core_model_addresses extends core_model_base_addresses
 			->collection()
 			->filter('org_id',$org_id);
 	}
+	
+	function get_radios($org_id,$value,$name='addr_id')
+	{
+		$data = $this->add_formatter('simple_formatter');
+		$data = $data->collection()
+			->filter('org_id','=',$org_id)
+			->filter('is_deleted','=',0)
+			->sort('label');
+		
+		$html = '';
+		foreach($data as $row)
+		{
+			$html .= core_ui::radiodiv(
+				$name,
+				'<b>'.$row['label'].'</b><br />'.$row['formatted_address'],
+				$value == $row['addr_id'],
+				$name.'_radiogroup'
+			);
+		}
+		return $html;
+	}
 }
 
 function simple_formatter($data)
