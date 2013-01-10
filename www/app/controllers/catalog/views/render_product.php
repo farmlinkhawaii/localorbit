@@ -14,30 +14,29 @@ $days 	 = $core->view[9];
 $dd_id 	 = $core->view[10];
 
 
-$desc = $prod['short_description'];
+$description = $prod['short_description'];
 $farm_name = $prod['org_name'];
-$learn_more = '<p><a class="btn btn-small btn-info pull-right" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
 
-$description_popup = $prod['short_who'];
+$description_popup = $prod['who'];
 if($description_popup == '')
-	$description_popup = $prod['short_profile'];
-$description_popup .= $learn_more;
+	$description_popup = $seller['profile'];
+$description_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
 $description_popup = htmlentities($description_popup);
 
 
-$how_popup = $prod['short_how'];
+$how_popup = $prod['how'];
 if($how_popup == '')
-	$how_popup = $prod['short_product_how'];
+	$how_popup = $seller['product_how'];
 if($how_popup !=='')
 	$how_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
 
 $how_popup = htmlentities($how_popup);
 
 # remove this code
-$first_period = strpos($desc,'.');
-$first_exclam = strpos($desc,'!');
-$index = ($first_period < $first_exclam)?$first_period:$first_exclam;
-$desc = substr($desc,0,$index+1);
+#$first_period = strpos($description,'.');
+#$first_exclam = strpos($description,'!');
+#$index = ($first_period < $first_exclam)?$first_period:$first_exclam;
+#$description = substr($description,0,$index+1);
 
 #$farm_name = substr($prod['org_name'],0,20);
 #$farm_name .= (strlen($prod['org_name'])>=20)?'&hellip;':'';
@@ -77,12 +76,8 @@ $rendered_prices = 0;
 
 		<div class="span4 product-info">
 			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a>
-			<!--
-			<small> from <a class="" href="#!sellers-oursellers--org_id-<?=$prod['org_id']?>"><?=$prod['org_name']?></a></small>
-			-->
 			<br />
-			<?=$desc?>
-			
+			<?=$description?>			
 			<br />
 			<small class="whowhatwhere">
 				<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$description_popup?>">
@@ -201,92 +196,3 @@ $rendered_prices = 0;
 	</div> <!-- /.product-row-->
 
 </div> <!-- /.row-->
-<div class="row" id="prodinfo_<?=$prod['prod_id']?>" style="display: none;">
-	<div class="span2">
-		<h5>Where</h5>
-		<? echo('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=210x125&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />')?>
-	</div>
-	<div class="span4">
-		<h5>What</h5>
-		<?=substr(html_entity_decode($description_popup),0,100)?>
-		<a class="btn btn-info" onclick="$('#prodinfo_<?=$prod['prod_id']?>,#prodexpand_<?=$prod['prod_id']?>').toggle(300);">Reading is hard</a>
-	</div>
-	<div class="span3">
-		<h5>How</h5>
-		<?=substr(html_entity_decode($how_popup),0,100)?>
-		<a class="btn btn-info" onclick="$('#prodinfo_<?=$prod['prod_id']?>,#prodexpand_<?=$prod['prod_id']?>').toggle(300);">Reading is hard</a>
-	</div>
-	<br />
-	<hr />
-	<br />
-</div>
-<? /*
-<tr id="product_<?=$prod['prod_id']?>" class="catalog catalog_<?=$style1?>_<?=$style2?> category_<?=$prod['category_ids'][2]?> category_<?=$prod['category_ids'][3]?>">
-	<td class="catalog">
-		<? if(intval($prod['pimg_id']) > 0){?>
-		<img class="catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
-		<?}else{?>
-		<img class="catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
-		<?}?>
-	</td>
-	<td class="catalog">
-		<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>">
-			<span style="font-size: 120%;">
-				<?=$prod['name']?>
-				<? if($prod['single_unit'] != ''){?>
-				(<?=$prod['single_unit']?>)
-				<?}?>
-			</span>
-			<br />from <?=$prod['org_name']?></a>
-		<br />
-		<a href="#!catalog-shop" onmouseover="core.catalog.popupWho(<?=$prod['prod_id']?>,this);"><img onmouseover="core.lo3.rollOver(this)" onmouseout="core.lo3.rollOut(this)" src="<?=image('store/who_off')?>" /></a>
-		<a href="#!catalog-shop" onmouseover="core.catalog.popupWhere(<?=$prod['prod_id']?>,this);"><img onmouseover="core.lo3.rollOver(this)" onmouseout="core.lo3.rollOut(this)" src="<?=image('store/where_off')?>" /></a>
-		<a href="#!catalog-shop" onmouseover="core.catalog.popupWhat(<?=$prod['prod_id']?>,this);"><img onmouseover="core.lo3.rollOver(this)" onmouseout="core.lo3.rollOut(this)" src="<?=image('store/what_off')?>" /></a>
-	</td>
-	<td class="catalog">
-		<table class="form">
-			<?for ($i=0; $i < count($pricing); $i++){?>
-			<tr>
-				<td class="label" style="width: 10px;">
-					<?=(($i == $rendered_prices)?'&nbsp;':'&nbsp;')?>
-				</td>
-				<td class="value" style="width: 200px;">
-
-				<?if($pricing[$i]['org_id'] != 0){ ?>
-					<div class="error">Your price:
-				<?}?>
-
-				<?=$pricing[$i]['price']?><? if($prod['single_unit'] != ''){?>/<?=$prod['single_unit']?><?}?><? if($pricing[$i]['min_qty'] >1){ ?>,
-				min <?=floatval($pricing[$i]['min_qty'])?>
-				<?}?>
-
-				<?if($pricing[$i]['org_id'] != 0){ ?>
-					</div>
-				<?}?>
-
-				</td>
-			</tr>
-			<?$rendered_prices++; }?>
-		</table>
-		<div class="catalog_error" id="qtyBelowMin_<?=$prod['prod_id']?>"><br /></div>
-		<div class="catalog_error" id="qtyBelowInv_<?=$prod['prod_id']?>"><br /></div>
-	</td>
-	<td class="catalog">
-		<table class="form">
-			<tr>
-				<td style="vertical-align: top;" class="catalog_tot"><input type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" size="3" style="width: 57px;" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" /></td>
-				<td style="vertical-align: top;" class="catalog_tot"><input type="text" name="prodTotal_<?=$prod['prod_id']?>" id="prodTotal_<?=$prod['prod_id']?>" size="3" style="width: 57px;" value="<?=$total?>" /></td>
-				<td rowspan="2">
-					<a id="zeroQty_<?=$prod['prod_id']?>" href="#!catalog-shop" onclick="$('#prodQty_<?=$prod['prod_id']?>').val(0);core.catalog.updateRow(<?=$prod['prod_id']?>,0);">
-						<img onmouseover="core.lo3.rollOver(this)" onmouseout="core.lo3.rollOut(this)" src="<?=image('cart_remove_off')?>" />
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td class="cat_total">Qty</td>
-				<td class="cat_total">Subtotal</td>
-			</tr>
-		</table>
-	</td>
-</tr>
-*/ ?>
