@@ -84,13 +84,13 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 <div class="row">
 	<div class="span6">
 		
-		<h2 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h2>
-		<h3 class="farm_name notcaps" style="margin-top: 0;">from <?=$data['org_name']?>, <?=$data['city']?>, <?=$data['code']?></h3>
-		
-		<hr />
-		
+	
 		<form name="prodForm" class="form-inline">
 		<div class="row">
+			<span class="span2">
+				<h3 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h3>
+				<h4 class="farm_name notcaps" style="margin-top: 0;">from <?=$data['org_name']?></h4>
+			</span>
 			<ol class="span2 priceList">
 				<?$this->render_product_pricing($prices);?>
 				<!---
@@ -107,9 +107,6 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 				<? endforeach; ?>
 				-->
 			</ol>
-			<div class="span2">
-				<!--[FIX:DeliveryDate]-->
-			</div>
 			<div class="span2">
 				<? if( $inv > 0): ?>
 				
