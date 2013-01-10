@@ -106,8 +106,10 @@ else
 	
 	<div class="span5">
 		
-		<h3>Our Sellers</h3>
-		<? if($has_address):
+		
+		
+		<h3>Where</h3>
+	<? if($has_address):
 			echo(core_ui::map('hubmap','100%','300px',6));
 			core_ui::map_center('hubmap',$lat,$long);
 			
@@ -122,18 +124,14 @@ else
 			
 			core_ui::map_add_point('hubmap',$lat,$long,'<strong>'.$market['name'].'</strong><br>'.$address,image('farmstand_map_marker'));
 			?>
-		<? endif; ?>
-	
+		<? endif; ?>	
 	</div>
 	
 	<div class="span4">
-		
-		<h3>&nbsp;</h3>
-		
+		<h3>Our Sellers</h3>
 		<? foreach($sellers as $seller): ?>
 			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
 		<? endforeach; ?>
-		
 	</div>
 	
 </div>

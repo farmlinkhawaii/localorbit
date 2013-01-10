@@ -137,16 +137,16 @@ $(function()
 		<span class="nav-sec">See what's fresh</span>
 	</a>
 </li>
-<li>
-	<a href="<?=$core->config['app_page']?>#!news-list">
-		<span class="nav-actual">News</span>
-		<span class="nav-sec">Latest from our market</span>
-	</a>
-</li>
 <li class="last">
 	<a href="<?=$core->config['app_page']?>#!market-info" onclick="core.go(this.href);" class="main">
 		<span class="nav-actual"><?=$core->i18n['nav1:marketinfo']?></span>
 		<span class="nav-sec">About us and our sellers</span>
+	</a>
+</li>
+<li>
+	<a href="<?=$core->config['app_page']?>#!news-list">
+		<span class="nav-actual">News</span>
+		<span class="nav-sec">Latest from our market</span>
 	</a>
 </li>
 

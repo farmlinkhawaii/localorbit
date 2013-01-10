@@ -16,8 +16,8 @@ if($core->data['cart'] == 'yes')
 <div id="catalog_note"><div>To view a single category, click once, then click again to view all!</div></div>
 -->
 
-<small style="position: relative; bottom: -1.6em;" class="pull-right hoverpointer" onclick="core.catalog.resetFilters();"><i class="icon-remove-sign"/> Reset Filter</small>
-<h2>Catalog</h2>
+<small style="position: relative; bottom: -1.6em;" class="pull-right hoverpointer" onclick="core.catalog.resetFilters();"><i class="icon-remove-sign"/> Reset Filters</small>
+<h2>Filter By:</h2>
 <?
 
 if (count($days) > 1)
@@ -50,7 +50,7 @@ if (count($days) > 1)
 </ul>
 
 <hr class="tight">
-<span class="caps"><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />By Seller</span>
+<span class="caps"><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />Seller</span>
 
 <ul class="nav nav-list">
 <?php
@@ -69,7 +69,7 @@ foreach($sellers as $seller)
 
 <hr class="tight">
 
-<span class="caps">By Category</span>
+<span class="caps">Category</span>
 <ul class="nav nav-list">
 <?
 $style=1;
