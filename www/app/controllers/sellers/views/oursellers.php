@@ -64,7 +64,7 @@ else
 		$map = '';
 		if(is_numeric($address['latitude'])  && is_numeric($address['longitude']))
 		{
-			$map = core_ui::map('mymap','100%','325px',8);
+			$map = core_ui::map('mymap','100%','240px',8);
 			core_ui::map_center('mymap',$address['latitude'],$address['longitude']);
 			core_ui::map_add_point('mymap',$address['latitude'],$address['longitude'],'<h1>'.$seller['name'].'</h1>'.$address['formatted_address'],image('farm_map_marker'));
 		}
@@ -88,22 +88,28 @@ else
 <div class="row">
 	<div class="span5">
 
-		<h2><?=$seller['name']?></h2>
+		<h3><?=$seller['name']?></h3>
 		<?if($has_image){?><img src="<?=$web_path?>" /><?}?>
 	
 	</div>
+	<?if(is_numeric($address['latitude'])  && is_numeric($address['longitude'])){?> 
 	<div class="span4">
 		<h3><?= $address['city'] ?>, <?= $address['code'] ?></h3>
 		<?=$map?>
 
 	</div>
+	<?}?>
 </div> <!-- /row-->
+
+<div class="row">
+	<div class="span9">&nbsp;</div>
+</div>
 
 <div class="row">
 	<div class="span5">
 		
 		<?if(trim($seller['profile']) != ''){?>
-			<h2>Who We Are</h2>
+			<h3>Who We Are</h3>
 			<p><?=core_format::plaintext2html($seller['profile'])?></p>
 		<?}?>
 	
@@ -111,14 +117,32 @@ else
 	<div class="span4">
 
 		<?if(trim($seller['product_how']) != ''){?>
-			<h2>How We Do It</h2>
+			<h3>How We Do It</h3>
 			<p><?=core_format::plaintext2html($seller['product_how'])?></p>
 		<?}?>
 
 	</div>
 </div>
 
-<hr>
+<div class="row">
+	<div class="span9">
+		<hr/>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span9">
+		<h3>Currently Selling</h3>
+	</div>
+</div>
+
+<!--
+<div class="row">
+	<div class="span9">
+		<hr class="tight"/>
+	</div>
+</div>
+-->
 
 <div class="row">
 

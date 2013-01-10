@@ -28,7 +28,7 @@ if($core->config['url-controller'] == 'sellers')
 
 core::log('random seller is: '.$random_seller);
 
-echo('<h2>Our Sellers</h2>');
+echo('<h2>Sellers</h2>');
 echo('<ul class="nav nav-list">');
 foreach($sellers as $seller)
 {

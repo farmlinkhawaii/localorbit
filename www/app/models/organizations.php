@@ -81,6 +81,7 @@ class core_model_organizations extends core_model_base_organizations
 		$webpath  = '/img/organizations/cached/'.$org_id.'.320.260.jpg';
 		$imgpath = '/img/blank.png';
 		$extension = '';
+		
 		if(file_exists($filepath.'png'))	
 			$extension = 'png';
 		if(file_exists($filepath.'jpg'))	
@@ -88,6 +89,7 @@ class core_model_organizations extends core_model_base_organizations
 		if(file_exists($filepath.'gif'))	
 			$extension = 'gif';
 			
+		core::log($filepath.'jpg');
 		if($extension == '')
 		{
 			return array(false,$imgpath,$core->paths['base'].'/..'.$imgpath);

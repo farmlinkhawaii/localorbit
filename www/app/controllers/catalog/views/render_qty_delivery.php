@@ -27,8 +27,6 @@ $qty = $core->view[4];
 			foreach($days as $key => $day)
 			{
 				if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
-					//$dd_ids_id = implode('_', array_keys($day));
-					//list($type, $time) = explode('-', $key);
 					if (!isset($dd_id) || array_key_exists($dd_id, $day)) {
 						$selected_dd_key = $key;
 						break;
