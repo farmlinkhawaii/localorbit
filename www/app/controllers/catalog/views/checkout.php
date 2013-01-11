@@ -17,7 +17,7 @@ $all_addrs = core::model('addresses')
 	->collection()
 	->add_formatter('address_formatter')
 	->filter('org_id',$core->session['org_id'])
-	->filter('is_deleted',0);
+	->filter('is_deleted',0)->to_hash('address_id');
 
 # load up the order and arrange it for rendering
 $cart = core::model('lo_order')->get_cart();
@@ -50,12 +50,12 @@ core::replace('full_width');
 $cart->arrange_by_next_delivery();
 ?>
 
-<link href="/css/checkout.css" rel="stylesheet">
+<!--<link href="/css/checkout.css" rel="stylesheet">-->
 
 <form id="checkoutForm" name="checkoutForm" class="checkout" method="post" action="app/catalog/order_confirmation">
 <div class="row">
 	<div class="span6">
-		<div class="row">
+		<div class="row checkout_section">
 			<span class="span3">
 				<h3>Your Order</h3>
 			</span>			
@@ -63,21 +63,21 @@ $cart->arrange_by_next_delivery();
 				Quantity
 			</span>
 			<span class="span1 checkout_labels">
-				UnitPrice
+				Price
 			</span>
 			<span class="span1 checkout_labels">
 				Subtotal
 			</span>
-			
-			<hr class="span6 hr_pad_bottom"/>
+
 		</div>
 		<?php
 			$count = 0;
+	
 			foreach($cart->items_by_delivery as $delivery_opt_key=>$items) {
 				// delivery date
 				
 				$count++;
-				$this->checkout_items_header($items[0]['lodeliv_id'], $all_addrs, $count);
+				$this->checkout_items_header($items[0]['lodeliv_id'], $all_addrs, $count,count($cart->items_by_delivery));
 				
 				?>
 					<div class="row">
@@ -94,13 +94,13 @@ $cart->arrange_by_next_delivery();
 				foreach ($items_by_seller as $seller_name => $items) {
 					?>
 					<div class="row">
-						<div class="span6"><?=$seller_name?></div>
+						<div class="span6"><strong><?=$seller_name?></strong></div>
 					</div>
 						<?
 						foreach ($items as $item) {
 						?>
 					<div class="row">
-						<div class="span3"><strong><?=$item['product_name']?></strong></div>
+						<div class="span3"><?=$item['product_name']?></div>
 						<div class="span1"><?=$item['qty_ordered']?></div>
 						<div class="span1"><?=core_format::price($item['unit_price'])?></div>
 						<div class="span1"><?=core_format::price($item['row_total'])?></div>
@@ -129,13 +129,16 @@ $cart->arrange_by_next_delivery();
 	</div>
 	<span class="span6">				
 		<!-- Billing -->
+		<div class="row checkout_section">
+			<span class="span6">
+				<h3>Payment</h3>
+			</span>
+		</div>
 		<div class="row">
-			<div class="span6"><h3>Billing</h3></div>
-			<hr class="span6"/>
-			<div class="span3">Have a discount code? Enter it here.</div>
+			<div class="span3">Do you have a discount code?</div>
 			<div class="span3 form-inline">
 				<input class="input-small"  type="text" id="discount_code" name="discount_code" value="<?=$cart->discount_codes[0]['code']?>" />
-				<input class="btn" type="button" value="Apply" onclick="core.checkout.requestUpdatedFees();" />
+				<input class="btn btn-info" type="button" value="Apply" onclick="core.checkout.requestUpdatedFees();" />
 			</div>
 			<hr class="span6 hr_pad_bottom"/>			
 		</div>
@@ -161,56 +164,6 @@ $cart->arrange_by_next_delivery();
 	</div>
 </div>
 <?
-/*
-?>
-
-<form name="checkoutForm" class="checkout" method="post" action="app/catalog/order_confirmation">
-	<table>
-		<col width="670" /><col width="3" /><col width="300" />
-		<tr>
-			<td>
-				<?php
-				foreach($cart->items_by_delivery as $delivery_opt_key=>$items){
-				?>
-				<table>
-					<col width="400" /><col width="10" /><col width="260" />
-					<tr>
-						<td>
-						</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td>
-							<h3>Location</h3>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<?php $this->checkout_items($items); ?>
-						</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td class="delivery_area">
-							<?php
-							?>
-						</td>
-					</tr>
-				</table>
-				<div class="dashed_divider">&nbsp;</div>
-				<?}?>
-				Enter your discount code here: <input type="text" id="discount_code" name="discount_code" value="<?=$cart->discount_codes[0]['code']?>" />
-				<input type="button" class="button_secondary" value="apply code" onclick="core.checkout.requestUpdatedFees();" />
-			</td>
-			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			<td style="vertical-align: top;">
-				<?php
-				$this->checkout_totals($cart);
-				$this->checkout_payment_info();
-				?>
-			</td>
-		</tr>
-	</table>
-</form>
--->
-<?
-*/
 # this is used to dynamically update the fees and such.
 core::js('window.setTimeout("core.checkout.requestUpdatedFees();",1000);');
 ?>

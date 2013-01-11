@@ -5,50 +5,77 @@
 			$lodeliv_id = $core->view[0];
 			$all_addrs = $core->view[1];
 			$count = $core->view[2];
-
+			$total_delivs = $core->view[3];
 			$deliv = core::model('lo_order_deliveries')->load($lodeliv_id);
-			$addresses = array();
-
-			if(intval($deliv['deliv_address_id'])==0 || intval($deliv['pickup_address_id'])==0) {
-				foreach ($all_addrs as $addr) {
-					$addresses[$addr['address_id']] = $addr['formatted_address'];
-				}
-			} else {
-				$addresses[$deliv['pickup_address_id']] =  $deliv['pickup_address'].', '.$deliv['pickup_city'].', '.$deliv['pickup_code'].', '.$deliv['pickup_postal_code'];
-			}
-			//print_r($options);
-			//echo $core->config['domain']['feature_force_items_to_soonest_delivery'];
-			//if($core->config['domain']['feature_force_items_to_soonest_delivery'] == 1)
-
-			if ($deliv['pickup_address_id']) {
-				echo "<span class='delivery'>Pickup #".$count.":</span> ";				
-				echo "<span class='delivery_date'>".core_format::date($deliv['pickup_start_time'],"short-weekday");
-					echo " between ".date('g:i a',$deliv['pickup_start_time'])."-".date('g:i a',$deliv['pickup_end_time']);	
-				echo "</span> ";
-			} else {
-				echo "<span class='delivery'>Delivery #".$count.":</span> ";
-				echo "<span class='delivery_date'>".core_format::date($deliv['delivery_start_time'],"short-weekday");
-					echo " between ".date('g:i a',$deliv['delivery_start_time'])."-".date('g:i a',$deliv['delivery_end_time']);
-				echo "</span> ";
-			}
 			
-				// else
-			//print_r($deliv);
-			# print a generic header than will be updated by JS
-			# when the user picks a delivery day
-			//echo($core->i18n['field:checkout_pickup']);
+			# this determines if the buyer picks up the items from a hub location
+			
+			if(intval($deliv['pickup_address_id']) > 0 && !isset($all_addrs[$deliv['pickup_address_id']]))
+			{
+				$verb = 'Pickup';
+				$address = core::model('addresses')
+					->collection()
+					->add_formatter('address_formatter')
+					->filter('address_id','=',$deliv['pickup_address_id'])
+					->to_hash('address_id');
+				#print_r($address);
+				$address = $address[$deliv['pickup_address_id']][0];
+				#echo('<h1>'.$address[0]['formatted_address'].'</h1>');
+				#echo('here!!!!');
+				#print_r($address);
+			}
+			else
+			{
+				$verb = 'Delivery';
+			}
+	
+			# if there's only one delivery, render it this way:
+			if($total_delivs == 1)
+			{
+				?>
+				<h4 class="checkout_label">
+					<?=$verb?> 
+					on <?=core_format::date($deliv['pickup_start_time'],"short-weekday")?>
+					between <?=date('g:i a',$deliv['pickup_start_time'])?> 
+					and <?=date('g:i a',$deliv['pickup_end_time'])?>
+				</h4>
+				<?
+			}
+			else
+			{
+				?>
+				<span class="delivery"><?=$verb?> #<?=$count?>: </span>
+				<span class="delivery_date">
+					<?=core_format::date($deliv['pickup_start_time'],"short-weekday")?>
+					between <?=date('g:i a',$deliv['pickup_start_time'])?> 
+					and <?=date('g:i a',$deliv['pickup_end_time'])?>
+				</span><br />
+				<?
+			}
 
 			//choose address
-			if(count($addresses) > 1) {
-				echo '<select name="delivgroup-'.$deliv['dd_id_group'].'">';
-					foreach($addresses as $id=>$address) {
-						echo '<option value="'.$id.'">'.$address.'</option>';
+			if($verb == 'Delivery')
+			{
+				if(count($all_addrs) > 1)
+				{
+					echo '<select name="delivgroup-'.$deliv['dd_id_group'].'" style="margin-top:8px;">';
+					foreach($all_addrs as $address_id=>$address)
+					{
+						echo '<option value="'. $address['address_id'].'">'.$address['formatted_address'].'</option>';
 					}
-				echo '</select>';
-			} else {
-				list($id, $address) = each($addresses);
-				echo '<input name="delivgroup-'.$deliv['dd_id_group'].'" type="hidden" value="'.$id.'" />';
-				echo $address;
+					echo '</select>';
+				}
+				else
+				{
+					list($id, $address) = each($addresses);
+					echo '<input name="delivgroup-'.$deliv['dd_id_group'].'" type="hidden" value="'.$id.'" />';
+					echo $address['formattted_address'];
+				}				
+			}
+			else
+			{
+				echo($address['formatted_address']);
+				echo '<input name="delivgroup-'.$deliv['dd_id_group'].'" type="hidden" value="'.$address['address_id'].'" />';
 			}
 		?>
 	</div>
