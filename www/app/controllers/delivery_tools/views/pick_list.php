@@ -26,6 +26,10 @@ foreach($items as $item)
 # start rendering us some htmls
 $this->template_preheader();
 ?>
+
+<div class="container">
+	<div class="row">
+		<img src="<?=image('logo-large')?>" class="span2"/>
 <div class="span6">
 <h2> Pick List	</h2>
 <h4>Delivery: <?=core_format::date($core->data['start_time'],'short')?> between <?=core_format::date($core->data['start_time'],'time')?> and <?=core_format::date($core->data['end_time'],'time')?>
@@ -42,7 +46,7 @@ Ordering has not yet closed for this delivery
 <?}?>
 </div>
 <?
-$this->template_pagestart($multi_view);
+$this->template_pagestart(true);
 $this->template_postheader($org,$core->config['delivery_tools_buttons'],$addr_seller);
 $core->config['delivery_tools_buttons'] = 'no';
 
