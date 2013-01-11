@@ -20,20 +20,29 @@ $total = floatval($core->view[5]);
 		<div class="dropdown">
 		<input class="prodDdSet" type="hidden" name="prodDdSet_<?=$prod['prod_id']?>" id="prodDdSet_<?=$prod['prod_id']?>" value="<?=implode('_', $dd_ids)?>"/>
 		<?
-		if (count($days) > 1)
-		{
+
 			$selected_dd_key = null;
 
+			$validDays = array();
 			$first = isset($dd_id) ? false : true;
+			//$count = 0;
 			foreach($days as $key => $day)
 			{
 				if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
+					$validDays[$key] = $day;
+				}
+			}
+			foreach($validDays as $key => $day)
+			{
+				//if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
 					if (!isset($dd_id) || array_key_exists($dd_id, $day)) {
 						$selected_dd_key = $key;
 						break;
 					}
-				}
+				//}
 			}
+		if (count($validDays) > 1)
+		{
 			$dd_ids_id = implode('_', array_keys($day));
 			list($type, $time) = explode('-', $key);
 			?>
@@ -44,7 +53,7 @@ $total = floatval($core->view[5]);
 			<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 			<?
-			foreach($days as $key => $day)
+			foreach($validDays as $key => $day)
 			{
 				if (count(array_intersect($dd_ids, array_keys($day))) > 0) {
 					$dd_ids_id = implode('_', array_keys($day));
@@ -59,12 +68,13 @@ $total = floatval($core->view[5]);
 		}
 		else
 		{
-			list($key, $day) = each($days);
+			reset($validDays);
+			list($key, $day) = each($validDays);
 			list($type, $time) = explode('-', $key);
 			$dd_ids_id = implode('_', array_keys($day));
 			?>
 			<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
-			<?=$type?> <?=core_format::date($time, 'shortest-weekday')?>
+			<span class="dd_selector"><?=$type?> <?=core_format::date($time, 'shortest-weekday')?></span>
 			<?
 		}
 		?>
