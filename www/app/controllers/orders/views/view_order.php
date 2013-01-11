@@ -53,8 +53,12 @@ $address = core::model('lo_order_address')
 
 <div class="row">
 	<div class="span8">
-		<h2>Order Info</h2>
-		<!--<?=core_form::value('Order #','<b>'.$order['lo3_order_nbr'].'</b>')?>-->
+		<fieldset>
+			<legend>Order Info</legend>
+		
+			<?=core_form::value('Order #','<b>'.$order['lo3_order_nbr'].'</b>')?>
+		</fieldset>
+		
 		<div class="row">
 			<div class="span3">Order #</div>
 			<div class="span3"><b><?=$order['lo3_order_nbr']?></b></div>
@@ -117,7 +121,7 @@ $address = core::model('lo_order_address')
 
 	</div>
 
-	<div class="span4">
+	<div class="span2">
 		<h2>Billing Address</h2>
 		<p>
 			<b><?=$order['buyer_org_name']?></b><br />
