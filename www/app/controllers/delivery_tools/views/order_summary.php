@@ -20,11 +20,16 @@ foreach($items as $item)
 	$hours_before = $item[0]['hours_due_before'];
 }
 
+$this->template_pagestart($multi_view);
 # start rendering us some htmls
-$this->template_preheader();
+//$this->template_preheader();
 ?>
+<div class="row">
+<img src="<?=image('logo-large')?>" class="span2"/>
+<div class="span6">
 <h1><?=$org['domain_name']?> Order Summary</h1>
-<b>Seller Copy</b><br />
+<strong>Seller Copy</strong>
+</div>
 
 <?
 core::log('this delivery starts on '.core_format::date($core->data['start_time'],'long'));
@@ -40,20 +45,22 @@ Ordering has not yet closed for this delivery
 if(!isset($core->config['delivery_tools_buttons']))
 	$core->config['delivery_tools_buttons'] = true;
 
-$this->template_pagestart($multi_view);
 $this->template_postheader($org,$core->config['delivery_tools_buttons'],$addr_seller);
 
 # loop through the items and print out the main table
 $cur_item = 0;
 ?>
-<br />&nbsp;<br />
-<table class="pr">
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+<table class="pr table span9">
 	<col width="20%" />
 	<col width="10%" />
 	<col width="10%" />
 	<col width="20%" />
 	<col width="10%" />
 	<col width="15%" />
+	<thead>
 	<tr>
 		<th>Buyer</th>
 		<th>Item</th>
@@ -62,6 +69,8 @@ $cur_item = 0;
 		<th>Item Total Price</th>
 		<th>Notes</th>
 	</tr>
+</thead>
+<tbody>
 <?
 	$notfirst = false;
 
@@ -81,10 +90,7 @@ $cur_item = 0;
 			if($i== 0)
 			{
 				$org = core::model('organizations')->join_default_billing()->load($item[$i]['buyer_org_id']);
-				if($notfirst)
-				{
-					echo('<tr><td colspan="6"><br /></td></tr>');
-				}
+
 				$notfirst = true;
 				?>
 				<td class="pr" rowspan="<?=count($item)?>">
@@ -117,17 +123,19 @@ $this->lot_details();
 
 # do some cleanup and end this.
 ?>
-	<tr>
-		<td colspan="6" class="pr_total">
-		</td>
-	</tr>
 
+
+</tbody>
 </table>
-<div style="text-align: left;">
-<br />
-Orders: <b><?=implode(', ',array_keys($lo3_order_nbrs))?></b><br />
-Total: <b><?=core_format::price($total)?></b>
 </div>
+<div class="row">
+<div class="span9">
+
+Orders: <strong><?=implode(', ',array_keys($lo3_order_nbrs))?></strong><br />
+Total: <strong><?=core_format::price($total)?></strong>
+</div>
+</div>
+<div class="row">&nbsp;</div>
 <?
 $this->template_footer($multi_view);
 $this->template_pageend($multi_view);
