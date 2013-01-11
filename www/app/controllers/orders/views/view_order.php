@@ -49,79 +49,35 @@ $address = core::model('lo_order_address')
 
 #$order->dump();
 
+$display_payment_method = '';
+if($order['payment_method'] == 'paypal')
+	$display_payment_method = $core->i18n['order:paymentbypaypal'];
+else if($order['payment_method'] == 'purchaseorder')
+	$display_payment_method = $core->i18n['order:paymentbypo'];
+else
+	$display_payment_method = $order['payment_method'];
+	
 ?>
 
-<div class="row">
-	<div class="span8">
-		<fieldset>
-			<legend>Order Info</legend>
-		
-			<?=core_form::value('Order #','<b>'.$order['lo3_order_nbr'].'</b>')?>
-		</fieldset>
-		
-		<div class="row">
-			<div class="span3">Order #</div>
-			<div class="span3"><b><?=$order['lo3_order_nbr']?></b></div>
-		</div>
-		
-		<div class="row">
-			<div class="span3">Placed On</div>
-			<div class="span3"><?=core_format::date($order['order_date'],'long')?></div>
-		</div>
-		
-		<div class="row">
-			<div class="span3">Item Total</div>
-			<div class="span3"><?=core_format::price($order['item_total'])?></div>
-		</div>
-		
+<div class="row form-horizontal">
+	<div class="span6">
+
+		<h1>Order Info</h1>
+		<?=core_form::value('Order #','<b>'.$order['lo3_order_nbr'].'</b>')?>
+		<?=core_form::value('Placed On',core_format::date($order['order_date'],'long'))?>
+		<?=core_form::value('Item Total',core_format::price($order['item_total']))?>
 		<? if($order['discount_total'] != 0){?>
-		<div class="row">
-			<div class="span3">Discounts</div>
-			<div class="span3"><?=core_format::price($order['discount_total'],false)?></div>
-		</div>
+			<?=core_form::value('Discounts',core_format::price($order['discount_total']))?>
 		<?}?>
-
-		<div class="row">
-			<div class="span3">Delivery Fees</div>
-			<div class="span3"><?=(($order['delivery_total']>0)?core_format::price($order['delivery_total'],false):'Free!')?></div>
-		</div>
-		
-		<div class="row">
-			<div class="span3">Grand Total</div>
-			<div class="span3"><?=core_format::price($order['grand_total'])?></div>
-		</div>
-		
-		<div class="row">
-			<div class="span3">Delivery Status</div>
-			<div class="span3"><?=$order['delivery_status']?></div>
-		</div>
-		
-		<div class="row">
-			<div class="span3">Buyer Payment</div>
-			<div class="span3"><?=$order['buyer_payment_status']?></div>
-		</div>
-		
-		<div class="row">
-			<div class="span3">Payment Method</div>
-			<div class="span3">
-				<? if($order['payment_method'] == 'paypal') { ?>
-					<?=$core->i18n['order:paymentbypaypal']?>
-				<?} else if($order['payment_method'] == 'purchaseorder'){?>
-					<?=$core->i18n['order:paymentbypo']?>
-				<?} else{?>
-					<?=$order['payment_method']?>
-				<?}?>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="span3">Payment Ref</div>
-			<div class="span3"><?=$order['payment_ref']?></div>
-		</div>
-
+		<?=core_form::value('Delivery Fees',(($order['delivery_total']>0)?core_format::price($order['delivery_total'],false):'Free!'))?>
+		<?=core_form::value('Grand Total',core_format::price($order['grand_total']))?>
+		<?=core_form::value('Delivery Status',$order['delivery_status'])?>
+		<?=core_form::value('Buyer Payment',$order['buyer_payment_status'])?>
+		<?=core_form::value('Payment Method',$display_payment_method)?>
+		<?=core_form::value('Payment Ref',$order['payment_ref'])?>
 	</div>
 
-	<div class="span2">
+	<div class="span6">
 		<h2>Billing Address</h2>
 		<p>
 			<b><?=$order['buyer_org_name']?></b><br />
@@ -220,7 +176,7 @@ foreach($order->items as $item)
 			<tr>
 				<td class="dt">
 					<a href="<?=$link?><?=$item['prod_id']?>"><?=$item['product_name']?></a>
-					from <?=$item['seller_name']?>
+					from <a href="#!sellers-oursellers--org_id-<?=$item['org_id']?>"><?=$item['seller_name']?></a>
 					<? if(count($order->item_history[$item['lo_liid']]) > 0){?>
 					<div class="expandable" onclick="$('#item_status_history_<?=$item['lo_liid']?>').toggle();$(this).toggleClass('contract');">View Status History</div>
 					<?}?>
