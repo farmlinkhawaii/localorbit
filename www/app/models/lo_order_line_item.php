@@ -202,7 +202,7 @@ class core_model_lo_order_line_item extends core_model_base_lo_order_line_item
 		$addresses = core::model('addresses')
 			->collection()
 			->filter('org_id',$core->session['org_id'])
-			->filter('is_deleted',0)
+			->filter('addresses.is_deleted',0)
 			->load();
 
 		if(intval($this->delivery['deliv_address_id']) != 0)

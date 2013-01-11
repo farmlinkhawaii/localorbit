@@ -258,7 +258,8 @@ class core
 		core_db::init();
 		core_session::init();
 		core_i18n::init();
-		
+		core::log('fully started up: '.$core->config['db']['database']);
+
 		if(isset($core->session['postauth_url']))
 		{
 			core::log('found a postauth url in the sessioN: '. $core->session['postauth_url']);

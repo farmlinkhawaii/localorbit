@@ -127,6 +127,9 @@ function sold_items_formatter($data)
 		$core->data['sold_items_data']['net'] += $data['row_adjusted_total'] - $lo - $hub - $proc;
 	}
 	
+	$data['unit_price'] = core_format::price($data['unit_price']);
+	$data['row_total'] = core_format::price($data['row_total']);
+	
 	$data['discount'] = core_format::price($discount,false);
 	$data['row_adjusted_total'] = core_format::price($data['row_adjusted_total'],false);
 	return $data;
@@ -292,13 +295,13 @@ $order_link = '<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">';
 $items->add(new core_datacolumn('lo_liid',array(core_ui::check_all('solditem'),'',''),false,'4%',core_ui::check_all('solditem','lo_liid'),' ',' '));
 
 if (lo3::is_admin() || lo3::is_market()) {
-	$items->add(new core_datacolumn('order_date','&nbsp;',true,'14%','<a onclick="core.sold_items.editAdminNotes({lo_oid}, this);" style="cursor: pointer;">Note</a>'));
+	#$items->add(new core_datacolumn('order_date','&nbsp;',false,'14%','<a onclick="core.sold_items.editAdminNotes({lo_oid}, this);" style="cursor: pointer;">Note</a>'));
 }
 
 
 #if(lo3::is_admin())
 #{
-	$items->add(new core_datacolumn('lo_oid','Order',true,'29%','{order_date}<br>
+	$items->add(new core_datacolumn('order_date','Order',true,'29%','{order_date}<br>
 	<a href="#!orders-view_order--lo_oid-{lo_oid}">{lo3_order_nbr}</a>
 	<br />
 	<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{lfo3_order_nbr}</a>'
@@ -314,8 +317,8 @@ if (lo3::is_admin() || lo3::is_market()) {
 # do
 $items->add(new core_datacolumn('seller_name','Seller',true,'20%','{seller_name}<br><small>{domain_name}</small>'));
 $items->add(new core_datacolumn('product_name','Product',true,'25%',$order_link.'{product_name}</a>'));
-$items->add(new core_datacolumn('qty_ordered','Quantity',true,'14%','{qty_ordered}x'));
-$items->add(new core_datacolumn('unit_price','Price',true,'14%','<small>Unit:</small>&nbsp;{unit_price}<br><small>Row&nbsp;Total:</small>&nbsp;{row_total}'));
+$items->add(new core_datacolumn('qty_ordered','Qty',true,'8','{qty_ordered}x'));
+$items->add(new core_datacolumn('unit_price','Row Total',true,'14%','<small>Unit:</small>&nbsp;{unit_price}<br><small>Row&nbsp;Total:</small>&nbsp;{row_total}'));
 $items->add(new core_datacolumn('discount','Discount',true,'14%','<small>Discount:</small>&nbsp;{discount}<br><small>Discounted&nbsp;Total:</small>&nbsp;{row_adjusted_total}'));
 $items->add(new core_datacolumn('delivery_status','Delivery',true,'14%',$order_link.'{delivery_status}</a>'));
 $items->add(new core_datacolumn('buyer_payment_status','Buyer',true,'14%',$order_link.'{buyer_payment_status}</a>'));
@@ -324,8 +327,8 @@ $items->add(new core_datacolumn('seller_payment_status','Seller',true,'14%',$ord
 
 # setup formatters
 $items->columns[1]->autoformat='date-short';
-$items->columns[8]->autoformat='price';
-$items->columns[9]->autoformat='price';
+#$items->columns[8]->autoformat='price';
+#$items->columns[9]->autoformat='price';
 #$items->columns[10]->autoformat='price';
 #$items->columns[11]->autoformat='price';
 
@@ -341,7 +344,6 @@ page_header('Sold Items');
 <form name="itemForm">
 	<? $items->render(); ?>
 	<div class="buttonset">
-	<div class="dt_action_options alert alert-info"><strong>Actions:</strong> <?=$this->get_actions_menus(4)?></div>
 	</div>
 	<? $this->totals_table(); ?>
 </form>

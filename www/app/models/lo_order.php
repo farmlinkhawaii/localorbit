@@ -317,7 +317,7 @@ class core_model_lo_order extends core_model_lo_order___utility
 			}
 			$this->customer_addresses = core::model('addresses')
 				->collection()
-				->filter('is_deleted','=',0)
+				->filter('addresses.is_deleted','=',0)
 				->filter('org_id','in',$orgs)
 				->to_array();
 		}

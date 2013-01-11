@@ -18,7 +18,6 @@ class core_model_addresses extends core_model_base_addresses
 		#	core::log(gettype($col->__model->autojoin));
 		#core::log('tring to determine class: '.print_r(get_class_methods(get_class($col->__model)),true));
 		$col->add_formatter('address_formatter');
-		$col->filter('is_deleted','=','0');
 		$addresses = new core_datatable('addresses',$url,$col);
 		$addresses->add(new core_datacolumn('address','Address',true,'50%','<a href="Javascript:core.address.editAddress(\''.$type.'\',\'{address_id}\');">{label}</a><br>{formatted_address}'));
 		$addresses->add(new core_datacolumn('telephone','Telephone',true,'20%','<a href="Javascript:core.address.editAddress(\''.$type.'\',\'{address_id}\');">{telephone}</a>'));
@@ -54,7 +53,7 @@ class core_model_addresses extends core_model_base_addresses
 		$data = $this->add_formatter('simple_formatter');
 		$data = $data->collection()
 			->filter('org_id','=',$org_id)
-			->filter('is_deleted','=',0)
+			->filter('addresses.is_deleted','=',0)
 			->sort('label');
 		
 		$html = '';

@@ -86,7 +86,7 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		
 	
 		<h3 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h3>
-		<small>Produced by <?=$data['org_name']?>
+		<small>Produced by <a href="#!sellers-oursellers--org_id-<?=$data['org_id']?>"><?=$data['org_name']?></a></small>
 		
 		<hr>
 		<p class="note">
@@ -117,7 +117,9 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		<p><strong>What:</strong> <?=$data['description']?></p>
 		<p><strong>How:</strong> <?=(($data['how']=='')?$org['product_how']:$data['how'])?></p>
 		<hr />
-		<p><?=$data['address']?>, <?=$data['city']?>, <?=$data['code']?> <a href="#!sellers-oursellers--org_id-<?=$data['org_id']?>" class="pull-right">See full seller profile...</a></p>
+		
+		<h3 style="margin-bottom: 0;"><a href="#!sellers-oursellers--org_id-<?=$data['org_id']?>"><?=$data['org_name']?></a></h3>
+		<small><?=$data['address']?>, <?=$data['city']?>, <?=$data['code']?></small>
 		<?
 		$addr = $data['address'].', '.$data['city'].', '.$data['code'].', '.$data['postal_code'];
 		echo(core_ui::map('prodmap','100%','400px',8));
@@ -150,7 +152,7 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 				<div class="error">This product is not currently available for ordering.</div>
 			<? endif; ?>
 		</form>
-		<a href="#!catalog-shop" class="btn btn-info btn-block"><i class="icon-shopping-cart" /> Continue Shopping</a>
+		<a href="#!catalog-shop" class="btn btn-info btn-block"> Continue Shopping</a>
 		<!--
 		
 		<h4>Other Products from this Seller</h4>

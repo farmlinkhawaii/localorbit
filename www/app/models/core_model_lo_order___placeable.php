@@ -163,7 +163,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 			$this->customer_addresses = core::model('addresses')
 				->collection()
 				->filter('org_id',$core->session['org_id'])
-				->filter('is_deleted',0);
+				->filter('addresses.is_deleted',0);
 			foreach ($this->deliveries as $id => $order_deliv) {
 				$address = core::model('addresses')->load($core->data['delivgroup-'.$order_deliv['dd_id']]);
 				if(isset($deliv['deliv_address_id']) && $deliv['deliv_address_id'] != 0)						{

@@ -23,7 +23,7 @@
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!market-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);">Markets</a></li>
 					<li><a href="#!users-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:users']?></a></li>
 					<li><a href="#!organizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
 					<li><a href="#!events-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
@@ -104,7 +104,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<?if(count($core->session['domains_by_orgtype_id'][2]) > 1){?>
-					<li><a href="#!market-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:hubs']?></a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);">Markets</a></li>
 					<?}else{?>
 					<li><a href="#!market-edit--domain_id-<?=$core->session['domains_by_orgtype_id'][2][0]?>" onclick="core.go(this.href);">Market</a></li>
 					<?}?>

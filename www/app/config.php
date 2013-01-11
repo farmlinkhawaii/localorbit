@@ -187,6 +187,9 @@ if($_SERVER['HTTP_HOST'] == 'newui.localorb.it' || strpos(__FILE__,'/newui/') > 
 	$core->config['db']['hostname'] = '127.0.0.1';
 }
 
+
+
+
 if($_SERVER['HTTP_HOST'] == 'dev.localorb.it' || strpos(__FILE__,'/dev/') > 0 || strpos(__FILE__,'/projects/') > 0 ||  strpos(__FILE__,'/Clients/') > 0)
 {
 	$core->config['stage'] = 'dev';
@@ -227,11 +230,11 @@ if($_SERVER['SERVER_ENV'] == 'jvavul') {
 	$core->config['hostname_prefix']  = $core->config['stage'];
 }
 
-
 #echo('<pre>');
 #print_r($core->config);
 #exit();
 # finalize stage-specific settings
 $core->config['log_prefix']       = $core->config['stage'].'-';
 $core->config['mailchimp']['key'] = $core->config['mailchimp']['keys'][$core->config['stage']];
+
 ?>
