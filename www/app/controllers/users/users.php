@@ -147,6 +147,22 @@ class core_controller_users extends core_controller
 		
 		$user->import_fields('entity_id','first_name','last_name','email');
 
+		# handle a password update
+		$core->data['password'] = trim($core->data['password']);
+		$core->data['confirm_password'] = trim($core->data['confirm_password']);
+		if(isset($core->data['password']) && $core->data['password'] !='' && $core->data['password'] == $core->data['confirm_password'])
+		{
+			core::load_library('crypto');
+			$user['password'] = core_crypto::encode_password($core->data['password']);
+			if($user['entity_id'] != $core->session['user_id'])
+			{	
+				core::process_command('emails/reset_password',false,
+					$user['email'],
+					$core->data['password'],
+					$org['domain_id']
+				);
+			}
+		}
 		
 		$user->save();
 		

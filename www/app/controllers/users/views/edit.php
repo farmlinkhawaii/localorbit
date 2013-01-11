@@ -56,7 +56,7 @@ echo(
 		core_form::page_header('Editing User: '.$data['first_name'].' '.$data['last_name'],'#!users-list','cancel', 'link', null, 'cog')
 	).
 	core_form::form('userForm','/users/save',null,
-		core_form::tab_switchers('usertabs',array('User Info')),
+		core_form::tab_switchers('usertabs',array('User Info', 'Password Security')),
 		'<div class="tab-content">',
 		core_form::tab('usertabs',
 			core_form::table_nv(
@@ -66,7 +66,12 @@ echo(
 				core_form::input_text('E-mail','email',$data,array('required'=>true))
 			),'active'
 		),
-		
+		core_form::tab('usertabs',
+			core_form::table_nv(
+				core_form::input_password('New Password','password'),
+				core_form::input_password('Confirm Password','confirm_password')
+			)
+		),
 		'</div>',
 		core_form::input_hidden('entity_id',$data),
 		(($core->data['me'] == '1')?core_form::save_only_button():core_form::save_buttons())
