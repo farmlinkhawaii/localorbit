@@ -565,7 +565,7 @@ class core_form
 		{
 			$out = '
 				<div class="form-actions pull-right" id="main_save_buttons"'.(($options['require_pin'])?' style="display:none;"':'').'>
-					<input type="'.(($require_pin)?'button':'submit').'" class="btn btn-primary" name="save" value="'.$core->i18n['button:save_and_continue'].'" />
+					<input type="'.(($require_pin)?'button':'submit').'" class="btn" name="save" value="'.$core->i18n['button:save_and_continue'].'" />
 					<input type="button" onclick="core.submit(this.form.action,this.form,{\'do_redirect\':1});" class="btn btn-primary" value="'.$core->i18n['button:save_and_go_back'].'" />
 				</div>
 			';
