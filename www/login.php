@@ -30,6 +30,7 @@ if(isset($_REQUEST['type']) && trim($_REQUEST['type']) != '')
 $stage = 'www';
 $stage = (strpos($_SERVER['HTTP_HOST'],'testing') !== false)?'testing':$stage;
 $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
+
 ?>
 <!doctype html>
 <html>
@@ -55,7 +56,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.validator.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.format.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.ui.js?time=<?php echo time();?>"></script>
-	<script laguage="Javascript" type="text/javascript" src="app/core/js/jquery.datePicker.js?time=<?php echo time();?>"></script>
+	<script language="Javascript" type="text/javascript" src="app/core/js/jquery.datePicker.js?time=<?php echo time();?>"></script>
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/jquery.tabset.js?time=<?php echo time();?>"></script>-->
 	<script language="Javascript" type="text/javascript" src="js/jquery.rte.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/lo3.js?time=<?php echo time();?>"></script>
@@ -151,9 +152,8 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 						<input type="submit" value="Log In" tabindex="3" class="btn btn-primary button_primary" />
 						<input type="hidden" name="postauth_url" value="" />
-
 						<ul>
-							<!--<li><a href="app.php#!registration-form" tabindex="5" /><strong>Request an account</strong></a></li>-->
+							<li id="requestAccountLink" style="display: none;"><a href="app.php#!registration-form" tabindex="5" /><strong>Request an account</strong></a></li>
 							<li><a href="app.php#!auth-forgot_password" tabindex="4" />Having trouble logging in?</a></li>
 						</ul>
 

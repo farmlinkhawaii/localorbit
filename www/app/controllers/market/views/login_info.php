@@ -21,4 +21,9 @@ core::replace('market_title',$core->config['domain']['detailed_name']);
 core::js("core.loginFailedMsg='".addslashes($core->i18n['error:customer:login_fail'])."';");
 core::js("core.accountSuspendedMsg='".addslashes($core->i18n['error:customer:account_suspended'])."';");
 
+if($core->config['domain']['domain_id'] > 1)
+{
+	core::js("$('#requestAccountLink').show();");
+}
+
 ?>
