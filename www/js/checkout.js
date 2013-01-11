@@ -17,6 +17,7 @@ core.checkout.addDelivOptions=function(){
 
 core.checkout.process=function(){
 	core.checkout.showSubmitProgress();
+
 	// figure out how we're checking out
 	var paymentMethod = '';
 	if(document.getElementById('payment_selector')){
@@ -103,13 +104,28 @@ core.checkout.fakeFill=function(){
 }
 
 core.checkout.hideSubmitProgress=function(){
-	$('#placeorder_button').show();
-	$('#loading_progress').hide();
+	$('#checkout_buttons').show(200);
+	$('#checkout_progress').hide();
+	window.clearInterval(core.checkout.animateHandler);
+	$('#progress_bar').css('width','0%');
 }
 
 core.checkout.showSubmitProgress=function(){
-	$('#placeorder_button').hide();
-	$('#loading_progress').show();
+	$('#checkout_buttons').hide();
+	$('#checkout_progress').show();
+	window.clearInterval(core.checkout.animateHandler);
+	core.checkout.animateHandler = window.setInterval(core.checkout.animateCheckout,300);
+}
+
+core.checkout.animateCheckout=function(){
+	var obj = $('#progress_bar');
+	var width = parseFloat(obj.css('width'));
+	if(width < 100){
+		width++;
+		obj.css('width',width+'%');
+	}else{
+		window.clearInterval(core.checkout.animateHandler);
+	}
 }
 
 core.checkout.resetSubmitProgress=function(){

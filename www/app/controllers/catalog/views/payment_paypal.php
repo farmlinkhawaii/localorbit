@@ -7,6 +7,11 @@ if($org['payment_allow_paypal'] == 1)
 <div class="row">
 	<div id="payment_paypal" class="span6 payment_option"<?=$style?>>
 		<div class="row">
+			
+			<?if($core->config['stage'] == 'testing' || $core->config['stage'] == 'qa' || $core->config['stage'] == 'dev' || $core->config['stage'] == 'newui'){?>
+				<br />
+				<input type="button" value="Testing/QA ONLY" class="btn btn-info" onclick="core.checkout.fakeFill();" />
+			<?}?>
 			<div class="span6">
 				<img align="right" src="/img/misc/visa.gif" border="0" alt=""  style="float: right">
 				<h4>Credit Card Information</h4>				
@@ -99,97 +104,4 @@ if($org['payment_allow_paypal'] == 1)
 	</div>
 </div>
 
-
-<?
-	/*
-?>
-<div id="payment_paypal" class="payment_option form"<?=$style?>>
-	<h3>Credit Card Information</h3>
-<!-- PayPal Logo -->
-<table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></div></tr><tr><td align="center"><a href="#" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=700, height=600');"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></div></tr></table>
-<!-- PayPal Logo -->
-	<table class="form">
-		<tr>
-			<label class="span3">Credit Card #</div>
-			<div class="span3"><input type="text" name="pp_cc_number" value="" /></div>
-		</tr>
-		<tr>
-			<label class="span3">Expiration Date</div>
-			<div class="span3">
-				<select name="pp_exp_month" style="width:100px;">
-					<option value="01">01 - Jan</option>
-					<option value="02">02 - Feb</option>
-					<option value="03">03 - Mar</option>
-					<option value="04">04 - Apr</option>
-					<option value="05">05 - May</option>
-					<option value="06">06 - Jun</option>
-					<option value="07">07 - Jul</option>
-					<option value="08">08 - Aug</option>
-					<option value="09">09 - Sep</option>
-					<option value="10">10 - Oct</option>
-					<option value="11">11 - Nov</option>
-					<option value="12">12 - Dec</option>
-				</select>
-				<select name="pp_exp_year" style="width:90px;">
-					<?
-					$start = date('Y');
-					$end  = $start+10;
-					for ($i = $start; $i < $end; $i++)
-					{
-						echo('<option value="'.$i.'">'.$i.'</option>');
-					}
-
-					?>
-				</select>
-			</div>
-		</tr>
-		<tr>
-			<label class="span3">Verification Code</div>
-			<div class="span3"><input type="text" name="pp_cvv2" style="width: 120px;" value="" /><?=info('For most cards, the Verification Code is the last 3 digit number on the BACK of your card, on or above your signature line. For American Express, it is the last 4 digits found on the FRONT of your card above your card number.','paperclip')?></div>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<h3>Credit Card Billing Address</h3>
-			</div>
-		</tr>
-		<tr>
-			<label class="span3">First Name</div>
-			<div class="span3"><input type="text" name="pp_first_name" value="" /></div>
-		</tr>
-		<tr>
-			<label class="span3">Last Name</div>
-			<div class="span3"><input type="text" name="pp_last_name" value="" /></div>
-		</tr>
-		<tr>
-			<label class="span3">Street</div>
-			<div class="span3"><input type="text" name="pp_street" value="" /></div>
-		</tr>
-		<tr>
-			<label class="span3">City</div>
-			<div class="span3"><input type="text" name="pp_city" value="" /></div>
-		</tr>
-		<tr>
-			<label class="span3">State</div>
-			<div class="span3">
-				<select name="pp_state">
-					<?
-					$states = core::model('directory_country_region')->collection();
-					foreach($states as $state)
-					{
-						echo('<option value="'.$state['code'].'"');
-						echo('>'.$state['default_name'].'</option>');
-					}
-					?>
-				</select>
-			</div>
-		</tr>
-		<tr>
-			<label class="span3">Zip/Postal Code</div>
-			<div class="span3"><input type="text" name="pp_zip" value="" /></div>
-		</tr>
-	</table>
-	<?if($core->config['stage'] == 'testing' || $core->config['stage'] == 'qa' || $core->config['stage'] == 'dev'){?>
-	<br />
-	<input type="button" value="Testing/QA ONLY" class="button_secondary" onclick="core.checkout.fakeFill();" />
-	<?}*/?>
 <?}?>
