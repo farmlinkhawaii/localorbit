@@ -149,12 +149,12 @@ $cart->arrange_by_next_delivery();
 </div>
 <hr class="span12 hr_thick"/>
 <div class="row">
-	<div class="span4 pull-right" id="checkout_buttons">
+	<div class="span5 pull-right" id="checkout_buttons">
 		<a class="btn btn-large btn-info" href="#!catalog-shop--cart-yes">Modify Your Cart</a>
 		<input type="button" value="Place Order" class="btn btn-large btn-success" onclick="core.checkout.process();" />
 			
 	</div>
-	<div class="span4 pull-right" id="checkout_progress" style="display: none;">
+	<div class="span5  pull-right" id="checkout_progress" style="display: none;">
 		<div class="progress">
 			<div class="bar" id="progress_bar" style="width: 0%;"></div>
 		</div>

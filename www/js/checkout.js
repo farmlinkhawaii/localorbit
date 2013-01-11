@@ -129,8 +129,9 @@ core.checkout.animateCheckout=function(){
 }
 
 core.checkout.resetSubmitProgress=function(){
-	$('#placeorder_button').show();
-	$('#loading_progress').hide();
+	$('#checkout_buttons').show();
+	$('#checkout_progress').hide();
+	$('#progress_bar').css('width','0%');
 }
 
 core.checkout.requestUpdatedFees=function(){
