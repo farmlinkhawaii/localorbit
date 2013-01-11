@@ -85,7 +85,7 @@ if(lo3::is_admin() || lo3::is_market() && count($core->session['domains_by_orgty
 		$hubs,
 		'domain_id',
 		'name',
-		'Show from all hubs',
+		'Show from all markets',
 		'width: 230px;'
 	));
 }
