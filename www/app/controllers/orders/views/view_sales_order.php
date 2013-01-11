@@ -60,82 +60,39 @@ $allow_delivery = (!lo3::is_customer() || (lo3::is_customer() && $core->config['
 #echo('<pre>');
 #print_r($order->item_history);
 ?>
-<form method="post" action="/orders/save_admin_notes" onsubmit="return core.submit('/orders/save_admin_notes',this);" enctype="multipart/form-data">
 
-<table>
-	<col width="47%" />
-	<col width="6%" />
-	<col width="47%" />
-	<tr>
-		<td>
-			<h2>Order Info</h2>
-			<table class="form">
-			<col width="35%"/>
-			<col width="65%"/>
-				<tr>
-					<td class="label">Order #</td>
-					<td class="value"><b><?=$order['lo3_order_nbr']?></b></td>
-				</tr>
-				<tr>
-					<td class="label">Buyer</td>
-					<td class="value"><?=$order['buyer_org_name']?></td>
-				</tr>
-				<tr>
-					<td class="label">Placed On</td>
-					<td class="value"><?=core_format::date($order['order_date'],'short')?></td>
-				</tr>
-				<tr>
-					<td class="label">Grand Total</td>
-					<td class="value"><?=core_format::price($order['grand_total'])?></td>
-				</tr>
-				<?if(floatval($order['grand_total'] - $order['adjusted_total']) > 0){?>
-				<tr>
-					<td class="label">Discount</td>
-					<td class="value"><?=core_format::price($order['adjusted_total'] - $order['grand_total'])?></td>
-				</tr>
-				<?}?>
-				<tr>
-					<td class="label">Adjusted Total</td>
-					<td class="value"><?=core_format::price($order['adjusted_total'])?></td>
-				</tr>
-				<!--<tr>
-					<td class="label">Status</td>
-					<td class="value orderStatus_<?=$order['lo_foid']?>"><?=$order['status']?></td>
-				</tr>-->
-				<tr>
-					<td class="label">Delivery Status</td>
-					<td class="value" id="delivery_status1"><?=$order['delivery_status']?></td>
-				</tr>
-				<tr>
-					<td class="label">Buyer Pmt</td>
-					<td class="value" id="buyer_payment_status"><?=$order['buyer_payment_status']?></td>
-				</tr>
-				<tr>
-					<td class="label">Seller Pmt</td>
-					<td class="value" id="seller_payment_status1"><?=$order['seller_payment_status']?></td>
-				</tr>
-				<?if(lo3::is_admin() || lo3::is_market()){?>
-					<tr>
-						<td class="label">Payment Method</td>
-						<td class="value"><?=$order['payment_method']?></td>
-					</tr>
-					<tr>
-						<td class="label">Payment Ref</td>
-						<td class="value"><?=$order['payment_ref']?></td>
-					</tr>
-				<?}?>
-			</table>
-		</td>
-		<td>&nbsp;</td>
-		<td>
-			<?if(lo3::is_admin() || lo3::is_market()){
-				$this->admin_notes($lo_oid,$order['admin_notes']);
-			}?>
-		</td>
-	</tr>
-</table>
-</form>
-<br />
+<div class="row form-horizontal">
+	<div class="span6">
+
+		<h1>Order Info</h1>
+		<?=core_form::value('Order #','<b>'.$order['lo3_order_nbr'].'</b>')?>
+		<?=core_form::value('Buyer #',$order['buyer_org_name'])?>
+		<?=core_form::value('Placed On',core_format::date($order['order_date'],'long'))?>
+		<?=core_form::value('Item Total',core_format::price($order['item_total']))?>
+		<? if($order['discount_total'] != 0){?>
+			<?=core_form::value('Discounts',core_format::price($order['discount_total']))?>
+		<?}?>
+		<?=core_form::value('Delivery Fees',(($order['delivery_total']>0)?core_format::price($order['delivery_total'],false):'Free!'))?>
+		<?=core_form::value('Grand Total',core_format::price($order['grand_total']))?>
+		<?=core_form::value('Delivery Status',$order['delivery_status'])?>
+		<?=core_form::value('Buyer Payment',$order['buyer_payment_status'])?>
+		<?=core_form::value('Seller Payment',$order['seller_payment_status'])?>
+		<?=core_form::value('Payment Method',$display_payment_method)?>
+		<?=core_form::value('Payment Ref',$order['payment_ref'])?>
+	</div>
+	
+	<div class="span6">
+		<? if(lo3::is_admin() || lo3::is_market()) { ?>
+		<form name="orderForm" method="post" action="/orders/save_admin_notes" onsubmit="return core.submit('/orders/save_admin_notes',this);" enctype="multipart/form-data">
+			<? $this->admin_notes($order['lo_oid'],$order['admin_notes']); ?>
+		</form>
+		<? } ?>
+	</div>
+</div>
+
+
+
+
 <?
 $dd_id = 0;
 foreach($order->items as $item)
@@ -145,7 +102,6 @@ foreach($order->items as $item)
 		$this_dd = (-1);
 	if($dd_id != $this_dd)
 	{
-		if($dd_id > 0)	echo('</table><br />');
 
 		if($this_dd > 0)
 		{
@@ -153,16 +109,10 @@ foreach($order->items as $item)
 			<h2><?=$item['seller_formatted_deliv1']?></h2>
 			<?=$item['seller_formatted_deliv2']?>
 		<?}?>
+		
+		
 		<form name="ordersForm" method="post" action="/orders/update_quantities" onsubmit="return core.submit('/orders/update_quantities',this);" enctype="multipart/form-data">
-			<table class="dt">
-				<col width="30%" />
-				<col width="10%" />
-				<col width="10%" />
-				<col width="10%" />
-				<col width="10%" />
-				<col width="15%" />
-				<col width="15%" />
-				<col width="15%" />
+			<table class="dt table table-striped">
 				<tr>
 					<th class="dt">Product</th>
 					<th class="dt">Qty Ordered</th>
@@ -230,7 +180,7 @@ foreach($order->items as $item)
 						<span id="ldstat_id_<?=$item['lo_liid']?>"><?=$item['delivery_status']?></span>
 						<? if($allow_delivery && ($item['ldstat_id'] == 2 || $item['ldstat_id'] == 5)){?>
 						<br />
-						<a id="itemDeliveryLink_<?=$item['lo_liid']?>" class="deliveryLink" href="Javascript:core.doRequest('/orders/change_item_status',{'lo_oid':<?=$item['lo_oid']?>,'lo_foid':<?=$item['lo_foid']?>,'lo_liid':<?=$item['lo_liid']?>,'ldstat_id':4});">Delivered &raquo;</a>
+						<a class="btn btn-info btn-mini" id="itemDeliveryLink_<?=$item['lo_liid']?>" class="deliveryLink" href="Javascript:core.doRequest('/orders/change_item_status',{'lo_oid':<?=$item['lo_oid']?>,'lo_foid':<?=$item['lo_foid']?>,'lo_liid':<?=$item['lo_liid']?>,'ldstat_id':4});">Delivered &raquo;</a>
 						<?}?>
 
 					</td>
@@ -241,7 +191,7 @@ foreach($order->items as $item)
 						<span id="lsps_id_<?=$item['lo_liid']?>"><?=$item['seller_payment_status']?></span>
 						<? if(($item['lsps_id'] == 1 || $item['lsps_id'] == 3) && (lo3::is_admin() || lo3::is_market())){?>
 						<br />
-						<a id="itemPaymentLink_<?=$item['lo_liid']?>" class="paymentLink" href="Javascript:core.doRequest('/orders/change_item_status',{'lo_oid':<?=$item['lo_oid']?>,'lo_foid':<?=$item['lo_foid']?>,'lo_liid':<?=$item['lo_liid']?>,'lsps_id':2});">Seller Paid &raquo;</a>
+						<a class="btn btn-success btn-mini" id="itemPaymentLink_<?=$item['lo_liid']?>" class="paymentLink" href="Javascript:core.doRequest('/orders/change_item_status',{'lo_oid':<?=$item['lo_oid']?>,'lo_foid':<?=$item['lo_foid']?>,'lo_liid':<?=$item['lo_liid']?>,'lsps_id':2});">Seller Paid &raquo;</a>
 						<?}?>
 					</td>
 				</tr>
@@ -262,14 +212,7 @@ $hub_fee_total        = (($all_but_proc_fees/100) * $order['adjusted_total']);
 $processing_fee_total = (($processing_fee/100) * $order['adjusted_total']);
 $net_sale  = ($order['adjusted_total'] - $hub_fee_total - $processing_fee_total);
 ?>
-<table class="dt">
-	<col width="12%" />
-	<col width="12%" />
-	<col width="16%" />
-	<col width="22%" />
-	<col width="12%" />
-	<col width="19%" />
-	<col width="19%" />
+<table class="dt table table-striped">
 	<tr>
 		<th class="dt">Gross Total</th>
 		<th class="dt">Discount</th>
@@ -289,19 +232,15 @@ $net_sale  = ($order['adjusted_total'] - $hub_fee_total - $processing_fee_total)
 			<span id="delivery_status2"><?=$order['delivery_status']?></span><br />
 
 			<? if($allow_delivery && ($order['ldstat_id'] == 2 or $order['ldstat_id'] == 5)){?>
-			<a id="deliveryLink" href="Javascript:core.doRequest('/orders/change_order_status',{'ldstat_id':4,'lo_foid':<?=$order['lo_foid']?>});">Mark Delivered &raquo;</a>
+			<a class="btn btn-info btn-mini" id="deliveryLink" href="Javascript:core.doRequest('/orders/change_order_status',{'ldstat_id':4,'lo_foid':<?=$order['lo_foid']?>});">Mark Delivered &raquo;</a>
 			<?}?>
-
-
 		</td>
-		<td class="dt">
+		<td class="dt">	
 			<span id="seller_payment_status2"><?=$order['seller_payment_status']?></span><br />
 
 			<? if($order['lsps_id'] == 1 && (lo3::is_admin() || lo3::is_market())){?>
-			<a id="paymentLink" href="Javascript:core.doRequest('/orders/change_order_status',{'lsps_id':2,'lo_foid':<?=$order['lo_foid']?>});">Mark Paid &raquo;</a>
+			<a class="btn btn-success btn-mini" id="paymentLink" href="Javascript:core.doRequest('/orders/change_order_status',{'lsps_id':2,'lo_foid':<?=$order['lo_foid']?>});">Mark Paid &raquo;</a>
 			<?}?>
-
-
 		</td>
 	</tr>
 </table>
