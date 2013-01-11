@@ -4,6 +4,7 @@ $addr_seller = true;
 
 # when market managers and admins view this report, they're viewing multiple at a time.
 $multi_view = (lo3::is_market() || lo3::is_admin());
+$this->template_pagestart($multi_view);
 $org = core::model('organizations')
 	->join_default_billing()
 	->load(($multi_view)?$core->data['org_id']:$core->session['org_id']);
@@ -24,12 +25,10 @@ foreach($items as $item)
 }
 
 # start rendering us some htmls
-$this->template_preheader();
+//$this->template_preheader();
 ?>
-
-<div class="container">
-	<div class="row">
-		<img src="<?=image('logo-large')?>" class="span2"/>
+<div class="row">
+<img src="<?=image('logo-large')?>" class="span2"/>
 <div class="span6">
 <h2> Pick List	</h2>
 <h4>Delivery: <?=core_format::date($core->data['start_time'],'short')?> between <?=core_format::date($core->data['start_time'],'time')?> and <?=core_format::date($core->data['end_time'],'time')?>
@@ -46,7 +45,6 @@ Ordering has not yet closed for this delivery
 <?}?>
 </div>
 <?
-$this->template_pagestart(true);
 $this->template_postheader($org,$core->config['delivery_tools_buttons'],$addr_seller);
 $core->config['delivery_tools_buttons'] = 'no';
 

@@ -29,7 +29,7 @@ foreach($items as $org_id=>$item_list)
 	#echo('loading '.$org_id);
 
 	$buyer = core::model('organizations')->join_default_shipping()->load($org_id);
-	$this->template_preheader();
+	//$this->template_preheader();
 	?>
 	<?if(lo3::is_admin() || lo3::is_market()){?>
 	<h1>Individual Packing Slips</h1>
