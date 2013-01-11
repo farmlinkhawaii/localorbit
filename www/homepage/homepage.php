@@ -1,4 +1,4 @@
-<? include('includes/page_start.php'); ?>	
+<? include('includes/page_start.php'); ?>
 <table style="margin-top: 28px;">
 	<tr>
 		<td>
@@ -6,13 +6,13 @@
 				<div class="slides_container">
 					<div class="slide">
 						<img src="/homepage/img/slideshow/slideshow-new-01.jpg" width="740" height="350" alt="[Local Orbit surpasses anything out there]" />
-						<div class="caption"><div style="height:10px;overflow:hidden;"><br /></div>Local Orbit surpasses anything out there.<br /><span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Lucy Norris, Puget Sound Food Network</span></div>
+						<div class="caption"><div style="height:10px;overflow:hidden;"><br /></div>Local Orbit surpasses anything out there.<br /><span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Lucy Norris, Northwest Agriculture Business Center</span></div>
 					</div>
 					<div class="slide">
 						<img src="/homepage/img/slideshow/slideshow-new-02.jpg" width="740" height="350" alt="Slide 2" />
 						<div class="caption">
-							The site is amazing! I really think your company has<br /> a shot at 
-							changing the way food is sold 
+							The site is amazing! I really think your company has<br /> a shot at
+							changing the way food is sold
 							on a local level.<br />
 							<span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Brian Bruno, Apple Ridge Farm</span>
 						</div>
@@ -20,7 +20,7 @@
 					<div class="slide">
 						<img src="/homepage/img/slideshow/slideshow-new-03.jpg" width="740" height="350" alt="Slide 2" />
 						<div class="caption">
-							I am impressed with Local Orbit's capacity; the flexibility is 
+							I am impressed with Local Orbit's capacity; the flexibility is
 							<br />essential for food hubs across the country<br />
 							<span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Rich Pirog, MSU Center for Regional Food Systems</span>
 						</div>
@@ -33,16 +33,16 @@
 							<br />
 							<span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Gina Riccobono, FRESH</span>
 						</div>
-					</div>				
+					</div>
 					<div class="slide">
 						<img src="/homepage/img/slideshow/slideshow-new-05.jpg" width="740" height="350" alt="Slide 2" />
 						<div class="caption">
-							Local Orbit provides the best overall package in terms<br /> of product quality, service and cost effectiveness. 
-			
+							Local Orbit provides the best overall package in terms<br /> of product quality, service and cost effectiveness.
+
 							<br />
 							<span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Natasha Lantz, Marquette Food Hub</span>
 						</div>
-					</div>				
+					</div>
 					<div class="slide">
 						<img src="/homepage/img/slideshow/slideshow-new-06.jpg" width="740" height="350" alt="Slide 2" />
 						<div class="caption">
@@ -51,17 +51,17 @@
 							<br />
 							<span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Maya Kosok, Food Alliance of Baltimore City</span>
 						</div>
-					</div>				
+					</div>
 					<div class="slide">
 						<img src="/homepage/img/slideshow/slideshow-new-07.jpg" width="740" height="350" alt="Slide 2" />
 						<div class="caption">
 							<div style="height:10px;overflow:hidden;"><br /></div>
-							
+
 							Local Orbit provides the information I need to minimize costs.
 							<br />
 							<span class="caption_who">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Christine Quane, Detroit Eastern Market</span>
 						</div>
-					</div>				
+					</div>
 				</div>
 				<script language="Javascript" type="text/javascript">
 				<!--
@@ -116,9 +116,9 @@
 	<div class="popup_content">
 		<h2>Who Uses Local Orbit?</h2>
 		<div style="text-align: center;">
-			Local Orbit provides e-commerce, marketing and business management tools for the 
-			<br />entrepreneurs and organizations that are creating a new local food economy, 
-			<br />connecting buyers and sellers through a shorter, transparent supply chain.  
+			Local Orbit provides e-commerce, marketing and business management tools for the
+			<br />entrepreneurs and organizations that are creating a new local food economy,
+			<br />connecting buyers and sellers through a shorter, transparent supply chain.
 			<br />&nbsp;<br />
 			<table width="800" style="table-layout: fixed;">
 				<col width="20" />
@@ -133,10 +133,10 @@
 					<td>&nbsp;</td>
 					<td>
 						<h3>Market Makers</h3>
-						Market makers are the farmers markets, food hubs and independent aggregators who connect local buyers and sellers. They use Local Orbit's tools to facilitate sales, manage buyer and seller relationships, and streamline distribution.  
+						Market makers are the farmers markets, food hubs and independent aggregators who connect local buyers and sellers. They use Local Orbit's tools to facilitate sales, manage buyer and seller relationships, and streamline distribution.
 					</td>
 					<td>&nbsp;</td>
-					
+
 					<td>
 						<h3>Producer Cooperatives</h3>
 						Cooperatives create online ordering portals, either maintaining individual seller branding or promoting a cooperative brand. Local Orbit's tools enable efficient management of inventory, sales and deliveries to all of their customer types.
@@ -146,7 +146,7 @@
 					<td colspan="3"></td>
 					<td colspan="3"><div class="popup_spacer"></div></td>
 				</tr>
-				
+
 				<tr>
 					<td>&nbsp;</td>
 					<td><img style="margin-top: 30px;" src="/homepage/img/icon_farmhouse.png" /></td>
@@ -158,7 +158,7 @@
 					<td>&nbsp;</td>
 					<td>
 						<h3>Independent Distributors</h3>
-						Distributors can create a private ordering system to sell local and regional products. Orders can be placed directly by customers or by the distributor during a sales call. Distributors that have extra trucking capacity also provide delivery services in some markets powered by Local Orbit. 
+						Distributors can create a private ordering system to sell local and regional products. Orders can be placed directly by customers or by the distributor during a sales call. Distributors that have extra trucking capacity also provide delivery services in some markets powered by Local Orbit.
 					</td>
 				</tr>
 				<tr>
@@ -172,7 +172,7 @@
 					<td>
 						<h3>Restaurants, Universities, Hospitals</h3>
 						For restaurants and institutions with their own local supplier relationships, we create vendor management portals, making it easy to source from multiple suppliers and pay with a single purchase order. Buyers can also source directly from any marketplace in their region.
-	
+
 					</td>
 					<td>&nbsp;</td>
 					<td>
@@ -190,7 +190,7 @@
 		<h2>Why Choose Local Orbit's Software Services?</h2>
 		<div style="text-align: center;">
 			Juggling spreadsheets, google docs, email, quickbooks, faxes, post it notes, <br /> phone calls and receivables limits your ability to grow your business.<br />
-			
+
 			<br />&nbsp;<br />
 			<table width="800" style="table-layout: fixed;">
 				<col width="20" />
@@ -242,7 +242,7 @@
 					<td>&nbsp;</td>
 					<td>
 						<h3>Transparency & Traceability</h3>
-						Track product & producer information from<br /> farm to table. 
+						Track product & producer information from<br /> farm to table.
 					</td>
 					<td>&nbsp;</td>
 					<td>
