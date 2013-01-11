@@ -75,6 +75,9 @@ else
 
 		$products->load();
 
+	$price_ids = $products->get_unique_values('price_ids',true,true);	
+	$prices    = core::model('product_prices')->get_valid_prices($price_ids, $core->config['domain']['domain_id'],$core->session['org_id']);
+ 		
 	$dd_ids    = $products->get_unique_values('dd_ids',true,true);
 	$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
 	$deliveries = array();
@@ -106,6 +109,8 @@ else
 		core::js('core.prices ='.json_encode($prices).';');
 		core::js('core.delivs ='.json_encode($delivs).';');
 		core::js('core.cart = '.$cart->write_js(true).';');
+		core::js('core.catalog.initRemoveSigns();');
+		$item_hash = $cart->items->to_hash('prod_id');
 ?>
 
 <div class="row">

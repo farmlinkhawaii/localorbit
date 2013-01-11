@@ -425,6 +425,8 @@ core.catalog.doWeeklySpecial=function(prodId){
 }
 
 core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
+	//alert('ok, all set to update the ui: '+prodId+'/'+newQty+'/'+dd_id);
+	
 	// loop through all the products
 	var priceId = -1;
 	var lowestMin = 100000000000000;

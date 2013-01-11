@@ -8,30 +8,38 @@ class core_controller_catalog extends core_controller
 		global $core;
 
 		$inv = 0;
-
-		core::log('delivery day: ' . $core->data['dd_id']);
-
-		if ($core->data['dd_id']) {
-			$dds = array(core::model('delivery_days')->load($core->data['dd_id']));
-		} else {
-			$dds = core::model('delivery_days')->get_days_for_prod($core->data['prod_id'],$core->config['domain']['domain_id']);
-		}
-
-		foreach($dds as $dd)
+		
+		if($core->data['newQty'] == 0)
 		{
-			$dd->next_time();
-			$available = $dd->get_available($core->data['prod_id']);
-			$inv = max($available, $inv);
-		}
-		core::log('maximum inventory: '. $inv);
-
-		if ($inv < $core->data['newQty'])
-		{
-			core::js('core.catalog.checkInventoryFailure(' . $core->data['prod_id'] . ', ' . $inv . ', ' . $core->data['dd_id'] . ');');
+			core::js('core.catalog.updateRowContinue(' . $core->data['prod_id'] . ', 0, ' . $core->data['dd_id'] . ');');
 		}
 		else
 		{
-			core::js('core.catalog.updateRowContinue(' . $core->data['prod_id'] . ', ' . $core->data['newQty'] . ', ' . $core->data['dd_id'] . ');');
+
+			core::log('delivery day: ' . $core->data['dd_id']);
+
+			if ($core->data['dd_id']) {
+				$dds = array(core::model('delivery_days')->load($core->data['dd_id']));
+			} else {
+				$dds = core::model('delivery_days')->get_days_for_prod($core->data['prod_id'],$core->config['domain']['domain_id']);
+			}
+
+			foreach($dds as $dd)
+			{
+				$dd->next_time();
+				$available = $dd->get_available($core->data['prod_id']);
+				$inv = max($available, $inv);
+			}
+			core::log('maximum inventory: '. $inv);
+
+			if ($inv < $core->data['newQty'])
+			{
+				core::js('core.catalog.checkInventoryFailure(' . $core->data['prod_id'] . ', ' . $inv . ', ' . $core->data['dd_id'] . ');');
+			}
+			else
+			{
+				core::js('core.catalog.updateRowContinue(' . $core->data['prod_id'] . ', ' . $core->data['newQty'] . ', ' . $core->data['dd_id'] . ');');
+			}
 		}
 	}
 
