@@ -28,7 +28,10 @@ $org = core::model('organizations')->load($data['org_id']);
 $cart_item = array('qty_ordered'=>0);
 $cart = core::model('lo_order')->get_cart();
 $cart->load_items();
+core_ui::load_library('js','catalog.js');
 core::js('core.cart = '.$cart->write_js(true).';');
+core::js('core.catalog.initRemoveSigns();');
+
 
 foreach($cart->items as $item)
 {
