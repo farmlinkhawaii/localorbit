@@ -21,8 +21,15 @@ $this->template_pagestart($multi_view);
 if(!isset($core->config['delivery_tools_buttons']))
 	$core->config['delivery_tools_buttons'] = true;
 
+$first = true;
 foreach($items as $org_id=>$item_list)
 {
+
+	if (!$first) {
+	?>
+		<div class="row">&nbsp;</div>
+	<?
+	}
 	$org_id = explode('-',$org_id);
 	$org_id = $org_id[0];
 
@@ -31,6 +38,9 @@ foreach($items as $org_id=>$item_list)
 	$buyer = core::model('organizations')->join_default_shipping()->load($org_id);
 	//$this->template_preheader();
 	?>
+<div class="row">
+<img src="<?=image('logo-large')?>" class="span2"/>
+<div class="span6">
 	<?if(lo3::is_admin() || lo3::is_market()){?>
 	<h1>Individual Packing Slips</h1>
 	<?}else{?>
@@ -48,6 +58,7 @@ foreach($items as $org_id=>$item_list)
 		<?=$label?>
 		<?=$item_list[0]['pickup_address']?>, <?=$item_list[0]['pickup_city']?>, <?=$item_list[0]['pickup_state']?> <?=$item_list[0]['pickup_postal_code']?><br /><br />
 	<?}?>
+</div>
 <?
 core::log('this delivery starts on '.core_format::date($core->data['start_time'],'long'));
 core::log('delivery period closes '.$item_list[0]['hours_due_before'].' hours before this');
@@ -61,9 +72,10 @@ core::log('this cycle is still open: '.((($core->data['start_time'] - ($item_lis
 	$this->template_postheader($buyer,$core->config['delivery_tools_buttons'],$addr_seller);
 	$core->config['delivery_tools_buttons'] = false;
 	?>
-
-<br />&nbsp;<br />
-<table class="pr">
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+<table class="pr table span9">
 	<col width="50%" />
 	<col width="10%" />
 	<col width="10%" />
@@ -95,8 +107,10 @@ $this->lot_details();
 	</tr>
 	<? $style = (!$style);}?>
 </table>
+</div>
 	<?
 	$this->template_footer($multi_view);
+	$first = false;
 }
 $this->template_pageend($multi_view);
 ?>

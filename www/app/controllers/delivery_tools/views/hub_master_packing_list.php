@@ -19,6 +19,11 @@ $core->config['delivery_tools_buttons'] = true;
 $first = true;
 foreach($items as $org_id=>$item_list)
 {
+	if (!$first) {
+	?>
+		<div class="row">&nbsp;</div>
+	<?
+	}
 	$org_id = explode('-');
 	$org_id = $org_id[0];
 
@@ -30,6 +35,11 @@ foreach($items as $org_id=>$item_list)
 
 	# for each buyer, print a header
 	$this->template_preheader();
+	?>
+<div class="row">
+<img src="<?=image('logo-large')?>" class="span2"/>
+<div class="span6">
+	<?
 	#print_r($item_list[0]);
 	echo('<h1>Items purchased by '.$item_list[0]['name'].'</h1>');
 	echo('<h4>Seller Delivery to ');
@@ -46,18 +56,28 @@ foreach($items as $org_id=>$item_list)
 	{
 		echo('Ordering has not yet closed for this delivery');
 	}
+	?>
+</div>
+<?
 	$this->template_postheader($org,$first,$addr_seller);
 	$first = false;
 	# then print out the list of items
 	?>
-	<br />
-	<table class="pr">
+</div>
+<div class="row">
+	<div class="span12">
+		&nbsp;
+	</div>
+</div>
+<div class="row">
+	<table class="pr table span9">
 		<col width="20%" />
 		<col width="10%" />
 		<col width="10%" />
 		<col width="20%" />
 		<col width="10%" />
 		<col width="15%" />
+		<thead>
 		<tr>
 			<th>Item</th>
 			<th>Quantity</th>
@@ -66,6 +86,8 @@ foreach($items as $org_id=>$item_list)
 			<th>Item Total Price</th>
 			<th>Notes</th>
 		</tr>
+		</thead>
+		<tbody>
 	<?
 	foreach($item_list as $item)
 	{
@@ -84,10 +106,12 @@ $this->lot_details();
 		</tr>
 		<?
 	}
-	echo('</table>');
+	echo('</tbody></table></div>');
 	$this->template_footer(false);
 
 }
+?>
+<?
 $this->template_pageend();
 
 ?>
