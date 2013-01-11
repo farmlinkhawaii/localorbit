@@ -153,23 +153,31 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 						<input type="hidden" name="postauth_url" value="" />
 
 						<ul>
-							<li><a href="app.php#!registration-form" tabindex="5" /><strong>Request an account</strong></a></li>
+							<!--<li><a href="app.php#!registration-form" tabindex="5" /><strong>Request an account</strong></a></li>-->
 							<li><a href="app.php#!auth-forgot_password" tabindex="4" />Having trouble logging in?</a></li>
 						</ul>
 
 					</form>
 				</div>
-				<br />&nbsp;<br />
-				<div id="left"></div>
+				<div id="left" class="row"></div>
 
 			</div><!--/#left-->
 
 			<div id="center" class="span9">
 
 				<div class="row">
-					<div id="market_profile" class="span5"></div>
-					<div id="market_policies" class="span4"></div>
+					<div class="span5">
+						<div class="row">
+							<div id="market_profile" class="span5"></div>
+						</div>
+						<div class="row">
+							<div id="market_policies" class="span5"></div>
+						</div>
+					</div>
+					<div class="span4" id="hub_image">
+					</div>
 				</div>
+
 
 			</div><!--/#center-->
 		</div>

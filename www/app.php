@@ -139,7 +139,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 		<div class="row">
 
 			<div class="span5" id="logocontainer">
-				<a href="http://<?=$_SERVER['HTTP_HOST']?>/index.php" onclick="core.go(this.href);" id="logo"></a>
+				<a href="http://<?=$_SERVER['HTTP_HOST']?>/app.php#!market-info" onclick="core.go(this.href);" id="logo"></a>
 				<h3 class="taglinecontainer"><span id="tagline"></span></h3>
 			</div><!--/span-->
 			
