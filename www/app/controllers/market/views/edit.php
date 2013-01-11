@@ -120,7 +120,6 @@ if(lo3::is_admin())
 				<?= core_form::input_check('Apply Daylight Savings','do_daylight_savings',$data['do_daylight_savings']); ?>
 				<?= core_form::input_check('Is Live','is_live',$data['is_live']); ?>
 				<?= core_form::input_check('Close Store','is_closed',$data['is_closed']); ?>
-				<?= core_form::input_check('Show on Registration','show_on_homepage',$data['show_on_homepage']); ?>
 
 				<?if(lo3::is_admin()){?>
 					<?= core_form::input_check('Auto-activate Organizations','autoactivate_organization',$data['autoactivate_organization']); ?>
