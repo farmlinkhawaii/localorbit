@@ -25,15 +25,7 @@ $dd_id 	 = $core->view[10];
 
 
 # format the total a bit
-if(floatval($total) > 0)
-{
-	$total = core_format::price($total);
-}
-else
-{
-	$total = '';
-}
-
+$total =floatval($total) ;
 # modify the prod data slightly to make rendering easier
 $prod['category_ids'] = explode(',',$prod['category_ids']);
 $dd_ids = explode(',',$prod['dd_ids']);
