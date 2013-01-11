@@ -85,42 +85,10 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 	<div class="span6">
 		
 	
-		<form name="prodForm" class="form-inline">
-		<div class="row">
-			<span class="span2">
-				<h3 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h3>
-				<h4 class="farm_name notcaps" style="margin-top: 0;">from <?=$data['org_name']?></h4>
-			</span>
-			<ol class="span2 priceList">
-				<?$this->render_product_pricing($prices);?>
-				<!---
-				<script>
-				
-				$(document).ready(function () {
-				    $("[rel=tooltip]").tooltip();
-				});
-				
-				</script>
-				<? foreach($prices as $price): ?>
-					<a href="#" id="yourprice" rel="tooltip" data-original-title="YOUR PRICE" data-placement="right"><?= core_format::price($price['price'])?><? if($data['single_unit'] != ''): ?><small> / <?= $data['single_unit']?></small><? endif; ?>
-					<? if($price['min_qty'] > 1): ?>, Min. <?=intval($price['min_qty'])?><? endif; ?></a>
-				<? endforeach; ?>
-				-->
-			</ol>
-			<div class="span2">
-				<? if( $inv > 0): ?>
-				
-					<? $this->render_qty_delivery($data,$days,$dd_id,$dd_ids,$cart_item['qty_ordered'],$cart_item['row_total']); ?>
-					
-				<? else: ?>
-					<div class="error">This product is not currently available for ordering.</div>
-				<? endif; ?>
-			</div>
-		</div>
-		</form>
+		<h3 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h3>
+		<small>Produced by <?=$data['org_name']?>
 		
 		<hr>
-		
 		<p class="note">
 		<?
 			ksort($cats->by_id);
@@ -148,8 +116,7 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		<!--<p><strong>Who:</strong> <?=(($data['who']=='')?$org['profile']:$data['who'])?></p>-->
 		<p><strong>What:</strong> <?=$data['description']?></p>
 		<p><strong>How:</strong> <?=(($data['how']=='')?$org['product_how']:$data['how'])?></p>
-			
-		<h3>Produced by <?=$data['org_name']?></h3>
+		<hr />
 		<p><?=$data['address']?>, <?=$data['city']?>, <?=$data['code']?> <a href="#!sellers-oursellers--org_id-<?=$data['org_id']?>" class="pull-right">See full seller profile...</a></p>
 		<?
 		$addr = $data['address'].', '.$data['city'].', '.$data['code'].', '.$data['postal_code'];
@@ -168,6 +135,22 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		<?}else{?>
 			<img src="<?=image('product_placeholder')?>" />
 		<?}?>
+		<hr />
+		<form name="prodForm" class="form-inline">
+			
+			<h4>Pricing</h4>
+			<ol class="priceList">
+			<?$this->render_product_pricing($prices);?>
+			</ol>
+			<hr />
+			<h4>Add To Cart</h4>
+			<? if( $inv > 0): ?>
+				<? $this->render_qty_delivery($data,$days,$dd_id,$dd_ids,$cart_item['qty_ordered'],$cart_item['row_total']); ?>
+			<? else: ?>
+				<div class="error">This product is not currently available for ordering.</div>
+			<? endif; ?>
+		</form>
+		<a href="#!catalog-shop" class="btn btn-info btn-block"><i class="icon-shopping-cart" /> Continue Shopping</a>
 		<!--
 		
 		<h4>Other Products from this Seller</h4>
