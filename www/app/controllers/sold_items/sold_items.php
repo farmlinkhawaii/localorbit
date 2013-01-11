@@ -14,11 +14,11 @@ class core_controller_sold_items extends core_controller
 					<!--<td>-->
 						<select name="actions_'.$idx.'" id="actions_menu_'.$idx.'" onchange="document.getElementById(\'actions_menu_1\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_4\').selectedIndex=this.selectedIndex;">
 							<option value="none">Set Delivery Status</option>
-							<option value="ldstat_id:2">Delivery: Pending</option>
-							<option value="ldstat_id:4">Delivery: Delivered</option>
-							<option value="ldstat_id:3">Delivery: Canceled</option>
-							<option value="ldstat_id:5">Delivery: Partially Delivered</option>
-							<option value="ldstat_id:6">Delivery: Contested</option>
+							<option value="ldstat_id:2">Pending</option>
+							<option value="ldstat_id:4">Delivered</option>
+							<option value="ldstat_id:3">Canceled</option>
+							<option value="ldstat_id:5">Partially Delivered</option>
+							<option value="ldstat_id:6">Contested</option>
 						</select>
 					<!--</td>-->
 			';
@@ -28,20 +28,20 @@ class core_controller_sold_items extends core_controller
 				<!--<td>-->
 					<select name="actions_'.($idx+2).'" id="actions_menu_'.($idx+2).'" onchange="document.getElementById(\'actions_menu_3\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_6\').selectedIndex=this.selectedIndex;">
 						<option value="none">Set Buyer Payment Status</option>
-						<option value="lbps_id:2">Buyer Pmt: Paid</option>
-						<option value="lbps_id:1">Buyer Pmt: Unpaid</option>
-						<option value="lbps_id:3">Buyer Pmt: Invoice Issued</option>
-						<option value="lbps_id:4">Buyer Pmt: Partially Paid</option>
-						<option value="lbps_id:5">Buyer Pmt: Refunded</option>
-						<option value="lbps_id:6">Buyer Pmt: Manual Review</option>
+						<option value="lbps_id:2">Paid</option>
+						<option value="lbps_id:1">Unpaid</option>
+						<option value="lbps_id:3">Invoice Issued</option>
+						<option value="lbps_id:4">Partially Paid</option>
+						<option value="lbps_id:5">Refunded</option>
+						<option value="lbps_id:6">Manual Review</option>
 					</select>
 				<!--</td>
 				<td>-->
 					<select name="actions_'.($idx+1).'" id="actions_menu_'.($idx+1).'" onchange="document.getElementById(\'actions_menu_2\').selectedIndex=this.selectedIndex;document.getElementById(\'actions_menu_5\').selectedIndex=this.selectedIndex;">
 						<option value="none">Set Seller Payment Status</option>
-						<option value="lsps_id:2">Seller Pmt: Paid</option>
-						<option value="lsps_id:1">Seller Pmt: Unpaid</option>
-						<option value="lsps_id:3">Seller Pmt: Partially Paid</option>
+						<option value="lsps_id:2">Paid</option>
+						<option value="lsps_id:1">Unpaid</option>
+						<option value="lsps_id:3">Partially Paid</option>
 					</select>
 				<!--</td>
 				<td>-->
