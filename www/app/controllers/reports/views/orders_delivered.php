@@ -163,7 +163,7 @@ $orders->add(new core_datacolumn('row_discount','Discount',true,'9%','{row_disco
 $orders->add(new core_datacolumn('row_adjusted_total','Row Total',true,'9%','{row_adjusted_total}','{row_adjusted_total}','{row_adjusted_total}'));
 $orders->add(new core_datacolumn('payment_method','Payment Method',true,'9%','{payment_method}','{payment_method}','{payment_method}'));
 $orders->add(new core_datacolumn('payment_ref','Payment Reference',true,'9%','{payment_ref}','{payment_ref}','{payment_ref}'));
-$orders->add(new core_datacolumn('delivery_status','Current Status',true,'9%','{delivery_status}','{delivery_status}','{delivery_status}'));
+#$orders->add(new core_datacolumn('delivery_status','Current Status',true,'9%','{delivery_status}','{delivery_status}','{delivery_status}'));
 
 
 
