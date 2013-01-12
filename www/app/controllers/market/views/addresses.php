@@ -28,47 +28,50 @@ core::model('addresses')->get_table('market',$col,'market/addresses?domain_id='.
 
 <fieldset id="editAddress" style="display: none;">
 	<legend>Address Info</legend>
-	<table class="form">
-		<tr>
-			<td class="label">Label</td>
-			<td class="value"><input type="text" name="label" value="" /></td>
-		</tr>
-		<tr>
-			<td class="label">Address</td>
-			<td class="value"><input type="text" name="address" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" /></td>
-		</tr>
-		<tr>
-			<td class="label">City</td>
-			<td class="value"><input type="text" name="city" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" /></td>
-		</tr>
-		<tr>
-			<td class="label">State</td>
-			<td class="value">
+	
+	
+	<script>
+		$("input[name=address]").change(function(event){
+			setLatLon();
+		});
+		$("input[name=city]").change(function(event){
+			setLatLon();
+		});
+		$("input[name=postal_code]").change(function(event){
+			setLatLon();
+		});
+		function setLatLon() {
+			core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);
+		}	
+	</script>
+
+	<?=core_form::input_text('Label','label','','')?>
+	<?=core_form::input_text('Address','address','','')?>
+	<?=core_form::input_text('City','city','','')?>
+	
+	<div class="control-group">
+		<label class="control-label" for="label">State</label>
+			<div class="controls">
 				<select name="region_id" onchange="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);">
 					<option value="0"></option>
 					<?=core_ui::options($regions,null,'region_id','default_name')?>					
 				</select>
-			</td>
-		</tr>
-		<tr>
-			<td class="label">Postal Code</td>
-			<td class="value"><input type="text" name="postal_code" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" /></td>
-		</tr>
-		<tr>
-			<td class="label">Telephone</td>
-			<td class="value"><input type="text" name="telephone" value="" /></td>
-		</tr>
-		<tr>
-			<td class="label">Fax</td>
-			<td class="value"><input type="text" name="fax" value="" /></td>
-		</tr>
-	</table>
+			</div>
+	</div>
+	
+	
+	
+	<?=core_form::input_text('Postal Code','postal_code','','')?>
+	<?=core_form::input_text('Telephone','telephone','','')?>
+	<?=core_form::input_text('Fax','fax','','')?>
+		
+	
 	<input type="hidden" name="delivery_instructions" id="delivery_instructions" value="" />
 	<input type="hidden" name="latitude" id="latitude" value="" />
 	<input type="hidden" name="longitude" id="longitude" value="" />
 	<input type="hidden" name="address_id" value="" />
 	<div class="buttonset">
-		<input type="button" class="button_secondary" value="save this address" onclick="core.address.saveAddress('market');" />
+		<input type="button" class="button_secondary" value="save this address" onclick="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value); core.address.saveAddress('market');" />
 		<input type="button" class="button_secondary" value="cancel" onclick="core.address.cancelAddressChanges();" />
 	</div>
 </fieldset>
