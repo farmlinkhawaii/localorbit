@@ -6,37 +6,14 @@ lo3::require_permission();
 lo3::require_login();
 core_ui::load_library('js','org.js');
 
-$col = core::model('customer_entity')->collection();
-$col->__model->autojoin(
-	'left',
-	'organizations o',
-	'(o.org_id=customer_entity.org_id)',
-	array('o.name as org_name','o.allow_sell',)
-);
-$col->__model->autojoin(
-	'left',
-	'organizations_to_domains otd',
-	'(otd.org_id=o.org_id and otd.is_home=1)',
-	array('otd.orgtype_id')
-);	
-$col->__model->autojoin(
-	'left',
-	'domains d',
-	'(d.domain_id=otd.domain_id)',
-	array('d.name as domain_name')
-);
-$col->__model->autojoin(
-	'left',
-	'organization_types',
-	'(otd.orgtype_id=organization_types.orgtype_id)',
-	array('organization_types.name as orgtype_name')
-);
-$col->filter('o.is_deleted','=',0);
-$col->filter('customer_entity.is_deleted','=',0);
+$col = core::model('v_users')->collection();
+
+$col->filter('org_is_deleted','=',0);
+$col->filter('is_deleted','=',0);
 
 if(lo3::is_market())
 {
-	$col->filter('d.domain_id','in', $core->session['domains_by_orgtype_id'][2]);
+	$col->filter('domain_id','in', $core->session['domains_by_orgtype_id'][2]);
 }
 else
 {
@@ -49,14 +26,26 @@ function user_role_formatter($data)
 	global $core;
 	$data['role'] = ($data['allow_sell'] == 1)?'Seller':'Buyer';
 	#core::log('orgtype id : '.$data['orgtype_id']);
-	if($data['orgtype_id'] == '2')
+	if($data['composite_role'] == '2')
 	{
 		$data['role'] = 'Market Manager';
 	}
-	if($data['orgtype_id'] == '1')
+	if($data['composite_role'] == '1')
 	{
 		$data['role'] = 'Admin';
 	}
+
+	if($data['composite_role'] == '3-0')
+	{
+		$data['role'] = 'Buyer';
+	}
+
+
+	if($data['composite_role'] == '3-1')
+	{
+		$data['role'] = 'Seller';
+	}
+
 	#core::log('role: '.$data['role']);
 	return $data;
 }
@@ -77,11 +66,11 @@ if(lo3::is_admin() || lo3::is_market() && count($core->session['domains_by_orgty
 	if (lo3::is_market()) 
 		$hubs = $hubs->filter('domain_id', 'in',$core->session['domains_by_orgtype_id'][2]);							
 
-	$users->add_filter(new core_datatable_filter('otd.domain_id'));
+	$users->add_filter(new core_datatable_filter('domain_id'));
 	echo(core_datatable_filter::make_select(
 		'customer_entity',
-		'otd.domain_id',
-		$users->filter_states['customer_entity__filter__o_domain_id'],
+		'domain_id',
+		$users->filter_states['customer_entity__filter__domain_id'],
 		$hubs,
 		'domain_id',
 		'name',
@@ -93,15 +82,20 @@ if(lo3::is_admin() || lo3::is_market() && count($core->session['domains_by_orgty
 if(lo3::is_admin())
 {
 	# filter by org type
-	$users->add_filter(new core_datatable_filter('otd.orgtype_id'));
+	$users->add_filter(new core_datatable_filter('composite_role'));
 	echo(core_datatable_filter::make_select(
 		'customer_entity',
-		'otd.orgtype_id',
-		$users->filter_states['customer_entity__filter__otd_orgtype_id'],
-		new core_collection('select orgtype_id,name from organization_types order by orgtype_id'),
-		'orgtype_id',
-		'name',
-		'Show all org types'
+		'composite_role',
+		$users->filter_states['customer_entity__filter__composite_role'],
+		array(
+			'3-0'=>'Buyer',
+			'3-1'=>'Seller',
+			'2'=>'Market Manager',
+			'1'=>'Admin',
+		),
+		null,
+		null,
+		'Show all roles'
 	));
 }
 
