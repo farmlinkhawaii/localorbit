@@ -97,12 +97,15 @@ class core_form
 			# Get link style (link or button)
 			if($link_style == 'link'):
 				$link_class = 'btn-link cancel_link'; #simple link
+			elseif($link_style == 'cancel'):
+				$function_text = '<i class="icon icon-remove" /> '.ucfirst($function_text);
+				$link_class = 'pull-right'; #button floated right
 			else:
-				$link_class = 'btn-primary pull-right'; #button floated right
+				$link_class = 'btn btn-primary pull-right'; #button floated right
 			endif;
 
 			# Make link/button
-			$out .= '<a class="btn ' . $link_class . '" href="'.$extrafunction.'" onclick="core.go(this.href);">';
+			$out .= '<a class="' . $link_class . '" href="'.$extrafunction.'" onclick="core.go(this.href);">';
 			if ($button_icon != ''): $out .= '<i class="icon icon-' . $button_icon . '" /> '; endif; # Button icon
 			$out .= $function_text . '</a>';
 
