@@ -12,6 +12,7 @@
 			
 			if(intval($deliv['pickup_address_id']) > 0 && !isset($all_addrs[$deliv['pickup_address_id']]))
 			{
+			#	echo('need to get a list of pikcup addresses');
 				$verb = 'Pickup';
 				$address = core::model('addresses')
 					->collection()
@@ -27,6 +28,7 @@
 			else
 			{
 				$verb = 'Delivery';
+				#echo('need to get a list of delivery addresses');
 			}
 	
 			# if there's only one delivery, render it this way:
@@ -56,20 +58,23 @@
 			//choose address
 			if($verb == 'Delivery')
 			{
+				
 				if(count($all_addrs) > 1)
 				{
-					echo '<select name="delivgroup-'.$deliv['dd_id_group'].'" style="margin-top:8px;">';
+					echo '<select name="delivgroup-'.$deliv['dd_id_group'].'" style="margin-top:8px;width:390px;">';
 					foreach($all_addrs as $address_id=>$address)
 					{
-						echo '<option value="'. $address['address_id'].'">'.$address['formatted_address'].'</option>';
+						echo '<option value="'. $address[0]['address_id'].'">'.$address[0]['formatted_address'].'</option>';
 					}
 					echo '</select>';
 				}
 				else
 				{
-					list($id, $address) = each($addresses);
-					echo '<input name="delivgroup-'.$deliv['dd_id_group'].'" type="hidden" value="'.$id.'" />';
-					echo $address['formattted_address'];
+					foreach($all_addrs as $address_id=>$address)
+					{
+						echo '<input name="delivgroup-'.$deliv['dd_id_group'].'" type="hidden" value="'.$address_id.'" />';
+						echo $address[0]['formatted_address'];
+					}
 				}				
 			}
 			else
