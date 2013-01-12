@@ -3,6 +3,7 @@ global $core;
 core::ensure_navstate(array('left'=>'left_blank'));
 core::head($core->i18n['title:reg'],$core->i18n['description:reg']);
 lo3::require_permission();
+core_ui::fullWidth();
 
 # get teh list of possible domains
 #
@@ -39,7 +40,8 @@ if($core->data['redirect_to_checkout'] == 1)
 }
 
 ?>
-<form name="regform" action="registration/process" onsubmit="return core.submit('/registration/process',this);">
+
+<form name="regform" class="form-horizontal" action="registration/process" onsubmit="return core.submit('/registration/process',this);">
 	<div class="tabset" id="regtabs">
 		<div class="tabswitch" id="regtabs-s1">
 			Registration
@@ -73,92 +75,73 @@ if($core->data['redirect_to_checkout'] == 1)
 		</div>
 		<div id="reg_mainform"<?=(($domain_id>0)?'':' style="display:none;"')?>>
 			<h2><?=$core->i18n['header:reg:mainform']?></h2>
-			<table class="form">
-				<tr>				
-					<td class="label"><?=$core->i18n['field:company:name']?></td>
-					<td class="value">
-						<input type="text" name="company_name" value="" />
-						<!-- <?=info('this is a comment about company name')?> -->
-					</td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:customer:firstname']?><?=core_form::required()?></td>
-					<td class="value">
-						<input type="text" name="first_name" value="" />
-						<!-- <?=info('this is a comment about first name','paperclip')?> -->
-					</td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:customer:lastname']?><?=core_form::required()?></td>
-					<td class="value">
-						<input type="text" name="last_name" value="" />
-					<!--	<?=info('this is a comment about first name','edit')?> -->
-					</td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:customer:email']?><?=core_form::required()?></td>
-					<td class="value"><input type="text" name="email" value="" /></td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:customer:email-match']?></td>
-					<td class="value"><input type="text" name="email_confirm" value="" /></td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:customer:password']?></td>
-					<td class="value"><input type="password" name="password" value="" /></td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:customer:password-match']?></td>
-					<td class="value"><input type="password" name="password_confirm" value="" /></td>
-				</tr>
-			</table>
+			
+			<?=core_form::input_text($core->i18n['field:company:name'],'company_name','')?>
+			<?=core_form::input_text($core->i18n['field:customer:firstname'],'first_name','',array('required' => true))?>
+			<?=core_form::input_text($core->i18n['field:customer:lastname'],'last_name','',array('required' => true))?>
+			<?=core_form::input_text($core->i18n['field:customer:email'],'email','',array('required' => true))?>
+			<?=core_form::input_text($core->i18n['field:customer:email-match'],'email_confirm','')?>
+			
+			<?=core_form::input_password($core->i18n['field:customer:password'],'password','',array('required' => true))?>
+			<?=core_form::input_password($core->i18n['field:customer:password-match'],'password_confirm','')?>
+			
+			
+			
+			
+			
+			<script>
+				$("input[name=address]").change(function(event){
+					setLatLon();
+				});
+				$("input[name=city]").change(function(event){
+					setLatLon();
+				});
+				$("input[name=postal_code]").change(function(event){
+					setLatLon();
+				});
+				$("select[name=region_id]").change(function(event){
+					setLatLon();
+				});
+				function setLatLon() {
+					core.address.lookupLatLong($("input[name=address]").val(), $("input[name=city]").val(), $("select[name=region_id]").find('option:selected').text(), $("input[name=postal_code]").val());
+				}	
+			</script>		
+		
 			<h2><?=$core->i18n['header:reg:bizinfo']?></h2>
-			<table class="form">
-				<tr>
-					<td class="label"><?=$core->i18n['field:address:street']?></td>
-					<td class="value"><input type="text" name="address" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" /></td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:address:city']?></td>
-					<td class="value"><input type="text" name="city" value="" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" /></td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:address:state']?></td>
-					<td class="value">
-						<select name="region_id" onchange="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);">
+			
+			<?=core_form::input_text($core->i18n['field:address:street'],'address','',array('required' => true))?>
+			<?=core_form::input_text($core->i18n['field:address:city'],'city','',array('required' => true))?>
+			
+			<div class="control-group">
+				<label class="control-label" for="label"><?=$core->i18n['field:address:state']?></label>
+					<div class="controls">
+						<select name="region_id">
 							<option value="0"></option>
 							<?=core_ui::options($regions,null,'region_id','default_name')?>					
 						</select>
-					</td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:address:postalcode']?></td>
-					<td class="value"><input type="text" name="postal_code" onblur="core.address.lookupLatLong(this.form.address.value,this.form.city.value,this.form.region_id.options[this.form.region_id.selectedIndex].text,this.form.postal_code.value);" value="" /></td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:address:telephone']?></td>
-					<td class="value"><input type="text" name="telephone" value="" /></td>
-				</tr>
-				<tr>
-					<td class="label"><?=$core->i18n['field:address:fax']?></td>
-					<td class="value"><input type="text" name="fax" value="" /></td>
-				</tr>
-			</table>
+					</div>
+			</div>
+	
+			<?=core_form::input_text($core->i18n['field:address:postalcode'],'postal_code','',array('required' => true))?>
+			<?=core_form::input_text($core->i18n['field:address:telephone'],'telephone','')?>
+			<?=core_form::input_text($core->i18n['field:address:fax'],'fax','')?>
+			
+			
 			<div id="bad_address" class="info_area info_area_speech">We cannot locate your address. The address must be valid before you may save it.</div>
 			<input type="hidden" id="latitude" name="latitude" value="" />
 			<input type="hidden" id="longitude" name="longitude" value="" />
 
+			
+			
 			<h2><?=$core->i18n['header:reg:spamprotection']?></h2>
-			<table class="form">
-				<tr>
-					<td class="label"><?=core::i18n('field:reg:spam-protect',$core->session['spammer_nums'][0],$core->session['spammer_nums'][1],$core->session['spammer_nums'][2])?></td>
-					<td class="value">
-						<?foreach($fields as $field){?>
-							<?=$field?>
-						<?}?>
-					</td>
-				</tr>
-			</table>
+			<div class="control-group">
+				<label class="control-label" for="label"><?=core::i18n('field:reg:spam-protect',$core->session['spammer_nums'][0],$core->session['spammer_nums'][1],$core->session['spammer_nums'][2])?></label>
+				<div class="controls">
+					<?foreach($fields as $field){?>
+						<?=$field?>
+					<?}?>
+				</div>
+			</div>
 			
 			
 			<h2><?=$core->i18n['header:reg:newsletter-signup']?></h2>
