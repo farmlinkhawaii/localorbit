@@ -60,7 +60,7 @@ class core_controller_market extends core_controller
 			$core->data['buyer_invoicer'] = core_ui::radio_value('buyer_invoicer',array('lo','hub'));
 			
 			$market->import_fields(
-				'domain_id','name','detailed_name',
+				'domain_id','name',
 				'hostname','tz_id','do_daylight_savings',
 				'is_live','is_closed','show_on_homepage','po_due_within_days','seller_payer','buyer_invoicer',
 				'order_minimum','fee_percen_lo','fee_percen_hub','paypal_processing_fee','hub_covers_fees','autoactivate_organization',
@@ -79,7 +79,7 @@ class core_controller_market extends core_controller
 		else if(lo3::is_market())
 		{
 			$market->import_fields(
-				'domain_id','name','detailed_name',
+				'domain_id','name',
 				'tz_id','do_daylight_savings',
 				'is_closed','show_on_homepage','payment_default_paypal','payment_default_purchaseorder',
 				'secondary_contact_name','secondary_contact_email','secondary_contact_phone',

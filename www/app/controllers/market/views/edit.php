@@ -78,14 +78,6 @@ if(lo3::is_admin())
 						<input type="text" name="name" value="<?=$data['name']?>" />
 					</div>
 				</div>
-			
-				<div class="control-group">
-					<label class="control-label">Detailed Name</label>
-					<div class="controls">
-						<input type="text" name="detailed_name" value="<?=$data['detailed_name']?>" /> <small class="help-inline">This field is used for the registration dropdown</small>
-					</div>
-				</div>
-			
 				<?if(lo3::is_admin()){?>
 				<div class="control-group">
 					<label class="control-label">Managed By</label>
