@@ -27,7 +27,7 @@ if($data['org_id'] != $core->session['org_id'])
 	
 $addr_model = core::model('addresses');
 $col = $addr_model->collection()
-	->filter('addresses.is_deleted',0)
+	->filter('addresses.is_deleted','=',0)
 	->filter('org_id',$data['org_id']);
 		
 #core::log(print_r($col->to_hash('address_id'),true));
