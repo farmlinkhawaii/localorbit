@@ -7,13 +7,15 @@ $qty = $core->view[4];
 
 $qty = ($qty===0)?'':$qty;
 $total = floatval($core->view[5]);
+
+#echo('<h1>/'.$qty.'/</h1>');
 ?>
 <div class="row">
 	<div class="span1 product-quantity">
 		<input class="span1 prodQty prodQty_<?=$prod['prod_id']?>" type="text" name="prodQty_<?=$prod['prod_id']?>" id="prodQty_<?=$prod['prod_id']?>" onkeyup="core.catalog.updateRow(<?=$prod['prod_id']?>,this.value);" value="<?=$qty?>" placeholder="Qty" />
 	</div>
 
-	<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text"<?=(($qty > 0 || $qty == '')?'':' style="display:none;"')?>>
+	<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text"<?=(($qty == 0 || $qty == '')?' style="display:none;"':'')?>>
 		<span class="value"><?=core_format::price($total)?></span> <i class="remove icon-remove-sign"/>
 	</div>
 </div>

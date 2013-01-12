@@ -368,7 +368,7 @@ core.catalog.initCatalog=function(){
 
 	core.catalog.updateTotalViews();
 
-	core.catalog.initRemoveSigns();
+	core.lo4.initRemoveSigns();
 
 	var cmpnts = document.URL.split('#');
 	var pair = cmpnts[cmpnts.length - 1].split('=');
@@ -378,17 +378,6 @@ core.catalog.initCatalog=function(){
 			core.catalog.setFilter(pair[0], pair[1], true);
 		});
 	}
-}
-
-core.catalog.initRemoveSigns=function(){
-	$('.prodTotal_text > i.icon-remove-sign').click(function () {
-		var jq = $(this);
-		var idSplit = jq.parent().attr('id').split('_');
-		$('.prodQty_'+idSplit[1]).val(0);
-		jq.parent().hide();
-		core.catalog.updateRow(idSplit[1], 0);
-		//core.catalog.setQty(idSplit[1], 0, 0);
-	});
 }
 
 core.catalog.updateTotalViews = function () {

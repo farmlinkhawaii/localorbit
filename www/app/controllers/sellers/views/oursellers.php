@@ -109,7 +109,7 @@ else
 		core::js('core.prices ='.json_encode($prices).';');
 		core::js('core.delivs ='.json_encode($delivs).';');
 		core::js('core.cart = '.$cart->write_js(true).';');
-		core::js('core.catalog.initRemoveSigns();');
+		core::js('core.lo4.initRemoveSigns();');
 		$item_hash = $cart->items->to_hash('prod_id');
 ?>
 

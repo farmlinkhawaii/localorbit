@@ -30,7 +30,7 @@ $cart = core::model('lo_order')->get_cart();
 $cart->load_items();
 core_ui::load_library('js','catalog.js');
 core::js('core.cart = '.$cart->write_js(true).';');
-core::js('core.catalog.initRemoveSigns();');
+core::js('core.lo4.initRemoveSigns();');
 
 
 foreach($cart->items as $item)
