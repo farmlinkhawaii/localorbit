@@ -81,7 +81,7 @@ class core_controller_market extends core_controller
 			$market->import_fields(
 				'domain_id','name','detailed_name',
 				'tz_id','do_daylight_savings',
-				'is_live','is_closed','show_on_homepage','payment_default_paypal','payment_default_purchaseorder',
+				'is_closed','show_on_homepage','payment_default_paypal','payment_default_purchaseorder',
 				'secondary_contact_name','secondary_contact_email','secondary_contact_phone',
 				'lo_managed','custom_zendesk','custom_tagline','dashboard_note','market_policies',
 				'market_profile','closed_note','buyer_types_description','bubble_offset'

@@ -118,7 +118,9 @@ if(lo3::is_admin())
 				</div>
 			
 				<?= core_form::input_check('Apply Daylight Savings','do_daylight_savings',$data['do_daylight_savings']); ?>
+				<?if(lo3::is_admin()){?>
 				<?= core_form::input_check('Is Live','is_live',$data['is_live']); ?>
+				<?}?>
 				<?= core_form::input_check('Close Store','is_closed',$data['is_closed']); ?>
 
 				<?if(lo3::is_admin()){?>
