@@ -15,18 +15,19 @@ function org_col_formatter($data)
 	$data['activate_action'] = ($data['is_active'] == 1)?'deactivate':'activate';
 	$data['enable_action']   = ($data['is_enabled'] == 1)?'suspend':'enable';
 	
-	switch($data['orgtype_id'])
+	switch($data['composite_role'])
 	{
 		case 1: $data['role'] = 'Admin';	break;
 		case 2: $data['role'] = 'Market Manager';	break;
-		case 3: $data['role'] = ($data['allow_sell'] == 1)?'Seller':'Buyer';	break;
+		case '3-0': $data['role'] = 'Buyer'; break;
+		case '3-1': $data['role'] = 'Seller'; break;
 	}
 	
 	
 	return $data;
 }
 
-$col = core::model('organizations')->collection()->filter('is_deleted','=',0);
+$col = core::model('v_organizations')->collection()->filter('is_deleted','=',0);
 $col->add_formatter('org_col_formatter');
 
 if(!lo3::is_market() && !lo3::is_admin())
@@ -36,26 +37,26 @@ if(!lo3::is_market() && !lo3::is_admin())
 }
 if(lo3::is_market())
 {
-	$col->filter('domains.domain_id','in', $core->session['domains_by_orgtype_id'][2]);
+	$col->filter('domain_id','in', $core->session['domains_by_orgtype_id'][2]);
 }
 
 
 
-$orgs = new core_datatable('organizations','organizations/list',$col);
+$orgs = new core_datatable('v_organizations','organizations/list',$col);
 
 # only show the hub filter if admin or multiple hubs
 if(lo3::is_admin() || (lo3::is_market() && count($core->session['domains_by_orgtype_id'][2]) > 1))
 {
 	$hubs = core::model('domains')->collection();						
 	if (lo3::is_market()) { 
-		$hubs = $hubs->filter('domains.domain_id', 'in',$core->session['domains_by_orgtype_id'][2]);							
+		$hubs = $hubs->filter('domain_id', 'in',$core->session['domains_by_orgtype_id'][2]);							
 	} 
 	$hubs = $hubs->sort('name');
-	$orgs->add_filter(new core_datatable_filter('domains.domain_id'));
+	$orgs->add_filter(new core_datatable_filter('domain_id'));
 	echo(core_datatable_filter::make_select(
-		'organizations',
-		'domains.domain_id',
-		$orgs->filter_states['organizations__filter__domains_domain_id'],
+		'v_organizations',
+		'domain_id',
+		$orgs->filter_states['v_organizations__filter__domain_id'],
 		$hubs,
 		'domain_id',
 		'name',
@@ -67,25 +68,23 @@ if(lo3::is_admin() || (lo3::is_market() && count($core->session['domains_by_orgt
 core::log('here');
 if(lo3::is_admin())
 {
-	$orgs->add_filter(new core_datatable_filter('organizations_to_domains.orgtype_id'));
+	$orgs->add_filter(new core_datatable_filter('composite_role'));
 	echo(core_datatable_filter::make_select(
-		'organizations',
-		'organizations_to_domains.orgtype_id',
-		$orgs->filter_states['organizations__filter__organizations_to_domains_orgtype_id'],
-		array(1=>'Admin',2=>'Market Management',3=>'Customer'),
-		'orgtype_id',
-		'name',
-		'Show all org types'
+		'v_organizations',
+		'composite_role',
+		$orgs->filter_states['v_organizations__filter__composite_role'],
+		array(1=>'Admin',2=>'Market Management','3-0'=>'Buyer','3-1'=>'Seller'),
+		null,
+		null,
+		'Show all roles'
 	));
 }
 
 core::log('here');
 
 $orgs->add_filter(new core_datatable_filter('name','organizations.name','~'));
-echo(core_datatable_filter::make_text('organizations','name',$orgs->filter_states['organizations__filter__name'],'Search by name'));
+echo(core_datatable_filter::make_text('v_organizations','name',$orgs->filter_states['v_organizations__filter__name'],'Search by name'));
 
-$orgs->add_filter(new core_datatable_filter('allow_sell','organizations.allow_sell'));
-echo(core_datatable_filter::make_checkbox('organizations','allow_sell',($orgs->filter_states['organizations__filter__allow_sell'] == 1),'Only show sellers'));
 
 if(lo3::is_admin() || lo3::is_market())
 {
@@ -100,7 +99,7 @@ else
 
 # add the columns
 $orgs->add(new core_datacolumn('name','Name',true,$widths[0],'<a href="#!organizations-edit--org_id-{org_id}">{name}</a>','{name}','{name}'));
-$orgs->add(new core_datacolumn('domains.name','Hub',true,$widths[1],'{domain_name}','{domain_name}','{domain_name}'));
+$orgs->add(new core_datacolumn('domain_name','Market',true,$widths[1],'{domain_name}','{domain_name}','{domain_name}'));
 $orgs->add(new core_datacolumn('creation_date','Registered On',true,$widths[2],'{creation_date}','{creation_date}','{creation_date}'));
 $orgs->add(new core_datacolumn('orgtype_id','Role',true,$widths[3],'{role}','{role}','{role}'));
 
