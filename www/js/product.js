@@ -299,7 +299,6 @@ product.savePrice=function(){
 			'price':document.prodForm.price.value,
 			'min_qty':document.prodForm.min_qty.value,
 	};
-	core.alertHash(data);
 	if(core.validateForm(document.prodForm)){
 		core.doRequest('/products/save_price',data);
 	}

@@ -185,7 +185,7 @@ You can set a single universal price, or individual prices for certain Markets
 	-->
 	<div class="pull-right" id="addPriceButton">
 		<a class="btn btn-small btn-info" onclick="product.editPrice(0);"><i class="icon-plus" />  Add New Price</a>
-		<a class="btn btn-small btn-danger" onclick="product.removeCheckedPrices(this.form);"><i class="icon-trash" /> Remove Checked</a>
+		<a class="btn btn-small btn-danger" onclick="product.removeCheckedPrices(document.prodForm);"><i class="icon-trash" /> Remove Checked</a>
 	</div>
 	<br />&nbsp;<br />
 	<br />
