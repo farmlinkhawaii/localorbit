@@ -126,16 +126,18 @@ if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)
 
 # date, product cat, item, amount, status (filter by item specific to producer - see weekly specials)
 
-$price_formatter_start = 6;
+$price_formatter_start = 4;
 
-$orders->add(new core_datacolumn('delivered_date','Delivered On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{delivered_date}</a>','{delivered_date}','{delivered_date}'));
+$orders->add(new core_datacolumn('order_date','Ordered On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{order_date}</a>','{order_date}','{order_date}'));
+$orders->columns[0]->autoformat='date-long';
+#$orders->add(new core_datacolumn('delivered_date','Delivered On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{delivered_date}</a>','{delivered_date}','{delivered_date}'));
 
 # this determins what the first column that's price-formatted is
 # the reason why we store this is because admins/mms have an additional column
 
 if(!lo3::is_customer())
 {
-	$orders->add(new core_datacolumn('hub_name','Hub',true,'29%'));
+	$orders->add(new core_datacolumn('hub_name','Market',true,'29%'));
 	$price_formatter_start++;
 	$orders->add(new core_datacolumn('lo_oid','Order',true,'29%','
 	<a href="#!orders-view_order--lo_oid-{lo_oid}">{lo3_order_nbr}</a>
@@ -144,31 +146,30 @@ if(!lo3::is_customer())
 	','{lo3_order_nbr}/{lfo3_order_nbr}','{lo3_order_nbr}/{lfo3_order_nbr}'));
 	$orders->add(new core_datacolumn('seller_name','Seller',true,'19%','{seller_name}','{seller_name}','{seller_name}'));
 	$price_formatter_start++;
-	$orders->add(new core_datacolumn('order_date','Ordered On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{order_date}</a>','{order_date}','{order_date}'));
-	$orders->columns[4]->autoformat='date-long';
+	#$orders->add(new core_datacolumn('order_date','Ordered On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{order_date}</a>','{order_date}','{order_date}'));
+	#$orders->columns[4]->autoformat='date-long';
 }
 else
 {
 	$orders->add(new core_datacolumn('lo_foid','Order',true,'29%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{lfo3_order_nbr}</a>','{lfo3_order_nbr}','{lfo3_order_nbr}'));
-	$orders->add(new core_datacolumn('order_date','Ordered On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{order_date}</a>','{order_date}','{order_date}'));
-	$orders->columns[2]->autoformat='date-long';
+	#$orders->columns[2]->autoformat='date-long';
 }
 
 $orders->add(new core_datacolumn('buyer_org_name','Buyer',true,'19%','{buyer_org_name}<br /><a href="mailTo:{email}">{email}</a>','{buyer_org_name} ({email})','{buyer_org_name} ({email})'));
 $orders->add(new core_datacolumn('product_name','Product',true,'29%','<a href="#!products-edit--prod_id-{prod_id}">{product_name}</a>','{product_name}','{product_name}'));
-$orders->add(new core_datacolumn('qty_ordered','Quantity',true,'9%','{qty_ordered}','{qty_ordered}','{qty_ordered}'));
-$orders->add(new core_datacolumn('unit_price','Unit Price',true,'9%','{unit_price}','{unit_price}','{unit_price}'));
+#$orders->add(new core_datacolumn('qty_ordered','Quantity',true,'9%','{qty_ordered}','{qty_ordered}','{qty_ordered}'));
+#$orders->add(new core_datacolumn('unit_price','Unit Price',true,'9%','{unit_price}','{unit_price}','{unit_price}'));
 $orders->add(new core_datacolumn('row_discount','Discount',true,'9%','{row_discount}','{row_discount}','{row_discount}'));
 $orders->add(new core_datacolumn('row_adjusted_total','Row Total',true,'9%','{row_adjusted_total}','{row_adjusted_total}','{row_adjusted_total}'));
 $orders->add(new core_datacolumn('payment_method','Payment Method',true,'9%','{payment_method}','{payment_method}','{payment_method}'));
 $orders->add(new core_datacolumn('payment_ref','Payment Reference',true,'9%','{payment_ref}','{payment_ref}','{payment_ref}'));
 $orders->add(new core_datacolumn('delivery_status','Current Status',true,'9%','{delivery_status}','{delivery_status}','{delivery_status}'));
 
-$orders->columns[0]->autoformat='date-long';
+
 
 $orders->columns[$price_formatter_start]->autoformat='price';
 $orders->columns[$price_formatter_start+1]->autoformat='price';
-$orders->columns[$price_formatter_start+2]->autoformat='price';
+#$orders->columns[$price_formatter_start+2]->autoformat='price';
 $orders->sort_direction = 'desc';
 $orders->render();
 $this->totals_table('od_');

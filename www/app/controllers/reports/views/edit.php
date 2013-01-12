@@ -26,7 +26,7 @@ if(lo3::is_market() || lo3::is_seller() || lo3::is_admin())
 if(lo3::is_market() || lo3::is_admin())
 	$reports['Sales by Seller'] = 'sales_by_seller';
 if(lo3::is_market() || lo3::is_admin() || lo3::is_seller())
-	$reports['Orders Delivered'] = 'orders_delivered';
+	$reports['Items Delivered'] = 'orders_delivered';
 	
 # these reports are always present
 $reports['Total Purchases'] = 'total_purchases';
