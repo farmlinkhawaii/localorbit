@@ -1,3 +1,5 @@
+<div class="row">
+	<div class="span12">
 <?php
 lo3::require_permission();
 lo3::require_login();
@@ -33,14 +35,15 @@ $dds->add(new core_datacolumn('pickup_start_time','Pickup',true,'20%','<a href="
 
 $dds->size = (-1);
 $dds->display_filter_resizer = false;
+$dds->display_exporter_pager = false;
 $dds->render_page_select = false;
 $dds->render_page_arrows = false;
 $dds->render();
 
 ?>
-<div class="buttonset unlock_area" id="addDelivButton"<?=(($core->session['sec_pin'] == 1)?'':' style="display:none;"')?>>
-	<input type="button" class="button_secondary" value="Add New Delivery Option" onclick="market.editDeliv(0);" />
-	<input type="button" class="button_secondary" value="Remove Checked" onclick="market.removeCheckedDelives(this.form);" />
+<div class="buttonset unlock_area pull-right" id="addDelivButton"<?=(($core->session['sec_pin'] == 1 || lo3::is_market())?'':' style="display:none;"')?>>
+	<input type="button" class="btn btn-info" value="Add New Delivery Option" onclick="market.editDeliv(0);" />
+	<input type="button" class="btn btn-danger" value="Remove Checked" onclick="market.removeCheckedDelives(this.form);" />
 </div>
 <br />
 
@@ -159,3 +162,5 @@ $dds->render();
 		<input type="button" class="button_secondary" value="cancel" onclick="market.cancelDelivChanges();" />
 	</div>
 </fieldset>
+	</div>
+</div>
