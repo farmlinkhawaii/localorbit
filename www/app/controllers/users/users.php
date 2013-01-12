@@ -95,7 +95,11 @@ class core_controller_users extends core_controller
 	{
 		global $core;
 		if(!lo3::is_admin() && !lo3::is_market())
-			lo3::require_orgtype('admin');
+		{
+			$user = core::model('customer_entity')->load(intval($core->data['entity_id']));
+			if($core->session['org_id'] != $user['org_id'])
+				lo3::require_orgtype('admin');
+		}
 		core_db::query('update customer_entity set is_enabled=1 where entity_id='.intval($core->data['entity_id']));
 		core_datatable::js_reload($core->data['table']);
 		core::model('events')->add_record('User Activated',$core->data['entity_id']);		
@@ -105,12 +109,24 @@ class core_controller_users extends core_controller
 	function suspend()
 	{
 		global $core;
-		if(!lo3::is_admin() && !lo3::is_market())
-			lo3::require_orgtype('admin');
-		core_db::query('update customer_entity set is_enabled=0 where entity_id='.intval($core->data['entity_id']));
-		core_datatable::js_reload($core->data['table']);
-		core::model('events')->add_record('User Deactivated',$core->data['entity_id']);		
-		core_ui::notification('user suspended');
+		
+		if($core->data['entity_id'] == $core->session['user_id'])
+		{
+			core_ui::notification('You cannot suspend yourself.');
+		}
+		else
+		{
+			if(!lo3::is_admin() && !lo3::is_market())
+			{
+				$user = core::model('customer_entity')->load(intval($core->data['entity_id']));
+				if($core->session['org_id'] != $user['org_id'])
+					lo3::require_orgtype('admin');
+			}
+			core_db::query('update customer_entity set is_enabled=0 where entity_id='.intval($core->data['entity_id']));
+			core_datatable::js_reload($core->data['table']);
+			core::model('events')->add_record('User Deactivated',$core->data['entity_id']);		
+			core_ui::notification('user suspended');
+		}
 	}
 	
 	function save()
