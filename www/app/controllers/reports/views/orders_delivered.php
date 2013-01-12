@@ -159,7 +159,7 @@ $orders->add(new core_datacolumn('buyer_org_name','Buyer',true,'19%','{buyer_org
 $orders->add(new core_datacolumn('product_name','Product',true,'29%','<a href="#!products-edit--prod_id-{prod_id}">{product_name}</a>','{product_name}','{product_name}'));
 #$orders->add(new core_datacolumn('qty_ordered','Quantity',true,'9%','{qty_ordered}','{qty_ordered}','{qty_ordered}'));
 #$orders->add(new core_datacolumn('unit_price','Unit Price',true,'9%','{unit_price}','{unit_price}','{unit_price}'));
-$orders->add(new core_datacolumn('row_discount','Discount',true,'9%','{row_discount}','{row_discount}','{row_discount}'));
+#$orders->add(new core_datacolumn('row_discount','Discount',true,'9%','{row_discount}','{row_discount}','{row_discount}'));
 $orders->add(new core_datacolumn('row_adjusted_total','Row Total',true,'9%','{row_adjusted_total}','{row_adjusted_total}','{row_adjusted_total}'));
 $orders->add(new core_datacolumn('payment_method','Payment Method',true,'9%','{payment_method}','{payment_method}','{payment_method}'));
 $orders->add(new core_datacolumn('payment_ref','Payment Reference',true,'9%','{payment_ref}','{payment_ref}','{payment_ref}'));
@@ -168,7 +168,7 @@ $orders->add(new core_datacolumn('payment_ref','Payment Reference',true,'9%','{p
 
 
 $orders->columns[$price_formatter_start]->autoformat='price';
-$orders->columns[$price_formatter_start+1]->autoformat='price';
+#$orders->columns[$price_formatter_start+1]->autoformat='price';
 #$orders->columns[$price_formatter_start+2]->autoformat='price';
 $orders->sort_direction = 'desc';
 $orders->render();
