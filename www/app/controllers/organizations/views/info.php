@@ -88,25 +88,32 @@ echo(
 <? endif; ?>
 
 
-<? if(lo3::is_admin() || lo3::is_market() || $data['org_id'] == $core->session['org_id']) { ?>
-		
-	<div class="control-group">
-		<label class="control-label" for="payment_entity_id">
-			Payment Contact
-			<i class="helpslug icon-question-sign" rel="popover" 
-				data-title="Payment Contact" 
-				data-content="Choose who invoices and payment notifications will be sent to." 
-				data-placement="left" />
-		</label>
-		<div class="controls">
-			<select name="payment_entity_id">
-				<?=core_ui::options($users,$data['payment_entity_id'],'entity_id','full_name')?>
-			</select>
-		</div>
-	</div>
-
-<? } ?>
-
+<? 
+if(lo3::is_admin() || lo3::is_market() || $data['org_id'] == $core->session['org_id']) 
+{ 
+	$users->load();
+	if($users->__num_rows == 0)
+	{
+		echo(core_form::value('Payment Contact','<input type="hidden" name="payment_entity_id" value="0" />There are no users in this organization at this time. ',array('popover'=>'Choose who invoices and payment notifications will be sent to.')));
+	}
+	else
+	{
+		echo(core_form::input_select(
+			'Payment Contact',
+			'payment_entity_id',
+			$data['payment_entity_id'],
+			$users,
+			array(
+				'text_column'=>'full_name',
+				'value_column'=>'entity_id',
+				'default_show'=>true,
+				'default_text'=>'No contact selected',
+				'popover'=>'Choose who invoices and payment notifications will be sent to.',
+			)
+		));
+	}
+}
+?>
 
 <?if(lo3::is_admin() || lo3::is_market()){?>
 
@@ -137,13 +144,6 @@ echo(
 		</div>
 	</div>
 		
-	<div class="control-group">
-		<label class="control-label" for="buyer_type">Buyer Type</label>
-		<div class="controls">
-			<select name="buyer_type">
-				<?=core_ui::options(array('Wholesale'=>'Wholesale','Retail'=>'Retail'),$data['buyer_type'])?>
-			</select>
-		</div>
-	</div>
+
 		
 <?}?>
