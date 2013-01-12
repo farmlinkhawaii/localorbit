@@ -251,11 +251,16 @@ product.editPrice=function(priceId,domainId,orgId,price,min_qty,totalFees,priceM
 	}
 	
 	totalFees = parseFloat(totalFees);
+	
 	if(typeof(document.prodForm.seller_net_price) == 'object')
 	{
-		document.prodForm.seller_net_price.value = core.format.price(core.format.parsePrice(price) - (core.format.parsePrice(price) * (totalFees/100)));
-		product.syncPrices(document.prodForm.price,'seller_net_price');
-		document.prodForm.total_fees.value = totalFees;
+		var sellerNetPrice = core.format.parsePrice(price) - (core.format.parsePrice(price) * (totalFees/100));
+		if(isNaN(sellerNetPrice) || sellerNetPrice < 0)
+			sellerNetPrice = 0;
+		document.prodForm.seller_net_price.value = core.format.price(sellerNetPrice);
+		//product.syncPrices(document.prodForm.price,'seller_net_price');
+		if(typeof(document.prodForm.total_fees) == 'object')
+			document.prodForm.total_fees.value = totalFees;
 	}
 	
 	$('#addPriceButton,#main_save_buttons,#pricing_advanced').hide();
@@ -264,19 +269,25 @@ product.editPrice=function(priceId,domainId,orgId,price,min_qty,totalFees,priceM
 }
 
 product.syncPrices=function(formField,moveTo){
-	var form = formField.form;
-	var fees = parseFloat(form.total_fees.value);
-	var newVal = core.format.parsePrice(formField.value);
-	if(isNaN(newVal)){
-		form[moveTo].value = '';
-	}else{
-		var fee_percen = ((100 - fees)/100);
-		if(moveTo == 'price' || moveTo == 'wholesale' || moveTo == 'retail'){
-			//alert('moving price to real field');
-			form[moveTo].value = core.format.price((newVal / fee_percen));	
+	if(typeof(formField.form['total_fees']) =='object'){
+		var form = formField.form;
+		var fees = parseFloat(form.total_fees.value);
+		var newVal = core.format.parsePrice(formField.value);
+		if(isNaN(newVal)){
+			form[moveTo].value = '';
 		}else{
-			//alert("moving price to seller field");
-			form[moveTo].value = core.format.price((newVal * fee_percen));	
+			var fee_percen = ((100 - fees)/100);
+			if(moveTo == 'price' || moveTo == 'wholesale' || moveTo == 'retail'){
+				//alert('moving price to real field');
+				var nbr = (newVal / fee_percen);	
+			}else{
+				//alert("moving price to seller field");
+				var nbr = (newVal * fee_percen);	
+			}
+			if(isNaN(nbr))
+				nbr=0;
+	
+			form[moveTo].value = core.format.price(nbr);
 		}
 	}
 }
