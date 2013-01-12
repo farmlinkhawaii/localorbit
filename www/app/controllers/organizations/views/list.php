@@ -73,7 +73,12 @@ if(lo3::is_admin())
 		'v_organizations',
 		'composite_role',
 		$orgs->filter_states['v_organizations__filter__composite_role'],
-		array(1=>'Admin',2=>'Market Management','3-0'=>'Buyer','3-1'=>'Seller'),
+		array(
+			'3-0'=>'Buyer',
+			'3-1'=>'Seller',
+			'2'=>'Market Manager',
+			'1'=>'Admin',
+		),
 		null,
 		null,
 		'Show all roles'
