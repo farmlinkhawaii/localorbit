@@ -49,12 +49,20 @@ foreach($items as $item)
 		if($this_dd > 0)
 		{
 		?>
+		<hr />
 		<h2><?=$item['buyer_formatted_deliv1']?></h2>
 		<?=$item['buyer_formatted_deliv2']?><?}?>
-		<table class="dt">
+		<table class="dt" style="margin-top:8px;width:100%;">
+			<col width="34%" />
+			<col width="9%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+			<col width="12%" />
 			<tr>
 				<th class="dt">Product</th>
-				<th class="dt">Quantity</th>
+				<th class="dt">Qty</th>
 				<th class="dt">Price</th>
 				<th class="dt">Discount</th>
 				<th class="dt">Total</th>
