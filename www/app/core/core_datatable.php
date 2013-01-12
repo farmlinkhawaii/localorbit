@@ -109,6 +109,9 @@ class core_datatable
 			
 			if($core->data['format'] == 'csv')
 			{
+				
+				core::log('outputting to csv ');
+				
 				# write headers for a csv file download
 				header("Content-type: application/csv");
 				header('Content-Type: application/force-download'); 
@@ -128,6 +131,7 @@ class core_datatable
 				# change the output type in the collection to 'csv' (used by the collection's formatters)
 				$this->data->__output_type = 'csv';
 				
+				core::log('total data: '.$this->data->__num_rows);
 				# loop through and output
 				foreach($this->data as $data)
 				{

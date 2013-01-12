@@ -12,7 +12,7 @@ core.valFuncs['autofail']=function(form,item_obj){
 core.valFuncs['at_least_one_checked']=function(form,item_obj){
 	var val = 0;
 	for(var i in item_obj['data1']){
-		val += parseInt($('#checkdiv_'+item_obj['data1'][i]+'_value').val());
+		val += ($('#'+item_obj['data1'][i]).val()=='on')?1:0;
 	}
 	return (val > 0);
 }

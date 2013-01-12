@@ -131,6 +131,8 @@ $items->render_page_arrows = false;
 $items->size = (-1);
 
 # add filters
+
+
 core_format::fix_dates('sales_by_product__filter__sbpcreatedat1','sales_by_product__filter__sbpcreatedat2');
 $items->add_filter(new core_datatable_filter('sbpcreatedat1','lo_fulfillment_order.order_date','>','date',core_format::date($start,'db')));
 $items->add_filter(new core_datatable_filter('sbpcreatedat2','lo_fulfillment_order.order_date','<','date',core_format::date($end,'db')));
