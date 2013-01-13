@@ -144,7 +144,8 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 		if(!isset($method))
 		{
 			//core::log('unable to locate an appropriate delivery_days/addresses combination');
-			core_ui::error('You must select a payment method.');
+			
+			core_ui::error('You must select a payment method.','core.checkout.hideSubmitProgress();');
 			core::deinit();
 		}
 		#core::log(print_r($rules[$methods]->rules,true));

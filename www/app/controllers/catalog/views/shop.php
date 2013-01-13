@@ -74,12 +74,16 @@ else
 			) = $orgmodel->get_image($sellers[$key][0]['org_id']);
 		$prices    = core::model('product_prices')->get_valid_prices($price_ids, $core->config['domain']['domain_id'],$core->session['org_id']);
  		//collection()->filter('price_id','in',$price_ids)->filter('price','>',0)->to_hash('prod_id');
-		$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
+		$delivs    = core::model('delivery_days')
+			->collection()
+			->filter('delivery_days.dd_id','in',$dd_ids)
+			->filter('domain_id','=',$core->config['domain']['domain_id']);
 		$deliveries = array();
 		foreach ($delivs as $value) {
 			$value->next_time();
 			$deliveries[$value['dd_id']] = array($value->__data);
 		}
+		#exit();
 
 		$delivs = $deliveries;
 		//print_r($deliveries);

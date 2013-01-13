@@ -131,6 +131,7 @@ core.checkout.animateCheckout=function(){
 core.checkout.resetSubmitProgress=function(){
 	$('#checkout_buttons').show();
 	$('#checkout_progress').hide();
+	window.clearInterval(core.checkout.animateHandler);
 	$('#progress_bar').css('width','0%');
 }
 

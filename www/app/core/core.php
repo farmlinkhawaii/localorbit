@@ -84,6 +84,7 @@ class core
 					'short'=>'Y-m-d',
 					'jsshort'=>'Y-m-d',
 					'time'=>'H:i:s',
+					'us-time'=>'g:i a',
 				),
 			),
 			

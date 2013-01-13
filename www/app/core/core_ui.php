@@ -49,11 +49,12 @@ class core_ui
 		core::deinit();
 	}
 
-	public static function error($string)
+	public static function error($string,$js='')
 	{
 		global $core;
 		$string = str_replace("\n",'<br />',$string);
 		core::clear_response();
+		core::js($js);
 		core::js("core.ui.error('".$string."');");
 		core::deinit();
 	}

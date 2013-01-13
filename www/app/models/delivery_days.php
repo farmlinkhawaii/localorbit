@@ -88,6 +88,7 @@ class core_model_delivery_days extends core_model_base_delivery_days
 		if($domain_id != 0)
 			$sql .= ' and delivery_days.domain_id='.$domain_id;
 
+		core::log($sql);
 		$dds = new core_collection($sql);
 		$dds->__model=$this;
 		return $dds;
@@ -144,10 +145,19 @@ class core_model_delivery_days extends core_model_base_delivery_days
 	function next_time()
 	{
 		global $core;
+		
+		if($this['deliv_address_id'] == 0)
+		{
+			$this->__data['pickup_start_time'] = $this->__data['delivery_start_time'];
+			$this->__data['pickup_end_time'] = $this->__data['delivery_end_time'];
+		}
+		
 		switch($this['cycle'])
 		{
 			case 'weekly':
 				core::log('examining dd: '.$this['dd_id']);
+				#core::log(print_r($this->__data,true));
+				
 				$now = time();
 				$weekday = date('w');
 				$date_parts = explode('-',date('m-d-Y'));
@@ -157,7 +167,7 @@ class core_model_delivery_days extends core_model_base_delivery_days
 				core::log("orig sot: ".date('Y-m-d H:i:s',$start_of_today));
 
 				# adjust to local timezone of this hub
-				$start_of_today -= ($this['offset_seconds']);
+				$start_of_today -= ($core->config['domain']['offset_seconds']);
 				core::log("adjs sot: ".date('Y-m-d H:i:s',$start_of_today));
 
 				# subtract 1 day's worth of seconds * day of week
@@ -200,6 +210,9 @@ class core_model_delivery_days extends core_model_base_delivery_days
 					$this->__data['pickup_start_time'] = $pickup_start_time;
 					$this->__data['pickup_end_time'] = $pickup_end_time;
 
+
+					core::log('option 1');
+					#exit();
 					return $due_time;
 				}
 				else
@@ -209,7 +222,9 @@ class core_model_delivery_days extends core_model_base_delivery_days
 					$this->__data['delivery_end_time'] = $delivery_end_time + (7 * 86400);
 					$this->__data['pickup_start_time'] = $pickup_start_time + (7 * 86400);
 					$this->__data['pickup_end_time'] = $pickup_end_time + (7 * 86400);
-
+					
+					core::log('option 2');
+					#exit();
 					return $this->__data['due_time'];
 				}
 

@@ -37,9 +37,9 @@
 				?>
 				<h4 class="checkout_label">
 					<?=$verb?> 
-					on <?=core_format::date($deliv['pickup_start_time'],"short-weekday")?>
-					between <?=date('g:i a',$deliv['pickup_start_time'])?> 
-					and <?=date('g:i a',$deliv['pickup_end_time'])?>
+					on <?=core_format::date($deliv['pickup_start_time'],"short-weekday",false)?>
+					between <?=core_format::date($deliv['pickup_start_time'],'us-time')?> 
+					and <?=core_format::date($deliv['pickup_end_time'],'us-time')?>
 				</h4>
 				<?
 			}
@@ -48,9 +48,9 @@
 				?>
 				<span class="delivery"><?=$verb?> #<?=$count?>: </span>
 				<span class="delivery_date">
-					<?=core_format::date($deliv['pickup_start_time'],"short-weekday")?>
-					between <?=date('g:i a',$deliv['pickup_start_time'])?> 
-					and <?=date('g:i a',$deliv['pickup_end_time'])?>
+					<?=core_format::date($deliv['pickup_start_time'],"short-weekday",false)?>
+					between <?=core_format::date($deliv['pickup_start_time'],'us-time')?> 
+					and <?=core_format::date($deliv['pickup_end_time'],'us-time')?>
 				</span><br />
 				<?
 			}

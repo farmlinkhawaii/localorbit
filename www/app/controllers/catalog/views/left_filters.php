@@ -41,7 +41,7 @@ if (count($days) > 1)
 		list($type, $time) = explode('-', $key);
 		?>
 		<li class="filter dd" id="filter_dd_<?=$dd_ids?>"><a href="#!catalog-shop#dd<?=$dd_ids?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids?>'); return <?=$hashUrl?>;">
-		<?=$type?> <?=core_format::date($time, 'shorter-weekday')?></a>
+		<?=$type?> <?=core_format::date($time, 'shorter-weekday',false)?></a>
 		<input type="hidden" id="filtercheck_<?=$dd_ids?>" class="filtercheck" checked="checked" /></li>
 		<?
 	}

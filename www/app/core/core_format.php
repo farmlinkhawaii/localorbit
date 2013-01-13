@@ -123,7 +123,7 @@ class core_format
 		}
 	}
 	
-	public static function date($int,$format='long')
+	public static function date($int,$format='long',$do_session_adjust=true)
 	{
 		global $core;
 		
@@ -135,7 +135,9 @@ class core_format
 		
 		#echo('original is '.date($core->config['formats']['dates'][$format],$int).'<br />');
 		#echo('adjusting '.$int.' by '.$core->session['time_offset'].': '.($int + intval($core->session['time_offset'])).'<br />');
-		$int = ($int + intval($core->session['time_offset']));
+		if($do_session_adjust)
+			$int = ($int + intval($core->session['time_offset']));
+			
 		#echo('adjusted is '.date($core->config['formats']['dates'][$format],$int).'<br />');
 		return date($core->config['formats']['dates'][$format],$int);
 	}

@@ -9,6 +9,8 @@ class core_controller_catalog extends core_controller
 
 		$inv = 0;
 		
+		core::log('checking prod '.$core->data['prod_id'].' on dd '.$core->data['dd_id']);
+		
 		if($core->data['newQty'] == 0)
 		{
 			core::js('core.catalog.updateRowContinue(' . $core->data['prod_id'] . ', 0, ' . $core->data['dd_id'] . ');');
