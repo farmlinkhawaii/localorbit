@@ -65,10 +65,10 @@ if($core->data['redirect_to_checkout'] == 1)
 			<?=core_form::input_text($core->i18n['field:customer:firstname'],'first_name','',array('required' => true))?>
 			<?=core_form::input_text($core->i18n['field:customer:lastname'],'last_name','',array('required' => true))?>
 			<?=core_form::input_text($core->i18n['field:customer:email'],'email','',array('required' => true))?>
-			<?=core_form::input_text($core->i18n['field:customer:email-match'],'email_confirm','')?>
+			<?=core_form::input_text($core->i18n['field:customer:email-match'],'email_confirm','',array('required' => true))?>
 			
 			<?=core_form::input_password($core->i18n['field:customer:password'],'password','',array('required' => true))?>
-			<?=core_form::input_password($core->i18n['field:customer:password-match'],'password_confirm','')?>
+			<?=core_form::input_password($core->i18n['field:customer:password-match'],'password_confirm','',array('required' => true))?>
 			
 			
 			
@@ -98,7 +98,7 @@ if($core->data['redirect_to_checkout'] == 1)
 			<?=core_form::input_text($core->i18n['field:address:city'],'city','',array('required' => true))?>
 			
 			<div class="control-group">
-				<label class="control-label" for="label"><?=$core->i18n['field:address:state']?></label>
+				<label class="control-label" for="label"><?=$core->i18n['field:address:state']?><?=core_form::required()?></label>
 					<div class="controls">
 						<select name="region_id">
 							<option value="0"></option>
@@ -108,7 +108,7 @@ if($core->data['redirect_to_checkout'] == 1)
 			</div>
 	
 			<?=core_form::input_text($core->i18n['field:address:postalcode'],'postal_code','',array('required' => true))?>
-			<?=core_form::input_text($core->i18n['field:address:telephone'],'telephone','')?>
+			<?=core_form::input_text($core->i18n['field:address:telephone'],'telephone','',array('required'=>true))?>
 			
 			
 			<div style="display: none;" id="bad_address" class="info_area info_area_speech">We cannot locate your address. The address must be valid before you may save it.</div>
@@ -130,7 +130,7 @@ if($core->data['redirect_to_checkout'] == 1)
 			
 			<h2><?=$core->i18n['header:reg:newsletter-signup']?></h2>
 			<?=core_ui::checkdiv('subscribe_mailchimp',$core->i18n['field:reg:check-newsletter'])?>
-			
+			<br />&nbsp;<br />
 			<h2><?=$core->i18n['header:reg:tos']?><?=core_form::required()?></h2>
 			<?=core_ui::checkdiv('tos_approve',$core->i18n['field:reg:check-tos'])?>
 
@@ -142,8 +142,10 @@ if($core->data['redirect_to_checkout'] == 1)
 		</div>
 
 	</div>
-	<div class="buttonset form-actions">
-		<input type="submit" value="<?=$core->i18n['button:signup']?>" class="btn btn-primary btn-large" />
+	<div class="row">
+		<div class="span12">
+			<input type="submit" value="<?=$core->i18n['button:signup']?>" class="btn btn-primary btn-large pull-right" />
+		</div>
 	</div>
 	<input type="hidden" name="postauth_url" value="<?=$core->config['postauth_url']?>" />
 </form>
