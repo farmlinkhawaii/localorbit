@@ -11,8 +11,9 @@
 
 	
 	<!-- Button to trigger modal test -->
+	<!--
 	<a href="#releaseNewsModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
-	
+	-->
 	
 	<div id="releaseNewsContinue"></div>
 	
