@@ -98,7 +98,7 @@ if($core->data['redirect_to_checkout'] == 1)
 			<?=core_form::input_text($core->i18n['field:address:city'],'city','',array('required' => true))?>
 			
 			<div class="control-group">
-				<label class="control-label" for="label"><?=$core->i18n['field:address:state']?><?=core_form::required()?></label>
+				<label class="control-label" for="label"><?=core_form::required()?><?=$core->i18n['field:address:state']?></label>
 					<div class="controls">
 						<select name="region_id">
 							<option value="0"></option>
