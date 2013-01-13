@@ -34,9 +34,11 @@ core.registration.fakeFill=function(spamResult,realField){
 	document.regform.city.value = 'Ann Arbor';
 	document.regform.postal_code.value = '23423';
 	document.regform.telephone.value = '2342323223';
-	document.regform.fax.value = '23422324233';
+	//document.regform.fax.value = '23422324233';
 	document.regform.region_id.selectedIndex = 5;
-	document.regform.domain_id.selectedIndex = 1;
+	if(typeof(document.regform.domain_id) == 'object'){
+		document.regform.domain_id.selectedIndex = 1;
+	}
 	document.regform[realField].value=spamResult;
 	
 	document.regform.tos_approve.value = 1;

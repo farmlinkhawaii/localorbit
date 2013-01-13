@@ -32,8 +32,8 @@ class core_controller_registration extends core_controller
 			array('type'=>'min_length','name'=>'address','data1'=>5,'msg'=>$core->i18n['error:address:address']),
 			array('type'=>'min_length','name'=>'city','data1'=>2,'msg'=>$core->i18n['error:address:city']),
 			array('type'=>'min_length','name'=>'postal_code','data1'=>5,'msg'=>$core->i18n['error:address:postalcode']),
-			array('type'=>'not_equal_to','name'=>'latitude','data1'=>0,'msg'=>$core->i18n['error:address:valid_address']),
-			array('type'=>'value_is','name'=>'tos_approve','data1'=>1,'msg'=>$core->i18n['error:registration:tos_approve']),
+			#array('type'=>'not_equal_to','name'=>'latitude','data1'=>0,'msg'=>$core->i18n['error:address:valid_address']),
+			array('type'=>'is_checked','name'=>'tos_approve','data1'=>'on','msg'=>$core->i18n['error:registration:tos_approve']),
 		));
 	}
 
@@ -143,7 +143,7 @@ class core_controller_registration extends core_controller
 			$core->data['company_name'] = $core->data['first_name'] .' '.$core->data['last_name'];
 
 		# load the domain's settings
-		$domain = core::model('domains')->load($core->data['domain_id']);
+		#$domain = core::model('domains')->load($core->data['domain_id']);
 
 		# save to lo database
 		$org = core::model('organizations');
@@ -161,7 +161,7 @@ class core_controller_registration extends core_controller
 
 		$o2d = core::model('organizations_to_domains');
 		$o2d['org_id'] = $org['org_id'];
-		$o2d['domain_id'] = $core->data['domain_id'];
+		$o2d['domain_id'] = $core->config['domain']['domain_id'];
 		$o2d['orgtype_id'] = 3;
 		$o2d['is_home'] = 1;
 		$o2d->save();
@@ -207,9 +207,10 @@ class core_controller_registration extends core_controller
 				select org_id
 				from organizations_to_domains
 				where orgtype_id=2
-				and domain_id='.$core->data['domain_id'].'
+				and domain_id='.$core->config['domain']['domain_id'].'
 			)
 		');
+		core::log('retrieved mm list');
 		foreach($mms as $mm)
 		{
 			core::log('sending to '.$mm);
@@ -218,16 +219,18 @@ class core_controller_registration extends core_controller
 				$core->data['company_name'],
 				$user['first_name'].' '.$user['last_name'],
 				$core->data['email'],
-				'https://'.$domain['hostname'].'/app.php#!organizations-edit--org_id-'.$user['org_id'],
+				'https://'.$core->config['domain']['hostname'].'/app.php#!organizations-edit--org_id-'.$user['org_id'],
 				((intval($core->data['allow_sell']) == 0)?'Buyer only':'Buyer and Seller'),
-				$core->data['domain_id']
+				$core->config['domain']['domain_id']
 			);
 		}
+		
+		
 		core::process_command('emails/new_registrant',false,
 			$core->data['email'],
 			$user['first_name'],
-			$this->generate_verify_link($domain['hostname'],$user['entity_id']),
-			$core->data['domain_id']
+			$this->generate_verify_link($core->config['domain']['hostname'],$user['entity_id']),
+			$core->config['domain']['domain_id']
 		);
 
 		core::log('about to auth');

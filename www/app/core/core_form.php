@@ -165,7 +165,7 @@ class core_form
 
 	public static function required()
 	{
-		return '<span class="required">*</span>';
+		return ' <i class="icon-asterisk icon-required tooltipper" rel="tooltip" title="Required" /> ';
 	}
 
 	public static function tr_nv($label,$value,$options)
@@ -322,7 +322,7 @@ class core_form
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		if ($options['required'] == true): $required = '<i class="icon-asterisk icon-required" style="vertical-align: text-top;" rel="tooltip" title="Required" /> '; endif;
+		if ($options['required'] == true): $required = core_form::required(); endif;
 		#return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
 		
 		$html = '<div class="control-group">';
@@ -382,7 +382,7 @@ class core_form
 
 	public static function input_password($label,$name,$value='',$options=null)
 	{
-		$value = core_form::get_final_value($name,$value);
+		$value   = core_form::get_final_value($name,$value);
 		$options = core_form::finalize_options($options,array(
 			'sublabel'=>'',
 			'rowid'=>'',
@@ -391,10 +391,31 @@ class core_form
 			'info'=>'',
 			'info_icon'=>null,
 			'info_show'=>false,
+			'size'=>'input-large',
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
-		return core_form::tr_nv($label,'<input type="password" name="'.$name.'" value="'.$value.'" />',$options);
+		if ($options['required'] == true): $required = core_form::required(); endif;
+		#return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
+		
+		$html = '<div class="control-group">';
+		$html .= '<label class="control-label" for="' . $name . '">' . $required . $label;
+		
+		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
+
+		if ($options['popover']):
+			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $label . '" data-content="' . $options['popover'] . '" />';
+		endif;
+		
+		$html .= '</label>';
+		$html .= '<div class="controls"><input type="password" name="'.$name.'" class="' . $options['size'] . '" value="'.$value.'" />';
+		
+		#if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
+
+		$html .= '</div>
+		</div>';
+		
+		return $html;
 	}
 
 	public static function input_select($label,$name,$value,$source,$options=null)
@@ -480,7 +501,7 @@ class core_form
 		));
 
 		if ($options['render'] != true)	return '';
-		if ($options['required'] == true): $required = '<i class="icon-asterisk icon-required tooltipper" rel="tooltip" title="Required" /> '; endif;
+		if ($options['required'] == true): $required = core_form::required(); endif;
 
 		#return core_form::tr_nv($label,'<textarea name="'.$name.'" rows="'.$options['rows'].'" cols="'.$options['cols'].'">'.$value.'</textarea>',$options);
 			

@@ -164,7 +164,7 @@ core.validateForm=function(){
 	}
 	
 	if(typeof(form) != 'object'){
-		core.ui.error('Could not find a form to validate.');
+		//core.ui.error('Could not find a form to validate.');
 		return false;
 	}
 	

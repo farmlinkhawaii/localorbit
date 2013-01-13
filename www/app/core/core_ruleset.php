@@ -14,6 +14,11 @@ class core_ruleset
 		return (strlen($value) >= $min || ($allow_blank == 'yes' && strlen($value)  == 0));
 	}
 	
+	function is_checked($value)
+	{
+		return ($value == 1 || $value == 'on');
+	}
+		
 	function value_is($value,$must_equal)
 	{
 		return (trim($value) == trim($must_equal));

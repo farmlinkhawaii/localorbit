@@ -177,8 +177,9 @@ core.submit=function(action,form,extraData){
 	});
 	var data = '';
 	
-	if(!core.validateForm(form))
+	if(!core.validateForm(form)){
 		return false;
+	}
 	
 	data += core.getFormDataForSubmit(form);
 	
