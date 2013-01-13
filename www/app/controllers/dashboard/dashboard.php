@@ -161,13 +161,20 @@ class core_controller_dashboard extends core_controller
 		#print_r($core->session);
 		$this->dashboard_note();
 		if(lo3::is_admin())
+		{
+			$this->release_news();
 			$this->admin_dashboard();
+		}
 		else if(lo3::is_market())
+		{
+			$this->release_news();
 			$this->market_dashboard();
+		}
 		else if(lo3::is_customer())
 		{
 			core::log('user active state: '.$core->session['is_active']);
 			core::log('org  active state: '.$core->session['org_is_active']);
+			$this->release_news();
 			if($core->session['allow_sell'] == 1)
 			{
 				core::log('this is a seller');
