@@ -1,12 +1,22 @@
 <?
+	core::log('show it: '.(print_r($_COOKIE['cookie'],true)));
 	// reset to test  devannarbor-mi.localorb.it/release_news.php?has_seen_release_news=0
-	if (isset($_GET["has_seen_release_news"])) {
-		setcookie("has_seen_release_news", $_GET["has_seen_release_news"]);
+	if (isset($core->data["has_seen_release_news"])) {
+		#setcookie("has_seen_release_news",'yes');
+		core::log('pre set: '.print_r($_COOKIE['cookie'],true));
+		$user = core::model('customer_entity')->load($core->session['user_id']);
+		$user['login_note_viewed'] = 1;
+		$user->save();
+		$core->session['login_note_viewed'] = 1;
+		setcookie("has_seen_release_news",'yes',time()+999999999,'/',$core->config['domain']['hostname']);
+		core::log('post set: '.print_r($_COOKIE['cookie'],true));
+		
 		core::js('$("#releaseNewsModal").modal("hide");');
 		core::deinit();
 	}
-		
-	if ($_COOKIE["has_seen_release_news"] != true) {	
+	else if ($core->session['login_note_viewed']  != 1)
+	{
+	
 ?>
 
 	

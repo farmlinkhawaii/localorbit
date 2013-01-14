@@ -100,6 +100,7 @@ class core_controller_auth extends core_controller
 		else
 		{
 			$core->session['org_id']     = $user['org_id'];
+			$core->session['login_note_viewed']     = $user['login_note_viewed'];
 			$core->session['is_active']  = $user['is_active'];
 			$core->session['org_is_active']  = $user['org_is_active'];
 			$core->session['org_name']   = $user['name'];
@@ -232,6 +233,7 @@ class core_controller_auth extends core_controller
 		$user->load($core->data['entity_id']);
 		
 		$core->session['user_id']    = $user['entity_id'];
+		$core->session['login_note_viewed']     = $user['login_note_viewed'];
 		$core->session['org_name']   = $user['name'];
 		$core->session['org_id']     = $user['org_id'];
 		$core->session['hub_name']   = $user['hub_name'];
