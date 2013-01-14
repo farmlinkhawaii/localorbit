@@ -27,14 +27,14 @@ foreach($delivs as $key=>$deliv)
 		Between <?=core_format::date($deliv['delivery_start_time'],'time')?> and <?=core_format::date($deliv['delivery_end_time'],'time')?><br />
 		-->
 		<ul>
-			<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>pick_list?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>">Pick List</a></li>
+			<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>pick_list?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>"><i class="icon-clipboard"></i>Pick List</a></li>
 			<?if(lo3::is_market() || lo3::is_admin()){?>
-				<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>master_packing_list?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>">Master Packing Slips (for aggregation)</a></li>
-				<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>buyer_packing_slips?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>">Individual Packing Slips (per seller)</a></li>
+				<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>master_packing_list?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>"><i class="icon-stack-list"></i>Master Packing Slips (for aggregation)</a></li>
+				<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>buyer_packing_slips?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>"><i class="icon-file"></i>Individual Packing Slips (per seller)</a></li>
 			<?}else{?>
-				<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>buyer_packing_slips?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>">Individual Packing Slips</a></li>
+				<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>buyer_packing_slips?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>"><i class="icon-file"></i>Individual Packing Slips</a></li>
 			<?}?>
-			<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>order_summary?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>">Order Summary</a></li>
+			<li><a target="_blank" href="app/delivery_tools/<?=((lo3::is_customer())?'':'hub_')?>order_summary?end_time=<?=$deliv['delivery_end_time']?>&start_time=<?=$deliv['delivery_start_time']?>&lodeliv_id=<?=implode('%20',$deliv['lodeliv_ids'])?>"><i class="icon-grid"></i>Order Summary</a></li>
 		</ul>
 	</div>
 	<?php

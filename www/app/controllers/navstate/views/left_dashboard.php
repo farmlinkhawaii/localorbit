@@ -18,14 +18,14 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-cog icon-large"></i>
+					<i class="icon-wand icon-large"></i>
 					<?=$core->i18n['nav2:marketadmin']?>
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!market-list" onclick="core.go(this.href);">Markets</a></li>
-					<li><a href="#!users-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:users']?></a></li>
-					<li><a href="#!organizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);"><i class="icon-home"></i>Markets</a></li>
+					<li><a href="#!users-list" onclick="core.go(this.href);"><i class="icon-users"></i><?=$core->i18n['nav2:marketadmin:users']?></a></li>
+					<li><a href="#!organizations-list" onclick="core.go(this.href);"><i class="icon-grid"></i><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
 					<li><a href="#!events-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
 					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
 					<li><a href="https://us1.admin.mailchimp.com/campaigns/">Mailchimp Statistics</a></li>
@@ -36,7 +36,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-truck icon-large"></i>
+					<i class="icon-signup icon-large"></i>
 					Products & Delivery
 					<b class="caret"></b>
 				</a>
@@ -57,11 +57,11 @@
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!discount_codes-list" onclick="core.go(this.href);">Discount Codes</a></li>
-					<li><a href="#!newsletters-list" onclick="core.go(this.href);">Newsletters</a></li>
-					<li><a href="#!market_news-list" onclick="core.go(this.href);">Market News</a></li>
+					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
+					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
+					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
-					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);">Featured Deals</a></li>
+					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-thumbs-up"></i>Featured Items</a></li>
 					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
@@ -72,7 +72,7 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-bar-chart icon-large"></i>
+					<i class="icon-bars icon-large"></i>
 					Reports
 					<b class="caret"></b>
 				</a>
@@ -116,37 +116,37 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-truck icon-large"></i>
+					<i class="icon-signup icon-large"></i>
 					Orders & Delivery
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!orders-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
-					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
-					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
+					<li><a href="#!orders-list" onclick="core.go(this.href);"><i class="icon-clipboard"></i><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
+					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><i class="icon-stack-checkmark"></i><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
+					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 				</ul>
 			</li>
 		</ul>
-		<ul class="nav"><li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-tasks"/><?=$core->i18n['nav2:marketadmin:products']?></a></li>
+		<ul class="nav"><li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"/><?=$core->i18n['nav2:marketadmin:products']?></a></li>
 		</ul>
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-qrcode icon-large"></i>
+					<i class="icon-bullhorn icon-large"></i>
 					Marketing
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!discount_codes-list" onclick="core.go(this.href);">Discount Codes</a></li>
-					<li><a href="#!newsletters-list" onclick="core.go(this.href);">Newsletters</a></li>
-					<li><a href="#!market_news-list" onclick="core.go(this.href);">Market News</a></li>
+					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
+					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
+					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
-					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);">Featured Deals</a></li>
-					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
+					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-thumbs-up"></i>Featured Items</a></li>
+					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 				</ul>
 			</li>
 		</ul>
-		<ul class="nav"><li><a href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bar-chart"></i> <?=$core->i18n['nav2:marketadmin:reports']?></a></li></ul>
+		<ul class="nav"><li><a href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars icon-large"></i> <?=$core->i18n['nav2:marketadmin:reports']?></a></li></ul>
 
 		<?} # / is market manager ?>
 
@@ -155,44 +155,44 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-signal icon-large"></i>
+					<i class="icon-bars icon-large"></i>
 					Sales Information
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);">Upcoming Deliveries</a></li>
 					<li><a href="#!orders-current_sales" onclick="core.go(this.href);">Current Sales</a></li>
-					<li><a href="#!products-list" onclick="core.go(this.href);">Products</a></li>
 					<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
 					<!-- <li><a href="#!orders-sales_report" onclick="core.go(this.href);">Sales History</a></li> -->
 					<!-- <li><a href="#!payment_report-view" onclick="core.go(this.href);">Payment History</a></li> -->					
 				</ul>
 			</li>
 		</ul>
+		<ul class="nav"><li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit icon-large"></i> Products</a></li></ul>
 
 		<?} # / is customer or seller ?>
 		
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-user icon-large"></i>
+					<i class="icon-address-book icon-large"></i>
 					Account
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li>	
-					<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Email &amp; Password</a></li>
-					<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
+					<!--<li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li>	-->
+					<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-key"></i>E-mail 	&amp; Password</a></li>
+					<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-grid"></i>Your Organization</a></li>
 					<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
-					<?if(lo3::is_customer() && !lo3::is_seller()){?>
-					<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
-					<?}?>
-					<li><a href="#!orders-purchase_history" onclick="core.go(this.href);">Purchase History</a></li>
-						<!--
-						<? if(!lo3::is_seller()){?>
-						<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
+						<?if(lo3::is_customer() && !lo3::is_seller()){?>
+							<li><a href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
 						<?}?>
-						-->
+						<li><a href="#!orders-purchase_history" onclick="core.go(this.href);"><i class="icon-cart-checkout"></i>Purchase History</a></li>
+							<!--
+							<? if(!lo3::is_seller()){?>
+							<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
+							<?}?>
+							-->
 					<?}?>				
 				</ul>
 			</li>
@@ -202,73 +202,14 @@
 
 	</div>
 </div>
-
 <? core::replace('dashboardnav'); ?>
 
 <? else: ?>
-<div class="navbar navbar-static-top">
-	<div class="navbar-inner">
-		
-		<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-		<a class="btn btn-navbar" data-toggle="collapse" data-target="#dashnav">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</a>
-		
-		<!--<small class="brand visible-phone">Administration</small>-->
-
-		<div id="dashnav" class="nav-collapse collapse">
-			<ul class="nav"><li><a href="#!orders-purchase_history" onclick="core.go(this.href);"><i class="icon-signal icon-large"></i>
-				Purchase History</a></li></ul>
-			<!--<ul class="nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-signal icon-large"></i>
-						Sales Information
-						<b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#!delivery_tools-view" onclick="core.go(this.href);">Upcoming Deliveries</a></li>
-						<li><a href="#!orders-current_sales" onclick="core.go(this.href);">Current Sales</a></li>
-						<li><a href="#!products-list" onclick="core.go(this.href);">Products</a></li>
-						<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
-					</ul>
-				</li>
-			</ul>-->
-			<ul class="nav">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-user icon-large"></i>
-					Account
-					<b class="caret"></b>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Email &amp; Password</a></li>
-					<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
-					<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
-					<?if(lo3::is_customer() && !lo3::is_seller()){?>
-					<!--<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>-->
-					<?}?>
-					<!--<li><a href="#!orders-purchase_history" onclick="core.go(this.href);">Purchase History</a></li>-->
-						<!--
-						<? if(!lo3::is_seller()){?>
-						<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
-						<?}?>
-						-->
-					<?}?>				
-				</ul>
-			</li>
-		</ul>
-		</div>
-	</div>
-</div>
-<? core::replace('dashboardnav'); ?>
 
 <h2>Your Account</h2>
 <ul class="nav nav-list">				
-	<li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li>		
-	<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Email &amp; Password</a></li>
+	<!-- <li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li> -->		
+	<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
 	<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
 	<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
 	<li><a href="#!orders-purchase_history" onclick="core.go(this.href);">Purchase History</a></li>
