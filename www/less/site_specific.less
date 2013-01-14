@@ -49,7 +49,9 @@ a i.icon, a i.icon:hover { text-decoration: none; color: #666; }
 
 /* Structure --------------- */
 
-
+#datePicker {
+	width: inherit !important;
+}
 
 html,
 body {
@@ -125,7 +127,7 @@ body {
 			overflow:hidden;
 			margin: 0 auto;
 			}
-	
+
 
 	#navrow { margin-top: 20px;}
 
@@ -138,7 +140,7 @@ body {
 	    float:right;
 		list-style: none;
 		}
-		
+
 		#mainnav li {
 		    float: left;
 			}
@@ -150,31 +152,31 @@ body {
 				padding: 4px 14px;
 				text-align: right;
 				}
-				
+
 				#mainnav li.last a {  }
-			
+
 				#mainnav li a:hover,
-				#mainnav li a.active { 
-					background-color: @mastercolor; 
+				#mainnav li a.active {
+					background-color: @mastercolor;
 					color: #fff;
 					text-decoration: none;
 					.border-radius(6px);
 					#gradient > .vertical(fade(@secondarycolor, 60%), @secondarycolor);
 					}
-				
+
 					#mainnav li a .nav-actual {
 						font-size: 36px;
 						line-height: 40px;
 						}
- 
+
 					#mainnav li a .nav-sec {
 					    display: none;
 					    font-size: 12px;
 					    font-weight: normal;
 						color: #333;
-						
+
 						}
-						
+
 						#mainnav li a:hover .nav-sec,
 						#mainnav li a.active .nav-sec { color: #fff;}
 
@@ -227,7 +229,7 @@ body {
 
 .nav-tabs a {
 }
-	
+
 	.nav-tabs a:hover {
 	}
 
@@ -390,7 +392,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; font-family: @
 .popover {
 	width: 310px !important;
 	font-size: 11px !important;
-	line-height: 15px; 
+	line-height: 15px;
 	}
 
 	.popover-title {
@@ -402,7 +404,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; font-family: @
 		padding-top: 8px !important;
 		padding-bottom: 4px !important;
 		}
-	
+
 	.popover-title,
 	.popover-content {
 		padding-left: 8px !important;
@@ -414,7 +416,7 @@ form.form-horizontal h3 { background: #f9f9f9; padding-left: 5px; font-family: @
 	padding-left: 35%;
 	padding-right: 0;
 	}
-	
+
 .form-actions {
 	background: none;
 	border: none;
@@ -461,27 +463,27 @@ h4.subcategory {
 	.box-shadow(0px 0px 5px hsla(hue(fade(@grayLighter, 10%)), saturation(fade(@grayLighter, 5%)), lightness(darken(@grayLighter, 5%)), .5));
 	.border-radius(8px);
 	}
-	
+
 	#left #weekly_special { margin: 0 !important; }
 
 	#weekly_special h1 i { color: @secondarycolor; }
-	
+
 	#weekly_special .first { margin-left: 0;}
 
 	#weekly_special h3.dealtitle { line-height: 120%; }
-	
+
 	#weekly_special .hideit { position: relative; right: 20px;}
-	
+
 	#weekly_special .priceList,
 	#weekly_special .cartstuff { position: relative; left: -10px; }
-	
+
 	#weekly_special p.note { margin-top: 12px; padding-right: 20px;}
 
 
 .product-row {
 	padding-bottom: 10px;
 	margin-bottom: 10px;
-	
+
 }
 
 .product-row hr { border-top: 1px fade(@secondarycolor, 10%) solid; margin-top: 10px; margin-bottom: 10px;}
@@ -490,18 +492,18 @@ h4.subcategory {
 	margin: 0;
 	font-weight: normal;
 	}
-	
+
 	.product-info a i.icon { font-size: 120%; position: relative; top: 1px;}
-	
-	.product-info .whowhatwhere a { 
-		color: #666; 
-	
+
+	.product-info .whowhatwhere a {
+		color: #666;
+
 	}
 
 .priceList {
 	list-style: none;
 	}
-	
+
 	.priceList small { text-transform: lowercase;}
 
 .prodQty {
@@ -538,7 +540,7 @@ h4.subcategory {
 	}
 
 	.product-row .dropdown-menu { font-size: 80%; min-width: 0; }
-	
+
 	.product-row .dropdown-menu li > a { padding-left: 5px; padding-right: 5px; }
 
 
