@@ -73,8 +73,8 @@ $discount_codes->add(new core_datacolumn('discount_type','Type',true,'5%','<a hr
 $discount_codes->add(new core_datacolumn('nbr_uses_global','Uses',true,'6%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{nbr_discount_uses}</a>','{nbr_discount_uses}','{nbr_discount_uses}'));
 $discount_codes->add(new core_datacolumn('nbr_uses_global','Available',true,'10%','<a href="#!discount_codes-edit--disc_id-{disc_id}">{available_uses}</a>','{available_uses}','{available_uses}'));
 $discount_codes->add(new core_datacolumn('disc_id',' ',false,'24%','
-	<a class="btn btn-danger" href="#!discount_codes-list" onclick="if(confirm(\'Are you sure you want to delete this discount?\')){core.doRequest(\'/discount_codes/delete\',\'&disc_id={disc_id}\');return false;}"><i class="icon-minus" /> Delete</a>
-	<a class="btn btn-info" href="#!discount_codes-list" onclick="core.doRequest(\'/discount_codes/copy_code\',{\'disc_id\':{disc_id}});"><i class="icon-copy" /> Copy</a>
+	<a class="btn btn-small btn-danger" href="#!discount_codes-list" onclick="if(confirm(\'Are you sure you want to delete this discount?\')){core.doRequest(\'/discount_codes/delete\',\'&disc_id={disc_id}\');return false;}"><i class="icon-minus" /> Delete</a>
+	<a class="btn btn-small btn-info" href="#!discount_codes-list" onclick="core.doRequest(\'/discount_codes/copy_code\',{\'disc_id\':{disc_id}});"><i class="icon-copy" /> Copy</a>
 ',' ',' '));
 page_header('Discount Codes','#!discount_codes-edit','Create new code','button');
 $discount_codes->render();

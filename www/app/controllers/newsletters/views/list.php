@@ -47,7 +47,7 @@ else if(!lo3::is_admin())
 
 $newsletters->add(new core_datacolumn('domain_name','Hub',true,'33%','<a href="#!newsletters-edit--cont_id-{cont_id}">{domain_name}</a>','{domain_name}','{domain_name}'));
 $newsletters->add(new core_datacolumn('title','Title',true,'55%','<a href="#!newsletters-edit--cont_id-{cont_id}">{title}</a>','{title}','{title}'));
-$newsletters->add(new core_datacolumn('title','Action',false,'12%','<a class="btn btn-danger" href="#!newsletters-list" onclick="if(confirm(\'Are you sure you want to delete this newsletter?\')){core.doRequest(\'/newsletters/delete\',\'&cont_id={cont_id}\');return false;}"><i class="icon-minus" /> Delete</a>','',''));
+$newsletters->add(new core_datacolumn('title','Action',false,'12%','<a class="btn btn-small btn-danger" href="#!newsletters-list" onclick="if(confirm(\'Are you sure you want to delete this newsletter?\')){core.doRequest(\'/newsletters/delete\',\'&cont_id={cont_id}\');return false;}"><i class="icon-minus" /> Delete</a>','',''));
 
 page_header('Newsletters','#!newsletters-edit','Create new newsletter','button');
 $newsletters->render();
