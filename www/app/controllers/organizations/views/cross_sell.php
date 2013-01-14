@@ -58,18 +58,19 @@ if($data['allow_sell'] == 1 and $domains->__num_rows > 0)
 				)
 			); ?>
 
-			<? foreach($dds[$domain['domain_id']] as $dd) { ?>
-				<? if($ocs_list[$domain['domain_id']]): ?>
-					<?= core_form::input_check(
+			<? /*
+			foreach($dds[$domain['domain_id']] as $dd) { 
+				if($ocs_list[$domain['domain_id']]):
+					core_form::input_check(
 						$dd['formatted_cycle'].', '.$dd['formatted_address'],
 						'deliver_on_'.$dd['dd_id'],
 						$ods_list[$dd['dd_id']],
 						array(
 						
 						)
-					); ?>
-				<? endif; ?>
-			<? } ?>
+					);
+				endif; 
+			<? } */ ?>
 		<? } ?>
 
 	</div>
