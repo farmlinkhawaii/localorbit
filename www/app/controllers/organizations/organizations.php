@@ -441,6 +441,7 @@ class core_controller_organizations extends core_controller
 	{
 		global $core;
 		core_db::query('update addresses set is_deleted=1 where address_id in ('.$core->data['address_ids'].');');
+		core_db::query('update products set addr_id=0 where addr_id in ('.$core->data['address_ids'].');');
 		core_datatable::js_reload('addresses');
 
 		core_ui::notification('addresses deleted');
