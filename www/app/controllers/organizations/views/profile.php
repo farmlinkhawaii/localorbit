@@ -40,13 +40,13 @@ if($data['allow_sell'] == 1)
 					<img id="orgImg" src="<?=$webpath?>" class="img_upload_view" />
 				</div>
 				<div class="buttonset">
-					<input type="file" name="new_image" class="btn" value="" /><br />
-					<input type="button" class="btn button_secondary" value="Upload" onclick="core.ui.uploadFrame(document.organizationsForm,'uploadArea','org.refreshImage({params});','app/organizations/save_image');" /><br />
-					<input type="button" id="removeLogo" class="btn button_secondary" value="Remove Image" onclick="core.doRequest('/organizations/remove_image',{'org_id':<?=$data['org_id']?>});" /> <br />
+					<input type="file" name="new_image" class="btn" value="" />
+					<input type="button" class="btn btn-info" value="Upload" onclick="core.ui.uploadFrame(document.organizationsForm,'uploadArea','org.refreshImage({params});','app/organizations/save_image');" />
+					<input type="button" id="removeLogo" class="btn btn-warning" value="Remove Image" onclick="core.doRequest('/organizations/remove_image',{'org_id':<?=$data['org_id']?>});" /> <br />
 				</div>
 				
-				<iframe name="uploadArea" id="uploadArea" width="300" height="20" style="color:#fff;background-color:#fff;overflow:hidden;"></iframe><br />
-				<?=core_ui::checkdiv('public_profile','Show my profile on Our Sellers page.',($data['public_profile'] == 1))?>				
+				<iframe name="uploadArea" id="uploadArea" width="300" height="20" style="border-width: 0px;color:#fff;background-color:#fff;overflow:hidden;"></iframe><br />
+				<?=core_ui::checkdiv('public_profile','Show my profile on Our Sellers page.',($data['public_profile'] == 1))?>	
 			</div>
 		</div>
 	</div>
