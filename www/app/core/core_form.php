@@ -180,8 +180,7 @@ class core_form
 		}
 		else
 		{
-			$label .= (isset($options['required']) && $options['required'] == true)?
-				core_form::required():'';
+			$label = ((isset($options['required']) && $options['required'] == true)?core_form::required():'').$label;
 		}
 		$value .= (isset($options['info'])  && $options['info'] != '')?
 			core_form::info($options['info'],$options['info_icon'],$options['info_show']):'';
@@ -268,6 +267,7 @@ class core_form
 			'info_icon'=>null,
 			'info_show'=>false,
 			'render'=>true,
+			'required'=>false,
 		));
 		if($options['render'] != true)	return '';
 		return core_form::tr_nv($label,$value,$options);
