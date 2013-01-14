@@ -161,8 +161,8 @@ function product_pricing($data)
 			}
 			else
 			{
-				$out .= $price['price'];
-				$html_out .= $price['price'];
+				$out .= core_format::price($price['price']);
+				$html_out .= core_format::price($price['price']);
 			}
 			
 			if($price['min_qty'] > 1)
