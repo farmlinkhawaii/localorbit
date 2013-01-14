@@ -43,11 +43,14 @@ $(function()
 <ul class="nav pull-right">
 	<li class="divider-vertical"></li>
 	
-	<?// if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>	
+	<?if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>	
 		<li>
 			<a href="<?=$core->config['app_page']?>#!dashboard-home" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
 		</li>
-	<?// else: ?>
+	<? else: ?>
+		<li>
+			<a href="<?=$core->config['app_page']?>#!orders-purchase_history" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
+		</li>
 	<!--	<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="">Your Account</a>
 			<ul class="dropdown-menu">
@@ -66,7 +69,7 @@ $(function()
 				<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>					
 			</ul>
 		</li>-->
-	<?// endif; ?>
+	<? endif; ?>
 	
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
