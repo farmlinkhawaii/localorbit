@@ -596,6 +596,11 @@ core.loadLibrary=function(filetype,filename){
 		document.getElementsByTagName("head")[0].appendChild(fileref)
 }
 
+$(document).click(function (evt){
+	if (!$(evt.srcElement).hasClass('datepicker')) {
+		$('#datePicker').hide();
+	}
+});
 //~ loadjscssfile("myscript.js", "js") //dynamically load and add this .js file
 //~ loadjscssfile("javascript.php", "js") //dynamically load "javascript.php" as a JavaScript file
 //~ loadjscssfile("mystyle.css", "css") ////dynamically load and add this .css file
