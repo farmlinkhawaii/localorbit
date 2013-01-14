@@ -164,7 +164,7 @@ class core_controller_auth extends core_controller
 					$core->session['allow_sell'] == 0
 				)
 				{
-					header('Location: https://'.$final_hostname.'/'.$core->config['app_page'].'#!catalog-shop');
+					header('Location: https://'.$final_hostname.'/'.$core->config['app_page'].'#!catalog-shop--show_news-yes');
 					exit();
 					core::js('core.navState={};location.href=\'\';');
 				}

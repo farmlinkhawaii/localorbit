@@ -174,10 +174,10 @@ class core_controller_dashboard extends core_controller
 		{
 			core::log('user active state: '.$core->session['is_active']);
 			core::log('org  active state: '.$core->session['org_is_active']);
-			$this->release_news();
 			if($core->session['allow_sell'] == 1)
 			{
 				core::log('this is a seller');
+				$this->release_news();
 				if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1)
 				{
 					$this->seller_dashboard();

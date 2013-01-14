@@ -276,6 +276,13 @@ else
 core::js("window.setTimeout('core.catalog.initCatalog();',1000);");
 core_ui::showLeftNav();
 
+
+# if the buyer is reaching this page after logging in, show the news
+if($core->data['show_news'] == 'yes')
+{
+	core::process_command('dashboard/release_news');
+}
+
 #core::log('total time on server: '.($end - $start))
 ?><div id="deliveryDateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">

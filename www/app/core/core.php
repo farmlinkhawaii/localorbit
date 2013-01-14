@@ -589,7 +589,7 @@ class core
 			$new_content = trim(ob_get_clean());
 			if($new_content != '')
 			{
-				$core->response['replace']['center'] = $new_content; 
+				$core->response['replace']['center'] .= $new_content; 
 			}
 			ob_start();
 		}
