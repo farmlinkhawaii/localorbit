@@ -38,7 +38,7 @@ echo(
 </div>
 
 <?=core_form::input_text('Organization','name',$data['name'],array('required' => true))?>
-
+<!--
 <div class="control-group">
 	<label class="control-label" for="facebook">
 		<?=$core->i18n['organizations:facebook']?>
@@ -69,7 +69,7 @@ echo(
 		</div>
 	</div>
 </div>
-
+-->
 
 <? if(lo3::is_admin() || lo3::is_market()): ?>
 		
