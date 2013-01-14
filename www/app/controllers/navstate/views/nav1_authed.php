@@ -43,12 +43,12 @@ $(function()
 <ul class="nav pull-right">
 	<li class="divider-vertical"></li>
 	
-	<? if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>	
+	<?// if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>	
 		<li>
 			<a href="<?=$core->config['app_page']?>#!dashboard-home" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
 		</li>
-	<? else: ?>
-		<li class="dropdown">
+	<?// else: ?>
+	<!--	<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="">Your Account</a>
 			<ul class="dropdown-menu">
 				<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
@@ -65,8 +65,8 @@ $(function()
 				<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>					
 				<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>					
 			</ul>
-		</li>
-	<? endif; ?>
+		</li>-->
+	<?// endif; ?>
 	
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
