@@ -402,9 +402,14 @@ core.catalog.setAddressCache=function(address,gcResult){
 
 core.catalog.checkInventoryFailure=function(prodId, maximumQuantity, dd_id){
 	core.log('failure...');
+	var qtyAlert = $('#prod_' +prodId+ '_min_qty');
+	//alert('test');
 	$('.prodQty_'+prodId).val(parseFloat(maximumQuantity));
-	$('#qtyBelowInv_'+prodId).html(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.').fadeIn(300);
-	core.catalog.updateRowContinue(prodId, maximumQuantity, dd_id);
+	qtyAlert.find('small').text(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.')
+	qtyAlert.show();
+	qtyAlert.alert();
+	//$('#qtyBelowInv_'+prodId).html(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.').fadeIn(300);
+	core.catalog.updateRowContinue(prodId, maximumQuantity, dd_id, true);
 }
 
 core.catalog.doWeeklySpecial=function(prodId){
@@ -413,7 +418,7 @@ core.catalog.doWeeklySpecial=function(prodId){
 	$('#weekly_special').fadeOut('fast');
 }
 
-core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
+core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 	//alert('ok, all set to update the ui: '+prodId+'/'+newQty+'/'+dd_id);
 	
 	// loop through all the products
@@ -454,7 +459,9 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
 
 	// if we we found a valid price,
 	if(priceId > 0){
-		qtyAlert.hide();
+		if (!failure) {
+			qtyAlert.hide();
+		}
 		//alert('lowest is: '+priceId+' / '+rowTotal);
 		//alert();
 		core.catalog.setQty(prodId,newQty,rowTotal);
@@ -465,7 +472,7 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
 		if(newQty > 0){
 			qtyAlert.find('small').text('You must order at least '+parseFloat(lowestMin))
 			qtyAlert.show();
-			qtyAlert.alert();
+			//qtyAlert.alert();
 			//alert('You must order '+prodId+' at least '+parseFloat(lowestMin))
 			//$('#qtyBelowMin_'+prodId).html().show();
 		}
