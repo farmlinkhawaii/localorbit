@@ -148,7 +148,7 @@ core.catalog.confirmDeliveryDateChange = function (confirmed) {
 					}
 				});
 				if (isValid) {
-					jq.find('.dd_selector').text(text);
+					jq.find('.dd_selector .content').text(text);
 					jq.find('.prodDd').val(core.catalog.filters.dd);
 					//core.catalog.updateRow(prodId, prodQtyJq.val());
 				}
@@ -162,7 +162,7 @@ core.catalog.confirmDeliveryDateChange = function (confirmed) {
 					}
 				});
 				if (isValid) {
-					jq.find('.dd_selector').text(text);
+					jq.find('.dd_selector .content').text(text);
 					jq.find('.prodDd').val(core.catalog.filters.dd);
 				}
 			}
@@ -420,16 +420,16 @@ core.catalog.doWeeklySpecial=function(prodId){
 
 core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 	//alert('ok, all set to update the ui: '+prodId+'/'+newQty+'/'+dd_id);
-	
+
 	// loop through all the products
 	var priceId = -1;
 	var lowestMin = 100000000000000;
 	var rowTotal = 100000000000000;
-	
+
 	//core.alertHash(core.prices[prodId])
-	
+
 	for (var i = 0; i < core.prices[prodId].length; i++){
-		
+
 		// reformat the min qty to zero if it came across as an object (nulls can do this)
 		if(typeof(core.prices[prodId][i]['min_qty']) == 'object')
 			core.prices[prodId][i]['min_qty'] = 0;
@@ -673,4 +673,10 @@ core.catalog.popupLoginRegister=function(idx){
 	core.doRequest('/catalog/popup_login_register',{});
 }
 
+core.catalog.changeProductDeliveryDay=function(prodId, dd_ids) {
+	var jq = $('#product_' + prodId);
+	var text = $.trim($('#filter_dd_' + dd_ids).text());
+	jq.find('.dd_selector .content').text(text);
+	jq.find('.prodDd').val(dd_ids);
+};
 //core.catalog.initCatalog();

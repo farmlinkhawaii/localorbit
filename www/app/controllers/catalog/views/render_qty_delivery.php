@@ -54,7 +54,7 @@ $total = floatval($core->view[5]);
 			list($type, $time) = explode('-', $key);
 			?>
 			<a class="dropdown-toggle dd_selector" data-toggle="dropdown">
-				<?=$type?> <?=core_format::date($time, 'shortest-weekday',false)?>
+				<span class="content"><?=$type?> <?=core_format::date($time, 'shortest-weekday',false)?></span>
 				<span class="caret"></span>
 			</a>
 			<input class="prodDd" type="hidden" name="prodDd_<?=$prod['prod_id']?>" id="prodDd_<?=$prod['prod_id']?>" value="<?=$dd_ids_id?>"/>
@@ -66,7 +66,7 @@ $total = floatval($core->view[5]);
 					$dd_ids_id = implode('_', array_keys($day));
 					list($type, $time) = explode('-', $key);
 					?>
-					<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.setFilter('dd','<?=$dd_ids_id?>');">
+					<li class="filter dd" id="filter_dd_<?=$dd_ids_id?>"><a href="<?=($hashUrl?'#!catalog-shop#dd='.$dd_ids_id:'#')?>" onclick="core.catalog.changeProductDeliveryDay(<?=$prod['prod_id']?>,'<?=$dd_ids_id?>');">
 					<?=$type?> <?=core_format::date($time, 'shorter-weekday',false)?></a>
 					</li>
 					<?

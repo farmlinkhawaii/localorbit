@@ -47,11 +47,11 @@ $rendered_prices = 0;
 		</div>
 
 		<div class="span4 product-info">
-			<? $this->render_product_description($prod,$seller); ?>	
+			<? $this->render_product_description($prod,$seller); ?>
 		</div>
 
 		<ol class="span2 priceList">
-			<? $this->render_product_pricing($pricing); ?>	
+			<? $this->render_product_pricing($pricing); ?>
 		</ol>
 
 		<div class="span2">

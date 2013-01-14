@@ -21,7 +21,7 @@ if (count($all_products[$data['prod_id']]) <= 0) {
 $inv = $data->get_inventory();
 $prices = core::model('product_prices')->load_for_product($data['prod_id'],$core->config['domain']['domain_id'],intval($core->session['org_id']));
 core::js('core.prices ='.json_encode(array($data['prod_id']=>$prices)).';');
-		
+
 $img = $data->get_image();
 $org = core::model('organizations')->load($data['org_id']);
 
@@ -38,7 +38,7 @@ foreach($cart->items as $item)
 	core::log("chekcing item: ".$item['prod_id']);
 	if($item['prod_id'] == $data['prod_id'])
 		$cart_item = $item->to_array();
-		
+
 }
 
 
@@ -80,17 +80,16 @@ core::ensure_navstate(array('left'=>'left_blank'));
 core::write_navstate();
 $this->left_filters($cats,$sellers,undefined,true);
 core_ui::load_library('js','catalog.js');
-		
 
 $cats  = core::model('categories')->load_for_products(explode(',',$data['category_ids']));//->load()->collection();
 ?>
 <div class="row">
 	<div class="span6">
-		
-	
+
+
 		<h3 class="product_name notcaps" style="margin-bottom: 0;"><?=$data['name']?></h3>
 		<small>Produced by <a href="#!sellers-oursellers--org_id-<?=$data['org_id']?>"><?=$data['org_name']?></a></small>
-		
+
 		<hr>
 		<p class="note">
 		<?
@@ -114,13 +113,13 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 			}
 		?>
 		</p>
-		
-		
+
+
 		<!--<p><strong>Who:</strong> <?=(($data['who']=='')?$org['profile']:$data['who'])?></p>-->
 		<p><strong>What:</strong> <?=$data['description']?></p>
 		<p><strong>How:</strong> <?=(($data['how']=='')?$org['product_how']:$data['how'])?></p>
 		<hr />
-		
+
 		<h3 style="margin-bottom: 0;"><a href="#!sellers-oursellers--org_id-<?=$data['org_id']?>"><?=$data['org_name']?></a></h3>
 		<small><?=$data['address']?>, <?=$data['city']?>, <?=$data['code']?></small>
 		<?
@@ -130,8 +129,8 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		core_ui::map_add_point('prodmap',$addr,'<h1>'.$data['org_name'].'</h1>'.$addr);
 		}
 		?>
-		
-		
+
+
 	</div>
 
 	<div class="span3">
@@ -141,8 +140,8 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 			<img src="<?=image('product_placeholder')?>" />
 		<?}?>
 		<hr />
-		<form name="prodForm" class="form-inline">
-			
+		<form  id="product_<?=$data['prod_id']?>" name="prodForm" class="form-inline">
+
 			<h4>Pricing</h4>
 			<ol class="priceList">
 			<?$this->render_product_pricing($prices);?>
@@ -157,10 +156,10 @@ $cats  = core::model('categories')->load_for_products(explode(',',$data['categor
 		</form>
 		<a href="#!catalog-shop" class="btn btn-info btn-block"> Continue Shopping</a>
 		<!--
-		
+
 		<h4>Other Products from this Seller</h4>
 		[FIX: Add other products]
-		
+
 		<h4>Other Products from this Category</h4>
 		[FIX: Add other products]
 		-->
