@@ -60,14 +60,28 @@ class core_model_addresses extends core_model_base_addresses
 		
 		$data->load();
 		
-		foreach($data as $row)
+		if($data->__num_rows == 1)
 		{
-			$html .= core_ui::radiodiv(
-				$name,
-				'<b>'.$row['label'].'</b><br />'.$row['formatted_address'],
-				$value == $row['addr_id'],
-				$name.'_radiogroup'
-			);
+			foreach($data as $row)
+			{
+				#print_r($row->__data);
+				#echo('check it: '.($value == $row['address_id']));
+				$html .= '<b>'.$row['label'].'</b><br />'.$row['formatted_address'];
+				$html .= '<input type="hidden" name="'.$name.'_radiogroup" value="'.$row['address_id'].'" />';
+			}
+		}
+		else
+		{
+			foreach($data as $row)
+			{
+				#print_r($row->__data);
+				$html .= core_ui::radiodiv(
+					$row['address_id'],
+					'<b>'.$row['label'].'</b><br />'.$row['formatted_address'],
+					($value == $row['address_id']),
+					$name
+				);
+			}
 		}
 		return $html;
 	}

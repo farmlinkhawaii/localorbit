@@ -54,8 +54,8 @@ function save_buttons($require_pin = false,$save_continue='',$save_go_back='')
 	</div>	
 	<?}?>
 	<div class="form-actions pull-right" id="main_save_buttons"<?=(($require_pin)?' style="display:none;"':'')?>>
-		<input type="button" onclick="<?=$save_continue?>" class="btn" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
 		<input type="button" onclick="<?=$save_go_back?>" class="btn btn-primary" value="<?=$core->i18n['button:save_and_go_back']?>" />
+		<input type="button" onclick="<?=$save_continue?>" class="btn btn-primary" name="save" value="<?=$core->i18n['button:save_and_continue']?>" />
 	</div>
 	<?
 }
