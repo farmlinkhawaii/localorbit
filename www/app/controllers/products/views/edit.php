@@ -125,7 +125,7 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel','cancel
 				<div style="line-height: 30px;">
 					<a href="#!units-request_new--prod_id-'.$data['prod_id'].'-prod_name-'.urlencode($data['name']).'">Request new unit</a> (if you can\'t find what you need)
 				</div>',
-				array('sublabel'=>'Type to search')
+				array('sublabel'=>'Type to search','required'=>true)
 			)?>  
 			<? 
 			#core::js('$("#unit_id").select_autocomplete();$("#unit_id").show();');

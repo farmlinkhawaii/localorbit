@@ -162,12 +162,12 @@ class core_controller_dashboard extends core_controller
 		$this->dashboard_note();
 		if(lo3::is_admin())
 		{
-			$this->release_news();
+			#$this->release_news();
 			$this->admin_dashboard();
 		}
 		else if(lo3::is_market())
 		{
-			$this->release_news();
+			#$this->release_news();
 			$this->market_dashboard();
 		}
 		else if(lo3::is_customer())
@@ -177,7 +177,7 @@ class core_controller_dashboard extends core_controller
 			if($core->session['allow_sell'] == 1)
 			{
 				core::log('this is a seller');
-				$this->release_news();
+				#$this->release_news();
 				if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1)
 				{
 					$this->seller_dashboard();

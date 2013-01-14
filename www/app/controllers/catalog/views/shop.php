@@ -42,7 +42,7 @@ else
 # if the buyer is reaching this page after logging in, show the news
 if($core->data['show_news'] == 'yes')
 {
-	core::process_command('dashboard/release_news');
+	#core::process_command('dashboard/release_news');
 }
 	
 	#core::ensure_navstate(array('left'=>'left_shop'));
