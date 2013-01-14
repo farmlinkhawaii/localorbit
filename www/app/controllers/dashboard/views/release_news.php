@@ -2,7 +2,7 @@
 	// reset to test  devannarbor-mi.localorb.it/release_news.php?has_seen_release_news=0
 	if (isset($_GET["has_seen_release_news"])) {
 		setcookie("has_seen_release_news", $_GET["has_seen_release_news"]);
-		core::js('$("#releaseNewsContinue").hide();$("#releaseNewsModal").modal("hide");');
+		core::js('$("#releaseNewsModal").modal("hide");');
 		core::deinit();
 	}
 		
