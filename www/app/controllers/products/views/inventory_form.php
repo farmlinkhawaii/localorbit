@@ -7,6 +7,8 @@ function misc_lots_formatting($data)
 		$data['good_from'] = 'NA';
 	if($data['expires_on'].'/' == '/')
 		$data['expires_on'] = 'NA';
+	
+	$data['qty'] = intval($data['qty']);
 	#echo('/'.$data['good_from'].'/');
 	return $data;
 }
@@ -18,7 +20,6 @@ $lots->rewind();
 $lots->next();
 $lot = $lots->current();
 $style = '';
-
 # only show the simple view if there is only one lot, AND that lot only has
 # one field set (the qty)
 #$lots->__num_rows == 1 && $lot['good_from'] == 0 && $lot['expires_on'] == 0 && $lot['lot_id'] == ''
@@ -81,6 +82,7 @@ else
 		<?=core_form::input_text('Qty','lot_qty','',array('required'=>true))?>
 		<?=core_form::input_hidden('inv_id','')?>
 		<? subform_buttons('product.saveLot();','Save This Lot','product.cancelLotChanges();'); ?>
+		<? core::js('$(\'[name="lot_qty"]\').blur(function () {core.ui.integerOnBlur(this);});'); ?>
 		</fieldset>
 	<div class="span3">&nbsp;</div>
 	<div class="clear-both"></div>

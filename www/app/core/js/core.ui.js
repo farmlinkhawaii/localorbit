@@ -658,3 +658,9 @@ core.ui.showLeftNav=function () {
 		$('#center').toggleClass('span12', false);
 	});
 }
+
+core.ui.integerOnBlur= function (elem) {
+	var jq = $(elem);
+	var value = parseInt(jq.val());
+	jq.val(value || 0);
+};
