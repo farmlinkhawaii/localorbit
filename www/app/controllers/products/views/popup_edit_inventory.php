@@ -14,30 +14,22 @@ if($inv->__num_rows == 1 && $inv->__row->__data['lot_id'] == ''  && $inv->__row-
 {
 	# check to make sure the product is in simple inv mode:
 ?>
-<form name="invform" action="/products/save_inventory" onsubmit="return core.submit('/products/save_inventory',this);">
+<form name="invform" action="/products/save_inventory" class="form-horizontal" onsubmit="return core.submit('/products/save_inventory',this);">
 	<fieldset id="editInv">
 		<legend>Inventory Info</legend>
-		<table class="form">
-			<tr>
-				<td class="label">Stock:</td>
-				<td class="value"><input type="text" name="qty" style="size: 100px !important;" value="<?=floatval($inv->__row['qty'])?>" /></td>
-			</tr>
-			<tr>
-				<td class="value" colspan="2" style="padding: 3px;">
-					Note: Please 
-					<a href="javascript:$('#edit_popup').fadeOut('fast');location.href='<?=$edit?>';core.go('<?=$edit?>');">click here</a>
-					to view your inventory information.	
-				</td>
-			</tr>
-		</table>
+		<?=core_form::input_text('Stock','qty',floatval($inv->__row['qty']))?>
+
 		<input type="hidden" name="prod_id" value="<?=$prod['prod_id']?>" />
 		<input type="hidden" name="inv_id" value="<?=$inv->__row['inv_id']?>" />
 		<input type="hidden" name="call_method" value="popup" />
+
+		Note: Please 
+		<a href="javascript:$('#edit_popup').fadeOut('fast');location.href='<?=$edit?>';core.go('<?=$edit?>');">click here</a>
+		to view your inventory information.	
 		
-		
-		<div class="buttonset">
-			<input type="button" onclick="$('#edit_popup').fadeOut('fast');" class="button_primary" value="cancel" />
-			<input type="submit" class="button_primary" value="save" />
+		<div class="form-actions pull-right">
+			<input type="button" onclick="$('#edit_popup').fadeOut('fast');" class="btn btn-warning" value="cancel" />
+			<input type="submit" class="btn btn-primary" value="save" />
 		</div>		
 	</fieldset>
 </form>
