@@ -46,7 +46,7 @@
 				<li>Additional product description fields</li>
 			</ol>
 			<p/>
-			Learn more about the changes <a href="https://localorbit.zendesk.com/entries/22926838-introducing-a-revamped-design">here.</a>	
+			Learn more about the changes <a target="_blank" href="https://localorbit.zendesk.com/entries/22926838-introducing-a-revamped-design">here.</a>	
 			<p/>
 			<p/>
 		</div>
@@ -54,7 +54,7 @@
 		
 		<div class="modal-footer">
 			<a class="btn btn-large" data-dismiss="modal" href="">Remind Me Later</a>
-			<a class="btn btn-large btn-primary" href="javascript:setReleaseNewsContinue()">Continue</a>
+			<a class="btn btn-large btn-primary" href="javascript:setReleaseNewsContinue()">Got It</a>
 		</div>
 	</div>
 	
