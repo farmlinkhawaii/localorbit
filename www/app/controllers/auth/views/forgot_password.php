@@ -6,16 +6,18 @@ lo3::require_permission();
 $this->reset_rules()->js();
 page_header($core->i18n['header:forgotpassword']);
 ?>
-<form name="resetpass" action="auth/process_reset" onsubmit="return core.submit('/auth/process_reset',this);">
-	<table>	
-		<tr>	
-			<td class="label"><?=$core->i18n['field:customer:email']?> </td>
-			<td class="value"><input type="text" class="text" name="username" value="" /></td>
-		</tr>
-	</table>
-	<div class="buttonset">
+<form name="resetpass" action="auth/process_reset" class="form-horizontal border-less" onsubmit="return core.submit('/auth/process_reset',this);">
+	<div class="control-group">
+		<label class="control-label"><?=$core->i18n['field:customer:email']?></label>
+		<div class="controls">
+			<input type="text" class="text" name="username" value="" />
+		</div>
+	</div>
+	<div class="control-group">
+		<div class="controls">
 		<input type="submit" value="<?=$core->i18n['button:resetpassword']?>" class="button_primary" />
 		<br />
-		<?=$core->i18n['note:resetpassword']?>		
+		<?=$core->i18n['note:resetpassword']?>
+	</div>
 	</div>
 </form>
