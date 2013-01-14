@@ -450,9 +450,11 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
 			lowestMin = core.prices[prodId][i]['min_qty'];
 		}
 	}
+	var qtyAlert = $('#prod_' +prodId+ '_min_qty');
 
 	// if we we found a valid price,
 	if(priceId > 0){
+		qtyAlert.hide();
 		//alert('lowest is: '+priceId+' / '+rowTotal);
 		//alert();
 		core.catalog.setQty(prodId,newQty,rowTotal);
@@ -461,8 +463,11 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id) {
 	}else{
 		//alert('here')
 		if(newQty > 0){
+			qtyAlert.find('small').text('You must order at least '+parseFloat(lowestMin))
+			qtyAlert.show();
+			qtyAlert.alert();
 			//alert('You must order '+prodId+' at least '+parseFloat(lowestMin))
-			$('#qtyBelowMin_'+prodId).html('You must order at least '+parseFloat(lowestMin)).show();
+			//$('#qtyBelowMin_'+prodId).html().show();
 		}
 		$('.prodTotal_'+prodId).val(0);
 		core.catalog.setQty(prodId,0,0);
