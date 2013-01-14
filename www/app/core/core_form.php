@@ -320,6 +320,8 @@ class core_form
 			'info_show'=>false,
 			'size'=>'input-large',
 			'render'=>true,
+			'onkeyup'=>'',
+			'onblur'=>'',
 		));
 		if($options['render'] != true)	return '';
 		if ($options['required'] == true): $required = core_form::required(); endif;
@@ -335,7 +337,16 @@ class core_form
 		endif;
 		
 		$html .= '</label>';
-		$html .= '<div class="controls"><input type="text" name="'.$name.'" class="' . $options['size'] . '" value="'.$value.'" />';
+		$html .= '<div class="controls">';
+		
+		$html .= '<input type="text" name="'.$name.'" class="' . $options['size'] . '" value="'.$value.'"';
+		
+		if($options['onkeyup'] != '')
+			$html .= ' onkeyup="'.$options['onkeyup'].'"';
+		if($options['onblur'] != '')
+			$html .= ' onblur="'.$options['onblur'].'"';
+		
+		$html .= ' />';
 		
 		#if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
 

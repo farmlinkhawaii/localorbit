@@ -103,7 +103,7 @@ if($mode == 'basic')
 	$style = ' style="display: none;"';
 ?>
 <input type="hidden" name="pricing_mode" value="basic" />
-<input type="hidden" name="total_fees" value="<?=$seller['total_fees']?>" />
+
 <div id="pricing_basic">
 	<table class="form">
 		<?if(!lo3::is_admin() && $seller['feature_sellers_enter_price_without_fees'] == 1){?>
@@ -236,14 +236,15 @@ $orgs    = core::model('organizations')->collection()->filter('is_active',1)->fi
 			'default_value'=>0,
 		)
 	)?>
-	<?if(!lo3::is_admin() && $data['feature_sellers_enter_price_without_fees'] == 1){?>	
-		<?=core_form::input_text('Net Price','seller_net_price',$data['seller_net_price'],array())?>
-		<?=core_form::input_text('Sales Price','price',$data['price'],array('onkeyup'=>"product.syncPrices(this,'price');"))?>
+	<?if(lo3::is_admin() || $core->config['domain']['feature_sellers_enter_price_without_fees'] == 1){?>	
+		<?=core_form::input_text('Net Price','seller_net_price',$data['seller_net_price'],array('onkeyup'=>"product.syncPrices(this,'price');"))?>
+		<?=core_form::input_text('Sales Price','price',$data['price'],array('onkeyup'=>"product.syncPrices(this,'seller_net_price');"))?>
 	<?}else{?>
 		<?=core_form::input_text('Price','price',$data['price'])?>		
 	<?}?>
 	<?=core_form::input_text('Minimum Quantity','min_qty',$data['min_qty'])?>
 	<?=core_form::input_hidden('price_id',0)?>
+	<?=core_form::input_hidden('total_fees',$seller['total_fees'])?>
 	<?=core_form::input_hidden('feature_sellers_enter_price_without_fees',0)?>
 	<? subform_buttons('product.savePrice();','Save This Price','product.cancelPriceChanges();'); ?>
 		</fieldset>

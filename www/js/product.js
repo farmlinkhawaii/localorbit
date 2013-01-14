@@ -269,6 +269,7 @@ product.editPrice=function(priceId,domainId,orgId,price,min_qty,totalFees,priceM
 }
 
 product.syncPrices=function(formField,moveTo){
+	//alert(moveTo);
 	if(typeof(formField.form['total_fees']) =='object'){
 		var form = formField.form;
 		var fees = parseFloat(form.total_fees.value);
