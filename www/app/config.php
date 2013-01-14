@@ -117,7 +117,7 @@ $core->config['formats']['dates']['shorter-weekday'] = 'l, M j';
 $core->config['formats']['dates']['shortest-weekday'] = 'D, M jS';
 
 # some messages/config options used
-$core->config['error_ui_msg']= 'An error has occured. We apologize for the inconvenience';
+$core->config['error_ui_msg']= 'It appears there is a small bug in the system. We apologize for interrupting your experience. Our development team will fix this soon.';
 $core->config['datatables']['render_filter_expander'] = false;
 $core->response['replace']['full_width'] = '&nbsp;<br />';
 

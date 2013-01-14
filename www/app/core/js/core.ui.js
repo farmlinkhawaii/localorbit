@@ -12,7 +12,7 @@ core.ui.scrollTop=function(){
 core.ui.error=function(content){
 	
 	var errorbox = bootbox.dialog(content, [{
-        "label" : "Bummer",
+        "label" : "Close",
         "icon"  : "icon-remove icon-white"
     }], { 'animate' : false });
 	
