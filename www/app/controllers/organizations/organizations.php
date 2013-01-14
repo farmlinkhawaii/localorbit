@@ -239,7 +239,7 @@ class core_controller_organizations extends core_controller
 		if($core->data['reload'] == 'no')
 			core::js("$('#active_area').hide(300);");
 		else
-			core_datatable::js_reload('organizations');
+			core_datatable::js_reload('v_organizations');
 		core_ui::notification('organization activated');
 	}
 
@@ -252,7 +252,7 @@ class core_controller_organizations extends core_controller
 		if($core->data['reload'] == 'no')
 			core::js("$('#active_area').hide(300);");
 		else
-			core_datatable::js_reload('organizations');
+			core_datatable::js_reload('v_organizations');
 		core_ui::notification('organization deactivated');
 	}
 
@@ -265,7 +265,7 @@ class core_controller_organizations extends core_controller
 		if($core->data['reload'] == 'no')
 			core::js("$('#enable_area').hide(300);");
 		else
-			core_datatable::js_reload('organizations');
+			core_datatable::js_reload('v_organizations');
 
 		core::model('events')->add_record('Org Enabled',$core->data['org_id']);
 		core_ui::notification('organization enabled');
@@ -284,7 +284,7 @@ class core_controller_organizations extends core_controller
 		if($core->data['reload'] == 'no')
 			core::js("$('#enable_area').hide(300);");
 		else
-			core_datatable::js_reload('organizations');
+			core_datatable::js_reload('v_organizations');
 
 		core::model('events')->add_record('Org Suspended',$core->data['org_id']);
 		core_ui::notification('organization suspended');
@@ -536,7 +536,7 @@ class core_controller_organizations extends core_controller
 		#core_db::query('update products set is_deleted=='.intval($core->data['prod_id']).' and product_id>0;');
 		#core_db::query('delete from discount_codes where restrict_to_product_id='.intval($core->data['prod_id']).' and restrict_to_product_id>0;');
 
-		core_datatable::js_reload('organizations');
+		core_datatable::js_reload('v_organizations');
 		core_ui::notification('organization deleted');
 	}
 
