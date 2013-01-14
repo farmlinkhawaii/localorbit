@@ -67,7 +67,7 @@ class core_model_addresses extends core_model_base_addresses
 				#print_r($row->__data);
 				#echo('check it: '.($value == $row['address_id']));
 				$html .= '<b>'.$row['label'].'</b><br />'.$row['formatted_address'];
-				$html .= '<input type="hidden" name="'.$name.'_radiogroup" value="'.$row['address_id'].'" />';
+				$html .= '<input type="hidden" name="'.$name.'" value="'.$row['address_id'].'" />';
 			}
 		}
 		else

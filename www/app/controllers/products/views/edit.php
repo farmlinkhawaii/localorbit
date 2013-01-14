@@ -131,7 +131,7 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel','cancel
 			#core::js('$("#unit_id").select_autocomplete();$("#unit_id").show();');
 			?>
 			<?=core_form::value('Production Location: '.$data['addr_id'],
-				core::model('addresses')->get_radios($data['org_id'],$data['addr_id'],'address_id'),
+				core::model('addresses')->get_radios($data['org_id'],$data['addr_id']),
 				array(
 					'sublabel'=>'Edit addresses in <a href="#!organizations-edit--org_id-'.$data['org_id'].'">My Account</a>.',
 					'popover'=>'Make sure to save changes before editing addresses. Use your browser\'s back arrow to return to editing this product',
