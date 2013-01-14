@@ -83,7 +83,7 @@ else
 	<div class="span5">
 		
 		<? if(trim($market['market_profile']) != ''){?>
-			<h3><i class="icon-book"/>About Us</h3>
+			<h3><i class="icon-book"/>About</h3>
 			<p class="note"><?=core_format::plaintext2html($market['market_profile'])?></p>
 		<?}?>
 
@@ -93,10 +93,10 @@ else
 
 		
 		<? if (trim($market['market_policies']) != ''): ?>
-			<h3><i class="icon-clipboard"/>Our Policies</h3>
+			<h3><i class="icon-clipboard"/>Policies</h3>
 			<p class="note"><?=core_format::plaintext2html($market['market_policies'])?></p>
 		<? else: ?>
-			<h3><i class="icon-clipboard"/>Our Policies</h3>
+			<h3><i class="icon-clipboard"/>Policies</h3>
 			<p class="note">We only source our products from Michigan producers, and insist on only the finest results and sustainable manufacturing processes.</p>
 		<? endif; ?>
 
@@ -134,9 +134,9 @@ else
 	</div>
 	
 	<div class="span4">
-		<h3><i class="icon-users"/>Our Sellers</h3>
+		<h3><i class="icon-users"/>Sellers</h3>
 		<? foreach($sellers as $seller): ?>
-			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a> <small><?= $seller['city'] ?>, <?= $seller['code'] ?></small><br />
+			<a href="#!sellers-oursellers--org_id-<?=$seller['org_id']?>"><?= $seller['name'] ?></a><br />
 		<? endforeach; ?>
 	</div>
 	
