@@ -1,4 +1,4 @@
-<h3 id="payment_selector">Method</h3>
+<h3 id="payment_selector"><i class="icon-coins"/>Method</h3>
 <br />
 <?
 global $org;

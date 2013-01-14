@@ -57,7 +57,7 @@ $cart->arrange_by_next_delivery();
 	<div class="span6">
 		<div class="row checkout_section">
 			<span class="span3">
-				<h3>Your Order</h3>
+				<h3><i class="icon-cart-checkout"/>Your Order</h3>
 			</span>			
 			<span class="span1 checkout_labels">
 				Quantity
@@ -131,7 +131,7 @@ $cart->arrange_by_next_delivery();
 		<!-- Billing -->
 		<div class="row checkout_section">
 			<span class="span6">
-				<h3>Payment</h3>
+				<h3><i class="icon-asterisk"/>Payment</h3>
 			</span>
 		</div>
 		<div class="row">

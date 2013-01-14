@@ -16,7 +16,7 @@ $total = floatval($core->view[5]);
 	</div>
 
 	<div class="span1 prodTotal_text prodTotal_<?=$prod['prod_id']?>_text" id="prodTotal_<?=$prod['prod_id']?>_text"<?=(($qty == 0 || $qty == '')?' style="display:none;"':'')?>>
-		<span class="value"><?=core_format::price($total)?></span> <i class="remove icon-remove-sign"/>
+		<span class="value"><?=core_format::price($total)?></span> <i class="icon-close"/>
 	</div>
 </div>
 <div class="row">

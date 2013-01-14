@@ -42,10 +42,10 @@ if($special && $special['product_id'] != 0)
 	
 
 	<div class="span9 first">
-		<h3 class="pull-left"><i class="icon icon-tags" /> Featured: <a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a></h3>
+		<h3 class="pull-left"><i class="icon icon-thumbs-up" /> Featured: <a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$special['title']?></a></h3>
 		<!--<small class="hideit"><a class="note pull-right" href="#!catalog-shop" style="line-height: 4.5em; vertical-align: bottom;" onclick="core.catalog.hideSpecial();" ><i class="icon icon-remove-sign"/>&nbsp;Hide this special...</a></small>-->
-		<a class="ws_togglers pull-right" style="margin-top: 10px;margin-right: 14px;" onclick="$('.ws_togglers').toggle();$('#weekly_special').css('height','40px').css('overflow','hidden')"><i class="icon icon-minus" /></a>
-		<a class="ws_togglers pull-right" style="margin-top: 10px;display: none;margin-right: 14px;" onclick="$('.ws_togglers').toggle();$('#weekly_special').css('height','auto').css('overflow','')"><i class="icon icon-plus" /></a>
+		<a class="ws_togglers pull-right" style="margin-top: 10px;margin-right: 14px;" onclick="$('.ws_togglers').toggle();$('#weekly_special').css('height','40px').css('overflow','hidden')"><i class="icon icon-minus-circle" /></a>
+		<a class="ws_togglers pull-right" style="margin-top: 10px;display: none;margin-right: 14px;" onclick="$('.ws_togglers').toggle();$('#weekly_special').css('height','auto').css('overflow','')"><i class="icon icon-plus-circle" /></a>
 	</div>
 	<p class="note" style="padding-bottom: 10px;">
 		<?=$special['body']?>

@@ -35,7 +35,7 @@ else
 <div class="row">
 	<div class="span9">
 		<? if($market_news->__num_rows > 0 ){?>
-			<h2>Latest Market News</h2>
+			<h2><i class="icon-newspaper"/>Latest Market News</h2>
 			<? foreach($market_news as $market_newsitem){?>
 				<div class="row">
 					

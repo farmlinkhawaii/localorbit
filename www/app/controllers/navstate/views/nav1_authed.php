@@ -70,7 +70,7 @@ $(function()
 	
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-shopping-cart icon-white"></i> Your Cart</a>
+		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart</a>
 		<div class="dropdown-menu span4 yourCart">
 			<?
 		$cart = core::model('lo_order')->get_cart();
