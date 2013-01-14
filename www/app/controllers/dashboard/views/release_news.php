@@ -2,6 +2,7 @@
 	// reset to test  devannarbor-mi.localorb.it/release_news.php?has_seen_release_news=0
 	if (isset($_GET["has_seen_release_news"])) {
 		setcookie("has_seen_release_news", $_GET["has_seen_release_news"]);
+		core::js('$("#releaseNewsContinue").hide();$("#releaseNewsModal").modal("hide");');
 		core::deinit();
 	}
 		
@@ -53,7 +54,7 @@
 		
 		<div class="modal-footer">
 			<a class="btn btn-large" data-dismiss="modal" href="">Remind Me Later</a>
-			<a class="btn btn-large btn-primary" data-dismiss="modal" href="" onclick="core.doRequest('/dashboard/release_news',{'has_seen_release_news':'true'});">Got It</a>
+			<a class="btn btn-large btn-primary" onclick="core.doRequest('/dashboard/release_news',{'has_seen_release_news':'true'});">Got It</a>
 		</div>
 	</div>
 	
