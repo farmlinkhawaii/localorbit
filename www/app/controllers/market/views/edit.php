@@ -50,7 +50,7 @@ $allows = array();
 foreach($cross_sells as $cross_sell)
 	$allows[$cross_sell['accept_from_domain_id']] = true;
 
-$tabs = array('Hub Info','Delivery','Branding','Market Info','Addresses','Payments/Fees');
+$tabs = array('Market Settings','Delivery','Branding','Market Info','Addresses','Payments/Fees');
 if(lo3::is_admin())
 {
 	$tabs[] = 'Cross Selling';
