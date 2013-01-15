@@ -27,6 +27,9 @@ else
 		->filter('market_news.domain_id',$market['domain_id'])
 		->sort('creation_date','desc');
 	$market_news->load();
+	
+	
+
 
 ?>
 
