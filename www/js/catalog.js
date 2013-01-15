@@ -517,7 +517,7 @@ core.catalog.setQty=function(prodId,newQty,rowTotal){
 
 	// show the total
 	$('.prodTotal_'+prodId).val(core.format.price(rowTotal));
-	$('.prodQty_'+prodId).val(newQty===0?'':newQty);
+	//$('.prodQty_'+prodId).val(newQty===0?'':newQty);
 	$('.prodTotal_'+prodId+'_text .value').text(core.format.price(rowTotal));
 	if (rowTotal === 0) {
 		$('.prodTotal_'+prodId+'_text').hide();
