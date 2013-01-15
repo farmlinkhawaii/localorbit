@@ -85,6 +85,8 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 	<script language="Javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script language="Javascript" type="text/javascript" src="js/bootbox.min.js"></script>
+	<script language="Javascript" type="text/javascript" src="js/bootstrapx-clickover.js"></script>
+
 </head>
 <body onload="core.init(false);">
 
@@ -199,7 +201,6 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 core.doRequest('/market/login_info','');
 core.doRequest('/whitelabel/get_options','');
 core.doRequest('/navstate/left_hub_info','');
-///-->
 
 <?if($_REQUEST['login_fail'] == 1){?>
 core.ui.error('Whoops! Your user name and password don\'t match. Please try again.');
