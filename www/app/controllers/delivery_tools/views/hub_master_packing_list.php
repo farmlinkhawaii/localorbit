@@ -21,7 +21,7 @@ foreach($items as $org_id=>$item_list)
 {
 	if (!$first) {
 	?>
-		<div class="row">&nbsp;</div>
+		<div class="row page-break">&nbsp;</div>
 	<?
 	}
 	$org_id = explode('-');
