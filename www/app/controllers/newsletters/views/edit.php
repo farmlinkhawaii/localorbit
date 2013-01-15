@@ -78,7 +78,7 @@ echo(
 		core_form::input_hidden('do_test',0),
 		core_form::input_hidden('do_send',0),
 		core_form::input_hidden('cont_id',$data['cont_id']),
-		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'core.go(\'#!newsletters-list\');'))
+		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'location.href=\'#!newsletters-list\';core.go(\'#!newsletters-list\');'))
 	)
 );
 ?>

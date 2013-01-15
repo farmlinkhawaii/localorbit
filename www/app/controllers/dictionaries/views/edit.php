@@ -80,8 +80,8 @@ $tag_classes=array('customer','address');
 	
 	<? core_ui::rte(500,300,'/css/emails.css'); ?>
 	<div class="form-actions">
+		<!--<button type="button" class="btn" onclick="history.go(-1);">Cancel</button>-->
 		<button type="submit" class="btn btn-primary">Save changes</button>
-		<button type="button" class="btn">Cancel</button>
 	</div>
 	
 </form>

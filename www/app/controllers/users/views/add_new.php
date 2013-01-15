@@ -29,7 +29,7 @@ echo(
 			core_form::input_password('Password','password'),
 			core_form::input_password('Confirm Password','password_confirm')
 		),
-		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'core.go(\'#!users-list\');')),
+		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'location.href=\'#!users-list\';core.go(\'#!users-list\');')),
 		($core->config['stage'] == 'testing' || $core->config['stage'] == 'qa')?
 			core_form::input_button('testing','Testing/QA',"var f=document.userAddForm;$(f.first_name).val('Mike');$(f.last_name).val('Thorn');$(f.email).val('localorbit.testing+'+(new Date().valueOf())+'@gmail.com');$(f.password).val('password');$(f.password_confirm).val('password');"):''
 	)
