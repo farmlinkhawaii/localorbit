@@ -1,20 +1,18 @@
-<? if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>
-
 <div class="navbar navbar-static-top">
 	<div class="navbar-inner">
-		
+
 		<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
 		<a class="btn btn-navbar" data-toggle="collapse" data-target="#dashnav">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</a>
-		
+
 		<!--<small class="brand visible-phone">Administration</small>-->
 
 		<div id="dashnav" class="nav-collapse collapse">
 		<? if(lo3::is_admin()){?>
-		
+
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -32,7 +30,7 @@
 				</ul>
 			</li>
 		</ul>
-		
+
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -48,7 +46,7 @@
 				</ul>
 			</li>
 		</ul>
-		
+
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -94,7 +92,7 @@
 		<?} # / is admin ?>
 
 		<? if(lo3::is_market()){?>
-			
+
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -151,7 +149,7 @@
 		<?} # / is market manager ?>
 
 		<? if(lo3::is_customer() && lo3::is_seller()){?>
-			
+
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -164,14 +162,16 @@
 					<li><a href="#!orders-current_sales" onclick="core.go(this.href);">Current Sales</a></li>
 					<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
 					<!-- <li><a href="#!orders-sales_report" onclick="core.go(this.href);">Sales History</a></li> -->
-					<!-- <li><a href="#!payment_report-view" onclick="core.go(this.href);">Payment History</a></li> -->					
+					<!-- <li><a href="#!payment_report-view" onclick="core.go(this.href);">Payment History</a></li> -->
 				</ul>
 			</li>
 		</ul>
 		<ul class="nav"><li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit icon-large"></i> Products</a></li></ul>
 
 		<?} # / is customer or seller ?>
-		
+<?if(lo3::is_customer() && !lo3::is_seller()){?>
+		<ul class="nav"><li><a href="#!orders-purchase_history" onclick="core.go(this.href);"><i class="icon-cart-checkout"></i>Purchase History</a></li></ul>
+						<?}?>
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -193,7 +193,7 @@
 							<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
 							<?}?>
 							-->
-					<?}?>				
+					<?}?>
 				</ul>
 			</li>
 		</ul>
@@ -204,11 +204,10 @@
 </div>
 <? core::replace('dashboardnav'); ?>
 
-<? else: ?>
 
 <h2>Your Account</h2>
-<ul class="nav nav-list">				
-	<!-- <li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li> -->		
+<ul class="nav nav-list">
+	<!-- <li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li> -->
 	<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
 	<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
 	<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
@@ -222,8 +221,6 @@
 	<?if(lo3::is_customer() && !lo3::is_seller()){?>
 	<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
 	<?}?>
-	<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>				
+	<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>
 </ul>
 <? core::replace('left'); ?>
-
-<? endif; ?>
