@@ -10,7 +10,7 @@ function format_sql_value ($value) {
    }
    if (!is_numeric($value) &&is_string($value))
    {
-      return "'" . $value . "'";
+      return "'" . addslashes($value) . "'";
    }
    return $value;
 }
