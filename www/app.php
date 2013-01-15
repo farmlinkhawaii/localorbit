@@ -41,7 +41,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<meta charset="utf-8" />
 	<!--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />-->
 	<base href="<?=$prtcl?><?=$_SERVER['SERVER_NAME']?><?=str_replace('index.php','',$_SERVER['SCRIPT_NAME'])?>" />
-
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
 	<link rel="stylesheet" type="text/css" href="css/loader.php?time=<?php echo time();?>" media="all" /> <? # Loads forms.css, datatable.css, popups.css, rte.css ?>
 	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style2" title="styles2" media="all" />
