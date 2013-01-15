@@ -62,7 +62,7 @@ $rendered_prices = 0;
 			</div>
 			<div class="row">
 				<div class="span3 pull-right">
-					<div id="prod_<?=$prod['prod_id']?>_min_qty" class="alert" style="display: none;"><small></small></div>
+					<div id="prod_<?=$prod['prod_id']?>_min_qty" class="alert" style="display: none;"><button type="button" class="close" data-dismiss="alert">&times;</button><small></small></div>
 				</div>
 			</div>
 			<div class="row">

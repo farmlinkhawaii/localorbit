@@ -402,7 +402,7 @@ core.catalog.setAddressCache=function(address,gcResult){
 
 core.catalog.checkInventoryFailure=function(prodId, maximumQuantity, dd_id){
 	core.log('failure...');
-	var qtyAlert = $('#prod_' +prodId+ '_min_qty');
+	var qtyAlert = $('#prod_' +prodId+ '_min_qty').clone().insertAfter($('#prod_' +prodId+ '_min_qty'));
 	//alert('test');
 	$('.prodQty_'+prodId).val(parseFloat(maximumQuantity));
 	qtyAlert.find('small').text(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.')
@@ -455,7 +455,7 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 			lowestMin = core.prices[prodId][i]['min_qty'];
 		}
 	}
-	var qtyAlert = $('#prod_' +prodId+ '_min_qty');
+	var qtyAlert = $('#prod_' +prodId+ '_min_qty').clone().insertAfter($('#prod_' +prodId+ '_min_qty'));
 
 	// if we we found a valid price,
 	if(priceId > 0){
