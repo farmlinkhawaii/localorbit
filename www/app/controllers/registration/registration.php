@@ -143,7 +143,7 @@ class core_controller_registration extends core_controller
 			$core->data['company_name'] = $core->data['first_name'] .' '.$core->data['last_name'];
 
 		# load the domain's settings
-		#$domain = core::model('domains')->load($core->data['domain_id']);
+		$domain = $core->config['domain'];
 
 		# save to lo database
 		$org = core::model('organizations');
