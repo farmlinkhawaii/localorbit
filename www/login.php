@@ -32,14 +32,14 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'testing') !== false)?'testing':$stage;
 $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Local Orbit</title>
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />-->
 	<base href="<?=$prtcl?><?=$_SERVER['SERVER_NAME']?><?=str_replace('app.php','',str_replace('index.php','',$_SERVER['SCRIPT_NAME']))?>" />
 
 	<!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
@@ -47,7 +47,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style3" title="styles3" media="all" />
 
 	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
-	
+
 	<!--<link rel="stylesheet" type="text/css" href="css/responsive.css" />-->
 
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/console.min.js"></script>-->

@@ -32,14 +32,14 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'dev') !== false)?'dev':$stage;
 $stage = (strpos($_SERVER['HTTP_HOST'],'testing') !== false)?'testing':$stage;
 $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Local Orbit</title>
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />-->
 	<base href="<?=$prtcl?><?=$_SERVER['SERVER_NAME']?><?=str_replace('index.php','',$_SERVER['SCRIPT_NAME'])?>" />
 
 	<!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
@@ -49,7 +49,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
 	<link rel="stylesheet" href="/css/icomoon-ultimate1563/style.css">
-	
+
 	<!--<link rel="stylesheet" type="text/css" href="css/responsive.css" />-->
 
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/console.min.js"></script>-->
@@ -65,9 +65,9 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<script language="Javascript" type="text/javascript" src="js/lo3.js?time=<?php echo time();?>"></script>
 	<script language="Javascript" type="text/javascript" src="js/slides.jquery.js"></script>
 	<script language="Javascript" type="text/javascript" src="js/chosen.jquery.min.js"></script>
-	
+
 	<script language="Javascript" type="text/javascript" src="js/stylesheetToggle.js"></script>
-	
+
 	<script type="text/javascript" src="js/jquery.autocomplete.pack.js"></script>
 	<script type="text/javascript" src="js/jquery.select-autocomplete.js"></script>
 	<!--<script language="Javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>-->
@@ -144,10 +144,10 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 				<a href="http://<?=$_SERVER['HTTP_HOST']?>/app.php#!market-info" onclick="core.go(this.href);" id="logo"></a>
 				<h3 class="taglinecontainer"><span id="tagline"></span></h3>
 			</div><!--/span-->
-			
+
 			<div id="mainnavcontainer" class="span7">
 				<ul id="mainnav" class=""></ul>
-				
+
 			</div>
 
 		</div> <!-- /.row-->
