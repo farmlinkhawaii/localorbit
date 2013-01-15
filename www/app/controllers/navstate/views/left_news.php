@@ -12,9 +12,10 @@ $special = core::model('weekly_specials')
 if($special && $special['product_id'] != 0)
 {
 	list($has_image,$webpath) = $special->get_image();
-	$prod = core::model('products')->load($special['product_id']);
-	$seller = core::model('products')->load($prod['org_id']);
-	
+	$prod   = core::model('products')->load($special['product_id']);
+	$seller = core::model('organizations')->load($prod['org_id']);
+	$dd_ids    = $prod->get_unique_values('dd_ids',true,true);
+
 	# handle the cart
 	$cart = core::model('lo_order')->get_cart();
 	$cart->load_items();
@@ -26,11 +27,16 @@ if($special && $special['product_id'] != 0)
 	core::js('core.cart = '.$cart->write_js(true).';');
 	#core::js('core.dds = '.json_encode($days) . ';');
 	
+	
+	$item_hash = $cart->items->to_hash('prod_id');
+	
+	
+	
 	# figure out the actual qty in the cart of hte special
-	#$qty   = $item_hash[$prod['prod_id']][0]['qty_ordered'];
-	#$total = $item_hash[$prod['prod_id']][0]['row_total'];
-	#$dd_id = $item_hash[$prod['prod_id']][0]['dd_id'];
-	#$dd_ids = explode(',',$prod['dd_ids']);
+	$qty   = $item_hash[$prod['prod_id']][0]['qty_ordered'];
+	$total = $item_hash[$prod['prod_id']][0]['row_total'];
+	$dd_id = $item_hash[$prod['prod_id']][0]['dd_id'];
+	$dd_ids = explode(',',$prod['dd_ids']);
 
 	#$pricing = $allPrices[$special['product_id']];
 	#$rendered_prices = 0;
