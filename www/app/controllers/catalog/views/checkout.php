@@ -70,6 +70,9 @@ $cart->arrange_by_next_delivery();
 			</span>
 
 		</div>
+		<div class="row">
+			<hr class="span6 tight"/>
+		</div>
 		<?php
 			$count = 0;
 	
@@ -103,7 +106,7 @@ $cart->arrange_by_next_delivery();
 						<div class="span3"><?=$item['product_name']?></div>
 						<div class="span1"><?=$item['qty_ordered']?></div>
 						<div class="span1"><?=core_format::price($item['unit_price'])?></div>
-						<div class="span1"><?=core_format::price($item['row_total'])?></div>
+						<div class="span1 align-right"><?=core_format::price($item['row_total'])?></div>
 					</div>
 						<?
 						}
@@ -131,8 +134,11 @@ $cart->arrange_by_next_delivery();
 		<!-- Billing -->
 		<div class="row checkout_section">
 			<span class="span6">
-				<h3><i class="icon-asterisk"/>Payment</h3>
+				<h3><i class="icon-asterisk"/>&nbsp;Payment</h3>
 			</span>
+		</div>
+		<div class="row">
+			<hr class="span6 tight"/>
 		</div>
 		<div class="row">
 			<div class="span3">Do you have a discount code?</div>
