@@ -408,7 +408,7 @@ core.catalog.checkInventoryFailure=function(prodId, maximumQuantity, dd_id){
 	$('.prodQty_'+prodId).val(parseFloat(maximumQuantity));
 	qtyAlert.find('small').text(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.')
 	qtyAlert.show();
-	qtyAlert.alert();
+	//qtyAlert.alert();
 	//$('#qtyBelowInv_'+prodId).html(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.').fadeIn(300);
 	core.catalog.updateRowContinue(prodId, maximumQuantity, dd_id, true);
 }
@@ -456,9 +456,14 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 			lowestMin = core.prices[prodId][i]['min_qty'];
 		}
 	}
-	$('.prod_' +prodId+ '_min_qty:visible').remove();
-	var qtyAlert = $('.prod_' +prodId+ '_min_qty:first').clone().appendTo($('#product_' + prodId + ' .alertContainer'));
+	
+	var qtyAlert;
 
+	if (!failure) {
+		$('.prod_' +prodId+ '_min_qty:visible').remove();
+		qtyAlert = $('.prod_' +prodId+ '_min_qty:first').clone().appendTo($('#product_' + prodId + ' .alertContainer'));
+	}
+	
 	// if we we found a valid price,
 	if(priceId > 0){
 		if (!failure) {
@@ -471,7 +476,7 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 		core.catalog.sendNewQtys();
 	}else{
 		//alert('here')
-		if(newQty > 0){
+		if(newQty > 0 && qtyAlert){
 			qtyAlert.find('small').text('You must order at least '+parseFloat(lowestMin))
 			qtyAlert.show();
 			//qtyAlert.alert();
