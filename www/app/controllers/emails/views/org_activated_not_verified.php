@@ -24,5 +24,7 @@ $body .= $this->handle_source($core->session['i18n']['email:org_activated_not_ve
 $body .= $this->footer();
 $body .= $this->email_end();
 
-$this->send_email('Please Verify Your Email Address',$to_email,$body);
+$this->send_email('Please Verify Your Email Address',$to_email,$body,array(),
+	$core->config['mailer']['From'],
+	$values['hub_name']);
 ?>
