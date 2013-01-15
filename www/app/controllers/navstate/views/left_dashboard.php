@@ -22,8 +22,8 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li><a href="#!market-list" onclick="core.go(this.href);"><i class="icon-home"></i>Markets</a></li>
-					<li><a href="#!users-list" onclick="core.go(this.href);"><i class="icon-users"></i><?=$core->i18n['nav2:marketadmin:users']?></a></li>
 					<li><a href="#!organizations-list" onclick="core.go(this.href);"><i class="icon-grid"></i><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
+					<li><a href="#!users-list" onclick="core.go(this.href);"><i class="icon-users"></i><?=$core->i18n['nav2:marketadmin:users']?></a></li>
 					<li><a href="#!events-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:usereventlog']?></a></li>
 					<li><a href="#!dictionaries-edit" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:dictionary']?></a></li>
 					<li><a href="https://us1.admin.mailchimp.com/campaigns/">Mailchimp Statistics</a></li>
@@ -59,7 +59,7 @@
 					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
 					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
-					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-thumbs-up"></i>Featured Items</a></li>
+					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Items</a></li>
 					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
@@ -92,22 +92,21 @@
 		<?} # / is admin ?>
 
 		<? if(lo3::is_market()){?>
-
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-wrench icon-large"></i>
+					<i class="icon-wand icon-large"></i>
 					<?=$core->i18n['nav2:marketadmin']?>
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
 					<?if(count($core->session['domains_by_orgtype_id'][2]) > 1){?>
-					<li><a href="#!market-list" onclick="core.go(this.href);">Markets</a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);"<i class="icon-home"></i>>Markets</a></li>
 					<?}else{?>
-					<li><a href="#!market-edit--domain_id-<?=$core->session['domains_by_orgtype_id'][2][0]?>" onclick="core.go(this.href);">Market</a></li>
+					<li><a href="#!market-edit--domain_id-<?=$core->session['domains_by_orgtype_id'][2][0]?>" onclick="core.go(this.href);"><i class="icon-home"></i>Market</a></li>
 					<?}?>
-					<li><a href="#!users-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:users']?></a></li>
-					<li><a href="#!organizations-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
+					<li><a href="#!organizations-list" onclick="core.go(this.href);"><i class="icon-grid"></i><?=$core->i18n['nav2:marketadmin:organizations']?></a></li>
+					<li><a href="#!users-list" onclick="core.go(this.href);"><i class="icon-users"></i><?=$core->i18n['nav2:marketadmin:users']?></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -139,8 +138,8 @@
 					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
 					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
-					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-thumbs-up"></i>Featured Items</a></li>
-					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
+					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Items</a></li>
+					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i> <?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -153,14 +152,14 @@
 		<ul class="nav">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<i class="icon-bars icon-large"></i>
+					<i class="icon-coins icon-large"></i>
 					Sales Information
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);">Upcoming Deliveries</a></li>
-					<li><a href="#!orders-current_sales" onclick="core.go(this.href);">Current Sales</a></li>
-					<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
+					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i>Upcoming Deliveries</a></li>
+					<li><a href="#!orders-current_sales" onclick="core.go(this.href);"><i class="icon-signup"></i>Current Sales</a></li>
+					<li><a href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
 					<!-- <li><a href="#!orders-sales_report" onclick="core.go(this.href);">Sales History</a></li> -->
 					<!-- <li><a href="#!payment_report-view" onclick="core.go(this.href);">Payment History</a></li> -->
 				</ul>

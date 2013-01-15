@@ -3,7 +3,7 @@
 ?>
 
 <div id="weekly_special">
-	<h4>Current Featured Deal</h4>
+	<h4><i class="icon-star"></i>Current Featured Deal</h4>
 	
 	<img class="img-rounded" src="/img/weeklyspec/1.jpg?_time_=1357326096" width="95%">
 	

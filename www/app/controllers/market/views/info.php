@@ -69,7 +69,7 @@ else
 
 <div class="row">
 	<div class="span9">
-		<h1><i class="icon-home"/><?=$market['name']?></h1>
+		<h1><i class="icon_smaller icon-home"/><?=$market['name']?></h1>
 	</div>
 </div>
 

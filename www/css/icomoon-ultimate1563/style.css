@@ -26,7 +26,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"]:before {
 */
-.icon-home:before, .icon-home-2:before, .icon-pencil:before, .icon-newspaper:before, .icon-image:before, .icon-bullhorn:before, .icon-file:before, .icon-book:before, .icon-book-2:before, .icon-books:before, .icon-profile:before, .icon-tag:before, .icon-cart-checkout:before, .icon-cart:before, .icon-coin:before, .icon-coins:before, .icon-credit:before, .icon-address-book:before, .icon-mail-send:before, .icon-calendar:before, .icon-print:before, .icon-database:before, .icon-bubbles:before, .icon-users:before, .icon-user:before, .icon-busy:before, .icon-binoculars:before, .icon-key:before, .icon-settings:before, .icon-cogs:before, .icon-bars:before, .icon-apple-fruit:before, .icon-lamp:before, .icon-paper-plane:before, .icon-truck:before, .icon-list:before, .icon-signup:before, .icon-clipboard:before, .icon-grid:before, .icon-grid-2:before, .icon-download:before, .icon-upload:before, .icon-flag:before, .icon-eye:before, .icon-thumbs-up:before, .icon-stack-checkmark:before, .icon-plus-circle:before, .icon-minus-circle:before, .icon-close:before, .icon-checkmark:before, .icon-arrow-right:before, .icon-arrow-down:before, .icon-checkbox-checked:before, .icon-checkbox-unchecked:before, .icon-filter:before, .icon-font-size:before, .icon-bold:before, .icon-underline:before, .icon-italic:before, .icon-paragraph-left:before, .icon-paragraph-center:before, .icon-paragraph-right:before, .icon-mail:before, .icon-mail-2:before, .icon-twitter:before, .icon-feed:before, .icon-facebook:before, .icon-share:before, .icon-close-2:before, .icon-stack-list:before, .icon-happy:before, .icon-smiley:before, .icon-sad:before, .icon-shocked:before, .icon-remove:before, .icon-steps:before, .icon-direction:before, .icon-compass:before, .icon-clock:before, .icon-bubble:before, .icon-search:before, .icon-health:before, .icon-pie:before, .icon-wand:before {
+.icon-lamp:before, .icon-thumbs-up:before, .icon-stack-checkmark:before, .icon-plus-circle:before, .icon-minus-circle:before, .icon-close:before, .icon-checkmark:before, .icon-arrow-right:before, .icon-arrow-down:before, .icon-checkbox-checked:before, .icon-checkbox-unchecked:before, .icon-filter:before, .icon-font-size:before, .icon-bold:before, .icon-underline:before, .icon-italic:before, .icon-paragraph-left:before, .icon-paragraph-center:before, .icon-paragraph-right:before, .icon-mail:before, .icon-mail-2:before, .icon-twitter:before, .icon-feed:before, .icon-facebook:before, .icon-share:before, .icon-close-2:before, .icon-stack-list:before, .icon-happy:before, .icon-smiley:before, .icon-sad:before, .icon-shocked:before, .icon-star:before, .icon-home:before, .icon-pencil:before, .icon-newspaper:before, .icon-pencil-2:before, .icon-bullhorn:before, .icon-new:before, .icon-connection:before, .icon-mic:before, .icon-book:before, .icon-book-2:before, .icon-books:before, .icon-file:before, .icon-profile:before, .icon-file-2:before, .icon-file-3:before, .icon-file-4:before, .icon-stack:before, .icon-tag:before, .icon-certificate:before, .icon-tag-2:before, .icon-tag-3:before, .icon-cart:before, .icon-barcode:before, .icon-qrcode:before, .icon-cart-checkout:before, .icon-cart-remove:before, .icon-credit:before, .icon-coins:before, .icon-coin:before, .icon-calculate:before, .icon-phone:before, .icon-address-book:before, .icon-notebook:before, .icon-mail-send:before, .icon-envelop:before, .icon-envelop-2:before, .icon-location:before, .icon-compass:before, .icon-direction:before, .icon-clock:before, .icon-calendar:before, .icon-calendar-2:before, .icon-print:before, .icon-mobile:before, .icon-tablet:before, .icon-archive:before, .icon-database:before, .icon-bubbles:before, .icon-bubble:before, .icon-user:before, .icon-users:before, .icon-vcard:before, .icon-spinner:before, .icon-binoculars:before, .icon-search:before, .icon-key:before, .icon-settings:before, .icon-cogs:before, .icon-cog:before, .icon-wand:before, .icon-bubble-user:before, .icon-bars:before, .icon-pie:before, .icon-ladder:before, .icon-apple-fruit:before, .icon-steps:before, .icon-fire:before, .icon-remove:before, .icon-paper-plane:before, .icon-truck:before, .icon-cube:before, .icon-clipboard:before, .icon-signup:before, .icon-grid:before, .icon-grid-2:before, .icon-menu:before, .icon-grid-3:before, .icon-flag:before, .icon-eye:before, .icon-warning:before, .icon-exit:before, .icon-filter-2:before {
 	font-family: 'icomoon-ultimate';
 	speak: none;
 	font-style: normal;
@@ -35,137 +35,8 @@ you can use the generic selector below, but it's slower:
 	-webkit-font-smoothing: antialiased;
 	padding-right: 5px;
 }
-.icon-home:before {
-	content: "\e000";
-}
-.icon-home-2:before {
-	content: "\e001";
-}
-.icon-pencil:before {
-	content: "\e002";
-}
-.icon-newspaper:before {
-	content: "\e003";
-}
-.icon-image:before {
-	content: "\e004";
-}
-.icon-bullhorn:before {
-	content: "\e005";
-}
-.icon-file:before {
-	content: "\e006";
-}
-.icon-book:before {
-	content: "\e007";
-}
-.icon-book-2:before {
-	content: "\e008";
-}
-.icon-books:before {
-	content: "\e009";
-}
-.icon-profile:before {
-	content: "\e00a";
-}
-.icon-tag:before {
-	content: "\e00b";
-}
-.icon-cart-checkout:before {
-	content: "\e00c";
-}
-.icon-cart:before {
-	content: "\e00d";
-}
-.icon-coin:before {
-	content: "\e00e";
-}
-.icon-coins:before {
-	content: "\e00f";
-}
-.icon-credit:before {
-	content: "\e010";
-}
-.icon-address-book:before {
-	content: "\e011";
-}
-.icon-mail-send:before {
-	content: "\e012";
-}
-.icon-calendar:before {
-	content: "\e013";
-}
-.icon-print:before {
-	content: "\e014";
-}
-.icon-database:before {
-	content: "\e015";
-}
-.icon-bubbles:before {
-	content: "\e016";
-}
-.icon-users:before {
-	content: "\e017";
-}
-.icon-user:before {
-	content: "\e018";
-}
-.icon-busy:before {
-	content: "\e019";
-}
-.icon-binoculars:before {
-	content: "\e01a";
-}
-.icon-key:before {
-	content: "\e01b";
-}
-.icon-settings:before {
-	content: "\e01c";
-}
-.icon-cogs:before {
-	content: "\e01d";
-}
-.icon-bars:before {
-	content: "\e01e";
-}
-.icon-apple-fruit:before {
-	content: "\e01f";
-}
 .icon-lamp:before {
 	content: "\e020";
-}
-.icon-paper-plane:before {
-	content: "\e021";
-}
-.icon-truck:before {
-	content: "\e022";
-}
-.icon-list:before {
-	content: "\e023";
-}
-.icon-signup:before {
-	content: "\e024";
-}
-.icon-clipboard:before {
-	content: "\e025";
-}
-.icon-grid:before {
-	content: "\e026";
-}
-.icon-grid-2:before {
-	content: "\e027";
-}
-.icon-download:before {
-	content: "\e028";
-}
-.icon-upload:before {
-	content: "\e029";
-}
-.icon-flag:before {
-	content: "\e02a";
-}
-.icon-eye:before {
-	content: "\e02b";
 }
 .icon-thumbs-up:before {
 	content: "\e02c";
@@ -257,33 +128,252 @@ you can use the generic selector below, but it's slower:
 .icon-shocked:before {
 	content: "\e049";
 }
-.icon-remove:before {
-	content: "\e04a";
+.icon-star:before {
+	content: "\e053";
 }
-.icon-steps:before {
-	content: "\e04b";
+.icon-home:before {
+	content: "\e000";
 }
-.icon-direction:before {
-	content: "\e04c";
+.icon-pencil:before {
+	content: "\e002";
+}
+.icon-newspaper:before {
+	content: "\e003";
+}
+.icon-pencil-2:before {
+	content: "\e001";
+}
+.icon-bullhorn:before {
+	content: "\e005";
+}
+.icon-new:before {
+	content: "\e004";
+}
+.icon-connection:before {
+	content: "\e006";
+}
+.icon-mic:before {
+	content: "\e007";
+}
+.icon-book:before {
+	content: "\e008";
+}
+.icon-book-2:before {
+	content: "\e009";
+}
+.icon-books:before {
+	content: "\e00a";
+}
+.icon-file:before {
+	content: "\e00b";
+}
+.icon-profile:before {
+	content: "\e00c";
+}
+.icon-file-2:before {
+	content: "\e00d";
+}
+.icon-file-3:before {
+	content: "\e00e";
+}
+.icon-file-4:before {
+	content: "\e00f";
+}
+.icon-stack:before {
+	content: "\e010";
+}
+.icon-tag:before {
+	content: "\e011";
+}
+.icon-certificate:before {
+	content: "\e012";
+}
+.icon-tag-2:before {
+	content: "\e013";
+}
+.icon-tag-3:before {
+	content: "\e014";
+}
+.icon-cart:before {
+	content: "\e015";
+}
+.icon-barcode:before {
+	content: "\e016";
+}
+.icon-qrcode:before {
+	content: "\e017";
+}
+.icon-cart-checkout:before {
+	content: "\e018";
+}
+.icon-cart-remove:before {
+	content: "\e019";
+}
+.icon-credit:before {
+	content: "\e01a";
+}
+.icon-coins:before {
+	content: "\e01b";
+}
+.icon-coin:before {
+	content: "\e01c";
+}
+.icon-calculate:before {
+	content: "\e01d";
+}
+.icon-phone:before {
+	content: "\e01e";
+}
+.icon-address-book:before {
+	content: "\e01f";
+}
+.icon-notebook:before {
+	content: "\e021";
+}
+.icon-mail-send:before {
+	content: "\e022";
+}
+.icon-envelop:before {
+	content: "\e023";
+}
+.icon-envelop-2:before {
+	content: "\e024";
+}
+.icon-location:before {
+	content: "\e025";
 }
 .icon-compass:before {
 	content: "\e04d";
 }
+.icon-direction:before {
+	content: "\e04c";
+}
 .icon-clock:before {
 	content: "\e04e";
+}
+.icon-calendar:before {
+	content: "\e026";
+}
+.icon-calendar-2:before {
+	content: "\e027";
+}
+.icon-print:before {
+	content: "\e028";
+}
+.icon-mobile:before {
+	content: "\e029";
+}
+.icon-tablet:before {
+	content: "\e02a";
+}
+.icon-archive:before {
+	content: "\e02b";
+}
+.icon-database:before {
+	content: "\e04a";
+}
+.icon-bubbles:before {
+	content: "\e04b";
 }
 .icon-bubble:before {
 	content: "\e04f";
 }
-.icon-search:before {
+.icon-user:before {
 	content: "\e050";
 }
-.icon-health:before {
+.icon-users:before {
 	content: "\e051";
 }
-.icon-pie:before {
+.icon-vcard:before {
 	content: "\e052";
 }
-.icon-wand:before {
+.icon-spinner:before {
 	content: "\e054";
+}
+.icon-binoculars:before {
+	content: "\e055";
+}
+.icon-search:before {
+	content: "\e056";
+}
+.icon-key:before {
+	content: "\e057";
+}
+.icon-settings:before {
+	content: "\e059";
+}
+.icon-cogs:before {
+	content: "\e058";
+}
+.icon-cog:before {
+	content: "\e05a";
+}
+.icon-wand:before {
+	content: "\e05b";
+}
+.icon-bubble-user:before {
+	content: "\e05c";
+}
+.icon-bars:before {
+	content: "\e05d";
+}
+.icon-pie:before {
+	content: "\e05e";
+}
+.icon-ladder:before {
+	content: "\e05f";
+}
+.icon-apple-fruit:before {
+	content: "\e060";
+}
+.icon-steps:before {
+	content: "\e061";
+}
+.icon-fire:before {
+	content: "\e062";
+}
+.icon-remove:before {
+	content: "\e063";
+}
+.icon-paper-plane:before {
+	content: "\e064";
+}
+.icon-truck:before {
+	content: "\e065";
+}
+.icon-cube:before {
+	content: "\e066";
+}
+.icon-clipboard:before {
+	content: "\e067";
+}
+.icon-signup:before {
+	content: "\e068";
+}
+.icon-grid:before {
+	content: "\e069";
+}
+.icon-grid-2:before {
+	content: "\e06a";
+}
+.icon-menu:before {
+	content: "\e06b";
+}
+.icon-grid-3:before {
+	content: "\e06c";
+}
+.icon-flag:before {
+	content: "\e06d";
+}
+.icon-eye:before {
+	content: "\e06e";
+}
+.icon-warning:before {
+	content: "\e06f";
+}
+.icon-exit:before {
+	content: "\e070";
+}
+.icon-filter-2:before {
+	content: "\e071";
 }
