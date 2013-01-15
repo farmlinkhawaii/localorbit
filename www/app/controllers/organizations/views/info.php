@@ -30,13 +30,14 @@ echo(
 
 <h3>Organization Info</h3>
 
+<!--
 <div class="alert note alert-info">
 	<button type="button" class="close" data-dismiss="alert">×</button>
 	<strong>What should I be doing here?</strong>
 	<br />
 	This is a placeholder for an inline tutorial using a jquery plugin (TBD). It may appear significantly different from this in our future release.
 </div>
-
+-->
 <?=core_form::input_text('Organization','name',$data['name'],array('required' => true))?>
 <!--
 <div class="control-group">
@@ -89,6 +90,7 @@ echo(
 
 
 <? 
+/*
 if(lo3::is_admin() || lo3::is_market() || $data['org_id'] == $core->session['org_id']) 
 { 
 	$users->load();
@@ -113,6 +115,7 @@ if(lo3::is_admin() || lo3::is_market() || $data['org_id'] == $core->session['org
 		));
 	}
 }
+*/
 ?>
 
 <?if(lo3::is_admin() || lo3::is_market()){?>

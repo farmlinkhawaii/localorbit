@@ -75,32 +75,39 @@ else
 
 		$products->load();
 
-	$price_ids = $products->get_unique_values('price_ids',true,true);	
-	$prices    = core::model('product_prices')->get_valid_prices($price_ids, $core->config['domain']['domain_id'],$core->session['org_id']);
- 		
-	$dd_ids    = $products->get_unique_values('dd_ids',true,true);
-	$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
-	$deliveries = array();
-	foreach ($delivs as $value) {
-		$value->next_time();
-		$deliveries[$value['dd_id']] = array($value->__data);
-	}
+		$price_ids = $products->get_unique_values('price_ids',true,true);	
+		$deliveries = array();
+		$days = array();
+		$has_products = false;
+		
+		if(count($price_ids) > 0)
+		{
+			$has_products = true;
+			$prices    = core::model('product_prices')->get_valid_prices($price_ids, $core->config['domain']['domain_id'],$core->session['org_id']);
+				
+			$dd_ids    = $products->get_unique_values('dd_ids',true,true);
+			$delivs    = core::model('delivery_days')->collection()->filter('delivery_days.dd_id','in',$dd_ids);
+			foreach ($delivs as $value) {
+				$value->next_time();
+				$deliveries[$value['dd_id']] = array($value->__data);
+			}
 
-	$delivs = $deliveries;
+			$delivs = $deliveries;
+				
 
-	$days = array();
-	foreach($delivs as $deliv)
-	{
-		$time = ($deliv[0]['pickup_address_id'] ? 'Pick Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
-		if (!array_key_exists($time, $days)) {
-			$days[$time] = array();
+			foreach($delivs as $deliv)
+			{
+				$time = ($deliv[0]['pickup_address_id'] ? 'Pick Up' : 'Delivered') . '-' . strtotime('midnight',$deliv[0]['pickup_address_id'] ? $deliv[0]['pickup_end_time'] : $deliv[0]['delivery_end_time']);
+				if (!array_key_exists($time, $days)) {
+					$days[$time] = array();
+				}
+				foreach ($deliv as $value) {
+					//print_r($deliv);
+					$days[$time][$value['dd_id']] = $value;
+				}
+			}
 		}
-		foreach ($deliv as $value) {
-			//print_r($deliv);
-			$days[$time][$value['dd_id']] = $value;
-		}
-	}
-				$cart = core::model('lo_order')->get_cart();
+					$cart = core::model('lo_order')->get_cart();
 		$cart->load_items();
 		core_ui::load_library('js','catalog.js');
 		core::js('core.categories ='.json_encode($cats->by_parent).';');
@@ -157,6 +164,7 @@ else
 		<hr/>
 	</div>
 </div>
+<? if( $has_products){?>
 
 <div class="row">
 	<div class="span9">
@@ -175,8 +183,6 @@ else
 <div class="row">
 
 	<div class="span9">
-	<? //$catalog_controller = new core_controller_catalog;
-		if($products->__num_rows > 0 ){?>
 		<? foreach($products as $prod){?>
 		<div class="subheader_1">
 			<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"> <?
@@ -196,10 +202,10 @@ else
 		?>	</a>
 		</div>
 		<?}?>
-	<?}?>
+	
 	</div>
 
 </div>
-			
+<?}?>	
 <?}?>
 <?}?>
