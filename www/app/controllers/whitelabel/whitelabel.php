@@ -28,7 +28,10 @@ class core_controller_whitelabel extends core_controller
 		}
 		
 		# this draws all the footer links
-		$this->handle_footer();
+		if($core->data['public'] == 'yes')
+			$this->public_footer();
+		else
+			$this->handle_footer();
 	}
 }
 
