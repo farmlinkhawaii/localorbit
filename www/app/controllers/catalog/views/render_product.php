@@ -38,31 +38,37 @@ $rendered_prices = 0;
 ?>
 <div class="row">
 	<div id="product_<?=$prod['prod_id']?>" class="product-row">
-		<div class="span1 product-image">
-			<? if(intval($prod['pimg_id']) > 0){?>
-			<img class="img-rounded catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
-			<?}else{?>
-			<img class="img-rounded catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
-			<?}?>
-		</div>
+		<div class="span9">
+			<div class="row">
+				<div class="span1 product-image">
+					<? if(intval($prod['pimg_id']) > 0){?>
+					<img class="img-rounded catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+					<?}else{?>
+					<img class="img-rounded catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+					<?}?>
+				</div>
 
-		<div class="span4 product-info">
-			<? $this->render_product_description($prod,$seller); ?>
-		</div>
+				<div class="span4 product-info">
+					<? $this->render_product_description($prod,$seller); ?>
+				</div>
 
-		<ol class="span2 priceList">
-			<? $this->render_product_pricing($pricing); ?>
-		</ol>
+				<ol class="span2 priceList">
+					<? $this->render_product_pricing($pricing); ?>
+				</ol>
 
-		<div class="span2">
-			<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty,$total); ?>
+				<div class="span2">
+					<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty,$total); ?>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span3 pull-right">
+					<div id="prod_<?=$prod['prod_id']?>_min_qty" class="alert" style="display: none;"><small></small></div>
+				</div>
+			</div>
+			<div class="row">
+				<hr class="span9" />
+			</div>
 		</div>
-		<hr class="span9" />
 	</div> <!-- /.product-row-->
 
-<div class="row">
-	<div class="span3 pull-right">
-		<div id="prod_<?=$prod['prod_id']?>_min_qty" class="alert" style="display: none;"><small></small></div>
-	</div>
-</div>
 </div> <!-- /.row-->
