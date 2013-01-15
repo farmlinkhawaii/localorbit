@@ -29,10 +29,11 @@ $(function()
 	}
 );
 </script>
-
+<!--
 <p class="navbar-text pull-left">
 	<small>Style Switcher (Temporary):</small>
 </p>
+
 <ul class="nav pull-left">
 	
 	<li><a href="#" rel="styles1" class="styleswitch"><small>1</small></a></li>
@@ -40,6 +41,7 @@ $(function()
 	<li><a href="#" rel="styles3" class="styleswitch"><small>3</small></a></li>
 	
 </ul>
+-->
 <ul class="nav pull-right">
 	<li class="divider-vertical"></li>
 	
