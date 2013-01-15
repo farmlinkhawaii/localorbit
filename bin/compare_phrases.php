@@ -23,7 +23,7 @@ if (count($argv) != 3) {
 
 $statement_formats = array(
    'insert' =>   'insert into phrases (pcat_id, label, tags, default_value, sort_order, edit_type, info_note) values (%2$d, %3$s, %4$s, %5$s, %6$d, %7$s, %8$s)',
-   'update' =>   'update phrases set pcat_id = %2$d, set label = %3$s, set tags = %4$s, set default_value = %5$s, set sort_order = %6$d, set edit_type = %7$s, set info_note  = %8$s where phrase_id = %1$d',
+   'update' =>   'update phrases set pcat_id = %2$d, label = %3$s, tags = %4$s, default_value = %5$s, sort_order = %6$d, edit_type = %7$s, info_note  = %8$s where phrase_id = %1$d',
    'delete' =>   'delete from phrases where phrase_id = %9$d');
 
 $statements = array_fill_keys(array_keys($statement_formats), array());
