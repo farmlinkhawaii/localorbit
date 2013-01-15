@@ -403,7 +403,7 @@ core.catalog.setAddressCache=function(address,gcResult){
 core.catalog.checkInventoryFailure=function(prodId, maximumQuantity, dd_id){
 	core.log('failure...');
 	$('.prod_' +prodId+ '_min_qty:visible').remove();
-	var qtyAlert = $('.prod_' +prodId+ '_min_qty').clone().appendTo($('.prod_' +prodId+ '_min_qty').parent());
+	var qtyAlert = $('.prod_' +prodId+ '_min_qty:first').clone().appendTo($('.prod_' +prodId+ '_min_qty').parent());
 	//alert('test');
 	$('.prodQty_'+prodId).val(parseFloat(maximumQuantity));
 	qtyAlert.find('small').text(((maximumQuantity)?'Only '+parseFloat(maximumQuantity):'Sorry none')+' are available.')
@@ -457,7 +457,7 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 		}
 	}
 	$('.prod_' +prodId+ '_min_qty:visible').remove();
-	var qtyAlert = $('.prod_' +prodId+ '_min_qty').clone().appendTo($('#product_' + prodId + ' .alertContainer'));
+	var qtyAlert = $('.prod_' +prodId+ '_min_qty:first').clone().appendTo($('#product_' + prodId + ' .alertContainer'));
 
 	// if we we found a valid price,
 	if(priceId > 0){
