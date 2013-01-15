@@ -52,17 +52,21 @@ $rendered_prices = 0;
 					<? $this->render_product_description($prod,$seller); ?>
 				</div>
 
-				<ol class="span2 priceList">
-					<? $this->render_product_pricing($pricing); ?>
-				</ol>
+				<div class="span4">
+					<div class="row">
+						<ol class="span2 priceList">
+							<? $this->render_product_pricing($pricing); ?>
+						</ol>
 
-				<div class="span2">
-					<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty,$total); ?>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span3 pull-right">
-					<div id="prod_<?=$prod['prod_id']?>_min_qty" class="alert" style="display: none;"><button type="button" class="close" data-dismiss="alert">&times;</button><small></small></div>
+						<div class="span2">
+							<? $this->render_qty_delivery($prod,$days,$dd_id,$dd_ids,$qty,$total); ?>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span3 pull-right alertContainer">
+							<div class="alert prod_<?=$prod['prod_id']?>_min_qty" style="display: none;"><button type="button" class="close" data-dismiss="alert">&times;</button><small></small></div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row">
