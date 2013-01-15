@@ -597,7 +597,7 @@ core.loadLibrary=function(filetype,filename){
 }
 
 $(document).click(function (evt){
-	if (!$(evt.srcElement).hasClass('datepicker')) {
+	if (!$(evt.srcElement).hasClass('datepicker') && $(evt.srcElement).parents('.datePicker').length < 1) {
 		$('#datePicker').hide();
 	}
 });
