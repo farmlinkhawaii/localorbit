@@ -548,19 +548,10 @@ class core
 		else
 			return '';
 	}
-		
-	public static function process_command($command,$return_data=false)
+	
+	public static function controller($controller)
 	{
 		global $core;
-		core::log('running: '.$command);
-		$command = explode('/',$command);
-		$controller = $command[0];
-		$method     = $command[1];
-		
-		# handle parameters, only pass the 3rd parameter on, as one big array
-		$p = func_get_args();
-		array_shift($p);
-		array_shift($p);
 		
 		$class_name = 'core_controller_'.$controller;
 		
@@ -582,6 +573,23 @@ class core
 		{
 			$controller = new core_controller($base);
 		}
+		return $controller;
+	}
+		
+	public static function process_command($command,$return_data=false)
+	{
+		global $core;
+		core::log('running: '.$command);
+		$command = explode('/',$command);
+		$controller = $command[0];
+		$method     = $command[1];
+		
+		# handle parameters, only pass the 3rd parameter on, as one big array
+		$p = func_get_args();
+		array_shift($p);
+		array_shift($p);
+		
+		$controller = core::controller($controller);
 		$data = $controller->$method($p[0],$p[1],$p[2],$p[3],$p[4],$p[5],$p[6],$p[7],$p[8],$p[9]);
 		
 		if(!$return_data)
