@@ -17,7 +17,8 @@ $core->config['mailer'] = array(
 
 $core->config['db'] = array(
 	'type'=>'mysql',
-	'hostname'=>'app-db.cbuaulnl9t1m.us-west-2.rds.amazonaws.com',
+	#'hostname'=>'app-db.cbuaulnl9t1m.us-west-2.rds.amazonaws.com',
+	'hostname'=>'127.0.0.1',
 	'username'=>'localorb_www',
 	'password'=>'l0cal1sdab3st',
 	'database'=>'localorb_www_production',
