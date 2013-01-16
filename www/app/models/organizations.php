@@ -44,6 +44,7 @@ class core_model_organizations extends core_model_base_organizations
 				left join domains on domains.domain_id=organizations_to_domains.domain_id
 				where organizations.name <> \'\'
 				and organizations.name is not null
+				and organizations.is_deleted=0
 			';
 			$col = new core_collection($sql);
 			$col->sort('organizations.name');
@@ -58,6 +59,7 @@ class core_model_organizations extends core_model_base_organizations
 				left join domains on domains.domain_id=organizations_to_domains.domain_id
 				where organizations.name <> \'\'
 				and organizations.name is not null
+				and organizations.is_deleted=0
 				and organizations_to_domains.domain_id in ('.implode(',',$core->session['domains_by_orgtype_id'][2]).')
 			';
 			$col = new core_collection($sql);
