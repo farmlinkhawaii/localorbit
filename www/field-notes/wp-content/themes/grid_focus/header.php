@@ -94,7 +94,7 @@ $prtcl = ($_SERVER['SERVER_PORT'] == 80)?'http://':'https://';
 													<?}else{?>
 													<a href="#" onclick="$('#overlay,#popup3,#popup_closer').fadeIn(150);">contact</a>
 													&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-													<a href="https://<?=$_SERVER['HTTP_HOST']?>/#!auth-form" style="color: #555;">log in</a>
+													<a href="https://<?=$_SERVER['HTTP_HOST']?>/app.php#!auth-form" style="color: #555;">log in</a>
 									 
 													<?}?>
 												</td>
@@ -105,10 +105,10 @@ $prtcl = ($_SERVER['SERVER_PORT'] == 80)?'http://':'https://';
 											<tr>
 												<td colspan="2" id="nav1sub">
 													<? if($core->session['user_id'] > 0){?>
-													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/#!dashboard-home" onclick="core.go(this.href);" class="main">dashboard</a>
-													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/#!market-info" onclick="core.go(this.href);" class="main">market info</a>
-													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/#!sellers-oursellers" onclick="core.go(this.href);" class="main">our sellers</a>
-													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/#!catalog-shop" onclick="core.go(this.href);" class="main">shop</a>
+													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/app.php#!dashboard-home" onclick="core.go(this.href);" class="main">dashboard</a>
+													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/app.php#!news-list" onclick="core.go(this.href);" class="main">market info</a>
+													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/app.php#!sellers-oursellers" onclick="core.go(this.href);" class="main">our sellers</a>
+													<a href="<?=$prtcl?><?=$_SERVER['HTTP_HOST']?>/app.php#!catalog-shop" onclick="core.go(this.href);" class="main">shop</a>
 													<?}?>
 												</td>
 											</tr>
