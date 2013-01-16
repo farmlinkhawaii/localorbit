@@ -120,6 +120,7 @@ class core_controller_auth extends core_controller
 			$core->session['tz_name']    = $user['tz_name'];
 			$core->session['home_domain_id'] = $user['home_domain_id'];
 			$core->session['all_domains'] = $user['all_domains'];
+			$core->session['login_note_viewed'] = $user['login_note_viewed'];
 			$core->session['domains_by_orgtype_id'] = $user['domains_by_orgtype_id'];
 
 			# figure out what the final hostname should be
@@ -250,6 +251,8 @@ class core_controller_auth extends core_controller
 		$core->session['time_offset'] = $user['offset_seconds'];
 		$core->session['tz_name'] = $user['tz_name'];
 		$core->session['org_is_active'] = $user['org_is_active'];
+		$core->session['login_note_viewed'] = $user['login_note_viewed'];
+		
 		$core->config['navstate'] = array();
 	
 		list(
@@ -268,7 +271,7 @@ class core_controller_auth extends core_controller
 			$core->session['allow_sell'] == 0
 		)
 		{
-			core::js('core.navState={};location.href=\'https://'.$core->session['hostname'].'/'.$core->config['app_page'].'#!catalog-shop\';');
+			core::js('core.navState={};location.href=\'https://'.$core->session['hostname'].'/'.$core->config['app_page'].'#!catalog-shop--show_news-yes\';');
 		}
 		else
 		{
