@@ -49,15 +49,15 @@ echo(
 		core_form::tab('newslettertabs',
 			core_form::table_nv(
 				((lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)?
-					core_form::input_select('Hub','domain_id',$data,$hubs,array(
+					core_form::input_select('Market','domain_id',$data,$hubs,array(
 						'default_show'=>true,
-						'default_text'=>'Select a Hub',
+						'default_text'=>'Select a Market',
 						'text_column'=>'name',
 						'value_column'=>'domain_id',
 				)):''),
 				core_form::value(
 					'Send to these groups',
-					core_ui::checkdiv('send_seller','Sellers',$data['send_seller']).
+					core_ui::checkdiv('send_seller','Sellers',$data['send_seller']).'&nbsp;&nbsp;&nbsp;&nbsp;'.
 					core_ui::checkdiv('send_buyer','Buyers',$data['send_buyer']).
 					'<div class="error" style="display:none;" id="checkMsg">You must check at least one group that will receive this newsletter.</div>'
 				),
@@ -73,7 +73,7 @@ echo(
 			)
 		),
 		((lo3::is_market() && count($core->session['domains_by_orgtype_id'][2]) == 1)?
-			core_form::hidden('domain_id',$core->session['domains_by_orgtype_id'][2][0]):''
+			core_form::input_hidden('domain_id',$core->session['domains_by_orgtype_id'][2][0]):''
 		),
 		core_form::input_hidden('do_test',0),
 		core_form::input_hidden('do_send',0),
