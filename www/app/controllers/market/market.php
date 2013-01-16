@@ -19,7 +19,7 @@ class core_controller_market extends core_controller
 		global $core;
 		return new core_ruleset('marketForm',array(
 			array('type'=>'min_length','name'=>'name','data1'=>2,'msg'=>$core->i18n['error:markets:name']),
-			array('type'=>'at_least_one_checked','name'=>'payment_default_purchaseorder','data1'=>array('payment_default_paypal','payment_default_purchaseorder'),'msg'=>$core->i18n['error:markets:one_default_payment']),
+			#array('type'=>'at_least_one_checked','name'=>'payment_default_purchaseorder','data1'=>array('payment_default_paypal','payment_default_purchaseorder'),'msg'=>$core->i18n['error:markets:one_default_payment']),
 		));
 	}
 	
