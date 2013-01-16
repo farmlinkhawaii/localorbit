@@ -259,7 +259,7 @@ product.editPrice=function(priceId,domainId,orgId,price,min_qty,totalFees,priceM
 			sellerNetPrice = 0;
 		document.prodForm.seller_net_price.value = core.format.price(sellerNetPrice);
 		//product.syncPrices(document.prodForm.price,'seller_net_price');
-		if(typeof(document.prodForm.total_fees) == 'object')
+		if(typeof(document.prodForm.total_fees) == 'object' && !isNaN(totalFees))
 			document.prodForm.total_fees.value = totalFees;
 	}
 	
