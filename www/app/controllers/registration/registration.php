@@ -126,6 +126,11 @@ class core_controller_registration extends core_controller
 		#core::log_data();
 		#core::deinit();
 
+		if (!($core->data['allow_sell'] || $core->data['allow_buyer'])) {
+			core_ui::notification('Please select what you would like to do.');
+			return;
+		}
+
 		# validate the data in various ways
 		$this->rules()->validate();
 		core::log('passed intial validation');
