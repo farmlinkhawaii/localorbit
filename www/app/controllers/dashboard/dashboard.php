@@ -177,7 +177,7 @@ class core_controller_dashboard extends core_controller
 			if($core->session['allow_sell'] == 1)
 			{
 				core::log('this is a seller');
-				echo('<h1>login note viewed: '.$core->session['login_note_viewed'].'</h1>');
+				#echo('<h1>login note viewed: '.$core->session['login_note_viewed'].'</h1>');
 				$this->release_news();
 				if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1)
 				{
