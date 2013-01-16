@@ -432,6 +432,7 @@ class core_controller_organizations extends core_controller
 		$address = core::model('addresses')->import_fields('address_id','label','org_id','address','city','region_id','postal_code','telephone','fax','default_billing','delivery_instructions','latitude','longitude')->save();
 
 		core_datatable::js_reload('addresses');
+		core_datatable::js_reload('organizations');
 		core::js('core.addresses['.$address['address_id'].']=['.$address->to_json().'];');
 
 		core_ui::notification('address saved');

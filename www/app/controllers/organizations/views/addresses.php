@@ -1,12 +1,23 @@
 <?php
 global $data,$org_all_domains;
+
+
 #if (!isset($data))
 #	die ("This organizations/addresses module can not be called directly.");
 
 $regions = core::model('directory_country_region')->collection()->filter('country_id','US');
 
 if(!$data)
-	$data = core::model('organizations')->load();
+	$data = core::model('organizations')->load($core->data['org_id']);
+		
+if(!is_array($org_all_domains))
+{
+	list(
+		$org_home_domain_id,
+		$org_all_domains,
+		$org_domains_by_orgtype_id
+	) = core::model('customer_entity')->get_domain_permissions( $data['org_id']);
+}		
 		
 # if this org isn't the same as the current user's org, then apply permissions
 if($data['org_id'] != $core->session['org_id'])
@@ -28,7 +39,7 @@ if($data['org_id'] != $core->session['org_id'])
 $addr_model = core::model('addresses');
 $col = $addr_model->collection()
 	->filter('addresses.is_deleted','=',0)
-	->filter('org_id',$data['org_id']);
+	->filter('org_id','=',$data['org_id']);
 		
 #core::log(print_r($col->to_hash('address_id'),true));
 core::log('core.addresses='.json_encode($col->to_hash('address_id')).';');
