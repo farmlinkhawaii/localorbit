@@ -20,7 +20,7 @@
 		core::js('$("#releaseNewsModal").modal("hide");');
 		core::deinit();
 	}
-	else if ($core->session['login_note_viewed']  != 1 && $core->session['org_id'] < 1202)
+	else if ($core->session['login_note_viewed']  != 1 && $core->session['org_id'] < 1286)
 	{
 		
 		if(lo3::is_market())
