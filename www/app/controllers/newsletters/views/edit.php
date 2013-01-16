@@ -38,10 +38,18 @@ $data['send_seller'] = (in_array(1,$groups));
 $data['send_buyer']  = (in_array(2,$groups));
 $data['send_market'] = (in_array(3,$groups));
 
-
-
+echo(core_form::page_header('Editing '.$data['title']));
+?>
+<div class="buttonset pull-right" id="sendNewsletterButton">
+	<span id="testLabel" style="display: none;">Send test to&nbsp;</span>
+	<input type="text" name="test_email" id="testEmail" value="" style="display: none;" />
+	<button id="cancelTest" style="display: none;" class="btn btn-danger" onclick="core.newsletters.toggleTestEmail();">cancel test</button>
+	<button id="sendTest" style="display: none;" class="btn btn-info" onclick="core.newsletters.sendTest();">send now</button>
+	<button id="showTest" class="btn btn-info" onclick="core.newsletters.toggleTestEmail();">send test</button>
+	<button id="sendCustomers" class="btn btn-primary" onclick="core.newsletters.sendNewsletter(this.form);">send to customers</button>
+</div>		
+<?
 echo(
-	core_form::page_header('Editing '.$data['title']).
 	core_form::form('nlForm','/newsletters/update',null,
 		core_form::tab('newslettertabs',
 			core_form::table_nv(
