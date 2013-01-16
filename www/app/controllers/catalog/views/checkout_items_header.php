@@ -85,3 +85,14 @@
 		?>
 	</div>
 </div>
+<div class="row">
+	<span class="offset3 span1 checkout_labels">
+		Quantity
+	</span>
+	<span class="span1 checkout_labels">
+		Price
+	</span>
+	<span class="span1 checkout_labels align-right">
+		Subtotal
+	</span>
+</div>

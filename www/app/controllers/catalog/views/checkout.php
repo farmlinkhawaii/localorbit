@@ -59,15 +59,6 @@ $cart->arrange_by_next_delivery();
 			<span class="span3">
 				<h3><i class="icon-cart-checkout"/>Your Order</h3>
 			</span>			
-			<span class="span1 checkout_labels">
-				Quantity
-			</span>
-			<span class="span1 checkout_labels">
-				Price
-			</span>
-			<span class="span1 checkout_labels">
-				Subtotal
-			</span>
 
 		</div>
 		<div class="row">
@@ -84,7 +75,7 @@ $cart->arrange_by_next_delivery();
 				
 				?>
 					<div class="row">
-						<hr class="span6"/>
+						<hr class="span6 tight"/>
 					</div>
 				<?
 				$items_by_seller = array();
