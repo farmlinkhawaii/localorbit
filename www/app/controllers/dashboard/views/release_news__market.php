@@ -8,35 +8,34 @@
 	</div>
 		 
 	<div class="modal-body"> 
-		You may have noticed a few changes around here. 
-		We're excited to announce a completely updated online marketplace experience with the introduction of several 
-		new features and enhancements to a few of your favorites.
-		<p/>
+		<p>
+		You may have noticed a few changes around here. We’re excited to announce a completely updated online marketplace experience with the introduction of several new features and enhancements to a few of your favorites.
+		</p>
 		
-		What's New:
+		<b>What's New:</b>
 		<ol>
 			<li>Updated design</li>
-			<li>Customizable branding options</li>
+			<li>New background, font and color options</li>
 			<li>New Market Info and News pages</li>
 			<li>Extra help tips & descriptive prompts</li>
 		</ol>
-		
-		What's Changed:
+		<br />
+		<b>What's Changed:</b>
 		<ol>
-			<li>Streamlined navigation</li>
+			<li>Streamlined back office management</li>
 			<li>Faster ordering and checkout process</li>
-			<li>Updated email notifications</li>
 			<li>Additional product description fields</li>
 		</ol>
-		<p/>
-		Learn more about the changes <a target="_blank" href="https://localorbit.zendesk.com/entries/22926838-introducing-a-revamped-design">here.</a>	
-		<p/>
-		<p/>
+		<p>
+			Our Community Managers will be checking in soon to get your feedback, set up your new custom options, and answer any questions. In the meantime, you can learn more about the update <a href="https://localorbit.zendesk.com/entries/22926838-introducing-an-updated-design" target="_blank">here</a>.
+			<br />&nbsp;<br />
+			So go ahead. Take a look around. We hope you love it as much as we do.
+		</p>
 	</div>
 	
 	
 	<div class="modal-footer">
-		<a class="btn btn-large" data-dismiss="modal" href="">Remind Me Later</a>
+		<a class="btn btn-large" href="">Remind Me Later</a>
 		<a class="btn btn-large btn-primary" onclick="core.doRequest('/dashboard/release_news',{'has_seen_release_news':'true'});">Got It</a>
 	</div>
 </div>
