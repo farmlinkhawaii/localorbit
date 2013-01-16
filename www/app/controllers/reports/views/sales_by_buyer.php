@@ -107,7 +107,7 @@ if (lo3::is_admin()) {
 			 and org_id in (select org_id from lo_order where ldstat_id<>1)  order by name'),
 		'org_id',
 		'name',
-		'Show from all sellers',
+		'Show from all buyers',
 		'width: 230px;'
 	);
 } else if(lo3::is_market()) {	
@@ -123,7 +123,7 @@ if (lo3::is_admin()) {
 			where allow_sell=1 and otd.domain_id in ('.implode(',', $core->session['domains_by_orgtype_id'][2]).') order by d.name, organizations.name'),
 		'org_id',
 		'name',
-		'Show from all sellers',
+		'Show from all buyers',
 		'width: 230px;');
 }
 
