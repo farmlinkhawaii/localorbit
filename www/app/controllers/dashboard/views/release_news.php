@@ -1,6 +1,6 @@
 <?
 	#core::log('show it: '.(print_r($_COOKIE['cookie'],true)));
-	echo('<h2>hereeeee: '.$core->session['login_note_viewed'].'/'.$core->session['org_id'].'</h2>');
+	#echo('<h2>hereeeee: '.$core->session['login_note_viewed'].'/'.$core->session['org_id'].'</h2>');
 	
 	// reset to test  devannarbor-mi.localorb.it/release_news.php?has_seen_release_news=0
 	if ($core->data["has_seen_release_news"] == 'yes') 
