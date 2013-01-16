@@ -25,9 +25,10 @@ $prtcl = ($_SERVER['SERVER_PORT'] == 80)?'http://':'https://';
 		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
 		<meta name="generator" content="WordPress <?php bloginfo('version'); ?>" />
 		<link rel="stylesheet" type="text/css" href="/css/reset.css" />
-		<link rel="stylesheet" type="text/css" href="/css/loader.php" />
+		<link rel="stylesheet" type="text/css" href="/field-notes/wp-content/themes/grid_focus/legacy.css" />
 		<link rel="stylesheet" type="text/css" href="/css/wordpress.css" />
 		<link rel="stylesheet" type="text/css" href="/homepage/includes/popup.css" />
+	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
 		<script language="Javascript" type="text/javascript" src="/js/jquery.min.js"></script>
 		<script language="Javascript" type="text/javascript" src="/app/core/js/core.js?time=0.07943900 1331674046"></script>
 		<script language="Javascript" type="text/javascript" src="/app/core/js/core.validator.js?time=0.07944100 1331674046"></script>
