@@ -7,7 +7,7 @@ function misc_lots_formatting($data)
 		$data['good_from'] = 'NA';
 	if($data['expires_on'].'/' == '/')
 		$data['expires_on'] = 'NA';
-	
+
 	$data['qty'] = intval($data['qty']);
 	#echo('/'.$data['good_from'].'/');
 	return $data;
@@ -62,14 +62,14 @@ else
 	-->
 	<div id="addLotButton">
 		<div class="pull-left">
-			<?=core_ui::checkdiv('sell_oldest_first','Sell from oldest lot first',true)?>	
+			<?=core_ui::checkdiv('sell_oldest_first','Sell from oldest lot first',true)?>
 		</div>
 		<div class="pull-right">
 			<a class="btn btn-small btn-info" onclick="product.editLot(0);"><i class="icon-plus" /> Add New Lot</a>
 			<a class="btn btn-small btn-danger" onclick="product.removeCheckedLots(this.form);"><i class="icon-trash" />  Remove Checked</a>
 		</div>
 	</div>
-	
+
 </div>
 <br />
 <div class="row">
@@ -82,7 +82,7 @@ else
 		<?=core_form::input_text('Qty','lot_qty','',array('required'=>true))?>
 		<?=core_form::input_hidden('inv_id','')?>
 		<? subform_buttons('product.saveLot();','Save This Lot','product.cancelLotChanges();'); ?>
-		<? core::js('$(\'[name="lot_qty"]\').blur(function () {core.ui.integerOnBlur(this);});'); ?>
+		<? core::js('$(\'[name="lot_qty"]\').focus(function () {core.ui.onFocusQty(this);}).blur(function () {core.ui.integerOnBlur(this);});'); ?>
 		</fieldset>
 	<div class="span3">&nbsp;</div>
 	<div class="clear-both"></div>
