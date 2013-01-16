@@ -33,6 +33,7 @@
 	
 		<script language="Javascript" type="text/javascript" src="https://asset0.zendesk.com/external/zenbox/v2.1/zenbox.js"></script>
 		<script language="Javascript" type="text/javascript" defer="defer">
+		/*	
 		var fileref=document.createElement("link")
 		fileref.setAttribute("rel", "stylesheet")
 		fileref.setAttribute("type", "text/css")
@@ -47,6 +48,7 @@
 			tabPosition: "Left"
 			});
 		}
+		*/
 		
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-19817823-1']);

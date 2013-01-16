@@ -99,7 +99,7 @@ else
 							<a href="#" class="nav2" onclick="$('#overlay,#popup3,#popup_closer').fadeIn(150);">contact</a>
 							&nbsp;&nbsp;|&nbsp;&nbsp;
 							<? if($core->session['user_id'] == 0){?>
-							<a class="nav2" href="/login.php">log in</a>
+							<a class="nav2" href="/login.php">customer log in</a>
 							<?}else{?>
 							<a class="nav2" href="/app.php#!dashboard-home">dashboard</a>
 							<?}?>
