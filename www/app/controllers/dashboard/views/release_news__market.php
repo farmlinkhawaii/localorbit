@@ -35,7 +35,7 @@
 	
 	
 	<div class="modal-footer">
-		<a class="btn btn-large" href="">Remind Me Later</a>
-		<a class="btn btn-large btn-primary" onclick="core.doRequest('/dashboard/release_news',{'has_seen_release_news':'true'});">Got It</a>
+		<button class="btn btn-large" onclick="core.doRequest('/dashboard/release_news',{'news_remind_later':'yes'});">Remind Me Later</button>
+		<button class="btn btn-large btn-primary" onclick="core.doRequest('/dashboard/release_news',{'has_seen_release_news':'yes'});">Got It</button>
 	</div>
 </div>
