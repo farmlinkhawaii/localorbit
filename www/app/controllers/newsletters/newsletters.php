@@ -41,7 +41,16 @@ class core_controller_newsletters extends core_controller
 			lo3::require_orgtype('admin');
 		}
 		
-		$nl = core::model('newsletter_content')->import_fields('cont_id','domain_id','title','header','body');
+		$recips = array();
+		if($core->data['send_seller'] == 1)
+			$recips[] = 1;
+		if($core->data['send_buyer'] == 1)
+			$recips[] = 2;
+		$core->data['send_to_groups'] = implode(',',$recips);
+		
+		core::log(print_r($core->data,true));
+		
+		$nl = core::model('newsletter_content')->import_fields('cont_id','domain_id','title','header','body','send_buyer','send_seller','send_to_groups');
 		$nl->save('nlForm');	
 		core::js("$('#img_upload_row').show();$('#img_msg_row').hide();");
 		$core->data['cont_id'] = $nl['cont_id'];

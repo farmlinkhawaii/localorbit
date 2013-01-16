@@ -34,12 +34,9 @@ if (lo3::is_market()) {
 $hubs = $hubs->sort('name');
 
 $groups = explode(',',$data['send_to_groups']);
-if(in_array(1,$groups))
-	$data['send_seller'] = 1;
-if(in_array(3,$groups) || in_array(2,$groups))
-	$data['send_buyer'] = 1;
-if(in_array(4,$groups))
-	$data['send_market'] = 1;
+$data['send_seller'] = (in_array(1,$groups));
+$data['send_buyer']  = (in_array(2,$groups));
+$data['send_market'] = (in_array(3,$groups));
 
 
 
