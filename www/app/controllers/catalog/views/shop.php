@@ -131,6 +131,14 @@ if($core->data['show_news'] == 'yes')
 				$days[$time][$value['dd_id']] = $value;
 			}
 		}
+		function day_sort($a,$b) 
+		{
+			list($type, $atime) = explode('-', $a);
+			list($type, $btime) = explode('-', $b);
+			return intval($atime) - intval($btime);
+		}
+		
+		uksort($days,'day_sort');
 		# define a custom sorting function that uses our new sort column
 		function prod_sort($a,$b)
 		{

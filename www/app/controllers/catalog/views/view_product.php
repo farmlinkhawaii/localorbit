@@ -74,7 +74,14 @@ foreach($delivs as $deliv)
 		$days[$time][$value['dd_id']] = $value;
 	}
 }
-
+		function day_sort($a,$b) 
+		{
+			list($type, $atime) = explode('-', $a);
+			list($type, $btime) = explode('-', $b);
+			return intval($atime) - intval($btime);
+		}
+		
+		uksort($days,'day_sort');
 
 core::ensure_navstate(array('left'=>'left_blank'));
 core::write_navstate();
