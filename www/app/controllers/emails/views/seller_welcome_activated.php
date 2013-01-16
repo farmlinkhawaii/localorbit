@@ -15,7 +15,7 @@ $body .= $this->handle_source($core->session['i18n']['email:seller_welcome_activ
 $body .= $this->footer();
 $body .= $this->email_end();
 
-$this->send_email('welcome to local orbit!',
+$this->send_email('welcome to '.$values['hub_name'] .'!',
 	$to_email,
 	$body,
 	array(),
