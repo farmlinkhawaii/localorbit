@@ -24,10 +24,11 @@ if (count($days) > 1)
 {
 ?>
 <hr class="tight">
-<strong>
-	 <span style="cursor: pointer;" onclick="core.catalog.setFilter('cartOnly',$('#cartFilterCheck').prop('checked'));$('#cartFilterCheck').prop('checked', !$('#cartFilterCheck').prop('checked'));">Your Cart</span>
-	 <input onclick="core.catalog.setFilter('cartOnly',this.checked);" id="cartFilterCheck" class="pull-right" type="checkbox" name="in_cart_only" />
-</strong>
+
+<label>
+	<input onclick="core.catalog.setFilter('cartOnly',this.checked);" id="cartFilterCheck" class="pull-right" type="checkbox" name="in_cart_only" />
+	<strong>Your Cart</strong>
+</label>
 
 <hr class="tight">
 <strong><input type="checkbox" class="filtercheck" disabled="disabled" checked="checked" style="display: none;" />Availablity Date</strong>

@@ -26,6 +26,7 @@ core.catalog.resetFilters=function(){
 	$('.filter_subcat').removeClass('subheader_off');
 	$('.filter').removeClass('active');
 	$('#filter_list').empty();
+	$('#cartFilterCheck').attr('checked', false);
 	core.catalog.updateListing();
 	$('#weekly_special').show();
 }
