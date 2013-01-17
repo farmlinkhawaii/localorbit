@@ -223,21 +223,21 @@ core.catalog.updateListing=function(){
 				//alert('going to hide  '+core.products[i].prod_id);
 				core.products[i].show = false;
 			}
-		}else{
-			// apply seller filter
-			if(core.catalog.filters.seller > 0 && core.products[i].org_id != core.catalog.filters.seller)
-				core.products[i].show = false;
-			// apply the cat1 filter if necessary
-			if(core.catalog.filters.cat1 > 0 && (!core.lo3.inArray(core.products[i].category_ids,core.catalog.filters.cat1)))
-				core.products[i].show = false;
-			// apply the cat2 filter if necessary
-			if(core.catalog.filters.cat2 > 0 && (!core.lo3.inArray(core.products[i].category_ids,core.catalog.filters.cat2)))
-				core.products[i].show = false;
+	}
+		// apply seller filter
+		if(core.catalog.filters.seller > 0 && core.products[i].org_id != core.catalog.filters.seller)
+			core.products[i].show = false;
+		// apply the cat1 filter if necessary
+		if(core.catalog.filters.cat1 > 0 && (!core.lo3.inArray(core.products[i].category_ids,core.catalog.filters.cat1)))
+			core.products[i].show = false;
+		// apply the cat2 filter if necessary
+		if(core.catalog.filters.cat2 > 0 && (!core.lo3.inArray(core.products[i].category_ids,core.catalog.filters.cat2)))
+			core.products[i].show = false;
 
-			if(core.catalog.filters.dd !== 0 && !(core.catalog.matchesDeliveryDay(core.catalog.filters.dd, core.products[i]))) {
-				core.products[i].show = false;
-			}
+		if(core.catalog.filters.dd !== 0 && !(core.catalog.matchesDeliveryDay(core.catalog.filters.dd, core.products[i]))) {
+			core.products[i].show = false;
 		}
+		
 
 
 		// add this element to the list of things to hide
