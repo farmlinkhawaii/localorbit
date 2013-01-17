@@ -1,6 +1,6 @@
 <?php
 
-/** 
+/**
  * The base configurations of the WordPress.
  *
  * This file has the following configurations: MySQL settings, Table Prefix,
@@ -18,30 +18,50 @@
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 
-define('DB_USER', 'localorb_www');
-define('DB_PASSWORD', 'l0cal1sdab3st');
 define('AUTH_KEY', '!%L]ml|H|a-y<)EWk:y;>+UgmP:@uC|Qeg VXV}:7M?p N9Xku`x=]n>xgL!?');
 define('SECURE_AUTH_KEY', 'sa}!.4cH>D1FWCu4@41b[u>XhSJsQ~xW%WM-1A.mG(-T-Cb;rmL,w~o%s');
 define('LOGGED_IN_KEY', 'vcp~,9dJ56pL80aapU/ec}A*kFpgfaN4rPaMLWPj3E:[3Z6/8FsZ2H1.dYS]p0');
 define('NONCE_KEY', 'nIu=`+g-&>qffQL{&P{RxYNs+$$zqNg_8h|`h+f+];Sd_4@(z');
 
-if(strpos($_SERVER['HTTP_HOST'],'qa') !== false)
+if(strpos($_SERVER['HTTP_HOST'],'dev') !== false)
+{
+	define('DB_NAME', 'localorb_wordpress_dev');
+	define('WP_HOME','http://dev.localorb.it/field-notes');
+	define('WP_SITEURL','http://dev.localorb.it/field-notes');
+	define('DB_USER', 'localorb_www');
+	define('DB_PASSWORD', 'localorb_www_dev');
+}
+else if(strpos($_SERVER['HTTP_HOST'],'newui') !== false)
+{
+	define('DB_NAME', 'localorb_wordpress_newui');
+	define('WP_HOME','http://newui.localorb.it/field-notes');
+	define('WP_SITEURL','http://newui.localorb.it/field-notes');
+	define('DB_USER', 'localorb_www');
+	define('DB_PASSWORD', 'l0cal1sdab3st');
+}
+else if(strpos($_SERVER['HTTP_HOST'],'qa') !== false)
 {
 	define('DB_NAME', 'localorb_wordpress_qa');
 	define('WP_HOME','http://qa.localorb.it/field-notes');
 	define('WP_SITEURL','http://qa.localorb.it/field-notes');
+	define('DB_USER', 'localorb_www');
+	define('DB_PASSWORD', 'l0cal1sdab3st');
 }
 else if(strpos($_SERVER['HTTP_HOST'],'testing') !== false)
 {
 	define('DB_NAME', 'localorb_wordpress_testing');
 	define('WP_HOME','http://testing.localorb.it/field-notes');
 	define('WP_SITEURL','http://testing.localorb.it/field-notes');
+	define('DB_USER', 'localorb_www');
+	define('DB_PASSWORD', 'l0cal1sdab3st');
 }
 else
 {
 	define('DB_NAME', 'localorb_wordpress_production');
 	define('WP_HOME','http://www.localorb.it/field-notes');
 	define('WP_SITEURL','http://www.localorb.it/field-notes');
+	define('DB_USER', 'localorb_www');
+	define('DB_PASSWORD', 'l0cal1sdab3st');
 }
 
 	//~ define('DB_USER', 'localorb_www');
