@@ -637,6 +637,10 @@ class core
 		$model = new $main_class($model);
 		return $model;
 	}
+
+	public static function hide_dashboard () {
+		core::js("$('#dashboardnav').empty();");
+	}
 	
 	# this can be used by secondary controllers to determine which page you're on
 	# ex: use this in a navigation controler to determine which link to highlight

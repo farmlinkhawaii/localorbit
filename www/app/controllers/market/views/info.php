@@ -15,6 +15,7 @@ else
 {
 	core::ensure_navstate(array('left'=>'left_hub_info'));
 	core_ui::showLeftNav();
+	core::hide_dashboard();
 	
 	core::head('Local Orbit Market Information','Local Orbit Makes it easy for chefs, consumers and institutions to buy great food direct from local producers in one convenient location');
 	lo3::require_permission();

@@ -21,6 +21,7 @@ else
 
 	core::ensure_navstate(array('left'=>'left_seller_list')); 
 	core_ui::showLeftNav();
+	core::hide_dashboard();
 
 	# figure out which seller to load
 	$seller = core::model('domains')->load_sellers()->limit(1);

@@ -169,6 +169,7 @@ if($core->data['show_news'] == 'yes')
 		core::ensure_navstate(array('left'=>'left_blank'));
 		core::write_navstate();
 		$this->left_filters($cats,$sellers,$days);
+		core::hide_dashboard();
 
 		#===============================
 		# now render the main product listing
