@@ -28,7 +28,7 @@ else
 
 # write the form
 echo(
-	core_form::page_header('Editing '.$data['title'],'#!market_news-list','cancel').
+	core_form::page_header('Editing '.$data['title'],'#!market_news-list','cancel', 'cancel').
 	core_form::form('marketnewsform','/market_news/update',null,
 		core_form::tab_switchers('marketnewstabs',array('Market News')),
 		core_form::tab('marketnewstabs',

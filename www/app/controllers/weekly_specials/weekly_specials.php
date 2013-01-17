@@ -43,11 +43,11 @@ class core_controller_weekly_specials extends core_controller
 		if($current['spec_id'] != intval($core->data['spec_id']))
 		{
 			core_db::query('update weekly_specials set is_active=1 where spec_id='.intval($core->data['spec_id']));
-			core_ui::notification('featured deal set');
+			core_ui::notification('promotion activated');
 		}
 		else
 		{
-			core_ui::notification('featured deal deactivated');
+			core_ui::notification('promotion deactivated');
 		}
 	}
 	

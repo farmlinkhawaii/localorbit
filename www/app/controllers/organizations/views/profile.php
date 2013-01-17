@@ -35,18 +35,17 @@ if($data['allow_sell'] == 1)
 				Photo
 				<span class="help-block">Note: images can not be larger than 400 pixels wide by 400 pixels tall.</span>
 			</label>
-			<div class="controls">
-				<div id="imgContainer" class="float_left">
-					<img id="orgImg" src="<?=$webpath?>" class="img_upload_view" />
-				</div>
-				<div class="buttonset">
-					<input type="file" name="new_image" class="btn" value="" />
-					<input type="button" class="btn btn-info" value="Upload" onclick="core.ui.uploadFrame(document.organizationsForm,'uploadArea','org.refreshImage({params});','app/organizations/save_image');" />
-					<input type="button" id="removeLogo" class="btn btn-warning" value="Remove Image" onclick="core.doRequest('/organizations/remove_image',{'org_id':<?=$data['org_id']?>});" /> <br />
-				</div>
-				
-				<iframe name="uploadArea" id="uploadArea" width="300" height="20" style="border-width: 0px;color:#fff;background-color:#fff;overflow:hidden;"></iframe><br />
-				<?=core_ui::checkdiv('public_profile','Show my profile on Our Sellers page.',($data['public_profile'] == 1))?>	
+			<div class="controls row">
+				<div class="span3"><img class="pull-left img_upload_view" id="logo1" src="<?=$webpath?>" /></div>
+				<div class="span5">
+					<input type="file" name="logo_image" value="" />
+					<input type="button" class="btn btn-mini" value="Upload" onclick="core.ui.uploadFrame(document.organizationsForm,'uploadArea','org.refreshImage({params});','app/organizations/save_image');" />
+					<input type="button" id="removeLogo1" class="btn btn-mini btn-danger" value="Remove Image" onclick="core.doRequest('/organizations/remove_image',{'org_id':<?=$data['org_id']?>});" />
+		
+					<p class="alert alert-info help-block note">Note: images can not be larger than 400 pixels wide by 400 pixels tall. For best results, use images that are exactly 400 pixels wide by 400 pixels tall. If you do not upload a logo, the default Local Orbit logo will be used.</p>
+					<iframe name="uploadArea" id="uploadArea" width="300" height="20" style="color:#fff;background-color:#fff;overflow:hidden;border:0;"></iframe><br />
+					<?=core_ui::checkdiv('public_profile','Show my profile on Our Sellers page.',($data['public_profile'] == 1))?>	
+				</div>					
 			</div>
 		</div>
 	</div>

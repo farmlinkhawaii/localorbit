@@ -16,11 +16,11 @@ core.ui.error=function(content){
         "icon"  : "icon-remove icon-white"
     }], { 'animate' : false });
 
+	/*
 	setTimeout(function() {
         errorbox.modal('hide');
     }, 3000);
 
-	/*
 	$('#notification_content').html(content);
 	$('#notification').fadeIn('fast');
 	core.ui.scrollTop();

@@ -55,12 +55,12 @@
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
+					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
 					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
-					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
 					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Items</a></li>
-					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
+					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
+					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
 					<li><a href="#!emails-tests" onclick="core.go(this.href);"><?=$core->i18n['nav2:emails:tests']?></a></li>
@@ -118,9 +118,9 @@
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
+					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a href="#!orders-list" onclick="core.go(this.href);"><i class="icon-clipboard"></i><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
 					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><i class="icon-stack-checkmark"></i><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
-					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -134,12 +134,12 @@
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
+					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
 					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
-					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
 					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Items</a></li>
-					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i> <?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
+					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
+					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
 				</ul>
 			</li>
 		</ul>

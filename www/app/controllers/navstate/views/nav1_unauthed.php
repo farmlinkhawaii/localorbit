@@ -9,7 +9,7 @@
 &nbsp;
 <? core::replace('nav1sub');?>
 <h1>
-	<i class="icon_smaller icon-home"/> <?=$core->config['domain']['name']?>
+	<i class="icon-home"/> <?=$core->config['domain']['name']?>
 	
 </h1>
 <? core::replace('mainnav');?>

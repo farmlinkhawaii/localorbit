@@ -179,9 +179,9 @@ $dds->render();
 	
 	<input type="hidden" name="dd_id" value="" />
 	<input type="hidden" name="devfee_id" value="" />
-	<div class="buttonset">
-		<input type="button" class="button_secondary" value="save this delivery option" onclick="market.saveDeliv();" />
-		<input type="button" class="button_secondary" value="cancel" onclick="market.cancelDelivChanges();" />
+	<div class="form-actions pull-right">
+		<input type="button" class="btn btn-primary" value="save this delivery option" onclick="market.saveDeliv();" />
+		<input type="button" class="btn" value="cancel" onclick="market.cancelDelivChanges();" />
 	</div>
 </fieldset>
 	</div>

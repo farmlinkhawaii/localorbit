@@ -27,12 +27,26 @@ h4, h5, h6 {
 }
 
 
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+	text-decoration: inherit;
+	display: inline-block;
+	speak: none;
+	padding-right: 5px;
+	font-size: 75%;
+}
+
+
+h1 [class^="icon-"], h1 [class*=" icon-"],
+h2 [class^="icon-"], h2 [class*=" icon-"],
+h3 [class^="icon-"], h3 [class*=" icon-"] {
+	padding-right: 5px;
+	font-size: 75%;
+}
 .btn-wide {
 	width: 75px;
 }
-.icon_smaller {
-	font-size: 75%;
-}
+
 
 .hoverpointer {
 	cursor: pointer;

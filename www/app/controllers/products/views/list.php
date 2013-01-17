@@ -42,12 +42,16 @@ if(lo3::is_customer())
 
 # construct the table with slightly different columns depending on who is viewing
 $products = new core_datatable('products','products/list',$col);
+
+$actions = '<a class="btn btn-small btn-danger" href="#!products-list" class="text-error" onclick="product.deleteProduct({prod_id},\'{name}\',this);"><i class="icon-ban-circle" /> Delete</a>';
+
 if(lo3::is_customer())
 {
 	$products->add(new core_datacolumn('name','Name',true,'46%','<a href="#!products-edit--prod_id-{prod_id}">{name} {plural_unit}</a>','{name} {plural_unit}','{name} {plural_unit}'));
 	$products->add(new core_datacolumn('name','Pricing',false,'30%','{pricing_html}','{pricing}','{pricing}'));
 	$products->add(new core_datacolumn('name','In Stock',false,'12%','<a href="#!products-list" onclick="product.editPopupInventory({prod_id},this);">{inventory}</a>','{inventory}','{inventory}'));
-	$products->add(new core_datacolumn('','&nbsp;',false,'12%','<a class="btn btn-small btn-danger" href="#!products-list" class="text-error" onclick="product.deleteProduct({prod_id},\'{name}\',this);"><i class="icon-ban-circle" /> Delete</a>',' ',' '));
+	//$products->add(new core_datacolumn('','&nbsp;',false,'12%','<a class="btn btn-small btn-danger" href="#!products-list" class="text-error" onclick="product.deleteProduct({prod_id},\'{name}\',this);"><i class="icon-ban-circle" /> Delete</a>',' ',' '));
+	$products->add(new core_datacolumn('',' ',false,'12%',$actions,'  ','  '));
 }
 else
 {
@@ -56,7 +60,8 @@ else
 	$products->add(new core_datacolumn('name','Name',true,'32%','<a href="#!products-edit--prod_id-{prod_id}">{name} {plural_unit}</a>','{name} {plural_unit}','{name} {plural_unit}'));
 	$products->add(new core_datacolumn('name','Pricing',false,'20%','{pricing_html}','{pricing}','{pricing}'));
 	$products->add(new core_datacolumn('name','In Stock',false,'12%','<a href="#!products-list" onclick="product.editPopupInventory({prod_id},this);">{inventory}</a>','{inventory}','{inventory}'));
-	$products->add(new core_datacolumn('','&nbsp;',false,'12%','<a class="btn btn-small btn-danger" href="#!products-list" class="text-error" onclick="product.deleteProduct({prod_id},\'{name}\',this);"><i class="icon-ban-circle" /> Delete</a>',' ',' '));
+	//$products->add(new core_datacolumn('','&nbsp;',false,'12%','<a class="btn btn-small btn-danger" href="#!products-list" class="text-error" onclick="product.deleteProduct({prod_id},\'{name}222222222222\',this);"><i class="icon-ban-circle" /> Delete</a>',' ',' '));
+	$products->add(new core_datacolumn('',' ',false,'12%',$actions,'  ','  '));
 	$products->sort_column = 2;
 }
 

@@ -65,7 +65,7 @@ core::js('core.addresses = '.json_encode($col->to_hash('address_id')).';');
 		<legend>Address Info</legend>
 			
 		<div class="control-group">
-			<label class="control-label" for="domain_id">Label</label>
+			<label class="control-label" for="domain_id">Location Name</label>
 			<div class="controls">
 				<input type="text" name="label" value="" />
 			</div>

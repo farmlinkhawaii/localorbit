@@ -50,17 +50,16 @@ else
 $has_custom = ($image_path != $placeholder_image);
 
 
-page_header('Editing '.$data['name'],'#!weekly_specials-list','cancel');
+page_header('Editing '.$data['name'],'#!weekly_specials-list','cancel', 'cancel');
 ?>
 
 <form class="form-horizontal" name="specialsForm" method="post" action="/weekly_specials/update" onsubmit="return core.submit('/weekly_specials/update',this);" enctype="multipart/form-data">
-
 	<div class="alert alert-success" id="deactivate"<?=(($data['is_active'] == 1)?'':' style="display:none;"')?>>
-		This is currently the active featured deal. If you would like to deactivate this deal, 			
+		This is the active promotion. If you would like to deactivate this promotion, 
 		<a href="Javascript:$('#activate,#deactivate').toggle();core.doRequest('/weekly_specials/toggle_special',{'domain_id':<?=$data['domain_id']?>,'spec_id':<?=$data['spec_id']?>});">click here.</a>
 	</div>
 	<div class="alert" id="activate"<?=(($data['is_active'] == 1)?' style="display:none;"':'')?>>
-		This is NOT the active featured deal. If you would like to make this special the active deal, 
+		This is NOT the active promotion. If you would like to activate this promotion, 			
 		<a href="Javascript:$('#activate,#deactivate').toggle();core.doRequest('/weekly_specials/toggle_special',{'domain_id':<?=$data['domain_id']?>,'spec_id':<?=$data['spec_id']?>});">click here.</a>
 	</div>
 

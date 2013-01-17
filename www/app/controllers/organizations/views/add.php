@@ -43,7 +43,7 @@ page_header('Create New Organization','#!organizations-list','cancel', 'link', n
 	<h3>Address Info</h3>
 	
 	<div class="control-group">
-		<label class="control-label" for="label">Label</label>
+		<label class="control-label" for="label">Location Name</label>
 		<div class="controls">
 			<input type="text" name="label" value="" />
 		</div>

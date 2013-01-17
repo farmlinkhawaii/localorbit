@@ -78,7 +78,7 @@ else
 		<legend>Lot Info</legend>
 		<?=core_form::input_text('Lot #','lot_id','',array())?>
 		<?=core_form::input_datepicker('Good from','good_from','')?>
-		<?=core_form::input_datepicker('Good expires_on','expires_on','')?>
+		<?=core_form::input_datepicker('Product expires on','expires_on','')?>
 		<?=core_form::input_text('Qty','lot_qty','',array('required'=>true))?>
 		<?=core_form::input_hidden('inv_id','')?>
 		<? subform_buttons('product.saveLot();','Save This Lot','product.cancelLotChanges();'); ?>
