@@ -5,6 +5,8 @@ class core_controller_registration extends core_controller
 	function process_invite()
 	{
 		global $core;
+		
+		core::log('here');
 		core::load_library('crypto');
 		$customer = core::model('customer_entity');
 		$customer['email'] = $core->data['email'];
@@ -45,7 +47,7 @@ class core_controller_registration extends core_controller
 			array('type'=>'min_length','name'=>'last_name','data1'=>2,'msg'=>$core->i18n['error:customer:lastname']),
 			array('type'=>'min_length','name'=>'password','data1'=>8,'msg'=>$core->i18n['error:customer:password']),
 			array('type'=>'match_confirm_field','name'=>'password','data1'=>'password_confirm','msg'=>$core->i18n['error:customer:password-match']),
-			array('type'=>'value_is','name'=>'tos_approve','data1'=>1,'msg'=>$core->i18n['error:registration:tos_approve']),
+			array('type'=>'is_checked','name'=>'tos_approve','msg'=>$core->i18n['error:registration:tos_approve']),
 		));
 	}
 
