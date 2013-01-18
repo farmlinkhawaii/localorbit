@@ -329,8 +329,7 @@ core.doRequest=function(path,data){
 			$('meta[name=keywords]').attr('keywords',desc);
 		//alert('meta keywordss append done');
 		
-
-		
+		core.fixDropDown();
 		
 		//$('#loading').hide();
 		//alert(Base64.decode(jsondata.js));
@@ -595,6 +594,12 @@ core.loadLibrary=function(filetype,filename){
 	if (typeof fileref!="undefined")
 		document.getElementsByTagName("head")[0].appendChild(fileref)
 }
+
+core.fixDropDown=function() {
+	$('a.dropdown-toggle, .dropdown-menu a').on('touchstart', function(e) {
+	  e.stopPropagation();
+	});
+};
 
 $(document).click(function (evt){
 	if (!$(evt.srcElement).hasClass('datepicker') && $(evt.srcElement).parents('.datePicker').length < 1) {
