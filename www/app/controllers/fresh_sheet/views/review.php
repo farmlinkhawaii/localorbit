@@ -47,7 +47,7 @@ for($i=1;$i<35;$i++)
 	#echo('mkdir /var/www/new-production/www/img/'.$i.'/;<br />chmod 777 /var/www/new-production/www/img/'.$i.'/;<br />cp /var/www/production/www/img/'.$i.'/* /var/www/new-production/www/img/'.$i.'/;<br />');
 }
 
-page_header($core->i18n['nav2:marketadmin:freshsheet']);
+page_header($core->i18n['nav2:marketadmin:freshsheet'],null,null, null,null, 'list');
 echo($core->i18n['fresh_sheet:head']);
 
 if($domain_id > 0)

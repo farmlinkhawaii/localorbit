@@ -60,7 +60,7 @@ $market_news->add(new core_datacolumn('hub','Hub',true,'15%','<a href="#!market_
 $market_news->add(new core_datacolumn('content','Content',true,'43%','{content}','{content_stripped}','{content_stripped}'));
 $market_news->add(new core_datacolumn('mnews_id',' ',false,'12%','<a class="btn btn-small btn-danger" href="#!market_news-list" onclick="if(confirm(\'Are you sure you want to delete this market news?\')){core.doRequest(\'/market_news/delete\',\'&mnews_id={mnews_id}\');return false;}"><i class="icon-minus" /> Delete</a>',' ',' '));
 $market_news->columns[0]->autoformat='date-short';
-page_header('Market News','#!market_news-edit','Create new news item', 'button');
+page_header('Market News','#!market_news-edit','Create new news item', 'button',null, 'newspaper');
 $market_news->sort_direction = 'desc';
 $market_news->render();
 ?>

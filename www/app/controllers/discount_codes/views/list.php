@@ -76,6 +76,6 @@ $discount_codes->add(new core_datacolumn('disc_id',' ',false,'24%','
 	<a class="btn btn-small btn-danger" href="#!discount_codes-list" onclick="if(confirm(\'Are you sure you want to delete this discount?\')){core.doRequest(\'/discount_codes/delete\',\'&disc_id={disc_id}\');return false;}"><i class="icon-minus" /> Delete</a>
 	<a class="btn btn-small btn-info" href="#!discount_codes-list" onclick="core.doRequest(\'/discount_codes/copy_code\',{\'disc_id\':{disc_id}});"><i class="icon-copy" /> Copy</a>
 ',' ',' '));
-page_header('Discount Codes','#!discount_codes-edit','Create new code','button');
+page_header('Discount Codes','#!discount_codes-edit','Create new code','button',null, 'tag');
 $discount_codes->render();
 ?>

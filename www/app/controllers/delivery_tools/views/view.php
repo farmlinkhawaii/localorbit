@@ -65,7 +65,7 @@ foreach($delivs as $key=>$deliv)
 
 if(!$found )
 {
-	page_header('No upcoming deliveries');
+	page_header('No upcoming deliveries',null,null, null,null, 'truck');
 	
 ?>
 	Please check back from time to time to see if you have new orders.

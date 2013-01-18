@@ -110,7 +110,7 @@ $orders->columns[0]->autoformat='date-short';
 $orders->columns[2]->autoformat='price';
 $orders->sort_direction = 'desc';
 
-page_header('Current Sales','#!orders-sales_report','View all sales');
+page_header('Current Sales','#!orders-sales_report','View all sales', null, null, 'signup');
 $orders->render();
 $this->totals_table();
 ?>

@@ -4,7 +4,7 @@ core::ensure_navstate(array('left'=>'left_dashboard'));
 core_ui::fullWidth();
 
 
-core::head('Edit Users','This page is used to edit users');
+core::head('Edit Users','This page is used to edit users',null, null, null, 'users');
 lo3::require_permission();
 lo3::require_login();
 global $data;

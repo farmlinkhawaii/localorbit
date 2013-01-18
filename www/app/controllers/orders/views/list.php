@@ -100,6 +100,6 @@ $orders->sort_column = 2;
 $orders->sort_direction = 'desc';
 
 
-page_header('Orders',null,null, null,null, 'truck');
+page_header('Orders',null,null, null,null, 'clipboard');
 $orders->render();
 ?>

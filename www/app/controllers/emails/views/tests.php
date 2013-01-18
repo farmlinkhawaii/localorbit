@@ -2,8 +2,10 @@
 
 core::ensure_navstate(array('left'=>'left_dashboard')); 
 core::head('List Markets','asdfasdfasdfsdf');
+core_ui::fullWidth();
 lo3::require_permission();
 
+page_header('E-mail Testing', null,null, null,null, 'envelop');
 ?>
 <table class="form">
 	<tr>

@@ -339,7 +339,7 @@ $items->action_html .= $this->get_actions_menus(1);
 echo('<div id="qtyDeliveredForm" style="display: none;"></div>');
 echo('<div id="statusErrors" style="display: none;"></div>');
 
-page_header('Sold Items');
+page_header('Sold Items',null,null, null,null, 'stack-checkmark');
 ?>
 <form name="itemForm">
 	<? $items->render(); ?>

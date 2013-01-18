@@ -39,10 +39,10 @@
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#!orders-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
-					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
-					<li><a href="#!products-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:products']?></a></li>
-					<li><a href="#!units-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:units']?></a></li>
+					<li><a href="#!orders-list" onclick="core.go(this.href);"><i class="icon-clipboard"></i><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
+					<li><a href="#!sold_items-list" onclick="core.go(this.href);"><i class="icon-stack-checkmark"></i><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
+					<li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"></i><?=$core->i18n['nav2:marketadmin:products']?></a></li>
+					<li><a href="#!units-list" onclick="core.go(this.href);"><i class="icon-cube"></i><?=$core->i18n['nav2:marketadmin:units']?></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -60,10 +60,10 @@
 					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
 					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Items</a></li>
 					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
+					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
+					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><i class="icon-mail-send"></i><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
+					<li><a href="#!emails-tests" onclick="core.go(this.href);"><i class="icon-envelop"></i><?=$core->i18n['nav2:emails:tests']?></a></li>
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
-					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
-					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
-					<li><a href="#!emails-tests" onclick="core.go(this.href);"><?=$core->i18n['nav2:emails:tests']?></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -101,7 +101,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<?if(count($core->session['domains_by_orgtype_id'][2]) > 1){?>
-					<li><a href="#!market-list" onclick="core.go(this.href);"<i class="icon-home"></i>>Markets</a></li>
+					<li><a href="#!market-list" onclick="core.go(this.href);"><i class="icon-home"></i>Markets</a></li>
 					<?}else{?>
 					<li><a href="#!market-edit--domain_id-<?=$core->session['domains_by_orgtype_id'][2][0]?>" onclick="core.go(this.href);"><i class="icon-home"></i>Market</a></li>
 					<?}?>
@@ -124,7 +124,7 @@
 				</ul>
 			</li>
 		</ul>
-		<ul class="nav"><li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"/><?=$core->i18n['nav2:marketadmin:products']?></a></li>
+		<ul class="nav"><li><a href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"></i><?=$core->i18n['nav2:marketadmin:products']?></a></li>
 		</ul>
 		<ul class="nav">
 			<li class="dropdown">

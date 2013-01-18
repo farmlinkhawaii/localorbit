@@ -8,7 +8,7 @@ core::head('Create Custom Reports','This page is to create a custom report');
 lo3::require_permission();
 lo3::require_login();
 core_ui::tabset('reportstabs');
-page_header('Reports');
+page_header('Reports',null,null, null,null, 'bars');
 
 # build the list of report tabs
 $reports = array();

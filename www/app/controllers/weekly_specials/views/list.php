@@ -60,6 +60,6 @@ $weekly_specials->add(new core_datacolumn('domain_name','Action',false,'12%','<a
 $weekly_specials->columns[0]->autoformat='date-short';
 
 
-page_header('Featured Promotions','#!weekly_specials-edit','Create new promotion', 'button');
+page_header('Featured Promotions','#!weekly_specials-edit','Create new promotion', 'button',null, 'star');
 $weekly_specials->render();
 ?>

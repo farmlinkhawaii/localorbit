@@ -25,6 +25,7 @@ $orders->columns[4]->autoformat='price';
 $orders->sort_column = 1;
 $orders->sort_direction = 'desc';
 
-page_header('Purchase History');
+
+page_header('Purchase History',null,null, null,null, 'clipboard');
 $orders->render();
 ?>

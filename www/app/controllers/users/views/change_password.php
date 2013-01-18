@@ -6,9 +6,9 @@ core::head('Change Your Password','This page is used to change your own password
 lo3::require_permission();
 lo3::require_login();
 
+core_form::page_header('Change Your password', null, null, null, null,'users');
 
 echo(
-	core_form::page_header('Change Your password').
 	core_form::form('userForm','/users/do_change_password',null,
 		core_form::tab_switchers('passwordtabs',array('Password Security')),
 		core_form::tab('passwordtabs',
