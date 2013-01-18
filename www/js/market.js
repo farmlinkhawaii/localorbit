@@ -10,6 +10,7 @@ market.refreshLogo1=function(params){
 		alert('image was too large :/');
 	else{
 		$('#removeLogo1').fadeIn('fast');
+		core.doRequest('/whitelabel/get_options','');
 		document.getElementById('logo1').setAttribute('src','http://'+core.hostname+'/img/'+document.marketForm.domain_id.value+'/logo-large.'+arguments[0]+'?_time_='+(new Date().valueOf()));
 	}
 }
@@ -19,6 +20,7 @@ market.refreshLogo2=function(params){
 		alert('image was too large :/');
 	else{
 		$('#removeLogo2').fadeIn('fast');
+		core.doRequest('/whitelabel/get_options','');
 		document.getElementById('logo2').setAttribute('src','http://'+core.hostname+'/img/'+document.marketForm.domain_id.value+'/logo-email.'+arguments[0]+'?_time_='+(new Date().valueOf()));
 	}
 }
@@ -28,6 +30,7 @@ market.refreshLogo3=function(params){
 		alert('image was too large :/');
 	else{
 		$('#removeLogo3').fadeIn('fast');
+		core.doRequest('/whitelabel/get_options','');
 		document.getElementById('logo3').setAttribute('src','http://'+core.hostname+'/img/'+document.marketForm.domain_id.value+'/profile.'+arguments[0]+'?_time_='+(new Date().valueOf()));
 	}
 }

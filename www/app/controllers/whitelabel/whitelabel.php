@@ -19,12 +19,12 @@ class core_controller_whitelabel extends core_controller
 		{
 			core::replace('tagline',$core->config['domain']['custom_tagline']);
 		}
-		core::replace('logo','<img src="'.$logo.'" />');
-		core::replace('footer_logo','<img src="'.image('logo-small').'" />');
+		core::replace('logo','<img src="'.$logo.'?__time='.time().'" />');
+		core::replace('footer_logo','<img src="'.image('logo-small').'?__time='.time().'" />');
 		
 		if(strpos($logo,'app/../img/default/') === false)
 		{
-			core::replace('poweredby','<img src="/img/misc/poweredby_lo.png" />');
+			#core::replace('poweredby','<img src="/img/misc/poweredby_lo.png" />');
 		}
 		
 		# this draws all the footer links
