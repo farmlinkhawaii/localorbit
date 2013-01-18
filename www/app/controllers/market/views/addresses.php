@@ -20,9 +20,9 @@ $col = $data->get_addresses();
 core::js('core.addresses='.json_encode($col->to_hash('address_id')).';');
 core::model('addresses')->get_table('market',$col,'market/addresses?domain_id='.$core->data['domain_id']);
 ?>
-<div class="buttonset unlock_area" id="addAddressButton"<?=(($core->session['sec_pin'] == 1)?'':' style="display:none;"')?>>
-	<input type="button" class="button_secondary" value="Add New Address" onclick="core.address.editAddress('market',0);" />
-	<input type="button" class="button_secondary" value="Remove Checked" onclick="core.address.removeCheckedAddresses(this.form);" />
+<div class="buttonset unlock_area pull-right" id="addAddressButton"<?=(($core->session['sec_pin'] == 1)?'':' style="display:none;"')?>>
+	<input type="button" class="btn btn-info" value="Add New Address" onclick="core.address.editAddress('market',0);" />
+	<input type="button" class="btn btn-danger" value="Remove Checked" onclick="core.address.removeCheckedAddresses(this.form);" />
 </div>
 <br />
 
