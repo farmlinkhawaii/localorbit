@@ -18,7 +18,9 @@ else
 $col = $data->get_addresses();
 #core::log(print_r($col->to_hash('address_id'),true));
 core::js('core.addresses='.json_encode($col->to_hash('address_id')).';');
+echo('<div id="addressTable">');
 core::model('addresses')->get_table('market',$col,'market/addresses?domain_id='.$core->data['domain_id']);
+echo('</div>');
 ?>
 <div class="buttonset unlock_area pull-right" id="addAddressButton"<?=(($core->session['sec_pin'] == 1)?'':' style="display:none;"')?>>
 	<input type="button" class="btn btn-info" value="Add New Address" onclick="core.address.editAddress('market',0);" />
@@ -69,8 +71,8 @@ core::model('addresses')->get_table('market',$col,'market/addresses?domain_id='.
 	<input type="hidden" name="latitude" id="latitude" value="" />
 	<input type="hidden" name="longitude" id="longitude" value="" />
 	<input type="hidden" name="address_id" value="" />
-	<div class="buttonset">
-		<input type="button" class="button_secondary" value="save this address" onclick="core.address.saveAddress('market');" />
-		<input type="button" class="button_secondary" value="cancel" onclick="core.address.cancelAddressChanges();" />
+	<div class="buttonset form-actions">
+		<input type="button" class="btn btn-warning" value="cancel" onclick="core.address.cancelAddressChanges();" />
+		<input type="button" class="btn btn-primary" value="save this address" onclick="core.address.saveAddress('market');" />
 	</div>
 </fieldset>

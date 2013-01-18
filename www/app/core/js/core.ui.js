@@ -671,3 +671,13 @@ core.ui.onFocusQty = function (elem) {
 		jq.val('');
 	}
 };
+
+core.ui.updateSelect=function(id,opts){
+	var mySelect = $("#"+id);
+	var curVal = mySelect.val();
+	mySelect.empty();
+	$.each(opts, function(key, value) {
+		mySelect.append($("<option></option>").attr("value", value).text(key));
+	});
+	$("#"+id+" option[value=" + curVal +"]").attr("selected","selected") ;
+}

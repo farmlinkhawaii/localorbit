@@ -16,6 +16,11 @@ class core_ui
 			width: '.$width.'
 		});');
 	}
+	
+	public static function update_select($id,$opts)
+	{
+		core::js('core.ui.updateSelect(\''.$id.'\','.json_encode($opts).');');
+	}
 
 	public static function alert($string)
 	{

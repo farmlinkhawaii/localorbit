@@ -28,17 +28,20 @@ $addresses = $data->get_addresses();
 core::js('core.delivery_days='.json_encode($col->to_hash('dd_id')).';');
 #core::log('delivery day josn: '.$core->response['js']);
 $dds = new core_datatable('delivery_days','market/delivery?domain_id='.$core->data['domain_id'],$col);
-$dds->add(new core_datacolumn('delivery_days.dd_id',core_ui::check_all('deliverydays'),false,'4%',core_ui::check_all('deliverydays','dd_id')));
 $dds->add(new core_datacolumn('cycle','Delivery',true,'51%','<a href="Javascript:market.editDeliv(\'{dd_id}\');"><b>{formatted_cycle}</b><br />Deliver to: {formatted_address}</a>'));
 $dds->add(new core_datacolumn('delivery_start_time','Delivery',true,'20%','<a href="Javascript:market.editDeliv(\'{dd_id}\');">{delivery_time}</a>'));
 $dds->add(new core_datacolumn('pickup_start_time','Pickup',true,'20%','<a href="Javascript:market.editDeliv(\'{dd_id}\');">{pickup_time}</a>'));
+$dds->add(new core_datacolumn('delivery_days.dd_id',core_ui::check_all('deliverydays'),false,'4%',core_ui::check_all('deliverydays','dd_id')));
 
 $dds->size = (-1);
 $dds->display_filter_resizer = false;
 $dds->display_exporter_pager = false;
 $dds->render_page_select = false;
 $dds->render_page_arrows = false;
+
+echo('<div id="delivTable">');
 $dds->render();
+echo('</div>');
 
 ?>
 <div class="buttonset unlock_area pull-right" id="addDelivButton"<?=(($core->session['sec_pin'] == 1 || lo3::is_market())?'':' style="display:none;"')?>>
@@ -129,7 +132,7 @@ $dds->render();
 	<div class="control-group">
 		<label class="control-label"><?=$core->i18n['field:delivery_days:seller_deliv_section']?></label>
 		<div class="controls">
-			<select name="deliv_address_id" onchange="market.setPickupLabel(this.selectedIndex);">
+			<select name="deliv_address_id" id="deliv_address_id" onchange="market.setPickupLabel(this.selectedIndex);">
 				<option value="0">Direct to customer</option>
 				<?=core_ui::options($addresses,null,'address_id','label')?>
 			</select>
@@ -156,7 +159,7 @@ $dds->render();
 	<div class="control-group">
 		<label class="control-label">Buyer Pick up location</label>
 		<div class="controls">
-			<select name="pickup_address_id">
+			<select name="pickup_address_id" id="pickup_address_id">
 				<option value="0">Delivered to Buyer from Hub</option>
 				<?=core_ui::options($addresses,null,'address_id','label')?>
 			</select>
@@ -179,9 +182,9 @@ $dds->render();
 	
 	<input type="hidden" name="dd_id" value="" />
 	<input type="hidden" name="devfee_id" value="" />
-	<div class="form-actions pull-right">
+	<div class="form-actions buttonset">
+		<input type="button" class="btn btn-warning" value="cancel" onclick="market.cancelDelivChanges();" />
 		<input type="button" class="btn btn-primary" value="save this delivery option" onclick="market.saveDeliv();" />
-		<input type="button" class="btn" value="cancel" onclick="market.cancelDelivChanges();" />
 	</div>
 </fieldset>
 	</div>

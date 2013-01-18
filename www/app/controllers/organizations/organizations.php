@@ -435,7 +435,7 @@ class core_controller_organizations extends core_controller
 		core_datatable::js_reload('organizations');
 		core::js('core.addresses['.$address['address_id'].']=['.$address->to_json().'];');
 
-		core_ui::notification('address saved');
+			core_ui::notification('address saved');
 	}
 
 	function delete_addresses()

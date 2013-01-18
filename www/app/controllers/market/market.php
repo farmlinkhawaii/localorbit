@@ -240,6 +240,17 @@ class core_controller_market extends core_controller
 		core_datatable::js_reload('addresses');
 		core_datatable::js_reload('delivery_days');
 		core::js('core.addresses['.$address['address_id'].']=['.$address->to_json().'];');
+		
+		$all_addrs = array('Direct to customer'=>'0');
+		$addrs = core::model('addresses')->collection()->filter('org_id','=',$address['org_id'])->filter('is_deleted','=',0)->sort('label');
+		foreach($addrs as $addr)
+		{
+			$all_addrs[$addr['label']] = $addr['address_id'];
+		}
+		core_ui::update_select('pickup_address_id',$all_addrs);
+		core_ui::update_select('deliv_address_id',$all_addrs);
+
+
 		core_ui::notification('address saved');
 	}
 	
