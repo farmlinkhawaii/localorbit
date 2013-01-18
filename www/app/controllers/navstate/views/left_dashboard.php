@@ -180,18 +180,12 @@
 				</a>
 				<ul class="dropdown-menu">
 					<!--<li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li>	-->
-					<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-key"></i>E-mail 	&amp; Password</a></li>
+					<li><a href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-user"></i>E-mail 	&amp; Password</a></li>
 					<li><a href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-grid"></i>Your Organization</a></li>
 					<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
 						<?if(lo3::is_customer() && !lo3::is_seller()){?>
 							<li><a href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
-						<?}?>
-						<li><a href="#!orders-purchase_history" onclick="core.go(this.href);"><i class="icon-cart-checkout"></i>Purchase History</a></li>
-							<!--
-							<? if(!lo3::is_seller()){?>
-							<li><a href="#!products-request" onclick="core.go(this.href);">Suggest A New Product</a></li>
-							<?}?>
-							-->
+						<?}?>						
 					<?}?>
 				</ul>
 			</li>

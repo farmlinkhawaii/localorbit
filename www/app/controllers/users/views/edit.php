@@ -52,8 +52,8 @@ $this->edit_rules()->js();
 echo(
 	(
 		($core->data['me'] == '1')?
-		core_form::page_header('Editing User: '.$data['first_name'].' '.$data['last_name']):
-		core_form::page_header('Editing User: '.$data['first_name'].' '.$data['last_name'],'#!users-list','cancel', 'cancel', null, 'cog')
+		core_form::page_header('Editing User: '.$data['first_name'].' '.$data['last_name'], null, null, null, null, 'user'):
+		core_form::page_header('Editing User: '.$data['first_name'].' '.$data['last_name'],'#!users-list','cancel', 'cancel', null, 'user')
 	).
 	core_form::form('userForm','/users/save',null,
 		core_form::tab_switchers('usertabs',array('User Info', 'Password Security')),

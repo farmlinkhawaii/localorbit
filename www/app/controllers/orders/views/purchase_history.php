@@ -26,6 +26,6 @@ $orders->sort_column = 1;
 $orders->sort_direction = 'desc';
 
 
-page_header('Purchase History',null,null, null,null, 'clipboard');
+page_header('Purchase History',null,null, null,null, 'cart-checkout');
 $orders->render();
 ?>

@@ -420,7 +420,7 @@ border: none;
 			right: -1.2em;
 			}
 
-.helpslug { font-size: 110%; color: @secondarycolor; .opacity(50); position: relative; top: 7px; }
+.helpslug { font-size: 110%; color: @secondarycolor; .opacity(50); position: relative; top: 1px; margin-right: -2px;}
 	.helpslug:hover { .opacity(100) }
 
 	.form-horizontal .controls {
@@ -430,26 +430,26 @@ border: none;
 
 
 .popover {
-	width: 310px !important;
+	/* width: 310px !important; caused blinking in FF */
 	font-size: 11px !important;
 	line-height: 15px;
-	}
+}
 
-	.popover-title {
-		font-size: 12px !important;
-		font-weight: bold !important;
-		font-family: @baseFontFamily;
-		text-transform: capitalize;
-		line-height: 14px;
-		padding-top: 8px !important;
-		padding-bottom: 4px !important;
-		}
+.popover-title {
+	font-size: 12px !important;
+	font-weight: bold !important;
+	font-family: @baseFontFamily;
+	text-transform: capitalize;
+	line-height: 14px;
+	padding-top: 8px !important;
+	padding-bottom: 4px !important;
+}
 
-	.popover-title,
-	.popover-content {
-		padding-left: 8px !important;
-		padding-right: 8px !important;
-		}
+.popover-title,
+.popover-content {
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+}
 
 
 .form-horizontal .form-actions {
