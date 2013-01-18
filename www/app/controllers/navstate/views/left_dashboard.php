@@ -58,7 +58,7 @@
 					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
 					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
-					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Items</a></li>
+					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Promotions</a></li>
 					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
 					<li><a href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a href="#!sent_emails-list" onclick="core.go(this.href);"><i class="icon-mail-send"></i><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
@@ -137,7 +137,7 @@
 					<li><a href="#!fresh_sheet-review" onclick="core.go(this.href);"><i class="icon-list"></i><?=$core->i18n['nav2:marketadmin:freshsheet']?></a></li>
 					<li><a href="#!newsletters-list" onclick="core.go(this.href);"><i class="icon-profile"></i>Newsletters</a></li>
 					<li><a href="#!market_news-list" onclick="core.go(this.href);"><i class="icon-newspaper"></i>Market News</a></li>
-					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Items</a></li>
+					<li><a href="#!weekly_specials-list" onclick="core.go(this.href);"><i class="icon-star"></i>Featured Promotions</a></li>
 					<li><a href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
 				</ul>

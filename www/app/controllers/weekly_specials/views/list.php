@@ -12,7 +12,7 @@ function handle_set_special_link($data)
 	
 	$data['special_link'] = core_ui::radiodiv(
 		'special_'.$data['spec_id'],
-		(count($core->session['domains_by_orgtype_id'][2])>1 || lo3::is_admin())?'Set as featured deal for '.$data['domain_name']:'Set as promotion',
+		(count($core->session['domains_by_orgtype_id'][2])>1 || lo3::is_admin())?'Set as promotion for '.$data['domain_name']:'Set as promotion',
 		($data['is_active'] == 1),
 		'special_group_'.$data['domain_id'],
 		true,
