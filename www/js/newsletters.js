@@ -16,8 +16,10 @@ core.newsletters.sendNewsletter=function(){
 core.newsletters.sendTest=function(){
 	$('#testLabel,#testEmail,#showTest,#sendTest,#cancelTest,#sendCustomers').toggle(100);
 	document.nlForm.do_test.value=1;
+	document.nlForm.test_email.value=$('#testEmail').val();
 	core.submit('/newsletters/update',document.nlForm);
 	document.nlForm.do_test.value=0;
+	document.nlForm.test_email.value='';
 }
 
 core.newsletters.toggleTestEmail=function(){
