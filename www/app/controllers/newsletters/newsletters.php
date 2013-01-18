@@ -2,6 +2,21 @@
 
 class core_controller_newsletters extends core_controller
 {
+	function save_rules()
+	{
+		global $core;
+		
+		$rules = array();
+		$rules[] = array('type'=>'min_length','name'=>'title','data1'=>2,'msg'=>'You must enter a newsletter Subject');
+		$rules[] = array('type'=>'min_length','name'=>'header','data1'=>2,'msg'=>'You must enter a newsletter Header');
+
+		if(lo3::is_admin() || (lo3::is_market() && count($core->session['domains_by_orgtype_id'][2]) > 1))
+		{
+			$rules[] = array('type'=>'is_int','name'=>'domain_id','msg'=>'You must select a Market');
+			$rules[] = array('type'=>'is_not_equal_to','name'=>'domain_id','data1'=>0,'msg'=>'You must select a Market');
+		}
+		return new core_ruleset('nlForm',$rules);
+	}
 	
 	function delete()
 	{

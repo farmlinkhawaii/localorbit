@@ -50,7 +50,7 @@ $allows = array();
 foreach($cross_sells as $cross_sell)
 	$allows[$cross_sell['accept_from_domain_id']] = true;
 
-$tabs = array('Market Settings','Delivery','Branding','Market Info','Addresses','Payments/Fees');
+$tabs = array('Market Settings','Addresses','Delivery','Branding','Market Info','Payments/Fees');
 if(lo3::is_admin())
 {
 	$tabs[] = 'Cross Selling';
@@ -121,18 +121,18 @@ if(lo3::is_admin())
 
 			</fieldset>
 		</div>
-
 		<div class="tab-pane tabarea" id="markettabs-a2">
+			<? $this->addresses(); ?>
+		</div>
+
+		<div class="tab-pane tabarea" id="markettabs-a3">
 			<? $this->delivery();	?>
 		</div>
-		<div class="tab-pane tabarea" id="markettabs-a3">
+		<div class="tab-pane tabarea" id="markettabs-a4">
 			<? $this->branding(); ?>
 		</div>
-		<div class="tab-pane tabarea" id="markettabs-a4">
-			<? $this->market_info(); ?>
-		</div>
 		<div class="tab-pane tabarea" id="markettabs-a5">
-			<? $this->addresses(); ?>
+			<? $this->market_info(); ?>
 		</div>
 		<div class="tab-pane tabarea" id="markettabs-a6">
 			<? $this->payments_fees();?>

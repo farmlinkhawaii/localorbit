@@ -38,6 +38,8 @@ $data['send_seller'] = (in_array(1,$groups));
 $data['send_buyer']  = (in_array(2,$groups));
 $data['send_market'] = (in_array(3,$groups));
 
+$this->save_rules()->js(); 
+
 echo(core_form::page_header('Editing '.$data['title']));
 ?>
 <div class="buttonset pull-right" id="sendNewsletterButton">
@@ -54,7 +56,7 @@ echo(
 		core_form::tab('newslettertabs',
 			core_form::table_nv(
 				((lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)?
-					core_form::input_select('Market','domain_id',$data,$hubs,array(
+					core_form::input_select('Market','domain_id',$data['domain_id'],$hubs,array(
 						'default_show'=>true,
 						'default_text'=>'Select a Market',
 						'text_column'=>'name',
