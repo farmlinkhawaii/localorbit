@@ -86,19 +86,19 @@ $(function()
 			$cart_count++;
 			$prod = core::model('products')->load($item[0]['prod_id']);
 			?>
-				<div class="row">
-					<span class="span1 product-image">
-						<? if(intval($prod['pimg_id']) > 0){?>
-						<img class="img-polaroid catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
-						<?}else{?>
-						<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
-						<?}?>
-					</span>
-					<span class="span3">
-						<div class="productName"><?=$item[0]['product_name']?></div>
-						<div>Quantity: <?=$item[0]['qty_ordered']?> <?=(($item[0]['qty_ordered']>1)?$item[0]['unit_plural']:$item[0]['unit'])?></div>
-					</span>
-				</div>
+			<div class="row">
+				<span class="span1 product-image">
+					<? if(intval($prod['pimg_id']) > 0){?>
+					<img class="img-polaroid catalog" src="/img/products/cache/<?=$prod['pimg_id']?>.<?=$prod['width']?>.<?=$prod['height']?>.100.75.<?=$prod['extension']?>" />
+					<?}else{?>
+					<img class="img-polaroid catalog_placeholder" src="<?=image('product_placeholder_small')?>" />
+					<?}?>
+				</span>
+				<span class="span3">
+					<div class="productName"><?=$item[0]['product_name']?></div>
+					<div>Quantity: <?=$item[0]['qty_ordered']?> <?=(($item[0]['qty_ordered']>1)?$item[0]['unit_plural']:$item[0]['unit'])?></div>
+				</span>
+			</div>
 			<?
 		}
 		?>
@@ -123,7 +123,7 @@ $(function()
 					</a>
 					-->
 				</span>
-			</a>
+			</div>
 		</div>
 	</li>
 	<li class="divider-vertical"></li>
