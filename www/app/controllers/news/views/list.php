@@ -65,8 +65,28 @@ else
 				<hr />
 			<?}?>
 		<?}else{?>
-		<h2><i class="icon-newspaper"/>Sorry</h2>
-		No news is available yet on this market.
+			<div class="row">
+						
+				<div class="span3">
+					<h3 class="altcolor">
+						Our Market is Buzzing
+						<br /><small><?=core_format::date(time(),'short')?></small>
+					</h3>
+				</div>
+				<div class="span6">
+					<div id="mnews_0">
+					<p style="padding-top: 10px;">Our market is buzzing with so much activity, we haven’t updated this news page. Not to worry. We will be back soon.</p>
+					</div>
+					<!--
+					 style="height: 65px;overflow:hidden;"
+					<div class="pull-right"><a class="btn btn-info mnews_toggle_<?= $market_newsitem['mnews_id']?>" onclick="$('.mnews_toggle_<?= $market_newsitem['mnews_id']?>').toggle();$('#mnews_<?= $market_newsitem['mnews_id']?>').css('overflow','visible');"><i class="icon-plus" /></a></div>
+					<div class="pull-right"><a class="btn btn-info mnews_toggle_<?= $market_newsitem['mnews_id']?>" style="display: none;"  onclick="$('.mnews_toggle_<?= $market_newsitem['mnews_id']?>').toggle();$('#mnews_<?= $market_newsitem['mnews_id']?>').css('overflow','hidden');"><i class="icon-minus" /></a></div>
+					-->
+				</div>
+			</div>
+			
+			
+			<hr />
 		<?}?>
 	</div>
 </div>
