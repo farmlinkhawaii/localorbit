@@ -64,6 +64,9 @@ else
 				
 				<hr />
 			<?}?>
+		<?}else{?>
+		<h2><i class="icon-newspaper"/>Sorry</h2>
+		No news is available yet on this market.
 		<?}?>
 	</div>
 </div>
