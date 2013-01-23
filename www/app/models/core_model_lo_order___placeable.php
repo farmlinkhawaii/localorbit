@@ -300,7 +300,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 				$data = array(
 					$core->data['pp_first_name'],
 					$core->data['pp_last_name'],
-					$core->data['pp_street_name'],
+					$core->data['pp_street'],
 					$core->data['pp_city'],
 					$core->data['pp_state'],
 					$core->data['pp_zip'],
