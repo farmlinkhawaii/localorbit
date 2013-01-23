@@ -144,7 +144,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 		if(!isset($method))
 		{
 			//core::log('unable to locate an appropriate delivery_days/addresses combination');
-			
+
 			core_ui::error('You must select a payment method.','core.checkout.hideSubmitProgress();');
 			core::deinit();
 		}
@@ -168,7 +168,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 			foreach ($this->deliveries as $id => $order_deliv) {
 				$address = core::model('addresses')->load($core->data['delivgroup-'.$order_deliv['dd_id']]);
 				if(isset($deliv['deliv_address_id']) && $deliv['deliv_address_id'] != 0)						{
-					    //$order_deliv['deliv_address_id'] = $deliv['deliv_address_id'];
+					    $order_deliv['deliv_address_id'] = $deliv['deliv_address_id'];
 					    if(isset($deliv['pickup_address_id']) &&$deliv['pickup_address_id'] != 0)
 					    {
 					        core::log('using delivery_days-specified pickup address');
@@ -179,7 +179,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 							$order_deliv['pickup_address_id'] = $address['address_id'];
 					    }
 					} else {
-						//$order_deliv['deliv_address_id'] = $address['address_id'];
+						$order_deliv['deliv_address_id'] = $address['address_id'];
 						if(isset($deliv['pickup_address_id']) && $deliv['pickup_address_id'] != 0)
 					    {
 					        core::log('using delivery_days-specified pickup address');
