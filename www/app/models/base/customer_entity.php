@@ -20,7 +20,7 @@ class core_model_base_customer_entity extends core_model
 		$this->add_field(new core_model_field(14,'password','string',-4,'','customer_entity'));
 		$this->add_field(new core_model_field(15,'is_enabled','int',8,'','customer_entity'));
 		$this->add_field(new core_model_field(16,'is_deleted','int',8,'','customer_entity'));
-		$this->add_field(new core_model_field(16,'login_note_viewed','int',8,'','customer_entity'));
+		$this->add_field(new core_model_field(17,'login_note_viewed','int',8,'','customer_entity'));
 		$this->init_data();
 	}
 }

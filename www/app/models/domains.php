@@ -18,17 +18,24 @@ class core_model_domains extends core_model_base_domains
 			'(ds.ds_year='.date('Y').')',
 			array('ds_start','ds_end')
 		);
-
+/*
+		$this->autojoin(
+			'left',
+			'domains_branding branding',
+			'(domains.domain_id=branding.domain_id and branding.is_temp = 0)',
+			array('branding_id','font_color','header_font', 'background_color', 'background_id', 'is_temp')
+		);
+*/
 		parent::init_fields();
 	}
-	
+
 	function get_mm_emails($domain_id)
 	{
 		global $core;
 		$domain_id = intval($domain_id);
 		$emails = array();
 		$sql = '
-			select email 
+			select email
 			from customer_entity
 			where org_id in (
 				select otd.org_id
@@ -124,7 +131,7 @@ class core_model_domains extends core_model_base_domains
 			)
 			';
 		}
-		
+
 		$sellers = new core_collection($sql);
 		$sellers->__model = core::model('organizations');
 		$sellers->sort('o.name');

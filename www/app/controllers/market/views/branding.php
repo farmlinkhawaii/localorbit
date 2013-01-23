@@ -5,7 +5,10 @@
 		<textarea rows="5" class="input-xxlarge" name="dashboard_note"><?=htmlentities($data['dashboard_note'])?></textarea>
 	</div>
 </div>
-<?/*
+<?
+$backgrounds = core::model('backgrounds')->collection();
+$backgrounds = $backgrounds->filter('is_available', 1);
+/*
 <div class="control-group">
 	<label class="control-label">Note Offset</label>
 	<div class="controls">
@@ -21,7 +24,7 @@
 	</div>
 </div>
 
-<? 
+<?
 $logo = image('logo-large',$data['domain_id']);
 $has_custom = (strpos($logo,'default') === false);
 ?>
@@ -38,11 +41,11 @@ $has_custom = (strpos($logo,'default') === false);
 			<p class="alert alert-info help-block note">Note: images can not be larger than 400 pixels wide by 400 pixels tall. For best results, use images that are exactly 400 pixels wide by 400 pixels tall. If you do not upload a logo, the default Local Orbit logo will be used.</p>
 			<iframe name="uploadArea1" id="uploadArea1" width="300" height="20" style="color:#fff;background-color:#fff;overflow:hidden;border:0;"></iframe>
 		</div>
-			
+
 	</div>
 </div>
 
-<? 
+<?
 $logo = image('logo-email',$data['domain_id']);
 $has_custom = (strpos($logo,'default') === false);
 ?>
@@ -59,6 +62,33 @@ $has_custom = (strpos($logo,'default') === false);
 			<p class="alert alert-info help-block note">Note: images can not be larger than 100 pixels wide by 100 pixels tall. For best results, use images that are exactly 100 pixels wide by 100 pixels tall. If you do not upload a logo, the default Local Orbit logo will be used.</p>
 			<iframe name="uploadArea2" id="uploadArea2" width="300" height="20" style="color:#fff;background-color:#fff;overflow:hidden;border:0;"></iframe>
 		</div>
-			
+
 	</div>
 </div>
+
+<div class="control-group">
+	<label class="control-label" for="email_image">Background Color</label>
+	<div class="controls row">
+		<div class="span5">
+			<div class="input-append color colorpicker" data-color="rgb(255, 146, 180)" data-color-format="rgb" data-disabled="true">
+			  <input type="text" class="span2" value="" readonly>
+			  <span class="add-on"><i style="background-color: rgb(255, 146, 180)"></i></span>
+			</div>
+		</div>
+	</div>
+	<div class="controls row">
+		<div class="span8">
+			<select name="background_id" class="image-picker">
+					<option></option>
+				<? foreach ($backgrounds as $background) { ?>
+					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>"><?=$background['file_name']?></option>
+				<? } ?>
+			</select>
+		</div>
+	</div>
+</div>
+
+<?
+core::js("$('.colorpicker').colorpicker();");
+core::js("$('select.image-picker').imagepicker();");
+?>

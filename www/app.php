@@ -47,6 +47,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style2" title="styles2" media="all" />
 	<link rel="alternate stylesheet" type="text/css" href="css/less.php?which=style3" title="styles3" media="all" />
 
+	<link rel="stylesheet" type="text/css" href="css/image-picker.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" />
 	<link rel="stylesheet" href="/css/icomoon-ultimate1563/style.css">
 
@@ -57,6 +58,8 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<script language="Javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script language="Javascript" type="text/javascript" src="js/bootbox.min.js"></script>
 	<script language="Javascript" type="text/javascript" src="js/bootstrapx-clickover.js"></script>
+	<script language="Javascript" type="text/javascript" src="js/bootstrap-colorpicker.js"></script>
+	<script language="Javascript" type="text/javascript" src="js/image-picker.js"></script>
 
 
 	<script language="Javascript" type="text/javascript" src="app/core/js/core.js?time=<?php echo time();?>"></script>

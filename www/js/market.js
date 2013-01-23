@@ -73,7 +73,7 @@ market.editDeliv=function(DelivId){
 		}
 		market.setPickupLabel();
 		$('#addDelivButton,#main_save_buttons,#delivTable').hide();
-		
+
 		$('#editDeliv').fadeIn('fast');
 		document.marketForm.label.focus();
 	}
@@ -98,7 +98,7 @@ market.setOrdinalOptions=function(){
 				);
 			}
 		}
-		
+
 	}
 	switch(document.marketForm.cycle.selectedIndex){
 		case 0:
@@ -163,7 +163,7 @@ market.allowPaymentChanged=function(type){
 	}else{
 		$('#div_payment_allow_'+type).show(300);
 	}
-	
+
 	if(type == 'purchaseorder')
 		$('.buyer_invoicer_options')[((value == 1)?'show':'hide')](300);
 	//alert(value);
@@ -182,3 +182,9 @@ market.toggleAnon=function(){
 		market.allowPaymentChanged('paypal');
 	}
 }
+
+$('.colorpicker').colorpicker();
+$('select.image-picker').imagepicker();
+$('select.image-picker').change(function () {
+	//alert($(this).val());
+});
