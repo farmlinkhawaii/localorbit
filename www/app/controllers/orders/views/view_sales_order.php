@@ -11,7 +11,7 @@ lo3::require_login();
 
 $order = core::model('lo_fulfillment_order')
 	->autojoin('left','lo_order_deliveries','(lo_order_deliveries.lo_foid=lo_fulfillment_order.lo_foid)',array())
-	->autojoin('left','lo_order','(lo_order.lo_oid=lo_order_deliveries.lo_oid)',array('payment_method','payment_ref','lo_order.paypal_processing_fee as paypal_processing_fee','admin_notes'))
+	->autojoin('left','lo_order','(lo_order.lo_oid=lo_order_deliveries.lo_oid)',array('payment_method','payment_ref','lo_order.paypal_processing_fee as paypal_processing_fee','admin_notes','item_total'))
 	->autojoin('left','lo_buyer_payment_statuses','(lo_order.lbps_id=lo_buyer_payment_statuses.lbps_id)',array('buyer_payment_status'))
 	->autojoin('left','organizations','(organizations.org_id=lo_order.org_id)',array('organizations.name as buyer_org_name'))
 	->autojoin(
@@ -57,6 +57,13 @@ foreach($order->items as $item)
 
 $allow_delivery = (!lo3::is_customer() || (lo3::is_customer() && $core->config['domain']['feature_sellers_mark_items_delivered'] == 1));
 
+$display_payment_method = '';
+if($order['payment_method'] == 'paypal')
+	$display_payment_method = $core->i18n['order:paymentbypaypal'];
+else if($order['payment_method'] == 'purchaseorder')
+	$display_payment_method = $core->i18n['order:paymentbypo'];
+else
+	$display_payment_method = $order['payment_method'];
 #echo('<pre>');
 #print_r($order->item_history);
 ?>
@@ -80,7 +87,7 @@ $allow_delivery = (!lo3::is_customer() || (lo3::is_customer() && $core->config['
 		<?=core_form::value('Payment Method',$display_payment_method)?>
 		<?=core_form::value('Payment Ref',$order['payment_ref'])?>
 	</div>
-	
+
 	<div class="span6">
 		<? if(lo3::is_admin() || lo3::is_market()) { ?>
 		<form name="orderForm" method="post" action="/orders/save_admin_notes" onsubmit="return core.submit('/orders/save_admin_notes',this);" enctype="multipart/form-data">
@@ -109,8 +116,8 @@ foreach($order->items as $item)
 			<h2><?=$item['seller_formatted_deliv1']?></h2>
 			<?=$item['seller_formatted_deliv2']?>
 		<?}?>
-		
-		
+
+
 		<form name="ordersForm" method="post" action="/orders/update_quantities" onsubmit="return core.submit('/orders/update_quantities',this);" enctype="multipart/form-data">
 			<table class="dt table table-striped">
 				<tr>
@@ -235,7 +242,7 @@ $net_sale  = ($order['adjusted_total'] - $hub_fee_total - $processing_fee_total)
 			<a class="btn btn-info btn-mini" id="deliveryLink" href="Javascript:core.doRequest('/orders/change_order_status',{'ldstat_id':4,'lo_foid':<?=$order['lo_foid']?>});">Mark Delivered &raquo;</a>
 			<?}?>
 		</td>
-		<td class="dt">	
+		<td class="dt">
 			<span id="seller_payment_status2"><?=$order['seller_payment_status']?></span><br />
 
 			<? if($order['lsps_id'] == 1 && (lo3::is_admin() || lo3::is_market())){?>
