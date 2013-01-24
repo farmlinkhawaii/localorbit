@@ -6,6 +6,7 @@
 	</div>
 </div>
 <?
+
 $backgrounds = core::model('backgrounds')->collection();
 $backgrounds = $backgrounds->filter('is_available', 1);
 /*
@@ -67,7 +68,7 @@ $has_custom = (strpos($logo,'default') === false);
 </div>
 
 <div class="control-group">
-	<label class="control-label" for="email_image">Background Color</label>
+	<label class="control-label" for="email_image">Background</label>
 	<div class="controls row">
 		<div class="span5">
 			<div class="input-append color colorpicker" data-color="rgb(255, 146, 180)" data-color-format="rgb" data-disabled="true">
@@ -87,8 +88,3 @@ $has_custom = (strpos($logo,'default') === false);
 		</div>
 	</div>
 </div>
-
-<?
-core::js("$('.colorpicker').colorpicker();");
-core::js("$('select.image-picker').imagepicker();");
-?>

@@ -184,7 +184,4 @@ market.toggleAnon=function(){
 }
 
 $('.colorpicker').colorpicker();
-$('select.image-picker').imagepicker();
-$('select.image-picker').change(function () {
-	//alert($(this).val());
-});
+$('select.image-picker').imagepicker().next('ul').prepend('<li><div class="thumbnail"><div class="image_picker_image image_picker_color" style="background-color: gray;"></div></div></li>');
