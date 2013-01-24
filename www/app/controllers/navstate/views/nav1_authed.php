@@ -35,17 +35,17 @@ $(function()
 </p>
 
 <ul class="nav pull-left">
-	
+
 	<li><a href="#" rel="styles1" class="styleswitch"><small>1</small></a></li>
 	<li><a href="#" rel="styles2" class="styleswitch"><small>2</small></a></li>
 	<li><a href="#" rel="styles3" class="styleswitch"><small>3</small></a></li>
-	
+
 </ul>
 <?}?>
 <ul class="nav pull-right">
 	<li class="divider-vertical"></li>
-	
-	<?if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>	
+
+	<?if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>
 		<li>
 			<a href="<?=$core->config['app_page']?>#!dashboard-home" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
 		</li>
@@ -67,15 +67,15 @@ $(function()
 				<?if(lo3::is_customer() && !lo3::is_seller()){?>
 				<li><a href="#!reports-edit" onclick="core.go(this.href);">Reports</a></li>
 				<?}?>
-				<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>					
-				<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>					
+				<li><a href="#!users-change_password" onclick="core.go(this.href);">Change Your Password</a></li>
+				<li><a href="#!payments-demo" onclick="core.go(this.href);">Payments Portal</a></li>
 			</ul>
 		</li>-->
 	<? endif; ?>
-	
+
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart</a>
+		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart (<span id="">0</span>)</a>
 		<div class="dropdown-menu span4 yourCart">
 			<?
 		$cart = core::model('lo_order')->get_cart();
