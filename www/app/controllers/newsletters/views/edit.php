@@ -27,10 +27,10 @@ if(!lo3::is_admin() && !lo3::is_market())
 	lo3::require_orgtype('market');
 }
 
-$hubs = core::model('domains')->collection();						
-if (lo3::is_market()) { 
-	$hubs = $hubs->filter('domain_id', 'in', implode(',', $core->session['domains_by_orgtype_id'][2]));							
-} 
+$hubs = core::model('domains')->collection();
+if (lo3::is_market()) {
+	$hubs = $hubs->filter('domain_id', 'in', implode(',', $core->session['domains_by_orgtype_id'][2]));
+}
 $hubs = $hubs->sort('name');
 
 $groups = explode(',',$data['send_to_groups']);
@@ -38,7 +38,7 @@ $data['send_seller'] = (in_array(1,$groups));
 $data['send_buyer']  = (in_array(2,$groups));
 $data['send_market'] = (in_array(3,$groups));
 
-$this->save_rules()->js(); 
+$this->save_rules()->js();
 
 echo(core_form::page_header('Editing '.$data['title']));
 ?>
@@ -48,8 +48,8 @@ echo(core_form::page_header('Editing '.$data['title']));
 	<button id="cancelTest" style="display: none;" class="btn btn-danger" onclick="core.newsletters.toggleTestEmail();">cancel test</button>
 	<button id="sendTest" style="display: none;" class="btn btn-info" onclick="core.newsletters.sendTest();">send now</button>
 	<button id="showTest" class="btn btn-info" onclick="core.newsletters.toggleTestEmail();">send test</button>
-	<button id="sendCustomers" class="btn btn-primary" onclick="core.newsletters.sendNewsletter(this.form);">send to customers</button>
-</div>		
+	<button id="sendCustomers" class="btn btn-primary" onclick="core.newsletters.sendNewsletter(this.form);" disabled>send to customers</button>
+</div>
 <?
 echo(
 	core_form::form('nlForm','/newsletters/update',null,
@@ -112,7 +112,7 @@ page_header('Editing '.$data['title'],'#!newsletters-list','cancel');
 					</select>
 				</td>
 			</tr>
-		<?}?>		
+		<?}?>
 			<tr>
 				<td class="label">Send to these groups</td>
 				<td class="value">
@@ -146,7 +146,7 @@ page_header('Editing '.$data['title'],'#!newsletters-list','cancel');
 					<iframe name="uploadArea" id="uploadArea" width="300" height="20" style="color:#fff;background-color:#fff;overflow:hidden;"></iframe>
 				</td>
 			</tr>
-			
+
 		</table>
 		<div class="buttonset" id="sendNewsletterButton">
 			<span id="testLabel" style="display: none;">Send test to&nbsp;</span>
