@@ -1,3 +1,14 @@
+<?
+function get_total_qty ($total, $item) {
+	$total += $item[0]['qty_ordered'];
+	return $total;
+}
+$cart = core::model('lo_order')->get_cart();
+$cart->load_items();
+$item_hash = $cart->items->to_hash('prod_id');
+$totalQty = array_reduce($item_hash, 'get_total_qty');
+$cart_count = 0;
+?>
 <script type="text/javascript" charset="utf-8">
 $(function()
 	{
@@ -75,13 +86,9 @@ $(function()
 
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart (<span id="">0</span>)</a>
+		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart (<span id="totalQty"><?=$totalQty?></span>)</a>
 		<div class="dropdown-menu span4 yourCart">
 			<?
-		$cart = core::model('lo_order')->get_cart();
-		$cart->load_items();
-		$item_hash = $cart->items->to_hash('prod_id');
-		$cart_count = 0;
 		foreach ($item_hash as $prod_id => $item) {
 			$cart_count++;
 			$prod = core::model('products')->load($item[0]['prod_id']);
@@ -135,7 +142,6 @@ $(function()
 	<?=$core->i18n['greeting']?> <?=$core->session['first_name']?>
 </p>
 <? core::replace('nav1top');?>
-
 <li>
 	<a href="<?=$core->config['app_page']?>#!catalog-shop" onclick="core.go(this.href);" class="main">
 		<span class="nav-actual"><?=$core->i18n['nav1:shop']?></span>
