@@ -6,7 +6,7 @@ $description = $prod['short_description'];
 $farm_name = $prod['org_name'];
 
 $long_description = $prod['description'];
-$description_popup = trim($prod['who']);
+$description_popup = trim($prod['product_who']);
 
 if (!empty($long_description))
 {
@@ -41,22 +41,22 @@ if(!empty($how_popup))
 if (!empty($long_description) && trim($prod['description']) !== trim($description))
 {
 ?>
-&nbsp;<i class="icon-plus-circle" rel="clickover" data-placement="bottom" data-content="<?=$long_description?>" style=""/>
+&nbsp;<i class="icon-plus-circle" rel="clickover" data-placement="bottom" data-content="<?=$long_description?>"/>
 <?
 }
 ?>
 <br />
 <small class="whowhatwhere">
 	<?
-	if (!empty($description_popup))
-	{
+//	if (!empty($description_popup))
+//	{
 	?>
 	<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="" data-content="<?=$description_popup?>">
 		<i class="icon icon-binoculars" />
 		<?=$farm_name?>
 	</a>&nbsp;
 	<?
-	}
+//	}
 	if (!empty($how_popup))
 	{
 	?>

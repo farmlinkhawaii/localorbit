@@ -379,6 +379,12 @@ core.catalog.initCatalog=function(){
 			core.catalog.setFilter(pair[0], pair[1], true);
 		});
 	}
+
+	$('.icon-plus-circle').click(function () {
+		var jq = $(this);
+		jq.toggleClass('icon-plus-circle');
+		jq.toggleClass('icon-minus-circle');
+	});
 }
 
 core.catalog.updateTotalViews = function () {
