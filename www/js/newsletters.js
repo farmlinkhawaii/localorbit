@@ -1,4 +1,4 @@
-core.newsletters={};
+core.newsletters={customerCheckboxes:[]};
 
 core.newsletters.sendNewsletter=function(){
 	if(document.nlForm.send_seller.value == 0 && document.nlForm.send_buyer.value == 0){
@@ -36,17 +36,20 @@ core.newsletters.refreshImage=function(extension){
 	}
 }
 
-core.newsletters.initializeCheckBoxes=function () {
-	var jq = $('#send_seller,#send_buyer');
-	var sendButton = $('#sendCustomers');
+core.newsletters.updateSendButton = function () {
+	if (core.newsletters.customerCheckboxes.filter(':checked').length > 0) {
+		core.newsletters.sendButton.removeAttr('disabled');
+	} else {
+		core.newsletters.sendButton.attr('disabled', true);
+	}
+};
 
-	jq.change(function () {
-		if (jq.filter(':checked').length > 0) {
-			sendButton.removeAttr('disabled');
-		} else {
-			sendButton.attr('disabled', true);
-		}
-	});
+core.newsletters.initializeCheckBoxes=function () {
+	core.newsletters.customerCheckboxes = $('#send_seller,#send_buyer');
+	core.newsletters.sendButton = $('#sendCustomers');
+
+	core.newsletters.customerCheckboxes.change(core.newsletters.updateSendButton);
+	core.newsletters.updateSendButton();
 };
 
 core.newsletters.initializeCheckBoxes();
