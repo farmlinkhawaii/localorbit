@@ -35,3 +35,18 @@ core.newsletters.refreshImage=function(extension){
 		$('#newsletterImage').fadeIn('fast');
 	}
 }
+
+core.newsletters.initializeCheckBoxes=function () {
+	var jq = $('#send_seller,#send_buyer');
+	var sendButton = $('#sendCustomers');
+
+	jq.change(function () {
+		if (jq.filter(':checked').length > 0) {
+			sendButton.removeAttr('disabled');
+		} else {
+			sendButton.attr('disabled', true);
+		}
+	});
+};
+
+core.newsletters.initializeCheckBoxes();
