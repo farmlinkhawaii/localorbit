@@ -103,6 +103,7 @@ page_header('Editing Product: '.$data['name'],'#!products-list','cancel','cancel
 					'popover'=>'',
 					'rows'=>2,
 					'sublabel'=>'Please limit this to 50 characters',
+					'maxlength'=>50
 			))?>
 
 		

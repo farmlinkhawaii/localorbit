@@ -509,6 +509,7 @@ class core_form
 			'cols'=>50,
 			'size'=>'input-xlarge',
 			'render'=>true,
+			'maxlength'=>null
 		));
 
 		if ($options['render'] != true)	return '';
@@ -526,7 +527,13 @@ class core_form
 		endif;
 		
 		$html .= '</label>';
-		$html .= '<div class="controls"><textarea name="'.$name.'" class="' . $options['size'] . '" rows="'.$options['rows'].'" cols="'.$options['cols'].'">'.$value.'</textarea>';
+		$html .= '<div class="controls"><textarea name="'.$name.'" class="' . $options['size'] . '" rows="'.$options['rows'].'" cols="'.$options['cols'].'"';
+
+		if ($options['maxlength']) {
+			$html .= ' maxlength="' . $options['maxlength'] . '"';
+		}
+
+		$html .= '>'.$value.'</textarea>';
 		
 		#if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
 
