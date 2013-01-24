@@ -2,15 +2,20 @@
 $prod = $core->view[0];
 $seller = $core->view[1];
 
-
 $description = $prod['short_description'];
 $farm_name = $prod['org_name'];
 
+$long_description = $prod['description'];
 $description_popup = trim($prod['who']);
-if($description_popup == '')
-	$description_popup = trim($seller['profile']);
+
+if (!empty($long_description))
+{
+	$long_description = htmlentities($long_description . '<a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a>');
+}
+//if($description_popup == '')
 if (!empty($description_popup))
 {
+	$description_popup = trim($seller['profile']);
 	$description_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
 	$description_popup = htmlentities($description_popup);
 }
@@ -24,16 +29,22 @@ if(!empty($how_popup))
 	$how_popup = htmlentities($how_popup);
 }
 
-
-
 ?>
 
 
 	<link rel="stylesheet" href="/css/iconmoon/Sprites/sprites.css">
 
-<a href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a>
+<a class="product_name" href="#!catalog-view_product--prod_id-<?=$prod['prod_id']?>"><?=$prod['name']?></a>
 <br />
 <?=$description?>
+<?
+if (!empty($long_description) && trim($prod['description']) !== trim($description))
+{
+?>
+&nbsp;<i class="icon-plus-circle" rel="clickover" data-placement="bottom" data-content="<?=$long_description?>" style=""/>
+<?
+}
+?>
 <br />
 <small class="whowhatwhere">
 	<?
