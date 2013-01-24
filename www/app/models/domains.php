@@ -18,12 +18,14 @@ class core_model_domains extends core_model_base_domains
 			'(ds.ds_year='.date('Y').')',
 			array('ds_start','ds_end')
 		);
+		/*
 		$this->autojoin(
 			'left',
 			'domains_branding branding',
 			'(domains.domain_id=branding.domain_id and branding.is_temp = 0)',
 			array('branding_id','font_color','header_font', 'background_color', 'background_id', 'is_temp')
 		);
+		*/
 
 		parent::init_fields();
 	}
