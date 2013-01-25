@@ -10,13 +10,13 @@ $description_popup = trim($prod['product_who']);
 
 if (!empty($long_description))
 {
-	$long_description = htmlentities($long_description . '<a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a> <i data-dismiss="clickover" class="icon-close"/>');
+	$long_description = htmlentities($long_description . '<a class="btn btn-small btn-info pull-right learnMore" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a> <i data-dismiss="clickover" class="icon-close"/>');
 }
 //if($description_popup == '')
 if (!empty($description_popup))
 {
 	$description_popup = trim($seller['profile']);
-	$description_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'"><i class="icon-arrow-right" /> Learn More</a></p> <i data-dismiss="clickover" class="icon-close"/>';
+	$description_popup .= '<p><a class="btn btn-small btn-info pull-right learnMore" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'">Learn More</a></p> <i data-dismiss="clickover" class="icon-close"/>';
 	$description_popup = htmlentities($description_popup);
 }
 
@@ -25,7 +25,7 @@ if($how_popup == '')
 	$how_popup = $seller['product_how'];
 if(!empty($how_popup))
 {
-	$how_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'"><i class="icon-arrow-right" /> Learn More</a></p> <i data-dismiss="clickover" class="icon-close"/>';
+	$how_popup .= '<p><a class="btn btn-small btn-info pull-right learnMore" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'"> Learn More</a></p> <i data-dismiss="clickover" class="icon-close"/>';
 	$how_popup = htmlentities($how_popup);
 }
 
