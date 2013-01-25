@@ -86,7 +86,7 @@ $(function()
 
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
-		<a id="yourCartDropDown" class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart (<span id="totalQty"><?=$totalQty?></span>)</a>
+		<a id="yourCartDropDown" class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart <span class="badge badge-inverse" id="totalQty"><?=$totalQty?></span></a>
 		<div class="dropdown-menu span4 yourCart">
 			<?
 		foreach ($item_hash as $prod_id => $item) {
