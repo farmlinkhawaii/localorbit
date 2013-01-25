@@ -10,13 +10,13 @@ $description_popup = trim($prod['product_who']);
 
 if (!empty($long_description))
 {
-	$long_description = htmlentities($long_description . '<a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a>');
+	$long_description = htmlentities($long_description . '<a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a> <i data-dismiss="clickover" class="icon-close"/>');
 }
 //if($description_popup == '')
 if (!empty($description_popup))
 {
 	$description_popup = trim($seller['profile']);
-	$description_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
+	$description_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!sellers-oursellers--org_id-'.$prod['org_id'].'"><i class="icon-arrow-right" /> Learn More</a></p> <i data-dismiss="clickover" class="icon-close"/>';
 	$description_popup = htmlentities($description_popup);
 }
 
@@ -25,7 +25,7 @@ if($how_popup == '')
 	$how_popup = $seller['product_how'];
 if(!empty($how_popup))
 {
-	$how_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'"><i class="icon-arrow-right" /> Learn More</a></p>';
+	$how_popup .= '<p><a class="btn btn-small btn-info pull-right" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'"><i class="icon-arrow-right" /> Learn More</a></p> <i data-dismiss="clickover" class="icon-close"/>';
 	$how_popup = htmlentities($how_popup);
 }
 
@@ -67,7 +67,7 @@ if (!empty($long_description) && trim($prod['description']) !== trim($descriptio
 	<?
 	}
 	?>
-	<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=310x225&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" />'); ?>">
+	<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=310x225&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" /><i data-dismiss="clickover" class="icon-close"/>'); ?>">
 		<i class="icon icon-direction" /> Where
 	</a>
 </small>

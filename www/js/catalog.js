@@ -380,12 +380,22 @@ core.catalog.initCatalog=function(){
 		});
 	}
 
+/*
 	$('.icon-plus-circle').click(function () {
 		var jq = $(this);
 		jq.toggleClass('icon-plus-circle');
 		jq.toggleClass('icon-minus-circle');
 	});
+	*/
 }
+
+core.catalog.updatePopoverButton = function (popover, show) {
+	var jq = popover.$element;
+	if (jq.hasClass('icon-plus-circle') || jq.hasClass('icon-minus-circle')) {
+		jq.toggleClass('icon-plus-circle', !show);
+		jq.toggleClass('icon-minus-circle', show);
+	}
+};
 
 core.catalog.updateTotalViews = function () {
 	$('.prodTotal_text span.value').each(function () {

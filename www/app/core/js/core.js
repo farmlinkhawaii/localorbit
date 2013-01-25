@@ -45,7 +45,7 @@ core.callHandler=function(name,args){
 core.loadingEnd=function(){
 	$('#loading').fadeOut();
 }
- 
+
 core.toggle=function(id){
 	$('#'+id).toggle('fast');
 }
@@ -64,7 +64,7 @@ core.init=function(autoredirect){
 				core.go(core.authed_controller);
 		}
 	}
-	
+
 	setInterval(
 	function(){
 		if(location.hash != core.currentHash && location.hash!=''){
@@ -73,6 +73,12 @@ core.init=function(autoredirect){
 	}, 300);
 	core.jqInit();
 }
+
+core.changePopoverExpandButton = function (popover, show) {
+	if (core.catalog) {
+		core.catalog.updatePopoverButton(popover, show);
+	}
+};
 
 core.jqInit=function(){
 	$(function() {
@@ -91,10 +97,10 @@ core.jqInit=function(){
 		});
 		$('.control-label i.icon-required').hover(function() { changeTooltipColorTo('#990000') });
 		$(".chzn-select").chosen();
-		
-		$('[rel="clickover"]').clickover({ html : true });
+
+		$('[rel="clickover"]').clickover({ html : true, onShown : function () { core.changePopoverExpandButton(this, true); }, onHidden : function () { core.changePopoverExpandButton(this, false); } });
 	});
-	
+
 }
 
 function changeTooltipColorTo(color) {
@@ -169,24 +175,24 @@ core.submit=function(action,form,extraData){
 	var method = action.pop();
 	var controller = action.pop();
 	action = '/'+controller+'/'+method;
-	
+
 	// handle rte content that is still focused by moving the content back to the textarea
 	$('textarea.rte').each(function(){
 		if(document.getElementById($(this).attr('id')+'-iframe'))
-			$(this).val(document.getElementById($(this).attr('id')+'-iframe').contentWindow.document.getElementsByTagName("body")[0].innerHTML);	
+			$(this).val(document.getElementById($(this).attr('id')+'-iframe').contentWindow.document.getElementsByTagName("body")[0].innerHTML);
 	});
 	var data = '';
-	
+
 	if(!core.validateForm(form)){
 		return false;
 	}
-	
+
 	data += core.getFormDataForSubmit(form);
-	
+
 	for(var key in extraData){
 		data += '&'+key+'='+encodeURIComponent(extraData[key]);
 	}
-	
+
 	core.doRequest(action,data);
 	return false;
 }
@@ -213,14 +219,14 @@ core.go=function(url){
 core.doRequest=function(path,data){
 	if(path == '/undefined/undefined')
 		return false;
-	
+
 	// call the handlers
 	core.callHandler('onrequest',{'path':path,'data':data});
 
-	
+
 	var finalData = '';
 	var winW,winH;
-	
+
 	// get browser width/height in a cross-browser manner
 	if (document.body && document.body.offsetWidth) {
 		winW = document.body.offsetWidth;
@@ -236,13 +242,13 @@ core.doRequest=function(path,data){
 		winW = window.innerWidth;
 		winH = window.innerHeight;
 	}
-	
+
 	// assemble the data sent to the server
 	finalData += '?_reqtime='+ (Math.round(new Date().valueOf() / 1000).toString());
 	finalData += '&_browserX='+winW;
 	finalData += '&_browserY='+winH;
 	finalData += '&_os='+encodeURIComponent(navigator.platform);
-	
+
 	// prepare navState
 	var finalNavState = [];
 	for(var key in core.navState){
@@ -252,14 +258,14 @@ core.doRequest=function(path,data){
 	//alert(finalNavState.join('|'));
 	//alert(finalNavState.join('|'));
 	finalData += '&_navState='+encodeURIComponent(finalNavState.join('|'));
-	
+
 	var plugins = [];
 	for(var i=0;i<navigator.plugins.length;i++){
 		plugins.push(navigator.plugins[i].name);
 	}
 	finalData += '&_plugins='+encodeURIComponent(plugins.join(','));
 
-	
+
 	//add in the data
 	if(typeof(data) == 'string')
 		finalData += data;
@@ -268,13 +274,13 @@ core.doRequest=function(path,data){
 			finalData += '&'+key+'='+encodeURIComponent(data[key]);
 		}
 	}
-	
+
 	//~ jQuery.extend({
 		//~ postJSON: function( url, data, callback) {
 			//~ return jQuery.post(url, data, callback, "json");
 		//~ }
 	//~ });
-	
+
 	//perform the request
 	//alert('abou to post: '+'app'+path);
 	//alert(finalData);
@@ -286,7 +292,7 @@ core.doRequest=function(path,data){
 		core.log('total network time: '+(core.netEndTime - core.requestStartTime));
 
 		var mainChanged = false;
-		// this loads the returned content into the appropriate positions 
+		// this loads the returned content into the appropriate positions
 		// and executes any js sent
 		var start = new Date().valueOf();
 		if(jsondata.replace){
@@ -312,8 +318,8 @@ core.doRequest=function(path,data){
 		//alert('replace/append complete');
 
 		core.cleanupStartTime = new Date().valueOf();
-		
-		
+
+
 		var title = Base64.decode(jsondata.title);
 		if(title != ''){
 			//alert('trying to set title');
@@ -328,9 +334,9 @@ core.doRequest=function(path,data){
 		if(keywords != '')
 			$('meta[name=keywords]').attr('keywords',desc);
 		//alert('meta keywordss append done');
-		
+
 		core.fixDropDown();
-		
+
 		//$('#loading').hide();
 		//alert(Base64.decode(jsondata.js));
 		core.log(Base64.decode(jsondata.js));
@@ -343,7 +349,7 @@ core.doRequest=function(path,data){
 		}
 		catch(e){
 			//alert('could not eval: '+core.base64_decode(jsondata.js));
-			
+
 			//~ var js = new String(core.base64_decode(jsondata.js)).split(/;/);
 			//~ for (i = 0; i < js.length; i++)
 			//~ {
@@ -358,13 +364,13 @@ core.doRequest=function(path,data){
 					//~ //core.alertHash(e);
 				//~ }
 			//~ }
-			//~ 
-			//~ 
-			//~ 
+			//~
+			//~
+			//~
 			//~ core.alertHash(e);
 		}
 		core.jqInit();
-		
+
 		core.cleanupEndTime = new Date().valueOf();
 		core.log('cleanup time: '+(core.cleanupEndTime - core.cleanupStartTime));
 
@@ -402,9 +408,9 @@ core.base64_encode=function(data) {
     } while (i < data.length);
 
     enc = tmp_arr.join('');
-    
+
     var r = data.length % 3;
-    
+
     return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
 
 }
@@ -636,20 +642,20 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 function StringBuffer()
-{ 
-    this.buffer = []; 
-} 
+{
+    this.buffer = [];
+}
 
 StringBuffer.prototype.append = function append(string)
-{ 
-    this.buffer.push(string); 
-    return this; 
-}; 
+{
+    this.buffer.push(string);
+    return this;
+};
 
 StringBuffer.prototype.toString = function toString()
-{ 
-    return this.buffer.join(""); 
-}; 
+{
+    return this.buffer.join("");
+};
 
 var Base64 =
 {
