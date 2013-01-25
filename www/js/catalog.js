@@ -705,7 +705,7 @@ core.catalog.changeProductDeliveryDay=function(prodId, dd_ids) {
 };
 
 core.catalog.updateDropDown=function(totalQty) {
-	if (totalQty > 0)
-		$('#yourCartDropDown').dropdown('toggle');
+	//if (totalQty > 0)
+		//$('#yourCartDropDown').dropdown('toggle');
 };
 //core.catalog.initCatalog();
