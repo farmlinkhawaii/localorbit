@@ -68,6 +68,6 @@ if (!empty($long_description) && trim($prod['description']) !== trim($descriptio
 	}
 	?>
 	<a href="" onclick="return false;" rel="clickover" data-placement="bottom" data-title="<?=$prod['city']?>, <?=$prod['code']?>" data-content="<?= htmlspecialchars('<img src="//maps.googleapis.com/maps/api/staticmap?center=' . $prod['latitude'] . ',' . $prod['longitude'] . '&zoom=7&size=310x225&sensor=false&markers=size:small%7Ccolor:white%7C' . $prod['latitude'] . ',' . $prod['longitude'] . '" /><i data-dismiss="clickover" class="icon-close"/>'); ?>">
-		<i class="icon icon-direction" /> Where
+		<i class="icon icon-flag" /> Where
 	</a>
 </small>
