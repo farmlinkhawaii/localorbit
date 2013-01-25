@@ -237,7 +237,7 @@ core.catalog.updateListing=function(){
 		if(core.catalog.filters.dd !== 0 && !(core.catalog.matchesDeliveryDay(core.catalog.filters.dd, core.products[i]))) {
 			core.products[i].show = false;
 		}
-		
+
 
 
 		// add this element to the list of things to hide
@@ -463,14 +463,14 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 			lowestMin = core.prices[prodId][i]['min_qty'];
 		}
 	}
-	
+
 	var qtyAlert;
 
 	if (!failure) {
 		$('.prod_' +prodId+ '_min_qty:visible').remove();
 		qtyAlert = $('.prod_' +prodId+ '_min_qty:first').clone().appendTo($('#product_' + prodId + ' .alertContainer'));
 	}
-	
+
 	// if we we found a valid price,
 	if(priceId > 0){
 		if (!failure) {
@@ -692,5 +692,10 @@ core.catalog.changeProductDeliveryDay=function(prodId, dd_ids) {
 	var text = $.trim($('#filter_dd_' + dd_ids).text());
 	jq.find('.dd_selector .content').text(text);
 	jq.find('.prodDd').val(dd_ids);
+};
+
+core.catalog.updateDropDown=function(totalQty) {
+	if (totalQty > 0)
+		$('#yourCartDropDown').dropdown('toggle');
 };
 //core.catalog.initCatalog();

@@ -6,7 +6,7 @@ function get_total_qty ($total, $item) {
 $cart = core::model('lo_order')->get_cart();
 $cart->load_items();
 $item_hash = $cart->items->to_hash('prod_id');
-$totalQty = array_reduce($item_hash, 'get_total_qty');
+$totalQty = array_reduce($item_hash, 'get_total_qty', 0);
 $cart_count = 0;
 ?>
 <script type="text/javascript" charset="utf-8">
@@ -86,7 +86,7 @@ $(function()
 
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart (<span id="totalQty"><?=$totalQty?></span>)</a>
+		<a id="yourCartDropDown" class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart (<span id="totalQty"><?=$totalQty?></span>)</a>
 		<div class="dropdown-menu span4 yourCart">
 			<?
 		foreach ($item_hash as $prod_id => $item) {
@@ -168,3 +168,4 @@ $(function()
 </li>
 
 <? core::replace('mainnav');?>
+<? core::js('core.catalog.updateDropDown('.$totalQty.');');?>
