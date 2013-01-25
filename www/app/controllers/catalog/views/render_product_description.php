@@ -10,7 +10,7 @@ $description_popup = trim($prod['product_who']);
 
 if (!empty($long_description))
 {
-	$long_description = htmlentities($long_description . '<p><a class="btn btn-small btn-info pull-right learnMore span3" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a></p><i data-dismiss="clickover" class="icon-close"/>');
+	$long_description = htmlentities($long_description . '<p><a class="btn btn-small btn-info pull-right learnMore" href="#!catalog-view_product--prod_id-'.$prod['prod_id'].'">Learn More</a></p><i data-dismiss="clickover" class="icon-close"/>');
 }
 //if($description_popup == '')
 if (!empty($description_popup))
