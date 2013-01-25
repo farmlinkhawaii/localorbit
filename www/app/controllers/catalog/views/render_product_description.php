@@ -41,7 +41,7 @@ if(!empty($how_popup))
 if (!empty($long_description) && trim($prod['description']) !== trim($description))
 {
 ?>
-&nbsp;<i class="icon-plus-circle" rel="clickover" data-placement="bottom" data-content="<?=$long_description?>"/>
+&nbsp;<i class="icon-plus-circle" rel="clickover" data-placement="bottom" data-title="Details" data-content="<?=$long_description?>"/>
 <?
 }
 ?>
