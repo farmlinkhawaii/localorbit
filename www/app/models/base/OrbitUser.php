@@ -27,8 +27,8 @@ class core_model_base_OrbitUser extends core_model
 		$this->add_field(new core_model_field(21,'NOTIFY_BY_EMAIL','string',-4,'','OrbitUser'));
 		$this->add_field(new core_model_field(22,'NOTIFY_BY_TEXT','string',-4,'','OrbitUser'));
 		$this->add_field(new core_model_field(23,'RECEIVE_NEWS','string',-4,'','OrbitUser'));
-		$this->add_field(new core_model_field(24,'CREATED','timestamp',,'','OrbitUser'));
-		$this->add_field(new core_model_field(25,'LAST_LOGIN','timestamp',,'','OrbitUser'));
+		$this->add_field(new core_model_field(24,'CREATED','timestamp','','OrbitUser'));
+		$this->add_field(new core_model_field(25,'LAST_LOGIN','timestamp','','OrbitUser'));
 		$this->add_field(new core_model_field(26,'VERSION_COUNT','int',8,'','OrbitUser'));
 		$this->add_field(new core_model_field(27,'APPROVAL_TYPE','int',8,'','OrbitUser'));
 		$this->add_field(new core_model_field(28,'APPROVAL_ID','int',8,'','OrbitUser'));
@@ -37,7 +37,7 @@ class core_model_base_OrbitUser extends core_model
 		$this->add_field(new core_model_field(31,'domain_id','int',8,'','OrbitUser'));
 		$this->add_field(new core_model_field(32,'uniqid','string',-4,'','OrbitUser'));
 		$this->add_field(new core_model_field(33,'verification_ip','string',-4,'','OrbitUser'));
-		$this->add_field(new core_model_field(34,'uniqid_expiry_date','timestamp',,'','OrbitUser'));
+		$this->add_field(new core_model_field(34,'uniqid_expiry_date','timestamp','','OrbitUser'));
 		$this->add_field(new core_model_field(35,'additional_domain_ids','string',-4,'','OrbitUser'));
 		$this->init_data();
 	}

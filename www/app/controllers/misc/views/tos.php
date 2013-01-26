@@ -14,7 +14,7 @@ lo3::require_permission();
 	<br />
 	<p>Prior to becoming a member of Local Orbit, you must read and accept all of the terms and conditions in, and linked to, this User Agreement and the Privacy Policy.</p>
 	<br />
-	<p>These agreements are effective as of June 22, 2009.</p>
+	<p>These agreements are effective as of January 1, 2013.</p>
 	<br />
 	<h2>Seller Commitment</h2>
 	<p>Sellers attest that their practices conform to the criteria set forth in <a href="#!misc-localorbit_standards" target="_blank">Local Orbit Standards.</a></p>

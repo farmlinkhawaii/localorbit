@@ -132,20 +132,32 @@ if($core->data['redirect_to_checkout'] == 1)
 			<?=core_ui::checkdiv('subscribe_mailchimp',$core->i18n['field:reg:check-newsletter'])?>
 			<br />&nbsp;<br />
 			<h2><?=$core->i18n['header:reg:tos']?><?=core_form::required()?></h2>
-			<?=core_ui::checkdiv('tos_approve',$core->i18n['field:reg:check-tos'])?>
-
-		
-		<?if($core->config['stage'] == 'testing' || $core->config['stage'] == 'qa' || $core->config['stage'] == 'dev'){?>
-		<br />
-		<input type="button" value="Testing/QA ONLY" class="button_secondary" onclick="core.registration.fakeFill((<?=$core->session['spammer_nums'][0]?>+<?=$core->session['spammer_nums'][1]?>),'<?=$core->session['spammer_field']?>');" />
-		<?}?>
+			<?=core_ui::checkdiv('tos_approve',$core->i18n['field:reg:check-tos'], false, "core.registration.tosModalPopup()")?>
+			
+			<?if($core->config['stage'] == 'testing' || $core->config['stage'] == 'qa' || $core->config['stage'] == 'dev'){?>
+				<br />
+				<input type="button" value="Testing/QA ONLY" class="button_secondary" onclick="core.registration.fakeFill((<?=$core->session['spammer_nums'][0]?>+<?=$core->session['spammer_nums'][1]?>),'<?=$core->session['spammer_field']?>');" />
+			<?}?>
 		</div>
-
 	</div>
-	<div class="row">
+	
+	
+ 	<div class="row">
 		<div class="span12">
 			<input type="submit" value="<?=$core->i18n['button:signup']?>" class="btn btn-primary btn-large pull-right" />
 		</div>
 	</div>
 	<input type="hidden" name="postauth_url" value="<?=$core->config['postauth_url']?>" />
+		
+	
+	<!-- TOS modal -->
+	<div id="tosModal" class="modal hide fade">
+	    <div class="modal-body">
+			<? core::process_command('misc/tos');?>
+	    </div>
+	    <div class="modal-footer">
+			<button onclick="$('input[name=tos_approve]').removeAttr('checked')" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			<button onclick="$('input[name=tos_approve]').attr('checked', 'checked')" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">I have read the Terms of Service</button>
+	    </div>
+	</div>
 </form>

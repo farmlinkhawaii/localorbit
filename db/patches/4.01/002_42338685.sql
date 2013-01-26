@@ -22,8 +22,8 @@ drop table if exists backgrounds;
 create table backgrounds (
   `background_id` int(8) unsigned NOT NULL AUTO_INCREMENT,
   `file_name` varchar(255) not null,
-  `is_available` tinyint(1) not null
-  PRIMARY KEY (`font_id`)
+  `is_available` tinyint(1) not null,
+  PRIMARY KEY (`background_id`)
 );
 
 insert into backgrounds (file_name, is_available) values ('broccoli.jpg', 1);

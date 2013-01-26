@@ -12,6 +12,11 @@ core.registration.toggleForm=function(){
 	}
 }
 
+
+core.registration.tosModalPopup=function(){
+	$('#tosModal').modal();
+}
+
 core.registration.fakeInviteFill=function(){
 	document.regform.first_name.value = 'Mike';
 	document.regform.last_name.value = 'Thorn';
