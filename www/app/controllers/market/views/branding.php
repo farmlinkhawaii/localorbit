@@ -78,7 +78,7 @@ $has_custom = (strpos($logo,'default') === false);
 	<label class="control-label" for="email_image">Background</label>
 	<div class="controls row">
 		<div class="span5">
-			<div class="input-append color colorpicker" data-color="<?=$bg_color?>" data-color-format="rgb" data-disabled="true">
+			<div class="input-append color colorpicker" data-color="<?=$bg_color?>" data-color-format="hex" data-disabled="true">
 			  <input name="background_color" type="text" class="span2" value="" readonly>
 			  <span class="add-on"><i style="background-color: <?=$bg_color?>"></i></span>
 			</div>

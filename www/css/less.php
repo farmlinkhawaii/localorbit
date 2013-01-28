@@ -52,7 +52,24 @@ while($opt = mysql_fetch_assoc($opts))
 }
 //print_r($options);
 $less = new lessc;
-$less->setVariables(array_map('format_value', $options));//array('p1c' => '#333'));
+
+$branding = mysql_query('select * from domains_branding 
+  left join backgrounds on domains_branding.background_id = backgrounds.background_id
+  left join fonts on domains_branding.header_font = fonts.font_id
+  where domain_id = ' . $core->config['domain']['domain_id']);
+$branding = mysql_fetch_assoc($branding);
+
+$options = array_map('format_value', $options);
+if ($branding) 
+{
+  $options['bodyBackground-image'] = $branding['file_name'] ?
+    'url(/img/backgrounds/' . $branding['file_name'] . ') fixed' :
+    'none';
+  $options['bodyBackground'] = '#' . $branding['background_color'];
+  $options['headingsFontFamily'] = $branding['font_name'];
+}
+
+$less->setVariables($options);//array('p1c' => '#333'));
 $less->setImportDir($path . '/../less');
 
 header("Content-type: text/css; charset: UTF-8");

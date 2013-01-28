@@ -28,12 +28,11 @@ class core_controller_market extends core_controller
 		global $core;
 
 		//$branding = core::model('domains_branding')->collection()->filter('domain_id', intval($core->data['domain_id']))->row();
-		$branding = core::model('domains_branding')->get_branding();
+		$branding = core::model('domains_branding')->get_branding($core->data);
 
 		$market = core::model('domains');
 		$market->load($core->data['domain_id']);
 
-		core::log('test');
 		core::log(print_r($branding, true));
 		# changes to the is_live property need to be logged using the
 		# domains_is_live_history table
@@ -96,6 +95,7 @@ class core_controller_market extends core_controller
 			lo3::require_orgtype('admin');
 		}
 
+		$branding->save();
 		$market->save();
 
 		if(lo3::is_admin())

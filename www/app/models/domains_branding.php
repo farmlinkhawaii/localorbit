@@ -12,8 +12,8 @@ class core_model_domains_branding extends core_model_base_domains_branding
 
 		$branding['domain_id'] = $data['domain_id'];
 		$branding['header_font'] = $data['header_font'];
-		$branding['background_color'] = $data['background_color'];
-		$branding['background_id'] = $data['background_id'];
+		$branding['background_color'] = hexdec($data['background_color']);
+		$branding['background_id'] = $data['background_id']?$data['background_id']:null;
 
 		return $branding;
 	}
