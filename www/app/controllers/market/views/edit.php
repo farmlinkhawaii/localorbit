@@ -18,7 +18,7 @@ $data = core::model('domains')->autojoin(
 			'left',
 			'domains_branding branding',
 			'(domains.domain_id=branding.domain_id and branding.is_temp = 0)',
-			array('branding_id','font_color','header_font', 'background_color', 'background_id', 'is_temp')
+			array('branding_id','header_font', 'background_color', 'background_id', 'is_temp')
 		)->load();
 
 # if the hub you were trying to edit is NOT the same as YOUR hub, then

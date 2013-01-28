@@ -1,10 +1,7 @@
 <?php global $data; ?>
-<style type="text/css">
 <?
 	$fonts = core::model('fonts')->collection();
 ?>
-	@import url(http://fonts.googleapis.com/css?family=<?=$font_list?>);
-</style>
 <div class="control-group">
 	<label class="control-label">Dashboard Note</label>
 	<div class="controls">
@@ -82,7 +79,7 @@ $has_custom = (strpos($logo,'default') === false);
 	<div class="controls row">
 		<div class="span5">
 			<div class="input-append color colorpicker" data-color="<?=$bg_color?>" data-color-format="rgb" data-disabled="true">
-			  <input type="text" class="span2" value="" readonly>
+			  <input name="background_color" type="text" class="span2" value="" readonly>
 			  <span class="add-on"><i style="background-color: <?=$bg_color?>"></i></span>
 			</div>
 		</div>
