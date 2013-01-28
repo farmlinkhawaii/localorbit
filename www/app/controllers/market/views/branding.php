@@ -1,4 +1,16 @@
 <?php global $data; ?>
+<style type="text/css">
+<?
+	$font_list = array();
+	$fonts = core::model('fonts')->collection();
+	foreach ($fonts as $font) {
+		list($font_label) = explode(',', $font['font_name']);
+		$font_list[] = str_replace(' ', '+', str_replace('"', '', $font_label));
+	} 	
+	$font_list = implode('|', $font_list);
+?>
+	@import url(http://fonts.googleapis.com/css?family=<?=$font_list?>);
+</style>
 <div class="control-group">
 	<label class="control-label">Dashboard Note</label>
 	<div class="controls">
@@ -13,7 +25,6 @@ $backgrounds = $backgrounds->filter('is_available', 1);
 $bg_color = core_format::get_hex_code($data['background_color']);
 
 
-$fonts = core::model('fonts')->collection();
 /*
 <div class="control-group">
 	<label class="control-label">Note Offset</label>
@@ -92,7 +103,9 @@ $has_custom = (strpos($logo,'default') === false);
 			</select>
 		</div>
 	</div>
-	<!--
+</div>
+<div class="control-group">
+	<label class="control-label" for="header_font">Header Font</label>
 	<div class="controls row">
 		<div class="span8">
 			<ul>
@@ -112,5 +125,4 @@ $has_custom = (strpos($logo,'default') === false);
 			</ul>
 		</div>
 	</div>
--->
 </div>
