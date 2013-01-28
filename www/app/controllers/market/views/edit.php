@@ -14,9 +14,14 @@ $this->rules()->js();
 
 # load misc data
 global $data, $org;
-$data = core::model('domains')->load();
+$data = core::model('domains')->autojoin(
+			'left',
+			'domains_branding branding',
+			'(domains.domain_id=branding.domain_id and branding.is_temp = 0)',
+			array('branding_id','font_color','header_font', 'background_color', 'background_id', 'is_temp')
+		)->load();
 
-# if the hub you were trying to edit is NOT the same as YOUR hub, then 
+# if the hub you were trying to edit is NOT the same as YOUR hub, then
 # make sure the user is actually an admin. Otherwise, they can be a market manager
 if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2]) > 1)
 {
@@ -30,13 +35,13 @@ else
 
 $managed = new core_collection('
 	select organizations.org_id,name
-	from organizations 
+	from organizations
 	inner join organizations_to_domains on (
-		organizations_to_domains.domain_id='.$data['domain_id'].' 
-		and organizations_to_domains.org_id=organizations.org_id 
+		organizations_to_domains.domain_id='.$data['domain_id'].'
+		and organizations_to_domains.org_id=organizations.org_id
 		and organizations_to_domains.orgtype_id=2
 	)
-	
+
 ');
 
 $org  = core::model('organizations')->collection()->filter('organizations_to_domains.orgtype_id',2)->filter('organizations_to_domains.domain_id',$data['domain_id']);
@@ -59,10 +64,10 @@ if(lo3::is_admin())
 ?>
 <form name="marketForm" class="form-horizontal" method="post" action="/market/save" target="uploadArea" onsubmit="return core.submit('/market/save',this);" enctype="multipart/form-data">
 	<?=core_ui::tab_switchers('markettabs',$tabs)?>
-	
+
 	<div class="tab-content">
 		<div class="tab-pane tabarea active" id="markettabs-a1">
-		
+
 			<fieldset>
 				<?if(lo3::is_admin()){?>
 				<div class="control-group">
@@ -91,7 +96,7 @@ if(lo3::is_admin())
 					<label class="control-label">Hostname</label>
 					<div class="controls">
 						<input type="text" name="hostname" value="<?=$data['hostname']?>" />
-						<?/* 
+						<?/*
 						<div class="input-append">
 							<input type="text" name="hostname" value="<?=$data['hostname']?>" />
 							<span class="add-on">.localorb.it</span>
@@ -108,7 +113,7 @@ if(lo3::is_admin())
 						</select>
 					</div>
 				</div>
-			
+
 				<?= core_form::input_check('Apply Daylight Savings','do_daylight_savings',$data['do_daylight_savings']); ?>
 				<?if(lo3::is_admin()){?>
 				<?= core_form::input_check('Is Live','is_live',$data['is_live']); ?>
@@ -148,14 +153,14 @@ if(lo3::is_admin())
 
 		<div class="tab-pane tabarea" id="markettabs-a8">
 			<fieldset>
-				
-				<?=core_form::input_check('Require sellers to accept all delivery options','feature_require_seller_all_delivery_opts',$data,false,$core->i18n['hub:features:req_selr_all_delv_opts'])?>			
-				<?=core_form::input_check('Force items at checkout to soonest delivery option','feature_force_items_to_soonest_delivery',$data,false,$core->i18n['hub:features:items_to_1st_delv'])?>			
-				<?=core_form::input_check('Sellers enter prices before fees','feature_sellers_enter_price_without_fees',$data,false,$core->i18n['hub:features:sellers_enter_price_without_fees'])?>			
-				<?=core_form::input_check('Sellers cannot modify cross-sells','feature_sellers_cannot_manage_cross_sells',$data,false,$core->i18n['hub:features:sellers_cannot_modify_cross_sells'])?>			
-				<?=core_form::input_check('Sellers can change delivery statuses','feature_sellers_mark_items_delivered',$data,false,$core->i18n['hub:features:feature_sellers_mark_items_delivered'])?>			
-				<?=core_form::input_check('Allow anonymous shopping','feature_allow_anonymous_shopping',$data,false,'Note: checking this feature will also enable organization auto-activation, credit card payments, and disable POs',null,false,"market.toggleAnon();")?>			
-				
+
+				<?=core_form::input_check('Require sellers to accept all delivery options','feature_require_seller_all_delivery_opts',$data,false,$core->i18n['hub:features:req_selr_all_delv_opts'])?>
+				<?=core_form::input_check('Force items at checkout to soonest delivery option','feature_force_items_to_soonest_delivery',$data,false,$core->i18n['hub:features:items_to_1st_delv'])?>
+				<?=core_form::input_check('Sellers enter prices before fees','feature_sellers_enter_price_without_fees',$data,false,$core->i18n['hub:features:sellers_enter_price_without_fees'])?>
+				<?=core_form::input_check('Sellers cannot modify cross-sells','feature_sellers_cannot_manage_cross_sells',$data,false,$core->i18n['hub:features:sellers_cannot_modify_cross_sells'])?>
+				<?=core_form::input_check('Sellers can change delivery statuses','feature_sellers_mark_items_delivered',$data,false,$core->i18n['hub:features:feature_sellers_mark_items_delivered'])?>
+				<?=core_form::input_check('Allow anonymous shopping','feature_allow_anonymous_shopping',$data,false,'Note: checking this feature will also enable organization auto-activation, credit card payments, and disable POs',null,false,"market.toggleAnon();")?>
+
 				<div class="control-group" id="default_homepage_selector"<?=(($data['feature_allow_anonymous_shopping'] != '1')?' style="display: none;"':'')?>>
 					<label class="control-label">Homepage</label>
 					<div class="controls">
@@ -167,9 +172,9 @@ if(lo3::is_admin())
 			</fieldset>
 		</div>
 		<?}?>
-	
+
 	</div>
-	
+
 	<?
 	if(lo3::is_admin())
 		save_buttons(true);
@@ -178,5 +183,5 @@ if(lo3::is_admin())
 	?>
 	<input type="hidden" name="domain_id" value="<?=$data['domain_id']?>" />
 	<input type="hidden" name="org_id" value="<?=$org['org_id']?>" />
-	
+
 </form>

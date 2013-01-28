@@ -183,5 +183,28 @@ market.toggleAnon=function(){
 	}
 }
 
-$('.colorpicker').colorpicker();
-$('select.image-picker').imagepicker().next('ul').prepend('<li><div class="thumbnail"><div class="image_picker_image image_picker_color" style="background-color: gray;"></div></div></li>');
+
+var colorpicker = $('.colorpicker');
+colorpicker = colorpicker.colorpicker();
+
+var imagepicker = $('select.image-picker');
+imagepickerList = imagepicker.imagepicker().next('ul');
+var bgColor = imagepicker.data('color');
+$('<li><div class="thumbnail"><div class="image_picker_image image_picker_color" style="background-color: '+bgColor+';"></div></div></li>').prependTo(
+	imagepickerList);
+imagepickerList.find('li > div').click(function () {
+	var jq = $(this);
+	if (jq.find('div').hasClass('image_picker_color')) {
+		colorpicker.removeAttr('data-disabled');
+		imagepicker.find('option:not([value])').attr('selected', 'selected');
+		$('.thumbnail.selected').removeClass('selected');
+		$('.image_picker_color').parent().addClass('selected');
+	} else {
+		$('.image_picker_color').parent().removeClass('selected');
+		colorpicker.attr('data-disabled','data-disabled');
+	}
+});
+$('.image_picker_color').css('background-color', bgColor);
+colorpicker.on('changeColor', function (evt) {
+	$('.image_picker_color').css('background-color',  evt.color.toHex());
+});

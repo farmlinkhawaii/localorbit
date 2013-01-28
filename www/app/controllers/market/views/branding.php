@@ -9,6 +9,11 @@
 
 $backgrounds = core::model('backgrounds')->collection();
 $backgrounds = $backgrounds->filter('is_available', 1);
+//print_r($data);
+$bg_color = core_format::get_hex_code($data['background_color']);
+
+
+$fonts = core::model('fonts')->collection();
 /*
 <div class="control-group">
 	<label class="control-label">Note Offset</label>
@@ -71,15 +76,15 @@ $has_custom = (strpos($logo,'default') === false);
 	<label class="control-label" for="email_image">Background</label>
 	<div class="controls row">
 		<div class="span5">
-			<div class="input-append color colorpicker" data-color="rgb(255, 146, 180)" data-color-format="rgb">
+			<div class="input-append color colorpicker" data-color="<?=$bg_color?>" data-color-format="rgb" data-disabled="true">
 			  <input type="text" class="span2" value="" readonly>
-			  <span class="add-on"><i style="background-color: rgb(255, 146, 180)"></i></span>
+			  <span class="add-on"><i style="background-color: <?=$bg_color?>"></i></span>
 			</div>
 		</div>
 	</div>
 	<div class="controls row">
 		<div class="span8">
-			<select name="background_id" class="image-picker">
+			<select name="background_id" class="image-picker" data-color="<?=$bg_color?>">
 					<option></option>
 				<? foreach ($backgrounds as $background) { ?>
 					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>"><?=$background['file_name']?></option>
@@ -87,4 +92,25 @@ $has_custom = (strpos($logo,'default') === false);
 			</select>
 		</div>
 	</div>
+	<!--
+	<div class="controls row">
+		<div class="span8">
+			<ul>
+				<? foreach ($fonts as $font) { ?>
+				<?
+					list($font_label) = explode(',', $font['font_name']);
+				?>
+				<li>
+					<label class="radio">
+						<h2 style="font-family: <?=$font['font_name']?>;">
+							<input type="radio" name="header_font" id="header_font_<?=$font['font_id']?>" value="<?=$font['font_id']?>">
+							<?=$font_label?>
+						</h2>
+					</label>
+				</li>
+				<? } ?>
+			</ul>
+		</div>
+	</div>
+-->
 </div>
