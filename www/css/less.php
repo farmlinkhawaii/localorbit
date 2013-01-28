@@ -38,6 +38,11 @@ $sql = '
   );
 ';
 
+
+$result = mysql_query('select domain_id from domains where hostname = \'' . $_SERVER['HTTP_HOST'] . '\'');
+
+$domain = mysql_fetch_assoc($result);
+
 # build a hash of all options
 $opts = mysql_query($sql);
 
@@ -53,23 +58,23 @@ while($opt = mysql_fetch_assoc($opts))
 //print_r($options);
 $less = new lessc;
 
-$branding = mysql_query('select * from domains_branding 
+$branding = mysql_query('select * from domains_branding
   left join backgrounds on domains_branding.background_id = backgrounds.background_id
   left join fonts on domains_branding.header_font = fonts.font_id
-  where domain_id = ' . $core->config['domain']['domain_id']);
+  where domain_id = ' . $domain['domain_id']);
 $branding = mysql_fetch_assoc($branding);
 
 $options = array_map('format_value', $options);
-if ($branding) 
+if ($branding)
 {
   $options['bodyBackground-image'] = $branding['file_name'] ?
     'url(/img/backgrounds/' . $branding['file_name'] . ') fixed' :
     'none';
-  $options['bodyBackground'] = '#' . $branding['background_color'];
+  $options['bodyBackground'] = '#' . str_pad(dechex($branding['background_color']), 6, '0', STR_PAD_LEFT);
   $options['headingsFontFamily'] = $branding['font_name'];
 }
 
-$less->setVariables($options);//array('p1c' => '#333'));
+$less->setVariables($options);
 $less->setImportDir($path . '/../less');
 
 header("Content-type: text/css; charset: UTF-8");
