@@ -1,7 +1,4 @@
 <?php global $data; ?>
-<?
-	$fonts = core::model('fonts')->collection();
-?>
 <div class="control-group">
 	<label class="control-label">Dashboard Note</label>
 	<div class="controls">
@@ -9,14 +6,6 @@
 	</div>
 </div>
 <?
-
-$backgrounds = core::model('backgrounds')->collection();
-$backgrounds = $backgrounds->filter('is_available', 1);
-//print_r($data);
-$bg_color = core_format::get_hex_code($data['background_color']);
-
-$data['background_id'] = !isset($data['background_id']) && !isset($data['background_color']) ? 1 : $data['background_id'];
-$data['header_font'] = $data['header_font']?$data['header_font']:1;
 /*
 <div class="control-group">
 	<label class="control-label">Note Offset</label>
@@ -72,50 +61,5 @@ $has_custom = (strpos($logo,'default') === false);
 			<iframe name="uploadArea2" id="uploadArea2" width="300" height="20" style="color:#fff;background-color:#fff;overflow:hidden;border:0;"></iframe>
 		</div>
 
-	</div>
-</div>
-
-<div class="control-group">
-	<label class="control-label" for="email_image">Background</label>
-	<div class="controls row">
-		<div class="span5">
-			<div class="input-append color colorpicker" data-color="<?=$bg_color?>" data-color-format="hex" data-disabled="true">
-			  <input name="background_color" type="text" class="span2" value="" readonly>
-			  <span class="add-on"><i style="background-color: <?=$bg_color?>"></i></span>
-			</div>
-		</div>
-	</div>
-	<div class="controls row">
-		<div class="span8">
-			<select name="background_id" class="image-picker" data-color="<?=$bg_color?>">
-					<option <?=(is_null($data['background_id']) || $data['background_id'] === 0)?'':'selected'?>></option>
-				<? foreach ($backgrounds as $background) { ?>
-					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>" <?=$data['background_id']==$background['background_id']?'selected':''?>><?=$background['file_name']?></option>
-				<? } ?>
-			</select>
-		</div>
-	</div>
-</div>
-<div class="control-group">
-	<label class="control-label" for="header_font">Header Font</label>
-	<div class="controls row">
-		<div class="span8">
-			<ul id="header_font">
-				<? foreach ($fonts as $font) { ?>
-				<?
-					list($font_label) = explode(',', $font['font_name']);
-					$font_label = str_replace("'", "", $font_label);
-				?>
-				<li>
-					<label class="radio">
-							<input type="radio" name="header_font" id="header_font_<?=$font['font_id']?>" value="<?=$font['font_id']?>" <?=$data['header_font']==$font['font_id']?'checked':''?>>
-							<h2 style="font-family: <?=$font['font_name']?>;">
-								<?=$font_label?>
-							</h2>
-					</label>
-				</li>
-				<? } ?>
-			</ul>
-		</div>
 	</div>
 </div>

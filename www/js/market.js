@@ -195,13 +195,15 @@ var imageThumb = $('<li><div class="thumbnail"><div class="image_picker_image im
 imagepickerList.find('li > div').click(function () {
 	var jq = $(this);
 	if (jq.find('div').hasClass('image_picker_color')) {
-		colorpicker.removeAttr('data-disabled');
+		$('#background_color_picker').removeAttr('data-disabled');
 		imagepicker.find('option:not([value])').attr('selected', 'selected');
 		$('.thumbnail.selected').removeClass('selected');
 		$('.image_picker_color').parent().addClass('selected');
+		$('#background_type_color').attr('checked', true);
 	} else {
 		$('.image_picker_color').parent().removeClass('selected');
-		colorpicker.attr('data-disabled','data-disabled');
+		$('#background_color_picker').attr('data-disabled','data-disabled');
+		$('#background_type_image').attr('checked', true);
 	}
 });
 
@@ -213,3 +215,25 @@ if (imagepicker.val() === '') {
 	imageThumb.find('div').addClass('selected');
 	colorpicker.removeAttr('data-disabled');
 }
+
+$('[name="background_type"]').click(function () {
+	var value = $(this).val();
+
+	if (value === 'image') 
+	{
+		imagepicker.val(1);
+		imagepickerList.find('li > div.selected').removeClass('selected');
+		imagepickerList.find('li:nth-child(2) > div').addClass('selected');
+		$('.image_picker_color').parent().removeClass('selected');
+		$('#background_color_picker').attr('data-disabled','data-disabled');
+		$('#background_type_image').attr('checked', true);
+	}
+	else if (value === 'color')
+	{
+		$('#background_color_picker').removeAttr('data-disabled');
+		imagepicker.find('option:not([value])').attr('selected', 'selected');
+		$('.thumbnail.selected').removeClass('selected');
+		$('.image_picker_color').parent().addClass('selected');
+		$('#background_type_color').attr('checked', true);
+	}
+});

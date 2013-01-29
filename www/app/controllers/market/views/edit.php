@@ -18,7 +18,7 @@ $data = core::model('domains')->autojoin(
 			'left',
 			'domains_branding branding',
 			'(domains.domain_id=branding.domain_id and branding.is_temp = 0)',
-			array('branding_id','header_font', 'background_color', 'background_id', 'is_temp')
+			array('branding_id','header_font', 'background_color', 'background_id', 'text_color', 'is_temp')
 		)->load();
 
 # if the hub you were trying to edit is NOT the same as YOUR hub, then
@@ -55,7 +55,7 @@ $allows = array();
 foreach($cross_sells as $cross_sell)
 	$allows[$cross_sell['accept_from_domain_id']] = true;
 
-$tabs = array('Market Settings','Addresses','Delivery','Branding','Market Info','Payments/Fees');
+$tabs = array('Market Settings','Addresses','Delivery','Branding','Style Chooser','Market Info','Payments/Fees');
 if(lo3::is_admin())
 {
 	$tabs[] = 'Cross Selling';
@@ -137,13 +137,16 @@ if(lo3::is_admin())
 			<? $this->branding(); ?>
 		</div>
 		<div class="tab-pane tabarea" id="markettabs-a5">
-			<? $this->market_info(); ?>
+			<? $this->style_chooser(); ?>
 		</div>
 		<div class="tab-pane tabarea" id="markettabs-a6">
+			<? $this->market_info(); ?>
+		</div>
+		<div class="tab-pane tabarea" id="markettabs-a7">
 			<? $this->payments_fees();?>
 		</div>
 		<? if(lo3::is_admin()){?>
-		<div class="tab-pane tabarea" id="markettabs-a7">
+		<div class="tab-pane tabarea" id="markettabs-a8">
 
 			<?php foreach($domains as $domain){ ?>
 				<?=core_form::input_check('<small>Accept products from</small><br><strong style="position: relative; top: -3px;">'.$domain['name'].'</strong>','accept_products_from_'.$domain['domain_id'],$allows[$domain['domain_id']])?>
@@ -151,7 +154,7 @@ if(lo3::is_admin())
 
 		</div>
 
-		<div class="tab-pane tabarea" id="markettabs-a8">
+		<div class="tab-pane tabarea" id="markettabs-a9">
 			<fieldset>
 
 				<?=core_form::input_check('Require sellers to accept all delivery options','feature_require_seller_all_delivery_opts',$data,false,$core->i18n['hub:features:req_selr_all_delv_opts'])?>
