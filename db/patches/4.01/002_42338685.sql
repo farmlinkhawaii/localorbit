@@ -38,11 +38,7 @@ insert into backgrounds (file_name, is_available) values ('SungoldTomatoes.jpg',
 insert into backgrounds (file_name, is_available) values ('tomatoes.jpg', 1);
 
 insert into fonts (font_name) values ('\'Open Sans Condensed\',\'Domine\', Georgia, \'Times New Roman\', Times, serif');
-insert into fonts (font_name) values ('\'Droid Sans\', sans-serif');
-insert into fonts (font_name) values ('\'Lato\', sans-serif');
 insert into fonts (font_name) values ('\'Sorts Mill Goudy\', serif');
 insert into fonts (font_name) values ('\'PT Sans Narrow\', sans-serif');
 insert into fonts (font_name) values ('\'Oranienbaum\', serif');
-insert into fonts (font_name) values ('\'Raleway\', sans-serif');
 insert into fonts (font_name) values ('\'Voltaire\', sans-serif');
-insert into fonts (font_name) values ('\'Port Lligat Slab\', serif');

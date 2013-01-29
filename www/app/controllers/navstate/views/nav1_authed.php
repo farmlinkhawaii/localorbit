@@ -6,7 +6,7 @@ function get_total_qty ($total, $item) {
 $cart = core::model('lo_order')->get_cart();
 $cart->load_items();
 $item_hash = $cart->items->to_hash('prod_id');
-$totalQty = array_reduce($item_hash, 'get_total_qty', 0);
+$totalQty = count($item_hash);
 $cart_count = 0;
 ?>
 <script type="text/javascript" charset="utf-8">
