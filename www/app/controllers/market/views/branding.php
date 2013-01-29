@@ -87,9 +87,9 @@ $has_custom = (strpos($logo,'default') === false);
 	<div class="controls row">
 		<div class="span8">
 			<select name="background_id" class="image-picker" data-color="<?=$bg_color?>">
-					<option></option>
+					<option <?=$data['background_id']?'':'selected'?>></option>
 				<? foreach ($backgrounds as $background) { ?>
-					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>"><?=$background['file_name']?></option>
+					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>" <?=$data['background_id']==$background['background_id']?'selected':''?>><?=$background['file_name']?></option>
 				<? } ?>
 			</select>
 		</div>
@@ -107,7 +107,7 @@ $has_custom = (strpos($logo,'default') === false);
 				?>
 				<li>
 					<label class="radio">
-							<input type="radio" name="header_font" id="header_font_<?=$font['font_id']?>" value="<?=$font['font_id']?>">
+							<input type="radio" name="header_font" id="header_font_<?=$font['font_id']?>" value="<?=$font['font_id']?>" <?=$data['header_font']==$font['font_id']?'checked':''?>>
 							<h2 style="font-family: <?=$font['font_name']?>;">
 								<?=$font_label?>
 							</h2>

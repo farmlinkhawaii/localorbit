@@ -73,6 +73,11 @@ if ($branding)
   $options['bodyBackground'] = '#' . str_pad(dechex($branding['background_color']), 6, '0', STR_PAD_LEFT);
   $options['headingsFontFamily'] = $branding['font_name'];
 }
+else
+{
+  $options['bodyBackground-image'] = 'url(/img/backgrounds/brownpaper.jpg) fixed';
+  $options['headingsFontFamily'] = '"Open Sans Condensed","Domine", Georgia, "Times New Roman", Times, serif';
+}
 
 $less->setVariables($options);
 $less->setImportDir($path . '/../less');
