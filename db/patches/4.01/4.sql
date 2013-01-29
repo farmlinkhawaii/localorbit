@@ -1,15 +1,16 @@
+DROP TABLE IF EXISTS migrations;
+
 CREATE TABLE migrations (
-  version    int NOT NULL,
+  version_id    int NOT NULL,
   date_ran   timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   pt_number  int,
   /* Keys */
-  PRIMARY KEY (version)
+  PRIMARY KEY (version_id)
 ) ENGINE = InnoDB;
 
 
 INSERT INTO migrations 
-(version, pt_number)
+(version_id, pt_number)
 VALUES
 (4, 0);
-
 
