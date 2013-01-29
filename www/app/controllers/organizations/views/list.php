@@ -106,7 +106,7 @@ else
 $orgs->add(new core_datacolumn('name','Name',true,$widths[0],'<a href="#!organizations-edit--org_id-{org_id}">{name}</a>','{name}','{name}'));
 $orgs->add(new core_datacolumn('domain_name','Market',true,$widths[1],'{domain_name}','{domain_name}','{domain_name}'));
 $orgs->add(new core_datacolumn('creation_date','Registered On',true,$widths[2],'{creation_date}','{creation_date}','{creation_date}'));
-$orgs->add(new core_datacolumn('orgtype_id','Role',true,$widths[3],'{role}','{role}','{role}'));
+$orgs->add(new core_datacolumn('role_label','Role',true,$widths[3],'{role_label}','{role_label}','{role_label}'));
 
 if(lo3::is_admin() || lo3::is_market())
 {
