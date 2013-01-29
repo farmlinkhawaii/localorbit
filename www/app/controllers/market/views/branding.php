@@ -15,7 +15,6 @@ $backgrounds = $backgrounds->filter('is_available', 1);
 //print_r($data);
 $bg_color = core_format::get_hex_code($data['background_color']);
 
-
 /*
 <div class="control-group">
 	<label class="control-label">Note Offset</label>

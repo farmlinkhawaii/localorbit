@@ -190,7 +190,7 @@ colorpicker = colorpicker.colorpicker();
 var imagepicker = $('select.image-picker');
 imagepickerList = imagepicker.imagepicker().next('ul');
 var bgColor = imagepicker.data('color');
-$('<li><div class="thumbnail"><div class="image_picker_image image_picker_color" style="background-color: '+bgColor+';"></div></div></li>').prependTo(
+var imageThumb = $('<li><div class="thumbnail"><div class="image_picker_image image_picker_color" style="background-color: '+bgColor+';"></div></div></li>').prependTo(
 	imagepickerList);
 imagepickerList.find('li > div').click(function () {
 	var jq = $(this);
@@ -204,7 +204,12 @@ imagepickerList.find('li > div').click(function () {
 		colorpicker.attr('data-disabled','data-disabled');
 	}
 });
+
 $('.image_picker_color').css('background-color', bgColor);
 colorpicker.on('changeColor', function (evt) {
 	$('.image_picker_color').css('background-color',  evt.color.toHex());
 });
+if (imagepicker.val() === '') {
+	imageThumb.find('div').addClass('selected');
+	colorpicker.removeAttr('data-disabled');
+}

@@ -200,7 +200,7 @@ class core_format
 	public static function get_hex_code($value, $default = 0xFFFFFF) {
 		$numValue = isset($value) ? $value : $default;
 		$string = dechex($numValue);
-		return '#'.str_pad($string, 6-strlen($string),'0', STR_PAD_LEFT);
+		return '#'.str_pad($string, 7-strlen($string),'0', STR_PAD_LEFT);
 	}
 }
 

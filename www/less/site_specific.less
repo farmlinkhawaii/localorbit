@@ -98,6 +98,7 @@ body {
 body {
 	background: @bodyBackground-image;
 	background-color: @bodyBackground;
+	background-size: cover;
 	}
 
 @footerHeight: 117px;
@@ -474,8 +475,14 @@ border: none;
 	cursor: pointer;
 }
 
+#header_font {
+	margin: 0;
+	text-indent: 0;
+	padding: 0;
+}
+
 #header_font input + h2 {
-	.opacity(50);
+	.opacity(40);
 	cursor: pointer;
 }
 
@@ -492,8 +499,9 @@ border: none;
 }
 
 #header_font li {
-	margin: 0;
+	margin: 0px -20px;
 	text-indent: 0;
+	padding: 0;
 }
 
 /* Login Page */
