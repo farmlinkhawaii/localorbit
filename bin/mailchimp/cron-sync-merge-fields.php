@@ -49,7 +49,9 @@ $customers = core::model('customer_entity')
 		'directory_country_region dcr',
 		'(addresses.region_id=dcr.region_id)',
 		array('code as state')
-	)->collection();
+	)->collection()->filter('organizations.is_deleted', 0)->filter('customer_entity.is_deleted', 0); 
+
+print_r($customers);	
 	
 $updates = array();
 
