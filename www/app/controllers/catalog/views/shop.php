@@ -38,13 +38,13 @@ else if(
 }
 else
 {
-	
+
 # if the buyer is reaching this page after logging in, show the news
 if($core->data['show_news'] == 'yes')
 {
 	core::process_command('dashboard/release_news');
 }
-	
+
 	#core::ensure_navstate(array('left'=>'left_shop'));
 	core::head('Buy Local Food','Buy local food on Local Orbit');
 	lo3::require_permission();
@@ -131,13 +131,13 @@ if($core->data['show_news'] == 'yes')
 				$days[$time][$value['dd_id']] = $value;
 			}
 		}
-		function day_sort($a,$b) 
+		function day_sort($a,$b)
 		{
 			list($type, $atime) = explode('-', $a);
 			list($type, $btime) = explode('-', $b);
 			return intval($atime) - intval($btime);
 		}
-		
+
 		uksort($days,'day_sort');
 		# define a custom sorting function that uses our new sort column
 		function prod_sort($a,$b)
@@ -166,7 +166,7 @@ if($core->data['show_news'] == 'yes')
 		$item_hash = $cart->items->to_hash('prod_id');
 
 		# render the filters on the left side
-		core::ensure_navstate(array('left'=>'left_blank'));
+		core::ensure_navstate(array('left'=>'left_blank'), 'catalog-shop');
 		core::write_navstate();
 		$this->left_filters($cats,$sellers,$days);
 		core::hide_dashboard();
@@ -189,7 +189,7 @@ if($core->data['show_news'] == 'yes')
 		echo('<div id="filter_container"><ol id="filter_list"/></div>');
 		echo('<form name="cartForm">');
 		$this->weekly_special(
-			$prods, 
+			$prods,
 			$prices,
 			$sellers,
 			$delivs,

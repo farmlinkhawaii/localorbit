@@ -72,7 +72,15 @@ core.init=function(autoredirect){
 		}
 	}, 300);
 	core.jqInit();
-}
+};
+
+core.navHighlight=function(level, navHighlight) {
+	$('.nav-active').removeClass('nav-active');
+	if (navHighlight) {
+		console.log('navHighlight: '+navHighlight);
+		$('#'+navHighlight).addClass('nav-active');
+	}
+};
 
 core.changePopoverExpandButton = function (popover, show) {
 	if (core.catalog) {

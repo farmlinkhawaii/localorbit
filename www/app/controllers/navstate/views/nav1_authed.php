@@ -58,11 +58,11 @@ $(function()
 
 	<?if(lo3::is_admin() || lo3::is_market() || lo3::is_seller()): ?>
 		<li>
-			<a href="<?=$core->config['app_page']?>#!dashboard-home" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
+			<a id="dashboard-home" href="<?=$core->config['app_page']?>#!dashboard-home" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
 		</li>
 	<? else: ?>
 		<li>
-			<a href="<?=$core->config['app_page']?>#!orders-purchase_history" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
+			<a id="orders-purchase_history" href="<?=$core->config['app_page']?>#!orders-purchase_history" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
 		</li>
 	<!--	<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="">Your Account</a>
@@ -136,32 +136,32 @@ $(function()
 	<li class="divider-vertical"></li>
 	<li><a href="https://localorbit.zendesk.com/forums">Help</a></li>
 	<li class="divider-vertical"></li>
-	<li><a href="<?=$core->config['app_page']?>#!auth-logout" onclick="core.go(this.href);"><?=$core->i18n['nav1:logout']?></a></li>
+	<li><a id="auth-logout" href="<?=$core->config['app_page']?>#!auth-logout" onclick="core.go(this.href);"><?=$core->i18n['nav1:logout']?></a></li>
 </ul>
 <p class="navbar-text pull-right">
 	<?=$core->i18n['greeting']?> <?=$core->session['first_name']?>
 </p>
 <? core::replace('nav1top');?>
 <li>
-	<a href="<?=$core->config['app_page']?>#!catalog-shop" onclick="core.go(this.href);" class="main">
+	<a id="catalog-shop" href="<?=$core->config['app_page']?>#!catalog-shop" onclick="core.go(this.href);" class="main">
 		<span class="nav-actual"><?=$core->i18n['nav1:shop']?></span>
 		<span class="nav-sec">See what's fresh</span>
 	</a>
 </li>
 <li>
-	<a href="<?=$core->config['app_page']?>#!sellers-oursellers" onclick="core.go(this.href);" class="main">
+	<a id="sellers-oursellers" href="<?=$core->config['app_page']?>#!sellers-oursellers" onclick="core.go(this.href);" class="main">
 		<span class="nav-actual">Sellers</span>
 		<span class="nav-sec">See what's fresh</span>
 	</a>
 </li>
 <li>
-	<a href="<?=$core->config['app_page']?>#!market-info" onclick="core.go(this.href);" class="main">
+	<a id="market-info" href="<?=$core->config['app_page']?>#!market-info" onclick="core.go(this.href);" class="main">
 		<span class="nav-actual"><?=$core->i18n['nav1:marketinfo']?></span>
 		<span class="nav-sec">About us and our sellers</span>
 	</a>
 </li>
 <li class="last">
-	<a href="<?=$core->config['app_page']?>#!news-list">
+	<a id="news-list" href="<?=$core->config['app_page']?>#!news-list">
 		<span class="nav-actual">News</span>
 		<span class="nav-sec">Latest from our market</span>
 	</a>
