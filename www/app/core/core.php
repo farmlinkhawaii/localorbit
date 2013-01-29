@@ -195,12 +195,16 @@ class core
 		);	
 	}
 	
-	public static function ensure_navstate($states)
+	public static function ensure_navstate($states,$highlight='')
 	{
 		global $core;
 		foreach($states as $pos=>$state)
 		{
 			$core->config['navstate'][$pos] = $state;
+		}
+		if($highlight != '')
+		{
+			core::js('core.highlightNav(\''.$highlight.'\');');
 		}
 	}
 	
