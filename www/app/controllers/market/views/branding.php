@@ -15,6 +15,7 @@ $backgrounds = $backgrounds->filter('is_available', 1);
 //print_r($data);
 $bg_color = core_format::get_hex_code($data['background_color']);
 
+$data['background_id'] = !isset($data['background_id']) && !isset($data['background_color']) ? 1 : $data['background_id'];
 $data['header_font'] = $data['header_font']?$data['header_font']:1;
 /*
 <div class="control-group">
@@ -87,7 +88,7 @@ $has_custom = (strpos($logo,'default') === false);
 	<div class="controls row">
 		<div class="span8">
 			<select name="background_id" class="image-picker" data-color="<?=$bg_color?>">
-					<option <?=$data['background_id']?'':'selected'?>></option>
+					<option <?=(is_null($data['background_id']) || $data['background_id'] === 0)?'':'selected'?>></option>
 				<? foreach ($backgrounds as $background) { ?>
 					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>" <?=$data['background_id']==$background['background_id']?'selected':''?>><?=$background['file_name']?></option>
 				<? } ?>
