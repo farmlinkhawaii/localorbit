@@ -17,7 +17,9 @@ $now = time();
 $tomorrow = date('F jS',($now + 86400));
 
 # get the data
-$customers = core::model('customer_entity')
+
+$customers = core::collection('')
+core::model('customer_entity')
 	->add_custom_field(
 		'(select max(UNIX_TIMESTAMP(order_date)) from lo_order where lo_order.buyer_mage_customer_id=customer_entity.entity_id) as last_order'
 	)
@@ -49,9 +51,7 @@ $customers = core::model('customer_entity')
 		'directory_country_region dcr',
 		'(addresses.region_id=dcr.region_id)',
 		array('code as state')
-	)->collection()->filter('organizations.is_deleted', 0)->filter('customer_entity.is_deleted', 0); 
-
-print_r($customers);	
+	)->collection();//->filter('organizations.is_deleted', '=', 0)->filter('customer_entity.is_deleted', '=', 0); 
 	
 $updates = array();
 

@@ -184,8 +184,10 @@ market.toggleAnon=function(){
 }
 
 
-var colorpicker = $('.colorpicker');
+var colorpicker = $('#background_color_picker');
 colorpicker = colorpicker.colorpicker();
+
+$('#font_color_picker').colorpicker();
 
 var imagepicker = $('select.image-picker');
 imagepickerList = imagepicker.imagepicker().next('ul');
