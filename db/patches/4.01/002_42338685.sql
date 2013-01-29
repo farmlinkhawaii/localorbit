@@ -25,8 +25,8 @@ create table backgrounds (
   PRIMARY KEY (`background_id`)
 );
 
-insert into backgrounds (file_name, is_available) values ('broccoli.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('brownpaper.jpg', 1);
+insert into backgrounds (file_name, is_available) values ('broccoli.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('cherry-tomatoes.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('greens.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('painting.jpg', 1);
