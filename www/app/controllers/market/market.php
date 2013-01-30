@@ -97,6 +97,7 @@ class core_controller_market extends core_controller
 
 		$branding->save();
 		$market->save();
+		core::js('market.reloadCss();');
 
 		if(lo3::is_admin())
 		{
@@ -123,6 +124,7 @@ class core_controller_market extends core_controller
 		core_ui::notification($core->i18n('messages:generic_saved','hub'),false,($core->data['do_redirect'] != 1));
 		if($core->data['do_redirect'] == 1)
 			core::redirect('market','list');
+
 	}
 
 	function save_logo1()

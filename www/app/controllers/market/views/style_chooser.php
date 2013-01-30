@@ -1,6 +1,6 @@
 <?php global $data; ?>
 <?
-	$fonts = core::model('fonts')->collection();
+$fonts = core::model('fonts')->collection()->sort('font_name');
 
 $backgrounds = core::model('backgrounds')->collection();
 $backgrounds = $backgrounds->filter('is_available', 1);
@@ -37,7 +37,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 				<li>
 					<label class="radio">
 							<input type="radio" name="header_font" id="header_font_<?=$font['font_id']?>" value="<?=$font['font_id']?>" <?=$data['header_font']==$font['font_id']?'checked':''?>>
-							<h2 style="font-family: <?=$font['font_name']?>;">
+							<h2 style="font-family: <?=$font['font_name']?>; letter-spacing: <?=(isset($font['kerning']))?($font['kerning'].'px'):'normal'?>">
 								<?=$font_label?>
 							</h2>
 					</label>

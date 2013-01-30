@@ -183,6 +183,10 @@ market.toggleAnon=function(){
 	}
 }
 
+market.reloadCss=function () {
+	$('#less-css').attr('href', 'css/less.php?reload' + new Date().getTime());
+};
+
 
 var colorpicker = $('#background_color_picker');
 colorpicker = colorpicker.colorpicker();
@@ -221,7 +225,7 @@ if (imagepicker.val() === '') {
 $('[name="background_type"]').click(function () {
 	var value = $(this).val();
 
-	if (value === 'image') 
+	if (value === 'image')
 	{
 		imagepicker.val(1);
 		imagepickerList.find('li > div.selected').removeClass('selected');
