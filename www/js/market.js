@@ -210,6 +210,9 @@ market.restoreDefaults=function() {
 		return $(this).data('default');}
 	).val();
 
+	$('#background_color').val(bgColor);
+	$('#font_color').val(fontColor);
+
 	market['background_color_picker'].colorpicker('setValue', bgColor);
 	$('#font_color_picker').colorpicker('setValue', fontColor);
 	$('#header_font input[type=radio][value=' + fontId + ']').attr('checked', true);
