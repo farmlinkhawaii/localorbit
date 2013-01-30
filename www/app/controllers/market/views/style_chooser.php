@@ -70,7 +70,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 		<div class="span5">
 			<label class="radio">
 			  <input type="radio" name="background_type" id="background_type_image" value="image" <?=(is_null($data['background_id']) || $data['background_id'] === 0)?'':'checked'?>>
-			  Image
+			  Image		
 			</label>
 		</div>
 	</div>
@@ -84,4 +84,8 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 			</select>
 		</div>
 	</div>
+</div>
+
+<div class="form-actions pull-right sub-actions">
+	<button class="btn-danger btn" onclick="market.restoreDefaults();" type="button">Restore Defaults</button>
 </div>

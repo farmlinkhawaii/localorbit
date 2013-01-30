@@ -187,6 +187,9 @@ market.reloadCss=function () {
 	$('#less-css').attr('href', 'css/less.php?reload=' + new Date().getTime());
 };
 
+market.restoreDefaults=function() {
+
+};
 
 var colorpicker = $('#background_color_picker');
 colorpicker = colorpicker.colorpicker();
