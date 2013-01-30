@@ -213,22 +213,25 @@ market.restoreDefaults=function() {
 	market['background_color_picker'].colorpicker('setValue', bgColor);
 	$('#font_color').colorpicker('setValue', fontColor);
 	$('#header_font input[type=radio][value=' + fontId + ']').attr('checked', true);
-	// get default bgColor
-	// get default bgImage
-	// get default ftColor
-	// get default font
-/*
-	market['background_image_picker_color_div'] = $('.image_picker_color').css('background-color', bgColor);
+	$('.thumbnail.selected').removeClass('selected');
+	market['background_image_picker'].val(bgImageId);
+	var index = bgImageId ? bgImageId + 1 : 1;
+	market['background_image_picker_list'].find('li:nth-child(' + index + ') > div').addClass('selected');
 
-	if (market['background_image_picker'].val() === '') {
-		market['background_image_picker_color'].find('div').addClass('selected');
-		market['background_color_picker'].removeAttr('data-disabled');
+	if (bgImageId) {
+		$('#background_type_image').attr('checked', true);
+	} else {
+		$('#background_type_color').attr('checked', true);
 	}
-*/
 };
 
 market.updateImageSelection=function(jq) {
 	market.updateBackgroundType(jq.find('div').hasClass('image_picker_color')?'color':'image', true);
+};
+
+market.selectImage=function(id) {
+	var imageIndex = market['background_image_picker'].index('[value=' + id + ']');
+	//market['background_image_picker_list']
 };
 
 market.updateBackgroundType = function (value, imageSelected) {
@@ -266,8 +269,8 @@ market.initialize=function () {
 	market['background_image_picker'] = $('select.image-picker');
 
 	bgColor = market['background_image_picker'].data('color');
-
-	market['background_image_picker_list'] = market['background_image_picker'].imagepicker().next('ul');
+	market['background_image_picker_js'] =market['background_image_picker'].imagepicker();
+	market['background_image_picker_list'] = market['background_image_picker_js'].next('ul');
 	market['background_image_picker_color'] = $('<li><div class="thumbnail"><div class="image_picker_image image_picker_color" style="background-color: '+bgColor+';"></div></div></li>')
 		.prependTo(market['background_image_picker_list']);
 
