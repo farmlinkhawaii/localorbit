@@ -76,7 +76,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 	</div>
 	<div class="controls row">
 		<div class="span8">
-			<select name="background_id" class="image-picker" data-color="<?=$bg_color?>" data-default="<?=$data['background_id']?>">
+			<select id="background_id" name="background_id" class="image-picker" data-color="<?=$bg_color?>" data-default="<?=$data['background_id']?>">
 					<option <?=(is_null($data['background_id']) || $data['background_id'] === 0)?'':'selected'?>></option>
 				<? foreach ($backgrounds as $background) { ?>
 					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>" <?=$data['background_id']==$background['background_id']?'selected':''?>><?=$background['file_name']?></option>
