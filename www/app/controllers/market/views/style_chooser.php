@@ -86,6 +86,4 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 	</div>
 </div>
 
-<div class="form-actions pull-right sub-actions">
-	<button class="btn-danger btn" onclick="market.restoreDefaults();" type="button">Restore Defaults</button>
-</div>
+<button id="restore-defaults" class="btn-danger btn offset1" onclick="market.restoreDefaults();" type="button">Restore Defaults</button>

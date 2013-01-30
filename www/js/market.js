@@ -289,6 +289,8 @@ market.initialize=function () {
 		var value = $(this).val();
 		market.updateBackgroundType(value);
 	});
+
+	$('#main_save_buttons').before($('#restore-defaults'));
 };
 
 market.initialize();
