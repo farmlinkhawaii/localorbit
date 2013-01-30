@@ -184,7 +184,7 @@ market.toggleAnon=function(){
 }
 
 market.reloadCss=function () {
-	$('#less-css').attr('href', 'css/less.php?reload' + new Date().getTime());
+	$('#less-css').attr('href', 'css/less.php?reload=' + new Date().getTime());
 };
 
 
