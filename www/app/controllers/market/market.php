@@ -96,7 +96,11 @@ class core_controller_market extends core_controller
 
 		$branding->save();
 		$market->save();
-		core::js('market.reloadCss();');
+		core::js('market.reloadCss();market.setDefaults("'.
+			core_format::get_hex_code($branding['background_color']) . '",' .
+			$branding['background_id'] . ',"' .
+			core_format::get_hex_code($branding['text_color']) . '",' .
+			$branding['header_font'] . ');');
 
 		if(lo3::is_admin())
 		{

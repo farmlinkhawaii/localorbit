@@ -191,11 +191,16 @@ market.reloadCss=function () {
 };
 
 market.setDefaults=function(bgColor, bgImageId, fontColor, fontId) {
+	$('#background_color').data('default', bgColor);
+	$('#background_id').data('default', bgImageId);
+	$('#font_color').data('default', fontColor);
 
+	$('#header_font input[type=radio]').removeAttr('data-default');
+	$('#header_font input[type=radio][value=' + fontId +']').attr('checked', true);
 };
 
 market.restoreDefaults=function() {
-	var bgColor, bgImageId, fontColor, fontId;
+	var bgColor, bgImageId, fontColor, fontId, index;
 
 	bgColor = $('#background_color').data('default');
 	bgImageId = $('#background_id').data('default');
@@ -205,17 +210,12 @@ market.restoreDefaults=function() {
 		return $(this).data('default');}
 	).val();
 
-	console.log(bgColor);
-	console.log(bgImageId);
-	console.log(fontColor);
-	console.log(fontId);
-
 	market['background_color_picker'].colorpicker('setValue', bgColor);
 	$('#font_color').colorpicker('setValue', fontColor);
 	$('#header_font input[type=radio][value=' + fontId + ']').attr('checked', true);
 	$('.thumbnail.selected').removeClass('selected');
 	market['background_image_picker'].val(bgImageId);
-	var index = bgImageId ? bgImageId + 1 : 1;
+	index = market['background_image_picker'].find('option:selected').index() + 1;
 	market['background_image_picker_list'].find('li:nth-child(' + index + ') > div').addClass('selected');
 
 	if (bgImageId) {
