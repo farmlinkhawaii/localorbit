@@ -196,7 +196,7 @@ market.setDefaults=function(bgColor, bgImageId, fontColor, fontId) {
 	$('#font_color').data('default', fontColor);
 
 	$('#header_font input[type=radio]').removeAttr('data-default');
-	$('#header_font input[type=radio][value=' + fontId +']').attr('checked', true);
+	$('#header_font input[type=radio][value=' + fontId +']').data('default', true);
 };
 
 market.restoreDefaults=function() {
@@ -211,7 +211,7 @@ market.restoreDefaults=function() {
 	).val();
 
 	market['background_color_picker'].colorpicker('setValue', bgColor);
-	$('#font_color').colorpicker('setValue', fontColor);
+	$('#font_color_picker').colorpicker('setValue', fontColor);
 	$('#header_font input[type=radio][value=' + fontId + ']').attr('checked', true);
 	$('.thumbnail.selected').removeClass('selected');
 	market['background_image_picker'].val(bgImageId);
@@ -227,11 +227,6 @@ market.restoreDefaults=function() {
 
 market.updateImageSelection=function(jq) {
 	market.updateBackgroundType(jq.find('div').hasClass('image_picker_color')?'color':'image', true);
-};
-
-market.selectImage=function(id) {
-	var imageIndex = market['background_image_picker'].index('[value=' + id + ']');
-	//market['background_image_picker_list']
 };
 
 market.updateBackgroundType = function (value, imageSelected) {
