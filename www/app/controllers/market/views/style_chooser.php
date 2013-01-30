@@ -17,7 +17,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 	<div class="controls row">
 		<div class="span5">
 			<div id="font_color_picker" class="input-append color colorpicker" data-color="<?=$font_color?>" data-color-format="hex">
-			  <input id="font_color" name="font_color" type="text" class="span2" value="<?=$font_color?>" readonly>
+			  <input id="font_color" name="font_color" type="text" class="span2" value="<?=$font_color?>">
 			  <span class="add-on"><i style="background-color: <?=$font_color?>"></i></span>
 			</div>
 		</div>
@@ -61,7 +61,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 	<div class="controls row">
 		<div class="span5">
 			<div id="background_color_picker" class="input-append color colorpicker" data-color="<?=$bg_color?>" data-color-format="hex" data-disabled="true">
-			  <input id="background_color" name="background_color" type="text" class="span2" value="<?=$bg_color?>" readonly>
+			  <input id="background_color" name="background_color" type="text" class="span2" value="<?=$bg_color?>">
 			  <span class="add-on"><i style="background-color: <?=$bg_color?>"></i></span>
 			</div>
 		</div>
