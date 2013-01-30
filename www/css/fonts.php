@@ -22,4 +22,4 @@ while ($font = mysql_fetch_assoc($fonts)) {
 $font_list = implode('|', $font_list);
 header("Content-type: text/css; charset: UTF-8");
 ?>
-@import url(http://fonts.googleapis.com/css?family=<?=$font_list?>);
+@import url(<?=$_SERVER['HTTPS']?'https':'http'?>://fonts.googleapis.com/css?family=<?=$font_list?>);

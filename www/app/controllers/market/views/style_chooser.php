@@ -17,7 +17,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 	<div class="controls row">
 		<div class="span5">
 			<div id="font_color_picker" class="input-append color colorpicker" data-color="<?=$font_color?>" data-color-format="hex">
-			  <input id="font_color" name="font_color" type="text" class="span2" value="<?=$font_color?>">
+			  <input id="font_color" name="font_color" type="text" class="span2" value="<?=$font_color?>" data-default="<?=$font_color?>">
 			  <span class="add-on"><i style="background-color: <?=$font_color?>"></i></span>
 			</div>
 		</div>
@@ -36,7 +36,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 				?>
 				<li>
 					<label class="radio">
-							<input type="radio" name="header_font" id="header_font_<?=$font['font_id']?>" value="<?=$font['font_id']?>" <?=$data['header_font']==$font['font_id']?'checked':''?>>
+							<input type="radio" name="header_font" id="header_font_<?=$font['font_id']?>" value="<?=$font['font_id']?>"<?=$data['header_font']==$font['font_id']?' data-default="true" checked':''?> >
 							<h2 style="font-family: <?=$font['font_name']?>; letter-spacing: <?=(isset($font['kerning']))?($font['kerning'].'px'):'normal'?>">
 								<?=$font_label?>
 							</h2>
@@ -61,7 +61,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 	<div class="controls row">
 		<div class="span5">
 			<div id="background_color_picker" class="input-append color colorpicker" data-color="<?=$bg_color?>" data-color-format="hex" data-disabled="true">
-			  <input id="background_color" name="background_color" type="text" class="span2" value="<?=$bg_color?>">
+			  <input id="background_color" name="background_color" type="text" class="span2" value="<?=$bg_color?>" data-default="<?=$bg_color?>">
 			  <span class="add-on"><i style="background-color: <?=$bg_color?>"></i></span>
 			</div>
 		</div>
@@ -70,13 +70,13 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 		<div class="span5">
 			<label class="radio">
 			  <input type="radio" name="background_type" id="background_type_image" value="image" <?=(is_null($data['background_id']) || $data['background_id'] === 0)?'':'checked'?>>
-			  Image		
+			  Image
 			</label>
 		</div>
 	</div>
 	<div class="controls row">
 		<div class="span8">
-			<select name="background_id" class="image-picker" data-color="<?=$bg_color?>">
+			<select name="background_id" class="image-picker" data-color="<?=$bg_color?>" data-default="<?=$data['background_id']?>">
 					<option <?=(is_null($data['background_id']) || $data['background_id'] === 0)?'':'selected'?>></option>
 				<? foreach ($backgrounds as $background) { ?>
 					<option value="<?=$background['background_id']?>" data-img-src="/img/backgrounds/<?=$background['file_name']?>" <?=$data['background_id']==$background['background_id']?'selected':''?>><?=$background['file_name']?></option>

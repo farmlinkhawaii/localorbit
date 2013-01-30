@@ -33,7 +33,6 @@ class core_controller_market extends core_controller
 		$market = core::model('domains');
 		$market->load($core->data['domain_id']);
 
-		core::log(print_r($branding, true));
 		# changes to the is_live property need to be logged using the
 		# domains_is_live_history table
 		if($market['is_live'] != $core->data['is_live'])
