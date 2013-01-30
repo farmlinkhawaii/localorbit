@@ -190,6 +190,10 @@ market.reloadCss=function () {
 	$('#less-css').attr('href', 'css/less.php?reload=' + new Date().getTime());
 };
 
+market.setDefaults=function(bgColor, bgImageId, fontColor, fontId) {
+
+};
+
 market.restoreDefaults=function() {
 	var bgColor, bgImageId, fontColor, fontId;
 
@@ -205,6 +209,10 @@ market.restoreDefaults=function() {
 	console.log(bgImageId);
 	console.log(fontColor);
 	console.log(fontId);
+
+	market['background_color_picker'].colorpicker('setValue', bgColor);
+	$('#font_color').colorpicker('setValue', fontColor);
+	$('#header_font input[type=radio][value=' + fontId + ']').attr('checked', true);
 	// get default bgColor
 	// get default bgImage
 	// get default ftColor
