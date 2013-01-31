@@ -160,6 +160,7 @@ if($_SERVER['HTTP_HOST'] == 'testing.localorb.it' || strpos(__FILE__,'/testing/'
 	$core->config['session_domain']   = '.localorb.it';
 	$core->config['session_name']    .= 'testing';
 	$core->config['db']['database']   = 'localorb_www_testing';
+	$core->config['db']['hostname'] = 'localorb.cc2ndox9watl.us-west-2.rds.amazonaws.com';
 
 	$core->config['payments']['paypal'] = array(
 		'password'=>'1331153423',
