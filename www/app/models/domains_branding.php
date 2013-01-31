@@ -37,6 +37,7 @@ class core_model_domains_branding extends core_model_base_domains_branding
 		$branding['background_id'] = $data['background_id']?$data['background_id']:null;
 		$branding['is_temp'] = 1;
 		$branding->save();
+		return $branding;
 	}
 }
 ?>

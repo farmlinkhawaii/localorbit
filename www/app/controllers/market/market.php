@@ -344,7 +344,6 @@ class core_controller_market extends core_controller
 	function save_temp_style()
 	{
 		global $core;
-		core::log(print_r($core->data, true));
 		core::model('domains_branding')->save_temp($core->data);
 		core::js('market.previewStyle();');
 	}
