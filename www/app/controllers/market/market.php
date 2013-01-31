@@ -96,6 +96,7 @@ class core_controller_market extends core_controller
 
 		$branding->save();
 		$market->save();
+		core::model('domains_branding')->delete_all_temporary($core->data['domain_id']);
 
 		core::js('market.reloadCss();market.setDefaults("'.
 			core_format::get_hex_code($branding['background_color']) . '",' .
