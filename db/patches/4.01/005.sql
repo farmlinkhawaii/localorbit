@@ -1,6 +1,6 @@
 
-UPDATE migrations 
-SET version_id = '005', date_ran = now();
+INSERT INTO migrations (version_id, pt_ticket_no) 
+VALUES ('005', '');
 
 DROP VIEW v_organizations;
 
