@@ -256,7 +256,17 @@ market.updateBackgroundType = function (value, imageSelected) {
 
 market.previewStyle = function () {
 	var jqwindow = $(window);
-	market.previewWindow = $(window.open("https://devz01.localorb.it/app.php#!market-info", "_blank", "height="+jqwindow.height()*0.80+", width="+jqwindow.width()*0.80+",top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes"));
+		market.previewWindow = $(window.open("/app.php#!market-info?reload=" + new Date().getTime() , "loPreviewStyle", "height=0, width=0,top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes"));
+		market.previewWindow.load(function () {
+			this.resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
+			$('#less-css', this.document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
+		});
+		market.previewWindow.ready(function () {
+			//debugger;
+			market.previewWindow.get(0).resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
+			$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
+		});
+		$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
 };
 
 market.initialize=function () {

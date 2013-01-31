@@ -38,6 +38,7 @@ $sql = '
   );
 ';
 
+$is_temp = (empty($_REQUEST['temp']) || $_REQUEST['temp'] === 'false') ? 0 : 1;
 
 $result = mysql_query('select domain_id from domains where hostname = \'' . $_SERVER['HTTP_HOST'] . '\'');
 
@@ -61,7 +62,7 @@ $less = new lessc;
 $branding = mysql_query('select * from domains_branding
   left join backgrounds on domains_branding.background_id = backgrounds.background_id
   left join fonts on domains_branding.header_font = fonts.font_id
-  where domain_id = ' . $domain['domain_id']);
+  where domain_id = ' . $domain['domain_id'] . ' and is_temp = ' . $is_temp);
 $branding = mysql_fetch_assoc($branding);
 
 $options = array_map('format_value', $options);
@@ -87,7 +88,10 @@ $less->setVariables($options);
 $less->setImportDir($path . '/../less');
 
 header("Content-type: text/css; charset: UTF-8");
-
+if ($is_temp) {
+  echo 'body {background-color: #' . dechex(rand ( 0 , 16777215 )) . ';}';
+  exit();
+}
 if ($_GET['which']):
 	echo $less->compileFile($path . '/../less/bootstrap-tmp_' . $_GET['which'] . '.less');
 else:
