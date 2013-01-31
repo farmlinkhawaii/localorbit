@@ -39,7 +39,7 @@ insert into backgrounds (file_name, is_available) values ('SungoldTomatoes.jpg',
 insert into backgrounds (file_name, is_available) values ('tomatoes.jpg', 0);
 
 insert into fonts (font_name) values ('\'Open Sans Condensed\',\'Domine\', Georgia, \'Times New Roman\', Times, serif');
-insert into fonts (font_name, kerning) values ('\'Sorts Mill Goudy\', serif', -1);
+insert into fonts (font_name, kerning) values ('\'Sorts Mill Goudy\', serif', -3);
 insert into fonts (font_name) values ('\'PT Sans Narrow\', sans-serif');
-insert into fonts (font_name, kerning) values ('\'Oranienbaum\', serif', -1);
+insert into fonts (font_name, kerning) values ('\'Oranienbaum\', serif', 0);
 insert into fonts (font_name) values ('\'Voltaire\', sans-serif');
