@@ -29,6 +29,7 @@ class core_model_domains_branding extends core_model_base_domains_branding
 		else
 		{
 			$branding->delete();
+			$branding = core::model('domains_branding');
 		}
 		$branding['domain_id'] = $data['domain_id'];
 		$branding['header_font'] = $data['header_font'];

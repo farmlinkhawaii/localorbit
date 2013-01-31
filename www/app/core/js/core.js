@@ -6,7 +6,8 @@ var core={
 	handlers:{
 	},
 	doHandlers:{
-	}
+	},
+	query: {}
 };
 
 core.loadingStart=function(){
@@ -52,6 +53,7 @@ core.toggle=function(id){
 
 core.init=function(autoredirect){
 	var url = core.s(location.href);
+
 	core.baseUrl = new String(core.baseUrl).replace(core.appPage,'')
 	if(url.indexOf('#')>0){
 		core.go(url);
@@ -72,6 +74,9 @@ core.init=function(autoredirect){
 		}
 	}, 300);
 	core.jqInit();
+
+
+
 };
 
 core.navHighlight=function(level, navHighlight) {
@@ -615,11 +620,36 @@ core.fixDropDown=function() {
 	});
 };
 
+core.loadQuery=function(){
+	var parts = document.location.hash.split('?');
+	if (parts && parts.length > 1) {
+		$(parts[1].split('&')).each(function () {
+			var value = this.split('=');
+			core.query[value[0]] = value[1];
+		});
+	}
+	
+	if (core.query.temp_style && core.query.width && core.query.height) {
+		
+		$('#less-css').attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
+	
+		if (window.resizeTo) {
+			setTimeout( function () {
+				//alert(parentWin.document.head.getElementsByTagName('title').innerHTML);
+				//alert('' + Math.floor(parentWin.width()*0.8) +',' + Math.floor(parentWin.height()*0.8));
+				window.resizeTo(core.query.width,core.query.height);
+			}, 700);
+		}
+	}
+}
+
 $(document).click(function (evt){
 	if (!$(evt.srcElement).hasClass('datepicker') && $(evt.srcElement).parents('.datePicker').length < 1) {
 		$('#datePicker').hide();
 	}
 });
+
+core.loadQuery();
 //~ loadjscssfile("myscript.js", "js") //dynamically load and add this .js file
 //~ loadjscssfile("javascript.php", "js") //dynamically load "javascript.php" as a JavaScript file
 //~ loadjscssfile("mystyle.css", "css") ////dynamically load and add this .css file

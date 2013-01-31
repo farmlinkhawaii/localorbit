@@ -255,15 +255,18 @@ market.updateBackgroundType = function (value, imageSelected) {
 };
 
 market.saveStyle = function () {
-	bgColor = $('#background_color').val();
-	bgImageId = $('#background_id').val();
-	fontColor = $('#font_color').val();
-	fontId = $('input:radio[name=header_font]:checked').val();
-	domainId = $('input[name=domain_id]').val();
+	var jqwindow = $(window);
+	var hostname = $('[name="hostname"]').val();
+	var bgColor = $('#background_color').val();
+	var bgImageId = $('#background_id').val();
+	var fontColor = $('#font_color').val();
+	var fontId = $('input:radio[name=header_font]:checked').val();
+	var domainId = $('input[name=domain_id]').val();
 
 	core.doRequest('/market/save_temp_style', '&domain_id=' + domainId +'&background_color=' + bgColor +'&background_id=' + bgImageId +'&font_color='+fontColor+'&header_font='+fontId);
-};
-
+	window.open(document.location.protocol + "//" + hostname + "/app.php#!market-info?width="+jqwindow.width()*0.80+"&height="+ jqwindow.height()*0.80 + "&temp_style=true&reload=" + new Date().getTime() , "_blank", "height=0, width=0,top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes");
+}
+/*
 market.previewStyle = function () {
 	var jqwindow = $(window);
 	market.previewWindow = $(window.open("/app.php#!market-info?reload=" + new Date().getTime() , "loPreviewStyle", "height=0, width=0,top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes"));
@@ -277,6 +280,7 @@ market.previewStyle = function () {
 	});
 	$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
 };
+*/
 
 market.initialize=function () {
 	var bgColor;

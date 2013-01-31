@@ -184,6 +184,7 @@ if(lo3::is_admin())
 	if(lo3::is_market())
 		save_only_button();
 	?>
+	<input type="hidden" name="hostname" value="<?=$data['hostname']?>" />
 	<input type="hidden" name="domain_id" value="<?=$data['domain_id']?>" />
 	<input type="hidden" name="org_id" value="<?=$org['org_id']?>" />
 
