@@ -254,6 +254,11 @@ market.updateBackgroundType = function (value, imageSelected) {
 	}
 };
 
+market.previewStyle = function () {
+	var jqwindow = $(window);
+	market.previewWindow = $(window.open("https://devz01.localorb.it/app.php#!market-info", "_blank", "height="+jqwindow.height()*0.80+", width="+jqwindow.width()*0.80+",top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes"));
+};
+
 market.initialize=function () {
 	var bgColor;
 
@@ -293,7 +298,7 @@ market.initialize=function () {
 		market.updateBackgroundType(value);
 	});
 
-	$('#main_save_buttons').before($('#restore-defaults'));
+	$('#main_save_buttons').before($('#restore-defaults')).prepend($('#preview-style'));
 };
 
 market.initialize();
