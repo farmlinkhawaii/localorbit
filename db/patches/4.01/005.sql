@@ -28,7 +28,6 @@ select
   `o`.`is_deleted` AS `is_deleted`,
   `o`.`payment_entity_id` AS `payment_entity_id`,
   `o`.`po_due_within_days` AS `po_due_within_days`,
-  `o`.`payment_allow_ach` AS `payment_allow_ach`,
   `d`.`domain_id` AS `domain_id`,
   `d`.`name` AS `domain_name`,
   `d`.`hostname` AS `hostname`,
@@ -51,5 +50,5 @@ from ((`organizations` `o`
   left join `domains` `d` on
     (
       (`d`.`domain_id` = `otd`.`domain_id`)
-    ))
+    ));
     
