@@ -272,7 +272,6 @@ market.previewStyle = function () {
 		$('#less-css', this.document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
 	});
 	market.previewWindow.ready(function () {
-		//debugger;
 		market.previewWindow.get(0).resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
 		$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
 	});
