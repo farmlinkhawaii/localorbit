@@ -14,14 +14,18 @@ class core_model_domains_branding extends core_model_base_domains_branding
 		return $branding;
 	}
 
-	function delete_all($domain_id)
+	function delete_all($domain_id, $temp_only = false)
 	{
-		core_db::query('delete from domains_branding where domain_id = ' . $domain_id);
+		$sql = 'delete from domains_branding where domain_id = ' . $domain_id;
+		if ($temp_only) {
+			$sql .= ' and is_temp = 1';
+		}
+		core_db::query($sql);
 	}
 
 	function save_temp($data)
 	{
-		$this->delete_all_temporary($data['domain_id']);
+		$this->delete_all($data['domain_id'], true);
 		$branding = core::model('domains_branding');
 		$branding['domain_id'] = $data['domain_id'];
 		$branding['header_font'] = $data['header_font'];
