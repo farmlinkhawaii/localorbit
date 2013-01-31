@@ -254,19 +254,29 @@ market.updateBackgroundType = function (value, imageSelected) {
 	}
 };
 
+market.saveStyle = function () {
+	bgColor = $('#background_color').val();
+	bgImageId = $('#background_id').val();
+	fontColor = $('#font_color').val();
+	fontId = $('input:radio[name=header_font]:checked').val();
+	domainId = $('input[name=domain_id]').val();
+
+	core.doRequest('/market/save_temp_style', '&domain_id=' + domainId +'&background_color=' + bgColor +'&background_id=' + bgImageId +'&font_color='+fontColor+'&header_font='+fontId);
+};
+
 market.previewStyle = function () {
 	var jqwindow = $(window);
-		market.previewWindow = $(window.open("/app.php#!market-info?reload=" + new Date().getTime() , "loPreviewStyle", "height=0, width=0,top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes"));
-		market.previewWindow.load(function () {
-			this.resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
-			$('#less-css', this.document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
-		});
-		market.previewWindow.ready(function () {
-			//debugger;
-			market.previewWindow.get(0).resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
-			$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
-		});
+	market.previewWindow = $(window.open("/app.php#!market-info?reload=" + new Date().getTime() , "loPreviewStyle", "height=0, width=0,top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes"));
+	market.previewWindow.load(function () {
+		this.resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
+		$('#less-css', this.document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
+	});
+	market.previewWindow.ready(function () {
+		//debugger;
+		market.previewWindow.get(0).resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
 		$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
+	});
+	$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
 };
 
 market.initialize=function () {

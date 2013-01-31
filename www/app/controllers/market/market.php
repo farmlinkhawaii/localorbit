@@ -340,6 +340,14 @@ class core_controller_market extends core_controller
 		core_datatable::js_reload('delivery_days');
 		core_ui::notification('delivery_days deleted');
 	}
+
+	function save_temp_style()
+	{
+		global $core;
+		core::log(print_r($core->data, true));
+		core::model('domains_branding')->save_temp($core->data);
+		core::js('market.previewStyle();');
+	}
 }
 
 ?>

@@ -88,10 +88,7 @@ $less->setVariables($options);
 $less->setImportDir($path . '/../less');
 
 header("Content-type: text/css; charset: UTF-8");
-if ($is_temp) {
-  echo 'body {background-color: #' . dechex(rand ( 0 , 16777215 )) . ';}';
-  exit();
-}
+
 if ($_GET['which']):
 	echo $less->compileFile($path . '/../less/bootstrap-tmp_' . $_GET['which'] . '.less');
 else:
