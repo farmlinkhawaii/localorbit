@@ -13,7 +13,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 ?>
 
 <div class="control-group">
-	<label class="control-label" for="font_color">Choose a Font Color <i class="helpslug icon-question-sign" rel="popover" data-content="<?=$core->i18n['hub:style_chooser:font_color']?>" data-original-title=""></i></label>
+	<label class="control-label" for="font_color">Choose a Font Color <i class="helpslug icon-question-sign" rel="popover" data-title="Font Color" data-content="<?=$core->i18n['hub:style_chooser:font_color']?>" data-original-title=""></i></label>
 	<div class="controls row">
 		<div class="span5">
 			<div id="font_color_picker" class="input-append color colorpicker" data-color="<?=$font_color?>" data-color-format="hex">
@@ -25,7 +25,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 </div>
 
 <div class="control-group">
-	<label class="control-label" for="header_font">Choose a Font <i class="helpslug icon-question-sign" rel="popover" data-content="<?=$core->i18n['hub:style_chooser:font']?>" data-original-title=""></i></label>
+	<label class="control-label" for="header_font">Choose a Font <i class="helpslug icon-question-sign" rel="popover" data-title="Font" data-content="<?=$core->i18n['hub:style_chooser:font']?>" data-original-title=""></i></label>
 	<div class="controls row">
 		<div class="span8">
 			<ul id="header_font">
@@ -49,7 +49,7 @@ $data['header_font'] = $data['header_font']?$data['header_font']:1;
 </div>
 
 <div class="control-group">
-	<label class="control-label" for="background_id">Choose a Background <i class="helpslug icon-question-sign" rel="popover" data-content="<?=$core->i18n['hub:style_chooser:background']?>" data-original-title=""></i></label>
+	<label class="control-label" for="background_id">Choose a Background <i class="helpslug icon-question-sign" rel="popover" data-title="Background" data-content="<?=$core->i18n['hub:style_chooser:background']?>" data-original-title=""></i></label>
 	<div class="controls row">
 		<div class="span5">
 			<label class="radio">
