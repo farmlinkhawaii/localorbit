@@ -199,7 +199,7 @@ market.setDefaults=function(bgColor, bgImageId, fontColor, fontId) {
 	$('#header_font input[type=radio][value=' + fontId +']').data('default', true);
 };
 
-market.restoreDefaults=function() {
+market.revertStyle=function() {
 	var bgColor, bgImageId, fontColor, fontId, index;
 
 	bgColor = $('#background_color').data('default');
@@ -266,26 +266,11 @@ market.saveStyle = function () {
 	core.doRequest('/market/save_temp_style', '&domain_id=' + domainId +'&background_color=' + bgColor +'&background_id=' + bgImageId +'&font_color='+fontColor+'&header_font='+fontId);
 	window.open(document.location.protocol + "//" + hostname + "/app.php#!market-info?width="+jqwindow.width()*0.80+"&height="+ jqwindow.height()*0.80 + "&temp_style=true&reload=" + new Date().getTime() , "_blank", "height=0, width=0,top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes");
 }
-/*
-market.previewStyle = function () {
-	var jqwindow = $(window);
-	market.previewWindow = $(window.open("/app.php#!market-info?reload=" + new Date().getTime() , "loPreviewStyle", "height=0, width=0,top="+jqwindow.height()*0.10+", left="+jqwindow.width()*0.10+", status=no, toolbar=no, menubar=no, resizable=yes"));
-	market.previewWindow.load(function () {
-		this.resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
-		$('#less-css', this.document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
-	});
-	market.previewWindow.ready(function () {
-		market.previewWindow.get(0).resizeTo(jqwindow.width()*0.80, jqwindow.height()*0.80);
-		$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
-	});
-	$('#less-css', market.previewWindow.get(0).document).attr('href', 'css/less.php?temp=true&reload=' + new Date().getTime());
-};
-*/
 
 market.initialize=function () {
 	var bgColor;
 
-	$('.colorpicker').each( function () {
+	$('.colorpicker[data-color]').each( function () {
 		var jq = $(this).colorpicker();
 		if (jq.attr('id') && market.hasOwnProperty(jq.attr('id'))) {
 			market[jq.attr('id')] = jq;
