@@ -43,3 +43,47 @@ insert into fonts (font_name, kerning) values ('\'Sorts Mill Goudy\', serif', -3
 insert into fonts (font_name) values ('\'PT Sans Narrow\', sans-serif');
 insert into fonts (font_name, kerning) values ('\'Oranienbaum\', serif', 0);
 insert into fonts (font_name) values ('\'Voltaire\', sans-serif');
+
+INSERT INTO `phrases`
+(
+`pcat_id`,
+`label`,
+`default_value`,
+`edit_type`)
+VALUES
+(
+5,
+'hub:style_chooser:font_color',
+'This will be the color of the main navigation and headers on your site.  It will also be used for your Fresh Sheet, Newsletter and transactional email templates.
+Enter a hex color from your brand or click on the color swatch to select from the color picker, which will automatically update the code.',
+'text'
+);
+
+INSERT INTO `phrases`
+(
+`pcat_id`,
+`label`,
+`default_value`,
+`edit_type`)
+VALUES
+(
+5,
+'hub:style_chooser:font',
+'This will be used for the main navigation and headers on your site.',
+'text'
+);
+
+INSERT INTO `phrases`
+(
+`pcat_id`,
+`label`,
+`default_value`,
+`edit_type`)
+VALUES
+(
+5,
+'hub:style_chooser:background',
+'You can select a solid color that fits your brand, or you can use a pre-selected image.  
+If you don\'t want any background, select white (hex code #ffffff)',
+'text'
+);
