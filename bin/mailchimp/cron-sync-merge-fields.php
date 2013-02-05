@@ -18,8 +18,18 @@ $tomorrow = date('F jS',($now + 86400));
 
 # get the data
 
-$customers = core::collection('')
-core::model('customer_entity')
+$old_customers = new core_collection('select customer_entity.*,unix_timestamp(customer_entity.created_at) as created_at,unix_timestamp(customer_entity.updated_at) as updated_at,
+	(select max(UNIX_TIMESTAMP(order_date)) from lo_order where lo_order.buyer_mage_customer_id=customer_entity.entity_id) as last_order,organizations.name as ORG_NAME,allow_sell,
+	domains.domain_id,secondary_contact_name,secondary_contact_email,secondary_contact_phone,domains.name as website_name,hostname,address,city,postal_code,code as state 
+	from customer_entity left join organizations on (customer_entity.org_id=organizations.org_id) 
+	left join organizations_to_domains on (organizations.org_id=organizations_to_domains.org_id and organizations_to_domains.is_home=1) 
+	left join domains on (organizations_to_domains.domain_id=domains.domain_id)
+	left join addresses on (addresses.org_id=organizations.org_id and addresses.default_billing=1)
+	left join directory_country_region dcr on (addresses.region_id=dcr.region_id)
+	where organizations.is_deleted != 0 or customer_entity.is_deleted != 0');
+$old_customers = array_keys($old_customers->to_hash('email', false));
+
+$customers = core::model('customer_entity')
 	->add_custom_field(
 		'(select max(UNIX_TIMESTAMP(order_date)) from lo_order where lo_order.buyer_mage_customer_id=customer_entity.entity_id) as last_order'
 	)
@@ -51,7 +61,7 @@ core::model('customer_entity')
 		'directory_country_region dcr',
 		'(addresses.region_id=dcr.region_id)',
 		array('code as state')
-	)->collection();//->filter('organizations.is_deleted', '=', 0)->filter('customer_entity.is_deleted', '=', 0); 
+	)->collection()->filter('organizations.is_deleted', '=', 0)->filter('customer_entity.is_deleted', '=', 0); 
 	
 $updates = array();
 
@@ -91,7 +101,6 @@ foreach($customers as $cust)
 		#'LOGO'=>'',
 	);
 	#
-	print_r($values);
 
 	$custs[] = $values;
 }
@@ -116,8 +125,21 @@ for ($i = 0; $i < count($core->config['mailchimp']['lists']); $i++)
 		echo "msg :".$mc->api->errorMessage."\n";
 		exit();
 	} 
+	echo("removing deleted users... \n");
+	$result = $mc->api->listBatchUnsubscribe(
+		$id,
+		$old_customers,
+		true,
+		false,
+		false
+	);
+	if ($mc->api->errorCode){
+		echo "batch update failed failed!\n";
+		echo "code:".$mc->api->errorCode."\n";
+		echo "msg :".$mc->api->errorMessage."\n";
+		exit();
+	} 
 	
-	print_r($result);
 	# print out any errors if there are any, and then exit
 	if(count($result['errors']) > 0)
 	{
