@@ -13,7 +13,7 @@ if(
 }
 else
 {
-	core::ensure_navstate(array('left'=>'left_news'));
+	core::ensure_navstate(array('left'=>'left_news'), 'news-list');
 	core_ui::showLeftNav();
 	core::hide_dashboard();
 	

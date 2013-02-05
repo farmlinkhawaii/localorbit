@@ -1,5 +1,5 @@
 <?php 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'orders-current_sales','sales-information');
 
 core_ui::fullWidth();
 

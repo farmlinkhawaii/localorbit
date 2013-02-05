@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'market_news-list','marketing');
 core_ui::fullWidth();
 core::head('Market News Editor','Edit Market News.');
 lo3::require_permission();

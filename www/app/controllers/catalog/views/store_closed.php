@@ -11,7 +11,7 @@ else
 }
 echo('<br />&nbsp;<br /><br />&nbsp;<br />');
 core::replace('center');
-core::ensure_navstate(array('left'=>'left_blank'));
+core::ensure_navstate(array('left'=>'left_blank'), 'catalog-shop');
 core::process_command('navstate/left_scarecrow');
 core::write_navstate();
 core::deinit();

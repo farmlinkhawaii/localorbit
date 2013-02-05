@@ -194,6 +194,28 @@ class core
 			'aliases' =>array(),
 		);	
 	}
+
+	public static function select_nav($navs)
+	{
+		if (lo3::is_admin()) 
+		{
+			$index = 0;
+		} 
+		else if (lo3::is_market()) 
+		{
+			$index = 1;
+		} 
+		else if (lo3::is_seller()) 
+		{
+			$index = 2;
+		} 
+		else
+		{
+			$index = 3;
+		}
+
+		return $navs[$index];
+	}
 	
 	public static function ensure_navstate($states,$nav1Highlight='',$nav2Highlight='')
 	{
@@ -202,6 +224,15 @@ class core
 		{
 			$core->config['navstate'][$pos] = $state;
 		}
+		if (is_array($nav1Highlight))
+		{
+			$nav1Highlight = core::select_nav($nav1Highlight);
+		}
+		if (is_array($nav2Highlight))
+		{
+			$nav2Highlight = core::select_nav($nav2Highlight);
+		}
+		core::js('core.resetNavHighlight();');
 		if($nav1Highlight != '')
 		{
 			core::js('core.navHighlight(1,\''.$nav1Highlight.'\');');

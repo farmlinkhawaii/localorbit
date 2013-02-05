@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'newsletters-list','marketing');
 core_ui::fullWidth();
 core::head('Newsletters','Newsletters.');
 lo3::require_permission();

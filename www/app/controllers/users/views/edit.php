@@ -1,5 +1,7 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),
+	array('users-list','users-list','users-edit','users-edit'),
+	array('market-admin','market-admin','market-admin','account'));
 
 core_ui::fullWidth();
 

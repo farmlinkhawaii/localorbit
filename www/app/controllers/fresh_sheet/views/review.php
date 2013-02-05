@@ -1,5 +1,5 @@
 <?
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'fresh_sheet-review','marketing');
 core_ui::fullWidth();
 core::head('Fresh Sheet','This page is used to review your fresh sheet');
 lo3::require_permission();

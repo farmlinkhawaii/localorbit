@@ -1,6 +1,6 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'referrals-edit','reports');
 core::head('Edit Referrals','This page is to edit referral information');
 lo3::require_permission();
 

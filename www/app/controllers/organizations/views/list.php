@@ -1,7 +1,7 @@
 <?php 
 
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'organizations-list','market-admin');
 core_ui::fullWidth();
 core::head('Org Management','This page is used to manage organizations');
 lo3::require_permission();

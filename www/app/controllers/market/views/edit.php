@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'market-list','market-admin');
 core_ui::fullWidth();
 core::head('Edit Market','This page is used to edit markets');
 lo3::require_permission();

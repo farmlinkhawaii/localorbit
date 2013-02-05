@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'events-list','market-admin');
 core_ui::fullWidth();
 core::head('User Event Log','User Event Log.');
 lo3::require_permission();

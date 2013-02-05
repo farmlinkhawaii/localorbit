@@ -1,6 +1,6 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'organizations-list','market-admin');
 core_ui::fullWidth();
 core::head('Add organization','');
 lo3::require_permission();

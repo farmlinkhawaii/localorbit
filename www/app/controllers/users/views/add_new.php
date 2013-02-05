@@ -1,6 +1,6 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'users-list','market-admin');
 core_ui::fullWidth();
 core::head('Add new user','This page is used to add users');
 lo3::require_permission();

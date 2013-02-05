@@ -1,6 +1,6 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'), 'units-list','products-delivery');
 core::head('Edit Unit','This page is used to edit product units');
 lo3::require_permission();
 lo3::require_login();

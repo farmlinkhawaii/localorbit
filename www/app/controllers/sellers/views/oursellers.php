@@ -19,7 +19,7 @@ else
 	global $core;
 	core::head('Our Sellers','','');
 
-	core::ensure_navstate(array('left'=>'left_seller_list')); 
+	core::ensure_navstate(array('left'=>'left_seller_list'),'sellers-oursellers'); 
 	core_ui::showLeftNav();
 	core::hide_dashboard();
 

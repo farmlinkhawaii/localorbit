@@ -13,7 +13,7 @@ if(
 }
 else
 {
-	core::ensure_navstate(array('left'=>'left_hub_info'));
+	core::ensure_navstate(array('left'=>'left_hub_info'), 'market-info');
 	core_ui::showLeftNav();
 	core::hide_dashboard();
 	

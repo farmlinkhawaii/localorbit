@@ -15,7 +15,7 @@
 
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="market-admin" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-wand icon-large"></i>
 					<?=$core->i18n['nav2:marketadmin']?>
 					<b class="caret"></b>
@@ -33,7 +33,7 @@
 
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="products-delivery" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-signup icon-large"></i>
 					Products & Delivery
 					<b class="caret"></b>
@@ -49,7 +49,7 @@
 
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="marketing" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-qrcode icon-large"></i>
 					Marketing
 					<b class="caret"></b>
@@ -69,7 +69,7 @@
 		</ul>
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="reports" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-bars icon-large"></i>
 					Reports
 					<b class="caret"></b>
@@ -94,7 +94,7 @@
 		<? if(lo3::is_market()){?>
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="market-admin" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-wand icon-large"></i>
 					<?=$core->i18n['nav2:marketadmin']?>
 					<b class="caret"></b>
@@ -112,7 +112,7 @@
 		</ul>
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="products-delivery" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-signup icon-large"></i>
 					Orders & Delivery
 					<b class="caret"></b>
@@ -128,7 +128,7 @@
 		</ul>
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="marketing" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-bullhorn icon-large"></i>
 					Marketing
 					<b class="caret"></b>
@@ -151,7 +151,7 @@
 
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="sales-information" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-coins icon-large"></i>
 					Sales Information
 					<b class="caret"></b>
@@ -173,7 +173,7 @@
 						<?}?>
 		<ul class="nav">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="account" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<i class="icon-address-book icon-large"></i>
 					Account
 					<b class="caret"></b>

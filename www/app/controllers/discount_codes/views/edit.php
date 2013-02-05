@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'discount_codes-list','marketing');
 core_ui::fullWidth();
 core::head('Edit Discount Code','This page is to edit Discount Code Information');
 lo3::require_permission();

@@ -79,11 +79,16 @@ core.init=function(autoredirect){
 
 };
 
-core.navHighlight=function(level, navHighlight) {
+core.resetNavHighlight= function () {
 	$('.nav-active').removeClass('nav-active');
+	$('.nav-subactive1').removeClass('nav-subactive1');
+};
+
+core.navHighlight=function(level, navHighlight) {
+	var className = level <= 1 ? 'nav-active' : ('nav-subactive' + (level - 1));
 	if (navHighlight) {
 		console.log('navHighlight: '+navHighlight);
-		$('#'+navHighlight).addClass('nav-active');
+		$('#'+navHighlight).addClass(className);
 	}
 };
 

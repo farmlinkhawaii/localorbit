@@ -2,7 +2,9 @@
 
 # figure out the start/end ranges for the filters
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'reports-edit',
+	array('reports', 'reports','sales-information','account'));
+
 core_ui::fullWidth();
 core::head('Create Custom Reports','This page is to create a custom report');
 lo3::require_permission();

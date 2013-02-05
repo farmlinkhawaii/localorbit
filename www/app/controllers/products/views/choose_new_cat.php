@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'products-list','products-delivery');
 core::head('Choose category','');
 lo3::require_permission();
 core_ui::load_library('js','product.js');

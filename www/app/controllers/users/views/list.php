@@ -1,5 +1,5 @@
 <?php 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'users-list','market-admin');
 core_ui::fullWidth();
 core::head('User Management','This page is used to manage users');
 lo3::require_permission();

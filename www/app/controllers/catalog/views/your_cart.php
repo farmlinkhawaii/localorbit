@@ -152,7 +152,7 @@ else
 		$item_hash = $cart->items->to_hash('prod_id');
 
 		# render the filters on the left side
-		core::ensure_navstate(array('left'=>'left_blank'));
+		core::ensure_navstate(array('left'=>'left_blank'), 'shop');
 		core::write_navstate();
 		$this->left_filters($cats,$sellers, $days, true);
 

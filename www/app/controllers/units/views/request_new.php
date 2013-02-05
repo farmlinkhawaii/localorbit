@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'), 'units-list','products-delivery');
 core::head('Request new unit');
 lo3::require_permission();
 lo3::require_login();

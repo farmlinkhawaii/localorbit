@@ -1,6 +1,6 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'weekly_specials-list','marketing');
 core_ui::fullWidth();
 core::head('Buy and Sell Local Food on Local Orbit - Edit Weekly Specials','This page is used to edit Weekly Specials');
 lo3::require_permission();

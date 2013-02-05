@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'),'market_news-list','marketing');
 core_ui::fullWidth();
 core::head('Buy and Sell Local Food on Local Orbit - Edit Market News','This page is used to edit Market News');
 lo3::require_permission();

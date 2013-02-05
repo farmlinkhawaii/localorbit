@@ -1,6 +1,6 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'), 'delivery_tools-view', array('marketing','products-delivery','sales-information'));
 core::head('Weekly Sales & Delivery Info','Local Orbit weekly sales & delivery info');
 lo3::require_permission();
 lo3::require_login();
