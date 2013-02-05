@@ -28,15 +28,18 @@ create table backgrounds (
 );
 
 insert into backgrounds (file_name, is_available) values ('brownpaper.jpg', 1);
-insert into backgrounds (file_name, is_available) values ('broccoli.jpg', 1);
-insert into backgrounds (file_name, is_available) values ('cherry-tomatoes.jpg', 0);
+insert into backgrounds (file_name, is_available) values ('cherry-tomatoes.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('greens.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('painting.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('Peaches.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('Potatoes.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('Radishes.jpg', 1);
-insert into backgrounds (file_name, is_available) values ('SungoldTomatoes.jpg', 1);
-insert into backgrounds (file_name, is_available) values ('tomatoes.jpg', 0);
+insert into backgrounds (file_name, is_available) values ('multicolortomatoes.jpg', 1);
+insert into backgrounds (file_name, is_available) values ('Lentils.jpg', 1);
+insert into backgrounds (file_name, is_available) values ('chard.jpg', 1);
+insert into backgrounds (file_name, is_available) values ('driedbeans.jpg', 1);
+insert into backgrounds (file_name, is_available) values ('multicolortomatoes.jpg', 1);
+
 
 insert into fonts (font_name) values ('\'Open Sans Condensed\',\'Domine\', Georgia, \'Times New Roman\', Times, serif');
 insert into fonts (font_name, kerning) values ('\'Sorts Mill Goudy\', serif', -3);
