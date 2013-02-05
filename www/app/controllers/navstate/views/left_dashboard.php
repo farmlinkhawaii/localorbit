@@ -43,6 +43,7 @@
 					<li><a id="sold_items-list" href="#!sold_items-list" onclick="core.go(this.href);"><i class="icon-stack-checkmark"></i><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
 					<li><a id="products-list" href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"></i><?=$core->i18n['nav2:marketadmin:products']?></a></li>
 					<li><a id="units-list" href="#!units-list" onclick="core.go(this.href);"><i class="icon-cube"></i><?=$core->i18n['nav2:marketadmin:units']?></a></li>
+					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
 				</ul>
 			</li>
 		</ul>

@@ -29,5 +29,16 @@ if($org['payment_allow_purchaseorder'] == 1)
 	</label>
 <?
 }
+
+if($org['payment_allow_ach'] == 1) 
+{
+?>
+	<label class="radio">
+	<input name="payment_method" type="radio" value="ach" onclick="$('.payment_option').hide();$('#payment_ach,#placeorder_button').fadeIn(300);"/>
+	Pay by ACH
+	</label>
+<?
+}
+//	ech
 //	echo(core_ui::radiodiv('show_payment_purchaseorder','Pay by Purchase Order',false,'payment_method',false,"$('.payment_option').hide();$('#payment_purchaseorder,#placeorder_button').fadeIn(300);").'<br />');
 ?>

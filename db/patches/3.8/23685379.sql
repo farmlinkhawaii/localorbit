@@ -246,3 +246,35 @@ select * from v_invoices;
 
 
 alter table domains add payables_create_on enum('delivery','buyer_paid','buyer_paid_and_delivered');
+
+
+
+delete from phrases where label in ('email:payments:new_invoice_body','email:payments:new_invoice_subject');
+INSERT INTO `phrases`
+(
+`pcat_id`,
+`label`,
+`default_value`,
+`edit_type`)
+VALUES
+(
+8,
+'email:payments:new_invoice_subject',
+'New Invoices',
+'text'
+);
+
+INSERT INTO `phrases`
+(
+`pcat_id`,
+`label`,
+`default_value`,
+`edit_type`,info_note)
+VALUES
+(
+8,
+'email:payments:new_invoice_body',
+'<h1>Invoice Info</h1><br /><b>Nbr: {invoicenbr}<br />Amount: {amount}<br />Due Date: {duedate}<br />&nbsp;<br /><h2>Payables</h2>{payables}<br />click here to pay now: <a href="{pay_link}">{pay_link}</a>',
+'rte',
+'You have the following fields available: {hubname}, {invoicenbr}, {amount}, {duedate}, {payables}, {pay_link}'
+);

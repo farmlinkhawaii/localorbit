@@ -159,16 +159,16 @@ market.defaultPaymentChanged=function(type){
 }
 
 market.allowPaymentChanged=function(type){
-	var value = $('#checkdiv_payment_allow_'+type+'_value').val();
-	if(value == 0){
-		core.ui.setCheckdiv('payment_default_'+type,false);
-		$('#div_payment_allow_'+type).hide(300);
-	}else{
+	var value = document.marketForm['payment_allow_'+type].checked;
+	if(value){
 		$('#div_payment_allow_'+type).show(300);
+	}else{
+		document.marketForm['payment_default_'+type].checked = false;
+		$('#div_payment_allow_'+type).hide(300);
 	}
 
 	if(type == 'purchaseorder')
-		$('.buyer_invoicer_options')[((value == 1)?'show':'hide')](300);
+		$('#po_due_option')[((value)?'show':'hide')](300);
 	//alert(value);
 	//core.ui.setCheckdiv('',false)
 	//alert('called: '+type);

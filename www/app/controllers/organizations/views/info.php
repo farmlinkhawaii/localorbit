@@ -85,6 +85,9 @@ echo(
 	<? if($domain['payment_allow_purchaseorder'] == 1 || $data['payment_allow_purchaseorder']): ?>
 		<?= core_form::input_check('Allow Purchase Orders','payment_allow_purchaseorder',$data['payment_allow_purchaseorder'],array('popover'=>'Customers will create purchase orders, which they will then be invoiced for.')); ?>
 	<? endif; ?>
+	<? if($domain['payment_allow_ach'] == 1 || $data['payment_allow_ach']): ?>
+		<?= core_form::input_check('Allow ACH','payment_allow_ach',$data['payment_allow_ach'],array('popover'=>'Customers can pay for their orders at checkout using ACH.')); ?>
+	<? endif; ?>
 
 <? endif; ?>
 

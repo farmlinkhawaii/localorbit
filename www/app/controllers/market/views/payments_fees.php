@@ -88,19 +88,20 @@ $payment_methods = core::model('organization_payment_methods')
 		<?=core_form::input_check('Allow CC via Paypal','payment_allow_paypal',$data['payment_allow_paypal'],array(
 			'onclick'=>'market.allowPaymentChanged(\'paypal\');',
 		))?>
-	
+		<?=core_form::input_check('Allow ACH','payment_allow_ach',$data['payment_allow_ach'],array(
+			'onclick'=>'market.allowPaymentChanged(\'ach\');',
+		))?>	
 		<?=core_form::input_check('Allow Purchase Orders','payment_allow_purchaseorder',$data['payment_allow_purchaseorder'],array(
 			'onclick'=>'market.allowPaymentChanged(\'purchaseorder\');market.togglePoDue();',
 		))?>
 		
-		<? if($data['payment_allow_purchaseorder']==0): ?>
-		<div class="control-group">
+
+		<div class="control-group" id="po_due_option"<?=(($data['payment_allow_purchaseorder']==0)?' style="display:none;"':'')?>>
 			<label class="control-label">PO payments due</label>
 			<div class="controls">
 				<input type="text" name="po_due_within_days" class="input-xxsmall" value="<?=intval($data['po_due_within_days'])?>" /> days
 			</div>
 		</div>
-		<? endif; ?>
 	
 	<?}?>
 	
@@ -110,13 +111,9 @@ $payment_methods = core::model('organization_payment_methods')
 		'info_show'=>true
 	))?>
 	
-	<? if($data['payment_allow_paypal'] == 1): ?>
-		<?= core_form::input_check('CC via Paypal','payment_default_paypal', $data['payment_default_paypal'], array('checked' => 'market.defaultPaymentChanged(\'paypal\');')); ?>
-	<? endif; ?>
-
-	<? if($data['payment_allow_purchaseorder'] == 1): ?>
-		<?= core_form::input_check('Purchase Orders','payment_default_purchaseorder', $data['payment_default_purchaseorder'], array('checked' => 'market.defaultPaymentChanged(\'purchaseorder\');')); ?>
-	<? endif; ?>
+	<?= core_form::input_check('CC via Paypal','payment_default_paypal', $data['payment_default_paypal'], array('display_row'=>($data['payment_allow_paypal'] == 1),'checked' => 'market.defaultPaymentChanged(\'paypal\');','row_id'=>'div_payment_allow_paypal')); ?>
+	<?= core_form::input_check('ACH','payment_default_ach', $data['payment_default_ach'], array('display_row'=>($data['payment_allow_ach'] == 1),'checked' => 'market.defaultPaymentChanged(\'ach\');','row_id'=>'div_payment_allow_ach')); ?>	
+	<?= core_form::input_check('Purchase Orders','payment_default_purchaseorder', $data['payment_default_purchaseorder'], array('display_row'=>($data['payment_allow_purchaseorder'] == 1),'checked' => 'market.defaultPaymentChanged(\'purchaseorder\');','row_id'=>'div_payment_allow_purchase_order')); ?>
 
 	<?if(lo3::is_admin()){?>
 	<h3>Seller Payments</h3>

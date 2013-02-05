@@ -3,6 +3,16 @@
 class core_model_lo_order___utility extends core_model_lo_order___placeable
 {
 
+	function reset_order_statuses()
+	{
+		$sql = 'update lo_order set ldstat_id=1,lbps_id=1 where lo_oid='.$this['lo_oid'];
+		core_db::query($sql);
+		$sql = 'update lo_order_line_item set lbps_id=1,ldstat_id=1 where lo_oid='.$this['lo_oid'];
+		core_db::query($sql);
+		$sql = 'update lo_fulfillment_order set ldstat_id=1 where lo_foid in (select lo_foid from lo_order_line_item where lo_oid='.$this['lo_oid'].')';
+		core_db::query($sql);
+	}
+
 	function delete_fees_and_codes()
 	{
 		global $core;

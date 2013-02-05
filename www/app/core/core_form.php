@@ -186,9 +186,10 @@ class core_form
 			core_form::info($options['info'],$options['info_icon'],$options['info_show']):'';
 
 
-		$html = '
-		<div class="control-group">
-			<label class="control-label" for="' . $options['field_name'] . '">'.$label;
+		$html = '<div class="control-group"';
+		$html .= ($options['display_row'])?'':' style="display: none;"';
+		$html .= ($options['row_id'] == '')?'':' id="'.$options['row_id'].'"';
+		$html .='><label class="control-label" for="' . $options['field_name'] . '">'.$label;
 		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
 			
 		if(isset($options['popover']) && $options['popover']!='')
@@ -196,14 +197,12 @@ class core_form
 			$html .=' <i class="helpslug icon-question-sign" rel="popover" data-title="' . $label . '" data-content="' . $options['popover'] . '" />';
 		}
 		
-		$html .='</label>
-		    <div class="controls">
-				'. $value;
+		$html .='</label><div class="controls"';
+		if(isset($options['value_area_id']) && $options['value_area_id'] != '')
+			$html .= ' id="'.$options['value_area_id'].'"';
+		$html .= '>'. $value;
 
-		$html .= '
-		    </div>
-		</div>
-		';
+		$html .= '</div></div>';
 		return $html;
 	}
 
@@ -268,7 +267,13 @@ class core_form
 			'info_show'=>false,
 			'render'=>true,
 			'required'=>false,
+			'id'=>'',
 		));
+		if($options['id'] != '')
+		{
+			$options['value_area_id'] = $options['id'];
+			unset($options['id']);
+		}
 		if($options['render'] != true)	return '';
 		return core_form::tr_nv($label,$value,$options);
 	}
@@ -370,6 +375,8 @@ class core_form
 			'render'=>true,
 		));
 		if($options['render'] != true)	return '';
+		
+		
 		return core_form::tr_nv($label,core_ui::date_picker($name,$value),$options);
 	}
 
@@ -388,6 +395,7 @@ class core_form
 			'field_name' => $name
 		));
 		if($options['render'] != true)	return '';
+		core::log('final input check options: '.print_r($options,true));
 		return core_form::tr_nv($label,core_ui::checkdiv($name,'',$value,$options['onclick']),$options);
 	}
 

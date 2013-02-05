@@ -69,7 +69,7 @@ core_ui::load_library('js','org.js');
 core_ui::load_library('js','address.js');
 
 # determine which tabs we're going to show, and store the right tabid
-$tabs = array('Organization Info','Addresses','Users');
+$tabs = array('Organization Info','Addresses','Users','Bank Accounts');
 if(
 	$data['allow_sell'] == 1 and 
 	$domains->__num_rows > 0 and
@@ -108,11 +108,7 @@ if($data['is_deleted'] == 1)
 		<div class="tab-pane active" id="orgtabs-a1"><? $this->info($is_mm); ?></div>
 		<div class="tab-pane" id="orgtabs-a2"><? $this->addresses(); ?></div>
 		<div class="tab-pane" id="orgtabs-a3"><? $this->users(); ?></div>
-		<!--<div class="tab-pane" id="orgtabs-a4">
-		<? 
-		#$this->payment_methods(); 
-		?>
-		</div>-->
+		<div class="tab-pane" id="orgtabs-a4"><? $this->payment_methods(); ?></div>
 		<div class="tab-pane" id="orgtabs-a<?=$crosssell_tab_id?>"><? $this->cross_sell($crosssell_tab_id); ?></div>
 		<div class="tab-pane" id="orgtabs-a<?=$profile_tab_id?>"><? $this->profile($profile_tab_id); ?></div>
 		<div class="tab-pane" id="orgtabs-a<?=$managehubs_tab_id?>"><? $this->managed_hubs($managehubs_tab_id,$is_mm); ?></div>

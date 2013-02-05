@@ -103,10 +103,11 @@ org.editPaymentMethod=function(opm_id,name_on_account,label,nbr1last4,nbr2last4)
 		document.organizationsForm.nbr2.value='************'+nbr2last4;
 	else
 		document.organizationsForm.nbr2.value = '';
-	$('#main_save_buttons,#addPaymentButton,#editPaymentMethod').toggle();
+	$('#paymentsTable,#main_save_buttons,#addPaymentButton,#editPaymentMethod').toggle();
 }
 
 org.deletePaymentMethods=function(formObj){
+	core.doRequest('/organizations/delete_payment_methods',{'opm_ids':core.ui.getCheckallList(formObj,'opmids').join(',')});
 }
 
 org.savePaymentMethod=function(formObj){
@@ -122,10 +123,10 @@ org.savePaymentMethod=function(formObj){
 	if(!isNaN(formObj.nbr2.value))
 		data['nbr2'] = formObj.nbr2.value;
 		
-	$('#main_save_buttons,#addPaymentButton,#editPaymentMethod').toggle();
+	org.cancelPaymentChanges();
 	core.doRequest('/organizations/save_payment_method',data);
 }
 
 org.cancelPaymentChanges=function(){
-	$('#main_save_buttons,#addPaymentButton,#editPaymentMethod').toggle();
+	$('#paymentsTable,#main_save_buttons,#addPaymentButton,#editPaymentMethod').toggle();
 }

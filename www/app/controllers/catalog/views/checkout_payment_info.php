@@ -6,6 +6,7 @@ $org = core::model('organizations')->load($core->session['org_id']);
 # figure out how many payment methods they have
 $paymethods = 0;
 $paymethods += intval($org['payment_allow_authorize']);
+$paymethods += intval($org['payment_allow_ach']);
 $paymethods += intval($org['payment_allow_paypal']);
 $paymethods += intval($org['payment_allow_purchaseorder']);
 
@@ -23,6 +24,8 @@ else
 		$method = 'paypal';
 	if(intval($org['payment_allow_purchaseorder']) == 1)
 		$method = 'purchaseorder';
+	if(intval($org['payment_allow_ach']) == 1)
+		$method = 'ach';
 	echo('<input type="hidden" name="payment_method" value="'.$method.'" />');
 }
 
@@ -31,6 +34,7 @@ else
 $this->payment_authorize($paymethods);
 $this->payment_paypal($paymethods);
 $this->payment_purchaseorder($paymethods);
+$this->payment_ach($paymethods);
 ?>
 <!--
 <div class="span3" id="placeorder_button" class="buttonset"<?=(($paymethods > 1)?' style="display:none;"':'')?>>

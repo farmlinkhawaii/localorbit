@@ -7,7 +7,8 @@ $payables = core::model('payables')
 	
 ?>
 <div id="create_invoice_form">
-	<table class="dt">
+	<table class="dt span12">
+		<?=core_form::column_widths('21%','31%','12%','12%','12%','12%')?>
 		<tr>
 			<th class="dt">Organization</th>
 			<th class="dt">Description</th>
@@ -17,12 +18,12 @@ $payables = core::model('payables')
 			<th class="dt">Due Date</th>
 		</tr>
 		<?
-		$counter = -1;
+		$counter = 0;
 		$p_group = '';
 		$style = true; 
 		foreach($payables as $payable)
 		{ 
-			$counter++;
+			
 			$style = (!$style);
 			$group_key = str_replace(',','-',$payable['payables']);
 		?>
@@ -42,11 +43,14 @@ $payables = core::model('payables')
 				}
 				?>
 			</td>
-			<td class="dt"><input name="invoicecreate_<?=$group_key?>__amount" type="text" value="<?=core_format::price($payable['receivable_total'])?>" style="width:80px;" /></td>
+			<td class="dt">
+				<?=core_format::price($payable['receivable_total'])?>
+				<input name="invoicecreate_<?=$group_key?>__amount" type="hidden" value="<?=$payable['receivable_total']?>" />
 			<td class="dt"><?=core_format::date($payable['invoice_date'],'short')?></td>
 			<td class="dt">
 				<select name="invoicecreate_<?=$group_key?>__terms" style="width: 90px;">
 					<option value="7"<?=(($payable['po_due_within_days'] == 7)?' selected="selected"':'')?>>Net 7</option>
+					<option value="14"<?=(($payable['po_due_within_days'] == 14)?' selected="selected"':'')?>>Net 14</option>
 					<option value="15"<?=(($payable['po_due_within_days'] == 15)?' selected="selected"':'')?>>Net 15</option>
 					<option value="30"<?=(($payable['po_due_within_days'] == 30)?' selected="selected"':'')?>>Net 30</option>
 					<option value="60"<?=(($payable['po_due_within_days'] == 60)?' selected="selected"':'')?>>Net 60</option>
@@ -56,12 +60,16 @@ $payables = core::model('payables')
 			<td class="dt"><?=core_format::date($payable['due_date'],'short')?></td>
 		</tr>
 		
-		<?}?>
+		<?
+			$counter++;
+		}
+		?>
 	</table>
 	<input type="hidden" name="invoicecreate_groupcount" value="<?=$counter?>" />
-	<div class="buttonset" id="invoice_create_buttonset">
-		<input type="button" onclick="$('#receivables_create_area,#all_receivables').toggle();" value="cancel" class="button_primary" />
-		<input type="button" onclick="core.payments.createInvoices();" class="button_primary" value="send invoices" />
+	<br />&nbsp;<br />
+	<div class="pull-right" id="invoice_create_buttonset">
+		<input type="button" onclick="$('#receivables_create_area,#all_receivables').toggle();" value="cancel" class="btn btn-warning" />
+		<input type="button" onclick="core.payments.createInvoices();" class="btn btn-primary" value="send invoices" />
 	</div>
 	<div class="buttonset" id="invoice_create_loading_progress" style="display: none;">
 		<img src="<?=image('loading-progress')?>" />

@@ -88,10 +88,10 @@ class core_controller_organizations extends core_controller
 	function delete_payment_methods()
 	{
 		global $core;
-		core_db::query('update addresses set is_deleted=1 where address_id in ('.$core->data['address_ids'].');');
-		core_datatable::js_reload('addresses');
+		core_db::query('delete from organization_payment_methods where opm_id in ('.$core->data['opm_ids'].');');
+		core_datatable::js_reload('payment_methods');
 
-		core_ui::notification('addresses deleted');
+		core_ui::notification('bank accounts deleted');
 	}
 
 	function set_home_hub()
@@ -344,9 +344,9 @@ class core_controller_organizations extends core_controller
 
 		# figure out which fields to import, based on role
 		if(lo3::is_admin())
-			$org->import_fields('org_id','name','domain_id','allow_sell','payment_allow_paypal','payment_allow_purchaseorder','buyer_type','profile','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days');
+			$org->import_fields('org_id','name','domain_id','allow_sell','payment_allow_paypal','payment_allow_purchaseorder','payment_allow_ach','buyer_type','profile','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days');
 		else if(lo3::is_market())
-			$org->import_fields('org_id','name','allow_sell','profile','payment_allow_paypal','payment_allow_purchaseorder','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days');
+			$org->import_fields('org_id','name','allow_sell','profile','payment_allow_paypal','payment_allow_purchaseorder','payment_allow_ach','product_how','public_profile','facebook','twitter', 'payment_entity_id', 'po_due_within_days');
 		else
 			$org->import_fields('org_id','name','profile','product_how','public_profile','facebook','twitter', 'payment_entity_id');
 

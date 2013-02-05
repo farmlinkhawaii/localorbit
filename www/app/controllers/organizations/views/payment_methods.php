@@ -1,5 +1,4 @@
-
-	<?php
+<?php
 	global $data,$core;
 	
 	if(!is_object($data))
@@ -21,52 +20,38 @@
 	$pms->add(new core_datacolumn('name_on_account','Name on Account',true,'25%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">{name_on_account}</a>','{name_on_account}','{name_on_account}'));
 	$pms->add(new core_datacolumn('nbr1_last_4','Account #',true,'25%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">************{nbr1_last_4}</a>','************{nbr1_last_4}','************{nbr1_last_4}'));
 	$pms->add(new core_datacolumn('nbr2_last_4','Routing #',true,'25%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">************{nbr2_last_4}</a>','************{nbr2_last_4}','************{nbr2_last_4}'));
-	$pms->render();
+	$pms->add(new core_datacolumn('opm_id',core_ui::check_all('opmids'),false,'4%',core_ui::check_all('opmids','opm_id')));
 	
-	#core::log('not here');
+	
+	$pms->size = (-1);
+	$pms->display_filter_resizer = false;
+	$pms->display_exporter_pager = false;
+	$pms->render_page_select = false;
+	$pms->render_page_arrows = false;
+	
+	
+	
 	
 	
 	?>
-	<div id="addPaymentButton">
-		<a class="btn btn-primary btn-small" onclick="org.editPaymentMethod(0,'','');"><i class="icon-plus" /> New Bank Account</a>
-		<a class="btn btn-danger btn-small pull-right" onclick="org.deletePaymentMethods(this.form);"><i class="icon-trash" /> Remove Checked</a>
+	<div id="paymentsTable">
+	<?
+	$pms->render();
+	?>
 	</div>
-
-	<fieldset id="editPaymentMethod" style="display: none;">
-		<legend>Bank Account Info</legend>
-
-		<div class="control-group">
-			<label class="control-label" for="pm_label">Label</label>
-			<div class="controls">
-				<input type="text" name="pm_label" value="" />
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label" for="name_on_account">Name on Account</label>
-			<div class="controls">
-				<input type="text" name="name_on_account" value="" />
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label" for="nbr1">Account #</label>
-			<div class="controls">
-				<input type="text" name="nbr1" value="" onfocus="if(new String(this.value).indexOf('*')===0){this.value='';}" />
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label" for="nbr2">Routing #</label>
-			<div class="controls">
-				<input type="text" name="nbr2" value="" onfocus="if(new String(this.value).indexOf('*')===0){this.value='';}" />
-			</div>
-		</div>
-
-		<input type="hidden" name="opm_id" value="" />
-
-		<div class="buttonset form-actions">
-			<input type="button" class="btn btn-primary" value="Save This Bank Account" onclick="org.savePaymentMethod(this.form);" />
-			<input type="button" class="btn" value="cancel" onclick="org.cancelPaymentChanges();" />
-		</div>
-	</fieldset>
+	<div id="addPaymentButton" class="pull-right">
+		<a class="btn btn-info btn-small" onclick="org.editPaymentMethod(0,'','');"><i class="icon-plus" /> New Bank Account</a>
+		<a class="btn btn-danger btn-small" onclick="org.deletePaymentMethods(document.organizationsForm);"><i class="icon-trash" /> Remove Checked</a>
+	</div>
+	<div class="row">
+		<div class="span3">&nbsp;</div>
+		<fieldset class="span6" id="editPaymentMethod" style="display: none;">
+			<legend>Bank Account Info</legend>
+			<?=core_form::input_text('Label','pm_label')?>
+			<?=core_form::input_text('Name on Account','name_on_account')?>
+			<?=core_form::input_text('Account #','nbr1','',array('onfocus'=>"if(new String(this.value).indexOf('*')===0){this.value='';}"))?>
+			<?=core_form::input_text('Routing #','nbr2','',array('onfocus'=>"if(new String(this.value).indexOf('*')===0){this.value='';}"))?>
+			<?=core_form::input_hidden('opm_id','')?>
+			<? subform_buttons('org.savePaymentMethod(document.organizationsForm);','Save This Bank Account','org.cancelPaymentChanges();'); ?>
+		</fieldset>
+	</div>
