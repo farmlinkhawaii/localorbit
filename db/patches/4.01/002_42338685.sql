@@ -33,7 +33,7 @@ insert into backgrounds (file_name, is_available) values ('greens.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('painting.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('Peaches.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('Potatoes.jpg', 1);
-insert into backgrounds (file_name, is_available) values ('Radishes.jpg', 1);
+insert into backgrounds (file_name, is_available) values ('Cheese.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('multicolortomatoes.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('Lentils.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('chard.jpg', 1);

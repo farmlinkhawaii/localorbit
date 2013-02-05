@@ -268,7 +268,15 @@ market.saveStyle = function () {
 }
 
 market.initialize=function () {
-	var bgColor;
+	var bgColor, images = [];
+
+	$('select.image-picker option').each( function () {
+		var image = $(this).data('img-src');
+		if (image) 
+		{
+			$('<img/>')[0].src = image;
+		}
+	});
 
 	$('.colorpicker[data-color]').each( function () {
 		var jq = $(this).colorpicker();
