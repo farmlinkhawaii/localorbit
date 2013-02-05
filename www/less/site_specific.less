@@ -203,7 +203,7 @@ body {
 					color: #fff;
 					text-decoration: none;
 					.border-radius(6px);
-					#gradient > .vertical(fade(@secondarycolor, 30%), fade(@secondarycolor, 60%));
+					#gradient > .vertical(fade(@mastercolor, 30%), fade(@mastercolor, 60%));
 					}
 
 					#mainnav li a .nav-actual {
@@ -263,20 +263,48 @@ body {
 	font-weight: bold;
 }
 
-.nav-active {
+#mainnavcontainer .nav-active {
 	background-color: @mastercolor;
 	color: #fff;
-	#gradient > .vertical(@secondarycolor, fade(@secondarycolor, 30%));
+	#gradient > .vertical(@mastercolor, fade(@mastercolor, 30%));
 	text-decoration: none;
 	.border-radius(6px);
 }
 
-.nav-subactive1 {
+#mainnavcontainer .nav-subactive1 {
 	background-color: @mastercolor;
+	color: #fff;
+	#gradient > .vertical(@mastercolor, fade(@mastercolor, 30%));
+	text-decoration: none;
+	.border-radius(6px);
+}
+
+#dashboardnav li > a:hover,
+#dashboardnav li > a.active,
+#dashboardnav .dropdown-menu li > a:hover,
+#dashboardnav .dropdown-menu li > a.active {
+	background-color: fade(@mastercolor, 30%);
+	background-image: none;
+}
+
+#dashboardnav .nav-active {
+	background-color: #e6e6e6;
+	color: #fff;
+	background-color: @mastercolor;
+	/*
+	text-decoration: none;
+	.border-radius(6px);
+*/
+}
+
+#dashboardnav .nav-subactive1 {
+	background-color: #e6e6e6;
+	/*
 	color: #fff;
 	#gradient > .vertical(@secondarycolor, fade(@secondarycolor, 30%));
 	text-decoration: none;
 	.border-radius(6px);
+	*/
 }
 
 /* Tabs */
