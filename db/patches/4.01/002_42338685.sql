@@ -38,7 +38,6 @@ insert into backgrounds (file_name, is_available) values ('multicolortomatoes.jp
 insert into backgrounds (file_name, is_available) values ('Lentils.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('chard.jpg', 1);
 insert into backgrounds (file_name, is_available) values ('driedbeans.jpg', 1);
-insert into backgrounds (file_name, is_available) values ('multicolortomatoes.jpg', 1);
 
 
 insert into fonts (font_name) values ('\'Open Sans Condensed\',\'Domine\', Georgia, \'Times New Roman\', Times, serif');
