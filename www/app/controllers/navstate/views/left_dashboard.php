@@ -62,7 +62,7 @@
 					<li><a id="discount_codes-list" href="#!discount_codes-list" onclick="core.go(this.href);"><i class="icon-tag"></i>Discount Codes</a></li>
 					<li><a id="delivery_tools-view" href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a id="sent_emails-list" href="#!sent_emails-list" onclick="core.go(this.href);"><i class="icon-mail-send"></i><?=$core->i18n['nav2:marketadmin:sentemails']?></a></li>
-					<li><a id="emails-list" href="#!emails-tests" onclick="core.go(this.href);"><i class="icon-envelop"></i><?=$core->i18n['nav2:emails:tests']?></a></li>
+					<li><a id="emails-tests" href="#!emails-tests" onclick="core.go(this.href);"><i class="icon-envelop"></i><?=$core->i18n['nav2:emails:tests']?></a></li>
 					<!--<li><a href="#!photos-list" onclick="core.go(this.href);">Photos</a></li>-->
 				</ul>
 			</li>
@@ -180,8 +180,8 @@
 				</a>
 				<ul class="dropdown-menu">
 					<!--<li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li>	-->
-					<li><a id="users-edit" href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-user"></i>E-mail 	&amp; Password</a></li>
-					<li><a id="organizations-edit" href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-grid"></i>Your Organization</a></li>
+					<li><a id="users-edit-me" href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-user"></i>E-mail 	&amp; Password</a></li>
+					<li><a id="organizations-edit-me" href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);"><i class="icon-grid"></i>Your Organization</a></li>
 					<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
 						<?if(lo3::is_customer() && !lo3::is_seller()){?>
 							<li><a id="reports-edit" href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
@@ -201,8 +201,8 @@
 <h2>Your Account</h2>
 <ul class="nav nav-list">
 	<!-- <li><a href="#!payments-demo" onclick="core.go(this.href);">Financial Management</a></li> -->
-	<li><a id="users-edit" href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
-	<li><a id="organizations-edit" href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
+	<li><a id="users-edit-me" href="#!users-edit--entity_id-<?=$core->session['user_id']?>-me-1" onclick="core.go(this.href);">Update Profile</a></li>
+	<li><a id="organizations-edit-me" href="#!organizations-edit--org_id-<?=$core->session['org_id']?>-me-1" onclick="core.go(this.href);">My Organization</a></li>
 	<?if($core->session['is_active'] == 1 && $core->session['org_is_active'] == 1){?>
 	<li><a id="orders-purchase_history" href="#!orders-purchase_history" onclick="core.go(this.href);">Purchase History</a></li>
 		<!--

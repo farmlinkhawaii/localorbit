@@ -1,8 +1,16 @@
 <?php
 
-core::ensure_navstate(array('left'=>'left_dashboard'),
+if($core->data['me'] == '1') 
+{
+	core::ensure_navstate(array('left'=>'left_dashboard'),'organizations-edit-me', 'account');
+}
+else
+{
+	core::ensure_navstate(array('left'=>'left_dashboard'),
 		array('organizations-list', 'organizations-list', '', 'organizations-edit'), 
 		array('market-admin', 'market-admin', '', 'account'));
+}
+		
 
 core_ui::fullWidth();
 

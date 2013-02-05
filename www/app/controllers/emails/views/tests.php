@@ -1,6 +1,6 @@
 <?
 
-core::ensure_navstate(array('left'=>'left_dashboard')); 
+core::ensure_navstate(array('left'=>'left_dashboard'),'emails-tests', 'marketing'); 
 core::head('List Markets','asdfasdfasdfsdf');
 core_ui::fullWidth();
 lo3::require_permission();
