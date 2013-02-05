@@ -148,7 +148,6 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 			else
 				$transaction->FrontEndTrace = 'LOPAY-'.$core->config['stage'].'-'.$payment['payment_id'];
 			
-			$transaction->FrontEndTrace = '';
 			$transaction->CustomerName  = strtoupper($account['name_on_account']);
 			$transaction->CustomerRoutingNo  = core_crypto::decrypt($account['nbr2']);
 			$transaction->CustomerAcctNo     = core_crypto::decrypt($account['nbr1']);
@@ -169,7 +168,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 				'InpACHTransRecord'=>$transaction,
 			));
 			
-			core::log("trans sent \n");
+			core::log(print_r($myresult,true));
 			
 			if($myresult->SendACHTransResult->Status =='SUCCESS')
 			{
