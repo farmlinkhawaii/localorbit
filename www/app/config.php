@@ -200,6 +200,8 @@ if($_SERVER['HTTP_HOST'] == 'dev.localorb.it' || strpos(__FILE__,'/dev/') > 0 ||
 	$core->config['session_name']    .= 'dev';
 	$core->config['db']['database']   = 'localorb_www_dev';
 	$core->config['db']['hostname']   = 'localhost';
+	$core->config['db']['username']   = 'localorb_www';
+	$core->config['db']['password']   = 'localorb_www_dev';
 	$core->config['payments']['paypal'] = array(
 		'password'=>'1331153423',
 		'username'=>'test_1331153383_biz_api1.localorb.it',

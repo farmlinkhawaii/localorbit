@@ -1,5 +1,5 @@
 <?php
-core::ensure_navstate(array('left'=>'left_dashboard'));
+core::ensure_navstate(array('left'=>'left_dashboard'), 'payments-demo', 'products-delivery');
 
 core_ui::fullWidth();
 
