@@ -40,11 +40,11 @@ $(function()
 	}
 );
 </script>
+<!--
 <?if($core->config['stage'] != 'production'){?>
 <p class="navbar-text pull-left">
 	<small>Style Switcher (Temporary):</small>
 </p>
-
 <ul class="nav pull-left">
 
 	<li><a href="#" rel="styles1" class="styleswitch"><small>1</small></a></li>
@@ -52,6 +52,7 @@ $(function()
 	<li><a href="#" rel="styles3" class="styleswitch"><small>3</small></a></li>
 
 </ul>
+-->
 <?}?>
 <ul class="nav pull-right">
 	<li class="divider-vertical"></li>
@@ -144,7 +145,7 @@ $(function()
 <? core::replace('nav1top');?>
 <li>
 	<a id="catalog-shop" href="<?=$core->config['app_page']?>#!catalog-shop" onclick="core.go(this.href);" class="main">
-		<span class="nav-actual"><?=$core->i18n['nav1:shop']?></span>
+		<span id="catalog-shop" class="nav-actual"><?=$core->i18n['nav1:shop']?></span>
 		<span class="nav-sec">See what's fresh</span>
 	</a>
 </li>
