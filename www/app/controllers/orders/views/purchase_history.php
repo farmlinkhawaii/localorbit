@@ -1,5 +1,5 @@
 <?php 
-core::ensure_navstate(array('left'=>'left_dashboard'),'orders-list','products-delivery');
+core::ensure_navstate(array('left'=>'left_dashboard'),'orders-purchase_history');
 
 core_ui::fullWidth();
 

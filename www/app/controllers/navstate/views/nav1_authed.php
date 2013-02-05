@@ -63,7 +63,7 @@ $(function()
 		</li>
 	<? else: ?>
 		<li>
-			<a id="orders-purchase_history" href="<?=$core->config['app_page']?>#!orders-purchase_history" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
+			<a id="dashboard-home" href="<?=$core->config['app_page']?>#!orders-purchase_history" onclick="core.go(this.href);" class="main"><?=$core->i18n['nav1:dashboard']?></a>
 		</li>
 	<!--	<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="">Your Account</a>
