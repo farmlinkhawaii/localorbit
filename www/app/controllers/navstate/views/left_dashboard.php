@@ -122,6 +122,7 @@
 					<li><a id="delivery_tools-view" href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a id="orders-list" href="#!orders-list" onclick="core.go(this.href);"><i class="icon-clipboard"></i><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
 					<li><a id="sold_items-list" href="#!sold_items-list" onclick="core.go(this.href);"><i class="icon-stack-checkmark"></i><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
+					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -161,6 +162,7 @@
 					<li><a id="delivery_tools-view" href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i>Upcoming Deliveries</a></li>
 					<li><a id="orders-current_sales" href="#!orders-current_sales" onclick="core.go(this.href);"><i class="icon-signup"></i>Current Sales</a></li>
 					<li><a id="reports-edit" href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
+					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
 					<!-- <li><a href="#!orders-sales_report" onclick="core.go(this.href);">Sales History</a></li> -->
 					<!-- <li><a href="#!payment_report-view" onclick="core.go(this.href);">Payment History</a></li> -->
 				</ul>
@@ -188,6 +190,7 @@
 							<li><a id="reports-edit" href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
 						<?}?>
 					<?}?>
+					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
 				</ul>
 			</li>
 		</ul>
