@@ -53,7 +53,7 @@ $payments->add_formatter('payable_info');
 $payments->add_formatter('payment_link_formatter');
 $payments->add_formatter('payment_direction_formatter');
 $payments->add_formatter('transaction_formatter');
-$payments_table = new core_datatable('transactions','payments/transactions',$payments);
+$payments_table = new core_datatable('transactions','payments/transaction_journal',$payments);
 
 $col_widths = (lo3::is_admin())?array('14%','10%','12%','12%'):array('22%','22%');
 
