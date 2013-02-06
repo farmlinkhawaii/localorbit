@@ -72,7 +72,7 @@ foreach($invoices as $invoice)
 		<td class="dt">
 			<input type="hidden" name="invoice_pay_group_<?=$cur_group?>__<?=$inv_counter?>" value="invoice_pay_<?=$invoice['invoice_id']?>" />
 			<input type="hidden" name="invoice_pay_group_due_<?=$cur_group?>__<?=$inv_counter?>" value="<?=$invoice['amount_due']?>" />
-			<input type="text" name="invoice_pay_group_id_<?=$invoice['invoice_id']?>" style="width: 120px;" />
+			<input type="text" disabled="disabled" style="background-color: #fff;border-color: #fff;color #222 !important;" name="invoice_pay_group_id_<?=$invoice['invoice_id']?>" style="width: 120px;" />
 		</td>
 	</tr>
 <?php
