@@ -18,13 +18,13 @@ else if(lo3::is_market())
 			vp.from_org_id in (
 				select otd1.org_id 
 				from organizations_to_domains otd1 
-				where otd1.domain_id in ('.$core->session['domains_by_orgtype_id'][2].')
+				where otd1.domain_id in ('.implode(',',$core->session['domains_by_orgtype_id'][2]).')
 			)
 			or
 			vp.to_org_id in (
 				select otd1.org_id 
 				from organizations_to_domains otd1 
-				where otd1.domain_id in ('.$core->session['domains_by_orgtype_id'][2].')
+				where otd1.domain_id in ('.implode(',',$core->session['domains_by_orgtype_id'][2]).')
 			)
 		)
 	');
