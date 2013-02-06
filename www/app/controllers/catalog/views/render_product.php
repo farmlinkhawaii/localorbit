@@ -55,7 +55,7 @@ $rendered_prices = 0;
 				<div class="span4">
 					<div class="row">
 						<ol class="span2 priceList">
-							<? $this->render_product_pricing($pricing); ?>
+							<? $this->render_product_pricing($pricing, $prod); ?>
 						</ol>
 
 						<div class="span2">

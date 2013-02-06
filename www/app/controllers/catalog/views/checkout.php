@@ -94,7 +94,7 @@ $cart->arrange_by_next_delivery();
 						foreach ($items as $item) {
 						?>
 					<div class="row">
-						<div class="span3"><?=$item['product_name']?></div>
+						<div class="span3"><?=$item['product_name']?> <? if($item['unit'] != '') { ?>(<?=$item['unit']?>)<? } ?></div>
 						<div class="span1"><?=$item['qty_ordered']?></div>
 						<div class="span1"><?=core_format::price($item['unit_price'])?></div>
 						<div class="span1 align-right"><?=core_format::price($item['row_total'])?></div>
