@@ -3,18 +3,18 @@ Contributors: Janek Niefeldt
 Donate link: http://www.janek-niefeldt.de/blog/mycustomwidget
 Tags: widget, customize, admin, sidebar, custom, plugin, code, own widget, tags, tag, filter, duplicate, copy
 Requires at least: 2.8
-Tested up to: 2.8
-Stable tag: 2.0.3
+Tested up to: 3.0
+Stable tag: 2.0.5
 
 Plugin to create your own custom widgets.
 
 == Description ==
 
-Use this plugin to create your own widgets, dublicate existing widgets and arrange them in a sidebar or anywhere else. 
-Thanks to filter definitions you can decide wether the widget should be displayed or not for specific pages or page-types.
+Use this plugin to create your own widgets, duplicate existing widgets and arrange them in a sidebar or anywhere else. 
+Thanks to filter definitions you can decide whether the widget should be displayed or not for specific pages or page-types.
 
-This Plugin does not work with Wordpress 2.7.1 and below. 
-If you are using wordpress 2.2 - 2.7.x please use Release 1.9.1 of this Plugin.
+This plugin does not work with Wordpress 2.7.1 and below. 
+If you are using Wordpress 2.2 - 2.7.x please use Release 1.9.1 of this plugin.
 
 The following features have been implemented:
 
@@ -37,7 +37,7 @@ and can be used outside of the sidebar as well
 2. Make file `my_custom_widget_classes.php` writeable (i.e. chmod 0666)
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Configure the plugin through option menu (e.g. define own filters) (optional)
-5. Define your Widgets through theme menu in wordpress.
+5. Define your Widgets through theme menu in Wordpress.
 6. Organize your widgets through the 'Widgets' menu in Wordpress
 7. Have fun
 
@@ -50,7 +50,7 @@ Just visit me on my website and describe the failure. I will see what I can do.
 Usually there should not be a problem. Nevertheless I added a backup routine. 
 
 = Cool stuff! But I miss something. Can I add it? =
-Sure you can. It's GPL! But you can also contact me. Maybe we can develope this plugin together.
+Sure you can. It's GPL! But you can also contact me. Maybe we can develop this plugin together.
 
 
 == Screenshots ==

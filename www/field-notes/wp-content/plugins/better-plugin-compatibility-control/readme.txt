@@ -2,9 +2,11 @@
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: admin, management, plugin, plugins, version, control, compatibility, compatible
-Requires at least: 2.5
-Tested up to: 2.8
+Requires at least: 2.8
+Tested up to: 3.6
 Stable tag: trunk
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Adds version compatibility info to the plugins page to inform the admin at a glance if a plugin is compatible with the current WP version.
 
@@ -19,8 +21,12 @@ Adds version compatibility info to the plugins page to inform the admin at a gla
 * Finnish (fi_FI) (Thanks to C. Hellberg for contributing finnish language)
 * Belorussian (by_BY) (Thanks for contributing belorussian language goes to [Marcis Gasuns](http://www.fatcow.com))
 * Russian (ru_RU) (Thanks for contributing russian language goes to [iPower](http://www.ipower.com))
+* Uzbek (uz_UZ) (Thanks for contributing uzbek language goes to [Alexandra Bolshova](http://www.comfi.com))
+* French (fr_FR) (Thanks for contributing french language goes to [tolingo translations](http://www.tolingo.com))
 
-**Want update feeds, code documentation and more? Visit [extend.schloebe.de](http://extend.schloebe.de)**
+[Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](http://twitter.com/wpseek "Developer on Twitter")
+
+**Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](http://www.schloebe.de/portfolio/)**
 
 == Frequently Asked Questions ==
 
@@ -44,6 +50,31 @@ Please visit [the official website](http://www.schloebe.de/wordpress/better-plug
 4. Installation finished.
 
 == Changelog ==
+
+= 3.5.1 =
+* Version dump
+
+= 3.5 =
+* Readme.txt updated to be more compliant with the readme.txt standard
+* Moved screenshots off the package to the assets/ folder
+
+= 3.4.1 =
+* Maintenance Release (Thanks a lot Gary Gale!)
+
+= 3.4 =
+* Maintenance Release
+
+= 3.3 =
+* Maintenance Release
+
+= 1.1.1 =
+* Now combines information from local readme.txt files and wordpress.org repository data, preferring local data
+* Multisite support
+
+= 1.1 =
+* New min version set to WP 2.8
+* Improved and more up-to-date compatibility info parsing by using `plugins_api` instead of parsing the plugin's local readme file
+* Code cleanup
 
 = 1.0.1 =
 * WordPress 2.8 compatibility

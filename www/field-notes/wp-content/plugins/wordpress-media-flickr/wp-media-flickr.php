@@ -4,7 +4,7 @@ Plugin Name: Wordpress Media Flickr
 Plugin URI: http://factage.com/yu-ji/tag/wp-media-flickr
 Description: You can post with flickr photo, on visual editor toolbar.<br />It's very interactive interface than other plugins.
 Author: yu-ji
-Version: 1.0.3
+Version: 1.1.2
 Author URI: http://factage.com/yu-ji
 */
 
@@ -29,7 +29,7 @@ class WpMediaFlickr {
     function WpMediaFlickr() {
         load_plugin_textdomain('wp-media-flickr', PLUGINDIR.'/'.dirname(plugin_basename(__FILE__)));
 
-        $this->settings = get_settings(get_class($this));
+        $this->settings = get_option(get_class($this));
 
         $flush_settings = false;
         foreach($this->default_settings as $key => $value) {
@@ -46,13 +46,12 @@ class WpMediaFlickr {
 
         add_action('media_buttons', array($this, 'addMediaButton'), 20);
         add_action('media_upload_flickr', array($this, 'media_upload_flickr'));
-        add_action('admin_head_media_upload_type_flickr', 'media_admin_css');
         add_action('admin_menu', array(&$this, 'addAdminMenu'));
-        
+
         // check auth enabled
         if(!function_exists('curl_init') && !ini_get('allow_url_fopen')) {
-			$this->disabled = true;
-		}
+            $this->disabled = true;
+        }
     }
 
     function addMediaButton() {
@@ -75,7 +74,7 @@ class WpMediaFlickr {
     function addAdminMenu() {
         if (function_exists('add_options_page')) {
             $plugin_basename = dirname(plugin_basename(__FILE__));
-            add_options_page(__('Media Flickr', 'wp-media-flickr'), __('Media Flickr', 'wp-media-flickr'), 8, "options-general.php?page=".$plugin_basename."/wp-media-flickr-admin.php");
+            add_options_page(__('Media Flickr', 'wp-media-flickr'), __('Media Flickr', 'wp-media-flickr'), 8, dirname(__FILE__)."/wp-media-flickr-admin.php");
         }
     }
 
@@ -158,20 +157,20 @@ class WpMediaFlickr {
         return md5(join('', $raws).join('', $args));
     }
 
-	function get_contents($url) {
-		if(function_exists('curl_init')) {
-			$ch = curl_init();
-			$timeout = 5; // set to zero for no timeout
-			curl_setopt ($ch, CURLOPT_URL, $url);
-			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-			$file_contents = curl_exec($ch);
-			curl_close($ch);
-			return $file_contents;
-		}else{
-			return file_get_contents($url);
-		}
-	}
+    function get_contents($url) {
+        if(function_exists('curl_init')) {
+            $ch = curl_init();
+            $timeout = 5; // set to zero for no timeout
+            curl_setopt ($ch, CURLOPT_URL, $url);
+            curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $file_contents = curl_exec($ch);
+            curl_close($ch);
+            return $file_contents;
+        }else{
+            return file_get_contents($url);
+        }
+    }
 }
 
 function media_upload_type_flickr() {
@@ -187,7 +186,7 @@ h3 {
 }
 .flickr_photo {
     width: 90px;
-    padding: 5px;
+    padding: 5px 7px;
     float: left;
     height: 110px;
 }
@@ -259,74 +258,117 @@ form input {
     text-align: center;
 }
 #buttons {
-	clear: both;
     text-align: center;
 }
-#allignments {
+#alignments {
     padding-left: 40px;
 }
 #sizes {
-	padding-left: 20px;
+    padding-left: 20px;
+}
+#sizes div {
+    padding: 0px;
 }
 #select_size {
-	float: left;
-	width: 200px;
+    float: left;
+    width: 200px;
 }
 #select_alignment {
-	float: left;
-	width: 200px;
+    float: left;
+    width: 200px;
 }
+#options {
+    clear: both;
+    text-align: center;
+}
+
+select#photoset {
+    width: 170px;
+    vertical-align: middle;
+    padding: 0px;
+    display: none;
+}
+div#div_size_o_disabled {
+    display: none;
+    color: #888;
+}
+h3 {
+    padding-top: 10px;
+}
+/* clearfix */
+.pkg:after{
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0px;
+    visibility:hidden;
+}
+.pkg{ display: inline-block; }
+/* no ie mac \*/
+* html .pkg{ height: 1%; }
+.pkg{ display: block; }
+/* */
 </style>
 <form method="get" class="media-upload-form type-form" onsubmit="return false">
     <input type="hidden" name="type" value="<?php echo $type ?>" />
     <input type="hidden" name="tab" value="<?php echo $tab ?>" />
     <div id="search-filter">
+        <?php _e('Search:', 'wp-media-flickr') ?>
         <input type="text" id="flickr_search_query" />
         <?php if(!empty($mediaFlickr->settings['username'])) { ?>
-        <input type="radio" id="flickr_user_id_0" name="w" value="" checked="checked"/><label for="flickr_user_id_0"><?php _e('Your Photos', 'wp-media-flickr') ?></label>
-        <input type="radio" id="flickr_user_id_1" name="w" value=""/><label for="flickr_user_id_1"><?php _e('Everyone\'s Photos', 'wp-media-flickr') ?></label>
+        <select id="photoset" name="photoset">
+        </select>
+        <input type="radio" id="flickr_search_0" name="flickr_search" class="searchTypes" value="own" checked="checked"/><label for="flickr_search_0"><?php _e('Your Photos', 'wp-media-flickr') ?></label>
+        <input type="radio" id="flickr_search_1" name="flickr_search" class="searchTypes" value="sets"/><label for="flickr_search_1"><?php _e('Your Sets', 'wp-media-flickr') ?></label>
+        <input type="radio" id="flickr_search_2" name="flickr_search" class="searchTypes" value="everyone"/><label for="flickr_search_2"><?php _e('Everyone\'s Photos', 'wp-media-flickr') ?></label>
         <?php } ?>
-        <input type="submit" onclick="flickr_search(0)" value="<?php _e('Search photo', 'wp-media-flickr'); ?>" class="button" />
+        <input type="submit" onclick="mediaFlickr.searchPhoto(0)" value="<?php _e('Search photo', 'wp-media-flickr'); ?>" class="button" />
     </div>
     <h3><?php _e('Flickr photos', 'wp-media-flickr') ?><span id="pages"></span></h3>
     <div id="pager">
         <div id="prev_page">
-            <a href="javascript:void(0)" onclick="return flickr_search(-1)"><?php _e('&laquo; Prev page', 'wp-media-flickr') ?></a>
+            <a href="javascript:void(0)" onclick="return mediaFlickr.searchPhoto(-1)"><?php _e('&laquo; Prev page', 'wp-media-flickr') ?></a>
         </div>
         <div id="next_page">
-            <a href="javascript:void(0)" onclick="return flickr_search(+1)"><?php _e('Next page &raquo;', 'wp-media-flickr') ?></a>
+            <a href="javascript:void(0)" onclick="return mediaFlickr.searchPhoto(+1)"><?php _e('Next page &raquo;', 'wp-media-flickr') ?></a>
         </div>
         <br style="clear: both;" />
     </div>
-    <div id="items">
+    <div id="items" class="pkg">
     </div>
 </form>
 <div id="put_background"></div>
 <form onsubmit="return false" id="put_dialog">
-	<div id="select_size">
-	    1. <?php _e('Select size of photo', 'wp-media-flickr') ?>
-	    <div id="size_preview"><img id="size_image" rel="none" src="<?php echo $mediaFlickr->pluginURI ?>/size_t.png" alt=""/></div>
-	    <div id="sizes">
-	        <input type="radio" id="size_sq" name="size" value="sq" /> <label for="size_sq"><?php _e('Square', 'wp-media-flickr') ?> (75 x 75)</label><br />
-	        <input type="radio" id="size_t" name="size" value="t" /> <label for="size_t"><?php _e('Thumbnail', 'wp-media-flickr') ?> (100 x 75)</label><br />
-	        <input type="radio" id="size_s" name="size" value="s" /> <label for="size_s"><?php _e('Small', 'wp-media-flickr') ?> (240 x 180)</label><br />
-	        <input type="radio" id="size_m" name="size" value="m" /> <label for="size_m"><?php _e('Medium', 'wp-media-flickr') ?> (500 x 375)</label><br />
-	        <input type="radio" id="size_l" name="size" value="l" /> <label for="size_l"><?php _e('Large', 'wp-media-flickr') ?> (1024 x 768)</label><br />
-	    </div>
-	</div>
-	<div id="select_alignment">
-	    2. <?php _e('Select alignment of photo', 'wp-media-flickr') ?>
-	    <div id="alignment_preview"><img id="alignment_image" rel="none" src="<?php echo $mediaFlickr->pluginURI ?>/alignment_none.png" alt=""/></div>
-	    <div id="allignments">
-	        <input type="radio" id="alignment_none" name="alignment" value="none" /> <label for="alignment_none"><?php _e('Default', 'wp-media-flickr') ?></label><br />
-	        <input type="radio" id="alignment_left" name="alignment" value="left" /> <label for="alignment_left"><?php _e('Left', 'wp-media-flickr') ?></label><br />
-	        <input type="radio" id="alignment_center" name="alignment" value="center" /> <label for="alignment_center"><?php _e('Center', 'wp-media-flickr') ?></label><br />
-	        <input type="radio" id="alignment_right" name="alignment" value="right" /> <label for="alignment_right"><?php _e('Right', 'wp-media-flickr') ?></label><br />
-	    </div>
-	</div>
+    <div id="select_size">
+        1. <?php _e('Select size of photo', 'wp-media-flickr') ?>
+        <div id="size_preview"><img id="size_image" rel="none" src="<?php echo $mediaFlickr->pluginURI ?>/size_t.png" alt=""/></div>
+        <div id="sizes">
+            <div id="div_size_sq"><input type="radio" id="size_sq" name="size" value="size_sq" /> <label for="size_sq"><?php _e('Square', 'wp-media-flickr') ?> (75 x 75)</label></div>
+            <div id="div_size_t"><input type="radio" id="size_t" name="size" value="size_t" /> <label for="size_t"><?php _e('Thumbnail', 'wp-media-flickr') ?> (100 x 75)</label></div>
+            <div id="div_size_s"><input type="radio" id="size_s" name="size" value="size_s" /> <label for="size_s"><?php _e('Small', 'wp-media-flickr') ?> (240 x 180)</label></div>
+            <div id="div_size_m"><input type="radio" id="size_m" name="size" value="size_m" /> <label for="size_m"><?php _e('Medium', 'wp-media-flickr') ?> (500 x 375)</label></div>
+            <div id="div_size_l"><input type="radio" id="size_l" name="size" value="size_l" /> <label for="size_l"><?php _e('Large', 'wp-media-flickr') ?> (1024 x 768)</label></div>
+            <div id="div_size_o"><input type="radio" id="size_o" name="size" value="size_o" /> <label for="size_o"><?php _e('Original', 'wp-media-flickr') ?></label></div>
+            <div id="div_size_o_disabled"><input type="radio" id="size_o" name="size" value="size_o" disabled="disabled"/> <?php _e('Original', 'wp-media-flickr') ?><?php _e('(not permitted)', 'wp-media-flickr') ?></div>
+        </div>
+    </div>
+    <div id="select_alignment">
+        2. <?php _e('Select alignment of photo', 'wp-media-flickr') ?>
+        <div id="alignment_preview"><img id="alignment_image" rel="none" src="<?php echo $mediaFlickr->pluginURI ?>/alignment_none.png" alt=""/></div>
+        <div id="alignments">
+            <input type="radio" id="alignment_none" name="alignment" value="none" /> <label for="alignment_none"><?php _e('Default', 'wp-media-flickr') ?></label><br />
+            <input type="radio" id="alignment_left" name="alignment" value="left" /> <label for="alignment_left"><?php _e('Left', 'wp-media-flickr') ?></label><br />
+            <input type="radio" id="alignment_center" name="alignment" value="center" /> <label for="alignment_center"><?php _e('Center', 'wp-media-flickr') ?></label><br />
+            <input type="radio" id="alignment_right" name="alignment" value="right" /> <label for="alignment_right"><?php _e('Right', 'wp-media-flickr') ?></label><br />
+        </div>
+    </div>
+    <div id="options">
+        <input type="checkbox" id="continue_insert" name="continue_insert" value="1" />
+        <label for="continue_insert"><?php _e('Continue to insert other photo.', 'wp-media-flickr') ?></label><br />
+    </div>
     <div id="buttons">
-        <input type="button" value="<?php _e('Cancel', 'wp-media-flickr') ?>" onclick="cancelInsertImage()" class="button"/>
-        <input type="submit" value="<?php _e('Insert', 'wp-media-flickr') ?>" onclick="insertImage()" class="button"/>
+        <input type="button" value="<?php _e('Cancel', 'wp-media-flickr') ?>" onclick="mediaFlickr.cancelInsertImage()" class="button"/>
+        <input type="submit" value="<?php _e('Insert', 'wp-media-flickr') ?>" onclick="mediaFlickr.insertImage()" class="button"/>
     </div>
 </form>
 <script type="text/javascript" src="<?php echo $mediaFlickr->pluginURI ?>/wp-media-flickr.js"></script>
@@ -358,187 +400,6 @@ var msg_pages = '<?php _e('(%1$s / %2$s page(s), %3$s photo(s))', 'wp-media-flic
 var setting_photo_link = <?php echo !empty($mediaFlickr->settings['photo_link']) ? 1 : 0 ?>;
 var setting_link_rel = '<?php echo !empty($mediaFlickr->settings['link_rel']) ? $mediaFlickr->settings['link_rel'] : '' ?>';
 var setting_link_class = '<?php echo !empty($mediaFlickr->settings['link_class']) ? $mediaFlickr->settings['link_class'] : '' ?>';
-
-var _page = 1;
-var _user_id = null;
-var _query = null;
-
-function flickr_search(paging) {
-    if(paging == 0) {
-        _page = 1;
-        if(document.getElementById('flickr_user_id_0') && document.getElementById('flickr_user_id_0').checked) {
-            _user_id = flickr_user_id;
-        }else{
-            _user_id = null;
-        }
-        _query = document.getElementById('flickr_search_query').value;
-    }else{
-        _page += paging;
-    }
-    if(_user_id) {
-        photo_search({ api_key: flickr_api_key, text: _query, page: _page, user_id: _user_id });
-    }else{
-        photo_search({ api_key: flickr_api_key, text: _query, page: _page });
-    }
-    return false;
-}
-
-var _image_url = '';
-var _flickr_url = '';
-var _title_text = '';
-
-function showInsertImageDialog(image_url, flickr_url, title_text) {
-    window['_image_url'] = image_url;
-    window['_flickr_url'] = flickr_url;
-    window['_title_text'] = title_text;
-
-    document.getElementById('alignment_none').checked = true;
-    document.getElementById('size_t').checked = true;
-    document.getElementById('put_dialog').style.display = 'block';
-    document.getElementById('put_background').style.display = 'block';
-}
-
-var alignments = ['alignment_none', 'alignment_left', 'alignment_center', 'alignment_right'];
-for(var i=0;i<alignments.length;i++) {
-	document.getElementById(alignments[i]).onchange = changeAlignment;
-	document.getElementById(alignments[i]).onchange = changeAlignment;
-	document.getElementById(alignments[i]).onchange = changeAlignment;
-	document.getElementById(alignments[i]).onchange = changeAlignment;
-}
-
-var sizes = ['size_sq', 'size_t', 'size_s', 'size_m', 'size_l'];
-for(var i=0;i<sizes.length;i++) {
-	document.getElementById(sizes[i]).onchange = changeSize;
-	document.getElementById(sizes[i]).onchange = changeSize;
-	document.getElementById(sizes[i]).onchange = changeSize;
-	document.getElementById(sizes[i]).onchange = changeSize;
-}
-
-function changeSize() {
-    var sizes = document.getElementsByName('size');
-    var size = null;
-    for(var i=0;i<sizes.length;i++) {
-        if(sizes[i].checked) {
-            size = sizes[i].value;
-            break;
-        }
-    }
-    if(size && document.getElementById('size_image').getAttribute('rel') != size) {
-        document.getElementById('size_preview').innerHTML = '<img id="size_image" rel="'+size+'" src="'+plugin_uri+'/size_'+size+'.png" alt=""/>';
-    }
-}
-
-function changeAlignment() {
-    var alignments = document.getElementsByName('alignment');
-    var alignment = null;
-    for(var i=0;i<alignments.length;i++) {
-        if(alignments[i].checked) {
-            alignment = alignments[i].value;
-            break;
-        }
-    }
-    if(alignment && document.getElementById('alignment_image').getAttribute('rel') != alignment) {
-        document.getElementById('alignment_preview').innerHTML = '<img id="alignment_image" rel="'+alignment+'" src="'+plugin_uri+'/alignment_'+alignment+'.png" alt=""/>';
-    }
-}
-
-var size_mapping = {
-	'sq': '_s',
-	't': '_t',
-	's': '_m',
-	'm': '',
-	'l': '_b'
-};
-
-function insertImage() {
-    image_url = window['_image_url'];
-    flickr_url = window['_flickr_url'];
-    title_text = window['_title_text'];
-
-    var sizes = document.getElementsByName('size');
-    var size = null;
-    for(var i=0;i<sizes.length;i++) {
-        if(sizes[i].checked) {
-            size = sizes[i].value;
-            break;
-        }
-    }
-    
-    var img = document.createElement('img');
-    img.alt = title_text;
-    if(!size || typeof size_mapping[size] == 'undefined') {
-		size = t;
-    }
-    img.src = image_url.replace(/\.jpg$/, size_mapping[size] + '.jpg');
-
-    var a = document.createElement('a');
-    a.href = flickr_url;
-    a.title = title_text;
-    a.rel = setting_link_rel;
-    
-    if(/*@cc_on!@*/false){
-	    a.setAttribute('className', setting_link_class);
-	}else{
-	    a.setAttribute('class', setting_link_class);
-	}
-	
-    var p = document.createElement('p');
-
-    var div = document.createElement('div');
-
-    var alignments = document.getElementsByName('alignment');
-    var alignment = null;
-    for(var i=0;i<alignments.length;i++) {
-        if(alignments[i].checked) {
-            alignment = alignments[i].value;
-            break;
-        }
-    }
-
-    if(alignment != 'none') {
-        if(alignment != 'center') {
-            if(is_msie) {
-                img.style.styleFloat = alignment;
-                img.setAttribute('className', 'align'+alignment);
-            }else{
-                img.style.cssFloat = alignment;
-                img.setAttribute('class', 'align'+alignment);
-            }
-        }else{
-            if(is_msie) {
-                img.setAttribute('className', 'alignnone');
-            }else{
-                img.setAttribute('class', 'alignnone');
-            }
-            p.style.textAlign = 'center';
-        }
-    }
-
-    a.appendChild(img);
-    p.appendChild(a);
-    div.appendChild(p);
-
-    top.send_to_editor(div.innerHTML);
-    top.tb_remove();
-}
-
-function cancelInsertImage() {
-    document.getElementById('put_dialog').style.display = 'none';
-    document.getElementById('put_background').style.display = 'none';
-}
-
-new Image().src = plugin_uri+'/alignment_none.png';
-new Image().src = plugin_uri+'/alignment_left.png';
-new Image().src = plugin_uri+'/alignment_center.png';
-new Image().src = plugin_uri+'/alignment_right.png';
-
-new Image().src = plugin_uri+'/size_sq.png';
-new Image().src = plugin_uri+'/size_t.png';
-new Image().src = plugin_uri+'/size_s.png';
-new Image().src = plugin_uri+'/size_m.png';
-new Image().src = plugin_uri+'/size_l.png';
-
-window.onload = function() { flickr_search(0) };
 //-->
 </script>
 <?php

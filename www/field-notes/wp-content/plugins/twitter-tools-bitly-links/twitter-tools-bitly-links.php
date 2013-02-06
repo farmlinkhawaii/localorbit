@@ -4,7 +4,7 @@
 
 Plugin Name:  Twitter Tools: bit.ly Links
 Plugin URI:   http://www.viper007bond.com/wordpress-plugins/twitter-tools-bitly-links/
-Version:      1.1.1
+Version:      1.1.2
 Description:  Makes the links that <a href="http://wordpress.org/extend/plugins/twitter-tools/">Twitter Tools</a> posts to Twitter be API-created <a href="http://bit.ly/">bit.ly</a> links so you can track the number of clicks and such via your bit.ly account. Requires PHP 5.2.0+.
 Author:       Viper007Bond
 Author URI:   http://www.viper007bond.com/
@@ -15,6 +15,10 @@ class TwitterToolsBitlyLinks {
 
 	// Initalize the plugin by registering the hooks
 	function __construct() {
+		// Twitter Tools v2.0+ supports this natively. Don't do anything if that sub-plugin is active.
+		if ( function_exists('aktt_bitly_shorten_url') )
+			return false;
+
 		// Load localization domain
 		load_plugin_textdomain( 'twitter-tools-bitly-links', false, '/twitter-tools-bitly-links/localization' );
 

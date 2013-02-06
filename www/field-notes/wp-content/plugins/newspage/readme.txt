@@ -5,8 +5,8 @@ Plugin URI: http://www.rogerstringer.com/projects/newspage
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=roger.stringer%40me%2ecom&item_name=newsPage&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: newspage, rss feeds
 Requires at least: 2.5
-Tested up to: 2.7.1
-Stable tag: 2.0
+Tested up to: 3.4.1
+Stable tag: 3.0
 
 newsPage is an easy to use plugin that allows you to have a headline aggregation page on your blog.
 

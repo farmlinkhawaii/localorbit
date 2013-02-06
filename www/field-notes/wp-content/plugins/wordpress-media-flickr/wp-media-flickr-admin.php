@@ -16,7 +16,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'auth'){
     }
 }
 if (isset($_POST['action']) && $_POST['action'] == 'update'){
-		unset($_POST['action']);
+        unset($_POST['action']);
         $mediaFlickr->update_settings($_POST);
 }
 if (isset($_POST['action']) && $_POST['action'] == 'clear'){
@@ -95,8 +95,8 @@ $settings = $mediaFlickr->settings;
     <tr>
         <th width="33%" valign="top" scope="row"><?php _e('Link of photo', 'wp-media-flickr') ?>: </th>
         <td>
-            <input type="radio" id="link_flickr" name="photo_link" value="0" <?php if(empty($settings['photo_link'])){ ?>checked="checked" <? } ?>/> <label for="link_flickr"><?php _e('The photo page of Flickr', 'wp-media-flickr'); ?></label><br />
-            <input type="radio" id="link_photo" name="photo_link" value="1" <?php if(!empty($settings['photo_link'])){ ?>checked="checked" <? } ?>/> <label for="link_photo"><?php _e('The photo directly', 'wp-media-flickr'); ?></label><br />
+            <input type="radio" id="link_flickr" name="photo_link" value="0" <?php if(empty($settings['photo_link'])){ ?>checked="checked" <?php } ?>/> <label for="link_flickr"><?php _e('The photo page of Flickr', 'wp-media-flickr'); ?></label><br />
+            <input type="radio" id="link_photo" name="photo_link" value="1" <?php if(!empty($settings['photo_link'])){ ?>checked="checked" <?php } ?>/> <label for="link_photo"><?php _e('The photo directly', 'wp-media-flickr'); ?></label><br />
         </td>
     </tr>
     <tr>

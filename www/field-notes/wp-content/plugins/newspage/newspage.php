@@ -4,7 +4,7 @@ Plugin Name: NewsPage
 Plugin URI: http://www.rogerstringer.com
 Description: Create an Rss-powered news page on your website
 Author: Roger Stringer
-Version: 2.0
+Version: 3.0
 Author URI: http://www.rogerstringer.com
 */
 	if (!defined('WP_CONTENT_DIR')) {
@@ -34,7 +34,7 @@ Author URI: http://www.rogerstringer.com
 
 	function npInit() {
 		global $npVersion;
-		#if (!headers_sent() && !session_id()) session_start();
+		if (!headers_sent() && !session_id()) session_start();
 		if (!defined('WP_CONTENT_URL')) define('WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content');
 		if (!defined('WP_PLUGIN_URL')) define('WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins');
 		if (!get_option('newspage_version')) npInstall();

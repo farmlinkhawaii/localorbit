@@ -1,43 +1,40 @@
 === IntenseDebate Comments ===
-Contributors: IntenseDebate, Automattic, beaulebens
-Tags: widget, profile, community, avatars, spam, notification, email, threaded, comments, intense debate, intensedebate, intense, debate, comment system, moderation, wpmu
-Requires at least: 2.5
-Tested up to: 2.8.6
-Stable tag: 2.5
+Contributors: IntenseDebate, automattic, beaulebens
+Tags: widget, profile, community, avatars, spam, notification, email, threaded, comments, intense debate, intensedebate, intense, debate, comment system, moderation
+Requires at least: 3.0
+Tested up to: 3.4.1
+Stable tag: 2.9.5
 
 IntenseDebate comments enhance and encourage conversation on your blog.  Build your reader community, increase your comments, & boost pageviews.
 
 == Description ==
-
 IntenseDebate Comments enhance and encourage conversation on your blog or website. Custom integration with your WordPress admin panel makes moderation a piece of cake. Comment threading, reply-by-email, user accounts and reputations, comment voting, along with Twitter and friendfeed integrations enrich your readers' experience and make more of the internet aware of your blog and comments which drives traffic to you!
 
 Full comment and account data sync between Intense Debate and WordPress ensures that you will always have your comments stored locally on your own server.
 
 == Installation ==
-
 *Note: As is the case when installing any new plugin, it's always a good idea to backup your blog data before installing.*
 
 1. After downloading the IntenseDebate plugin, unpack and upload the file to the wp-content/plugins folder on your blog. Make sure to leave the directory structure of the archive intact so that all of the IntenseDebate files are located in 'wp-content/plugins/intensedebate/'
-
 2. You will need to activate the IntenseDebate plugin in order to see your new comment system. Go to the Plugins tab and find IntenseDebate Comments in the list and click **Activate**.
-
 3. After activating proceed to the plugin settings page (under Settings > IntenseDebate) to configure your plugin. Don't forget to visit your account at [IntenseDebate.com](http://intensedebate.com) for *additional customization options*.
 
 == Frequently Asked Questions ==
+= Having Connection Issues During Install? =
+In order for our plugin to work properly, our servers need to be able to get in contact with yours. Some common causes for communication errors:
+
+1. You're attempting to install IntenseDebate on a local development server - your site must be online on the "public" internet
+2. Your site is password protected (.htaccess or similar)
+3. Your server is behind a firewall or 
+4. A caching plugin might be configured incorrectly
+
+For further assistance, please contact IntenseDebate support at support@intensedebate.com
 
 = What is data synchronization? =
-
 Comments made in IntenseDebate are automatically backed-up to your WordPress comment system, while your existing WordPress comments are automatically imported into IntenseDebate. You always have all of your comments so uninstalling is a one-click process if you change your mind. Syncing your accounts enables auto-login so logging into WordPress automatically logs you into IntenseDebate. Profile sync also means that comments you make are synchronized to both profiles so you maintain ownership of your profile.
 
 = What about SEO? =
-
 IntenseDebate outputs the standard WordPress comments enabling your comments to still be indexed by search engines that ignore JavaScript, while ensuring that visitors surfing with JavaScript disabled will be able to interact with comments made in IntenseDebate. Readers with JS disabled can comment in the original WP system and those comments will be imported into IntenseDebate.
-
-= How do I use my OpenID? = 
-
-While you can use your OpenID to login and signup with IntenseDebate, using your OpenID to synchronize IntenseDebate and WordPress accounts is not currently supported.
-
-If you created your account using your OpenID you will need to access your IntenseDebate username and userkey. Your username and user key will allow you to sync your accounts. You will need to be logged into IntenseDebate in order to access your username and [user key](http://intensedebate.com/userkey).
 
 = How do I sync my accounts? = 
 After installing and activating the IntenseDebate plugin you will need to update your account settings in your Plugin Settings page and either create an IntenseDebate account or login to your IntenseDebate account. Your data synchronization and comment import will start as soon as you have successfully logged in.
@@ -46,7 +43,6 @@ After installing and activating the IntenseDebate plugin you will need to update
 Your comments may take several hours to import. The time of your import is dependent on how many other import requests we are receiving in addition to how many comments are currently being imported. 
 
 == Screenshots ==
-
 1. An example of the comment system itself.  Notice all the extra goodies like user profile information, reputation, threaded comments, comment voting, RSS feeds for everything, and more!
 2. This is the enhanced moderation screen.  Note the extra information about the commenter (same drop down menu for each user from the previous screenshot is available here).
 3. The settings page for the IntenseDebate plugin.  There are many ways to customize IntenseDebate to do just as much as you want it to.
@@ -55,6 +51,52 @@ Your comments may take several hours to import. The time of your import is depen
 6. Final step of the registration process - a few helpful links to get you started getting the most out of your new IntenseDebate comment system.
 
 == Changelog ==
+= 2.9.5 =
+* Wrap JS output in an anonymous function to avoid variable conflicts
+
+= 2.9.4 =
+* Remove some old compatibility code
+* Performance optimizations
+* Better support for loading via HTTPS
+
+= 2.9.3 =
+* Remove mentions of $wpmu which is deprecated
+* Bump requirement to WP3.0
+* Get rid of our JSON library
+* Remove Facebook xd receiver file
+* Remove no-longer-used reference to Facebook cross-domain receiver
+* Update .pot file
+
+= 2.9.2 =
+* Remove unnecessary reference to wp-admin/includes/template.php
+* Import all comments not marked as spam (handles custom statuses etc)
+
+= 2.9.1 =
+* Remove user account linking/auto-login
+* Fix bug with jQuery selectors for jQ 1.5.2 compatibility
+* Update links to ID.com admin pages
+* Enhance comment moderation experience for WordPress.com users
+* Improve styling on comment moderation panel for recent WP versions
+
+= 2.9 =
+* Now *requires* WordPress 2.8+
+* Reduced query load
+* Optimize sync queue system for better performance
+* Improved option handling
+* Improve mobile device support
+* Improved compatibility with WP 3.0
+
+= 2.8 =
+* Added widgets for recent comments, top commenters, site comment stats, and most commented posts
+
+= 2.7 =
+* Added ability to explicitly log in as a WordPress.com user 
+* Added basic connection diagnostics during installation
+* More robust detection/loading of JSON libraries
+
+= 2.6 =
+* Fixed pass-by-reference bug for PHP 5.3, props Maciek P
+* Minor modification to the way JSON-compat functions are loaded to work better with WP 2.9 under certain conditions
 
 = 2.5 =
 * Adjusted sync queue handling to handle bigger queues more reliably

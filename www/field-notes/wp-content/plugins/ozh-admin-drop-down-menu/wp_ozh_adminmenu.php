@@ -2,10 +2,10 @@
 /*
 Plugin Name: Ozh' Admin Drop Down Menu
 Plugin URI: http://planetozh.com/blog/my-projects/wordpress-admin-menu-drop-down-css/
-Description: All admin links available in a neat horizontal drop down menu. Saves lots of screen real estate! <strong>For WordPress 2.8+</strong>
-Version: 3.3.6
+Description: All admin links available in a neat horizontal drop down menu. Saves lots of screen real estate! <strong>For WordPress 3.5+</strong>
+Version: 3.6.5
 Author: Ozh
-Author URI: http://planetOzh.com/
+Author URI: http://ozh.org/
 */
 
 /* Release History :
@@ -88,32 +88,59 @@ Author URI: http://planetOzh.com/
               Added: uk_UA (thanks wpp.pp.ua)
  * 3.3.5:     Added: uk (thanks Jurko Chervony!)
  * 3.3.6:     Minor cosmetic change to backend (twitter links)
-
+ * 3.3.7:     Fixed: javascript error occurence (thanks Jaume !)
+ * 3.3.8:     Added: zh_TW (thanks Paogray !)
+ * 3.3.9:     Fixed: the failed fixed of 3.3.7
+ * 3.3.10:    Fixed: stupid way of inserting Farbtastic all over the place (thanks olov !)
+ * 3.3.11:    Added: cs_CZ (thanks Honza!)
+ * 3.4:       Fixed: compatibility with WP 3.0
+              Improved: JS to resize-recolumn submenus
+ * 3.4.1:     Fixed: crappy red border for test I left in the CSS
+ * 3.4.2:     Fixed: mod_security potential issue causing CSS to not load
+ * 3.4.3:     Fixed: CSS & JS now loading in compliance with admin SSL pref
+ * 3.4.4:     Updated: zh_TW (thanks Joan Wang!)
+ * 3.4.5:     Fixed: reintroduced filters removed by accident in november 2008.
+ * 3.4.99:    Updated: Quick compatibility with WP 3.1 (missing icons)
+              Fixed: (some?) notices when debug mode on
+ * 3.5:       Updated: finished compat with WP 3.1 (added missing icons + proper init hooks used)
+              Fixed: JS bug introduced with WP 3.1 when resizing menus
+ * 3.5.1:     Added: nl_NL (thanks Cees van den Heuvel)
+ * 3.5.2:     Added: version constant
+ * 3.5.3:     Removed: a console.debug might be problematic
+ * 3.5.4:     Fixed: deprecated function calls removed
+ * 3.6:       Fixed: Compatibility with WP 3.2
+              Fixed: useless double slash in image URLs in .css.php
+ * 3.6.1:     Added: Filter for global config array
+ * 3.6.2:     Fixed: compatibility with WP 3.3 (thanks brasofilo!)
+ * 3.6.3:     Fixed: compatibility with Chrome 17 (thanks Samuel Aguilera!)
+              Fixed: bug if user has not admin capability and option "Minimal Mode" is checked (thanks Ed!)
+ * 3.6.4:     Fixed: compatibility with WP 3.5 (thanks Samuel Aguilera again!)
+ * 3.6.5:     Added: sk_SK (thanks Branco Radenovich)
  */
 
-/***** Hook things in when visiting an admin page. When viewing a blog page, nothing even loads in memory. ****/
 
-if (is_admin()) {
+define( 'OZH_MENU_VER', '3.6.5' );
+ 
+/***** Hook things in when visiting an admin page. When viewing a blog page, nothing even loads in memory. ****/
+if ( is_admin() ){
 	global $wp_ozh_adminmenu;
 	require_once(dirname(__FILE__).'/inc/core.php');
-	add_action('init', create_function('', 'wp_enqueue_script("jquery");')); // Make sure jQuery is always loaded
-	add_action('admin_menu', 'wp_ozh_adminmenu_init', -1000);	// Init plugin defaults or read options
+	add_action('admin_init', 'wp_ozh_adminmenu_init', -1000);	// Init plugin defaults or read options
 	add_action('admin_menu', 'wp_ozh_adminmenu_add_page', -999); // Add option page
 	add_action('admin_head', 'wp_ozh_adminmenu_head', 999); // Insert CSS & JS in <head>
 	add_action('in_admin_footer', 'wp_ozh_adminmenu_footer'); // Add unobstrusive credits in footer
-	add_filter( 'plugin_action_links_'.plugin_basename(__FILE__), 'wp_ozh_adminmenu_plugin_actions', -10); // Add Config link to plugin list
-	add_filter( 'ozh_adminmenu_icon_ozh_admin_menu', 'wp_ozh_adminmenu_customicon'); // This plugin will have its own icon of course
-	add_filter( 'admin_notices', 'wp_ozh_adminmenu', -9999); // Add the new admin menu right after the header area. Make sure we're first.
-
-
-	/*
-	// Mu stuff. Disabled for now, we'll see maybe when wpmu & wp 2.7 sync
-	global $wpmu_version;
-	if ($wpmu_version) {
-		require_once(dirname(__FILE__).'/inc/mu.php');
-		add_action( '_admin_menu', 'wp_ozh_adminmenu_remove_blogswitch_init', -100 ); // MU specific menu takeover
-	}
-	*/
+	add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'wp_ozh_adminmenu_plugin_actions', -10); // Add Config link to plugin list
+	add_filter('ozh_adminmenu_icon_ozh_admin_menu', 'wp_ozh_adminmenu_customicon'); // This plugin will have its own icon of course
+	add_filter('in_admin_header', 'wp_ozh_adminmenu', -9999); // Add the new admin menu right after the header area. Make sure we're first.
 }
 
-?>
+// Make sure it's WP 3.5+ only
+function wp_ozh_adminmenu_check(){
+	global $wp_version;
+	if ( version_compare($wp_version, '3.5', '<') ) {
+		deactivate_plugins( basename(__FILE__) );
+		wp_die("Sorry, this plugin requires WordPress 3.5 at least");
+	}
+}
+register_activation_hook(__FILE__, 'wp_ozh_adminmenu_check');
+

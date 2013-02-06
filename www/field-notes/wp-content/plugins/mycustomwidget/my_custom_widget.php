@@ -4,12 +4,12 @@ Plugin Name: My Custom Widgets
 Plugin URI: http://www.janek-niefeldt.de/blog/mycustomwidget/ 
 Description: Define your own or copy existing widgets and include them into your sidebar or everywhere else.
 Author: Janek Niefeldt 
-Version: 2.0.3
+Version: 2.0.5
 Author URI: http://www.janek-niefeldt.de/ 
 */ 
 
 /******************************************************************************/
-/* Version History:	                                                          */
+/* Version History:	                                                      */
 /******************************************************************************/
 /*0.1 - widget definition needs to be hard-coded                              */
 /*0.2 - adding option screen, widget definition via textbox                   */
@@ -41,13 +41,13 @@ Author URI: http://www.janek-niefeldt.de/
 /*2.0 - make compatible to wordpress 2.8                                      */
 /*2.0.1 - remove some bugs found by David Brewster                            */
 /*2.0.2 - and another one                                                     */
-/*2.0.2 - removed the root of "all evil"                                      */
+/*2.0.3 - removed the root of "all evil"                                      */
+/*2.0.4 - add compatibility with multiple blogs (thx HaZa)                    */
+/*2.0.5 - fix bug that disabled the maintenance area                          */
 /******************************************************************************/
 
-/* for Monique */
-
 /*  
-Copyright 2007-2009 Janek Niefeldt (email: mail@janek-niefeldt.de)
+Copyright 2007-2010 Janek Niefeldt (email: mail@janek-niefeldt.de)
 This program is free software; you can redistribute it and/or modify 
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
@@ -108,44 +108,6 @@ function MCW_plugin_init(){
     delete_option($mcw_prefix.$mcw_configoption.$mcw_backup_postfix);
   }
   
-/*************************************/    
-/***  start widget control dialog  ***/
-/*************************************/    	
-/* obsolete since wordpress 2.8
-  function MCW_control_dialog($widgetindex) {
-		$MyWidget = MCW_get_mywidget_by_index($widgetindex);
-		$mcw_submit_trigger = 'mcw-submit_';
-    $data_widget_code = 'mcw_new_widget_code';
-    $data_widget_kind = 'mcw_new_widget_kind';
-    $data_widget_filter = 'mcw_new_widget_filter';
-    $data_widget_title = 'mcw_new_widget_title';
-    $data_foreign_widget_id = 'mcw_foreign_widget_id';
-    
-		if ( !is_array($MyWidget)||empty($MyWidget) )
-			return;
-		if ( $_POST[$mcw_submit_trigger.$widgetindex] ) {
-      $MyWidget['beforecode'] = $_POST[$data_widget_code.$widgetindex.'_before'];
-      $MyWidget['code'] = $_POST[$data_widget_code.$widgetindex];
-      $MyWidget['kind'] = $_POST[$data_widget_kind.$widgetindex];
-      $MyWidget['filter'] = $_POST[$data_widget_filter.$widgetindex];
-      $MyWidget['title'] = $_POST[$data_widget_title.$widgetindex];
-      $MyWidget['foreign_id'] = $_POST[$data_foreign_widget_id.$widgetindex];  
-         
-		  MCW_set_mywidget($MyWidget);
-		}
-		$mcw_elements = array ( 'code'        => $data_widget_code,
-                            'kind'        => $data_widget_kind,
-                            'filter'      => $data_widget_filter,
-                            'title'       => $data_widget_title,
-                            'submit'      => $mcw_submit_trigger,
-                            'foreign_id'  => $data_foreign_widget_id);
-                            
-    include(MCW_get_url('style'));
-    MCW_get_widget_maintenance($MyWidget, $mcw_elements, $widgetindex, true);
-  }
-  
-*/
-  
 /************************************/
 /***     initialize widgets       ***/
 /************************************/
@@ -156,25 +118,17 @@ function MCW_plugin_init(){
     if (MCW_generaterequired() == true){
       echo MCW_generate_class();
     }
-    /* new since wordpress 2.8 */
-    include_once( "my_custom_widget_classes.php" );
-
-    /* obsolete since wordpress 2.8 
-    for ( $widgetindex = 0; $widgetindex < $maxindex; ++$widgetindex ) {
-      $widget = MCW_get_mywidget_by_name($myWidget_IDs_all[$widgetindex]['name']); 
-     
-      register_sidebar_widget($widget["name"], MCW_eval_code, $widgetindex);
-      register_widget_control($widget["name"], 'MCW_control_dialog', 400, 300, $widgetindex);
-    }
-    */
-    $tag=MCW_get_option('outfilter');
-    //echo $tag." 123";
-    add_filter($tag, MCW_make_available_outside);
+    //include_once( "my_custom_widget_classes.php" );
+    global $mcw_path;
+    include_once( $mcw_path["include_class"] );
     
+    $tag=MCW_get_option('outfilter');
+    
+    add_filter($tag, MCW_make_available_outside);
     
   }
 /*************************************************************************/
-/***  widget-implementation as it has to be according to wordpress 2.8 ***/
+/***  single widget-implementation as it has to be according to WP 2.8 ***/
 /*************************************************************************/  
   include_once( "my_custom_widget_addon.php" );  
 }

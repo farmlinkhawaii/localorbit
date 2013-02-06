@@ -1,87 +1,38 @@
 <?php
 /*
 Plugin Name: Future Calendar
-Plugin URI: http://anthologyoi.com/wordpress/plugins/future-posts-calendar-plugin.html
-Description: A simple plugin that utalizes a modified get_calendar function that shows what dates have a future post scheduled in a calendar format, and makes it easy to change the current timestamp. Temperature Functionality and some tweaks by Flavio Jarabeck (www.InternetDrops.com.br)
+Plugin URI: http://aahacreative.com/our-projects/future-posts-calendar-plugin/
+Description: A simple plugin that utilizes a modified get_calendar function that shows what dates have a future post scheduled in a calendar format, and makes it easy to change the current timestamp. Includes a widget to display posts on your website.
 Author: Aaron Harun
-Version: 1.0
-Author URI: http://anthologyoi.com/
+Version: 1.6.2
+Author URI: http://aahacreative.com/
+ Temperature Functionality and some tweaks by Flavio Jarabeck (www.InternetDrops.com.br)
+ Updated Dashboard widgets suggested by Pedro Sampaio (e-pedro.com)
 */
 
-/*Uncomment the following line if you want to have the calendar appear on the dashboard.*/
-//add_action('activity_box_end', 'get_future_calendar_html');
+/*Uncomment the following line if you want to have the calendar appear as a widget on the dashboard.*/
+//add_action('wp_dashboard_setup', 'fpc_setup_dashboard_widget');
 
 
-	if (strpos($_SERVER['PHP_SELF'], 'post')){	
-		if($wp_version < 2.5){
-			add_action('dbx_post_sidebar', 'get_future_calendar_html',2);
-		}else{
-			add_action('submitpost_box', 'get_future_calendar_html');
-		}
-		add_action('admin_head', 'fcal_javascript');
-	}
+add_action('admin_menu', 'fpc_init');
+add_action('widgets_init', 'fpc_widgets_init');
 
-
-// This gets called at the plugins_loaded action
-function widget_fut_posts_init() {
-
-	// Check for the required API functions
-	if ( !function_exists('register_sidebar_widget') || !function_exists('register_widget_control') )
-		return;
-
-	// This saves options and prints the widget's config form.
-	function widget_fut_posts_control() {
-		$options = $newoptions = get_option('widget_fut_posts');
-		if ( $_POST['fut_posts-submit'] ) {
-			$newoptions['title'] = strip_tags(stripslashes($_POST['fut_posts-title']));
-		}
-		if ( $options != $newoptions ) {
-			$options = $newoptions;
-			update_option('widget_fut_posts', $options);
-		}
-	?>
-				<div style="text-align:right">
-				<label for="fut_posts-title" style="line-height:35px;display:block;"><?php _e('Widget title:', 'widgets'); ?> <input type="text" id="fut_posts-title" name="fut_posts-title" value="<?php echo wp_specialchars($options['title'], true); ?>" /></label>
-				<input type="hidden" name="fut_posts-submit" id="fut_posts-submit" value="1" />
-				</div>
-	<?php
-	}
-
-	// This prints the widget
-	function widget_fut_posts($args) {
-		extract($args);
-		$defaults = array('title' => 'Future Posts');
-		$options = (array) get_option('widget_fut_posts');
-
-		foreach ( $defaults as $key => $value )
-			if ( !isset($options[$key]) )
-				$options[$key] = $defaults[$key];
-
-			echo $before_widget . $before_title . $title . $after_title;
-			fcal_get_future_posts(0);
-			echo $after_widget;
-	}
-
-
-	register_sidebar_widget('Future Posts', 'widget_fut_posts');
-	register_widget_control('Future Posts', 'widget_fut_posts_control');
+function fpc_init(){
+global $wp_version;
+	add_meta_box( 'future_calendar', 'Future Posts', 'get_future_calendar_html', 'post', 'side', 'high' );
 }
 
-// Delay plugin execution to ensure Dynamic Sidebar has a chance to load first
-add_action('widgets_init', 'widget_fut_posts_init');
-
-
-function future_post_sidebar(){
-	$title = __('Future Post','fcal');
-	echo '<div>' . '<h3>' . $title . '</h3>';
-	fcal_get_future_posts();
-	echo '</div>';
+function fpc_widgets_init() {
+	register_widget('fpc_widget');
 }
 
 function fcal_javascript(){
-	echo '
+	?>
 	<script type="text/javascript">
 		function fcal_set_date(day,month,year){
+				if(jQuery('.edit-timestamp:visible').length > 0){
+					jQuery('.edit-timestamp:visible').click();
+				}
 
 				if(day > 0 && month <= 12 && month >= 0 && year > 0){
 				document.getElementById("jj").value = day;
@@ -90,27 +41,40 @@ function fcal_javascript(){
 				}
 
 		}
+
+	jQuery(document).ready( function($) {
+		// close postboxes that should be closed
+		jQuery('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+
+		// postboxes
+		<?php
+		global $wp_version;
+		if(version_compare($wp_version,"2.7-alpha", "<")){
+			echo "add_postbox_toggles('future_calendar');"; //For WP2.6 and below
+		}
+		else{
+			echo "postboxes.add_postbox_toggles('future_calendar');"; //For WP2.7 and above
+		}
+		?>
+
+	});
+
+
 	</script>
-	';
+<?php
 }
 
 
 function get_future_calendar_html(){
 global $wp_version;
 	
-	if($wp_version < 2.5){
-		echo '<fieldset id="future_cal" class="dbx-box side-info">';
-		echo '<h3 class="dbx-handle">'.__('Future Post Dates','fcal').'</h3>';
-		echo '<div class="dbx-content">';
-			fcal_get_future_posts();
-		echo '</div></fieldset>';
-	}else{
-		echo '<div class="inside">';
-		echo '<p><strong>'.__('Future Post Dates','fcal').'</strong></p>';
-			fcal_get_future_posts();
-		echo '</div>';
-		
-	}
+	fcal_javascript();
+	// output editing form
+	fcal_get_future_posts();
+	
+	wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
+	wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
+
 	
 }
 
@@ -162,7 +126,7 @@ function get_future_calendar( $thismonth ='', $thisyear='', $onclick=1, $initial
 	$add_hours = intval(get_option('gmt_offset'));
 	$add_minutes = intval(60 * (get_option('gmt_offset') - $add_hours));
 
-	echo '<table class="wp-calendar">
+	echo '<table class="wp-calendar" style="margin: 0pt auto; width:160px;">
 	<caption><em>' . $wp_locale->get_month($thismonth) . ' ' . $thisyear . '</em></caption>
 	<thead>
 	<tr>';
@@ -172,7 +136,6 @@ function get_future_calendar( $thismonth ='', $thisyear='', $onclick=1, $initial
 	for ( $wdcount=0; $wdcount<=6; $wdcount++ ) {
 		$myweek[] = $wp_locale->get_weekday(($wdcount+$week_begins)%7);
 	}
-
 	foreach ( $myweek as $wd ) {
 		$day_name = (true == $initial) ? $wp_locale->get_weekday_initial($wd) : $wp_locale->get_weekday_abbrev($wd);
 		echo "\n\t\t<th abbr=\"$wd\" scope=\"col\" title=\"$wd\">$day_name</th>";
@@ -257,7 +220,7 @@ function get_future_calendar( $thismonth ='', $thisyear='', $onclick=1, $initial
         // any posts on that day?
 		if ( in_array($day, $daywithpost) ) {
             //Outputs the Density Thermometer along with the day...
-			echo '<span style="background-color:'.($ak_posts_for_day[$day]<=Count($thermo) ? $thermo[$ak_posts_for_day[$day]-1] : $thermo[Count($thermo)-1]).';" title="'.$ak_titles_for_day[$day].' '.$onclick1.' >'.$day.'</span>';
+			echo '<span style="background-color:'.($ak_posts_for_day[$day]<=Count($thermo) ? $thermo[$ak_posts_for_day[$day]-1] : $thermo[Count($thermo)-1]).';" title="'.$ak_titles_for_day[$day].'" '.$onclick1.' >'.$day.'</span>';
 
 		} else {
 			echo '<span '.$onclick1.' >'.$day.'</span>';
@@ -274,4 +237,87 @@ function get_future_calendar( $thismonth ='', $thisyear='', $onclick=1, $initial
 
 	echo "\n\t</tr>\n\t</tbody>\n\t</table>";
 }
+
+
+/*Add Dashboard Widget via function wp_add_dashboard_widget()*/
+function fpc_setup_dashboard_widget() {
+    wp_add_dashboard_widget( 'fpc_add_dashboard_widget', __( 'Future Posts' ), 'fpc_add_dashboard_widget' );
+}
+
+function fpc_add_dashboard_widget(){
+	fcal_get_future_posts(0);
+}
+
+
+class fpc_widget extends WP_Widget {
+
+	function fpc_widget() {
+
+		$widget_ops = array('classname' => 'fpc_widget', 'description' => __( "Show your blog's Future Posts in the sidebar.") );
+		echo $this->WP_Widget('fpc_widget', __('Future Posts Sidebar'), $widget_ops);
+	}
+
+
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$this->flush_widget_cache();
+
+		$alloptions = wp_cache_get( 'alloptions', 'options' );
+		if ( isset($alloptions['fpc_widget']) )
+			delete_option('fpc_widget');
+
+		return $instance;
+	}
+
+	function flush_widget_cache() {
+		wp_cache_delete('fpc_widget', 'widget');
+	}
+
+	function form( $instance ) {
+		$title = isset($instance['title']) ? esc_attr($instance['title']) : '';
+?>
+
+		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title'); ?></label>
+		<input type="text" name="<?php echo $this->get_field_name('title'); ?> id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo $title;?>">
+		</p>
+<?php
+	}
+
+	function widget($args, $instance) {
+		global $wpdb;
+
+		$cache = wp_cache_get('fpc_widget', 'widget');
+
+		if ( !is_array($cache) )
+			$cache = array();
+
+		if ( isset($cache[$args['widget_id']]) ) {
+			echo $cache[$args['widget_id']];
+			return;
+		}
+
+		ob_start();
+		extract($args);
+
+		$title = apply_filters('widget_title', empty($instance['title']) ? __('Scheduled Posts') : $instance['title']);
+?>
+		<?php echo $before_widget; ?>
+		<?php echo $before_title; ?><?php if ( $title ) echo $title; ?><?php echo $after_title; ?>
+		<div id="fpc">
+			<?php fcal_get_future_posts(0);?>
+		</div>
+		<?php echo $after_widget; ?>
+<?php
+
+		$cache[$args['widget_id']] = ob_get_flush();
+
+		wp_cache_add('fpc_widget', $cache, 'widget');
+	}
+
+
+
+}
+
+
 ?>

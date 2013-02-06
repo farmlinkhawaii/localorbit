@@ -1,12 +1,15 @@
 ﻿=== RSSImport ===
-Contributors: Bueltge
+Contributors: Bueltge, novaclic
+Plugin URI: http://bueltge.de/wp-wartungsmodus-plugin/101/
+Author: Frank B&uuml;ltge
+Author URI: http://bueltge.de/
 Donate link: http://bueltge.de/wunschliste/
 Tags: rss, post, content, post, feed
 Requires at least: 1.5
-Tested up to: 2.9-rare
+Tested up to: 3.4
+Stable tag: 4.4.12
 
 Import and display Feeds in your blog, use PHP or the Shortcode.
-
 
 == Description ==
 Import and display Feeds in your blog, use PHP, a Widget or the Shortcode. The plugin use the standards of WordPress, non extra library; use [MagpieRSS](http://magpierss.sourceforge.net/) or [SimplePie](http://simplepie.org/) for parse feeds.
@@ -27,7 +30,7 @@ For all boolean parameter it is possible to use the string `true` or `false` or 
 1. `feedurl` - Feed-Adress, Default is `http://bueltge.de/feed/`
 1. `before_desc` - string before description, Default is `empty`
 1. `displaydescriptions` - (bool) true or false for display description of the item, Default is `false`
-1. `after_desc` - string after description, Default is `empty`; you can use the follow strings for custom html `%title` for title of entry and `%href` for link of entry
+1. `after_desc` - string after description, Default is `empty`; you can use the follow strings for custom html `%title%` for title of entry and `%href%` for link of entry
 1. `html` - (bool) display description include HTML-tags, Default is `false`
 1. `truncatedescchar` - truncate description, number of chars, Default is `200`, set the value to empty `''` for non truncate
 1. `truncatedescstring` - string after truncate description, Default is ` ... `
@@ -45,7 +48,8 @@ For all boolean parameter it is possible to use the string `true` or `false` or 
 1. `start_item` - string before the item, Default is `<li>`
 1. `end_item` - string after the items, Default is `</li>`
 1. `target` - string with the target-attribut, Default is `empty`; use `blank`, `self`, `parent`, `top`
-1. `rel`- string with the rel-attribut, Default is `empty`, use string, `nofollow`, `follow`
+1. `rel` - string with the rel-attribut, Default is `empty`, use string, `nofollow`, `follow`
+1. `desc4title` - Use description for the title-attribut on the title-link, Default is `false`
 1. `charsetscan` - Scan for charset-type, load slowly; use this for problems with strings on the return content, Default is `false`
 1. `debug` - activate debug-mode, echo the array of Magpie-Object; Default is `false`, Use only for debug purpose
 1. `before_noitems` - HTML or string before message, when the feed is empty, Default is `<p>`
@@ -54,7 +58,7 @@ For all boolean parameter it is possible to use the string `true` or `false` or 
 1. `before_error` - HTML or string before message, when the feed have an error, Default is `<p>`
 1. `error` - Errormessage, Default is `Error: Feed has a error or is not valid`
 1. `after_error` - HTML or string before message, when the feed have an error, Default is `</p>`
-1. `paging` - Pagination on, set `true`, Default is `false`
+1. `paging` - Pagination on, set `TRUE`, Default is `FALSE`
 1. `prev_paging_link` - Linkname for previous page, Default is `&laquo; Previous`
 1. `next_paging_link` - Linkname for next page, Default is `Next &raquo;`
 1. `prev_paging_title` - Title for the link of previous page, Default is `more items`
@@ -69,28 +73,24 @@ All parameters it is possible to use in the function, only in templates with PHP
 = Examples: =
 _The function with many parameters:_
 
-`RSSImport(
-`						$display = 5, $feedurl = 'http://bueltge.de/feed/',`
-`						$before_desc = '', $displaydescriptions = false, $after_desc = '', $html = false, $truncatedescchar = 200, $truncatedescstring = ' ... ',`
-`						$truncatetitlechar = '', $truncatetitlestring = ' ... ',`
-`						$before_date = ' <small>', $date = false, $after_date = '</small>',`
-`						$before_creator = ' <small>', $creator = false, $after_creator = '</small>',`
-`						$start_items = '<ul>', $end_items = '</ul>',`
-`						$start_item = '<li>', $end_item = '</li>'`
-`					)`
+	RSSImport(
+		$display = 5, $feedurl = 'http://bueltge.de/feed/', 
+		$before_desc = '', $displaydescriptions = false, $after_desc = '', $html = false, $truncatedescchar = 200, $truncatedescstring = ' ... ', 
+		$truncatetitlechar = '', $truncatetitlestring = ' ... ', 
+		$before_date = ' <small>', $date = false, $after_date = '</small>', 
+		$before_creator = ' <small>', $creator = false, $after_creator = '</small>', 
+		$start_items = '<ul>', $end_items = '</ul>', 
+		$start_item = '<li>', $end_item = '</li>' 
+	)
 
 _The shortcode with a lot of parameters:_
 
-`[RSSImport display="10", feedurl="http://your_feed_url/", `
-`displaydescriptions="true", html="true"`
-`start_items="<ol>", end_items="</ol>", paging="true" ]`
+	[RSSImport display="10" feedurl="http://your_feed_url/" 
+	displaydescriptions="true" html="true" 
+	start_items="<ol>" end_items="</ol>" paging="true" ]
 
-= Localizations =
-* German language files by me [Frank B&uuml;ltge](http://bueltge.de/) ;-) 
-* Russian translation by [Fat Cow](http://www.fatcow.com "Fat Cow")
-* Ukrainian translation by [WordPress Ukraine](http://wpp.pp.ua/)
-
-Please visit [the official website](http://bueltge.de/wp-rss-import-plugin/55/ "RSSImport") for further details and the latest information on this plugin.
+= Interested in WordPress tips and tricks =
+You may also be interested in WordPress tips and tricks at [WP Engineer](http://wpengineer.com/) or for german people [bueltge.de](http://bueltge.de/) 
 
 
 == Installation ==
@@ -104,13 +104,43 @@ Please visit [the official website](http://bueltge.de/wp-rss-import-plugin/55/ "
 == Screenshots ==
 1. Widget support
 
-
 == Changelog ==
-= v4.4.7 (12/10/2009) =
-* add option vor format the date
+= v4.4.12 (04/02/2012) =
+* Bugfix: restored RSSImport QuickTag for Wordpress 3.3 and later
+* Improvement: avoid PHP-notice when description is missing for an item
+* TODO: add parameter to allow prefix of url (see http://wordpress.org/support/topic/plugin-rssimport-fix-for-headline-links-without-full-paths)
+* TODO: check documentation of call to function (PHP), see http://wordpress.org/support/topic/plugin-rssimport-change-feed-display
+* Documentation: corrected 'after_desc' (thanks to elricky for reporting)
+
+= v4.4.11 (13/12/2011) =
+* Bugfix: noitems string display is back
+* Improvement: html_entity_decode feedurl when using shortcodes
+* Maintenance: Add romanian language files
+
+= v4.4.10 (01/12/2011) =
+* Bugfix: add param desc4title on shortcodes
+* Bugfix: Filter Feed-Url vor masked `&`; now works Yahoo Pipes feeds
+* Maintenance: Translate strings from options
+
+= v4.4.9 (09/16/2010) =
+* Feature: add new param `desc4title` to add the description to title-attribut on title-links
+* Bugfix: target parameter in widget
+* Maintenance: rescan/rewrite de_DE language file
+* Maintenance: rescan .pot
+
+= v4.4.8 (06/04/2010) =
+* small changes for better debugging
+* change metadata for WordPress
+* multilanguage plugin-description
+* change error-handling on feeds; use WP-Error
+
+= v4.4.7 (05/20/2010) =
+* bugfix widget parameter for description
+* small changes on source
 
 = v4.4.6 (07/10/2009) =
 * add function for WordPress lower version 2.8
+* add option for format the date
 
 = v4.4.5 (30/09/2009) =
 * bugfix Widget-title
@@ -140,25 +170,20 @@ See on [the official website](http://bueltge.de/wp-rss-import-plugin/55/#histori
 = Acknowledgements =
 Thanks to [Dave Wolf](http://www.davewolf.net, "Dave Wolf") for the idea, to [Thomas Fischer](http://www.securityfocus.de "Thomas Fischer") and [Gunnar Tillmann](http://www.gunnart.de "Gunnar Tillmann") for better code and Ilya Shindyapin, http://skookum.com for the idea and solution of pagination.
 
-* Russian translation by [Fat Cow](http://www.fatcow.com "Fat Cow")
+= Localizations =
+* German language files by me [Frank B&uuml;ltge](http://bueltge.de/) ;-) 
+* Russian translation by Fat Cow
 * Ukrainian translation by [WordPress Ukraine](http://wpp.pp.ua/)
+* French translation by [Martin Korolczuk](http://petitnuage.fr)
+* Hungarian translation by [Feriman](http://feriman.com)
+* Hindi translation by [Ashish Jha](http://outshinesolutions.com)
+* Italian translation by [Gianni Diurno](http://gidibao.net/)
+* Romanian language files, thanks to [Alexander Ovsov](http://webhostinggeeks.com/)
+* Lithuanian translation files by [Vincent G](http://www.host1plus.com)
+* Portuguese translation files by [Miguel Patricio Angelo](http://www.miguelpatricio.com/)
 
 = Licence =
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me and leave a [small donation](http://bueltge.de/wunschliste/ "Wishliste and Donate") for the time I've spent writing and supporting this plugin. And I really don't want to know how many hours of my life this plugin has already eaten ;)
 
 = Translations =
 The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the sitemap.pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows).
-
-
-== Frequently Asked Questions ==
-= Where can I get more information? =
-Please visit [the official website](http://bueltge.de/wp-rss-import-plugin/55/ "RSSImport") for the latest information on this plugin.
-
-= Changelog? =
-Please visit [the official website](http://bueltge.de/wp-rss-import-plugin/55/#historie "RSSImport Changelog") for the latest information on this plugin.
-
-= I love this plugin! How can I show the developer how much I appreciate his work? =
-Please visit [the official website](http://bueltge.de/wp-rss-import-plugin/55/ "RSSImport") and let him know your care or see the [wishlist](http://bueltge.de/wunschliste/ "Wishlist") of the author.
-
-== Make more with the plugin ==
-Please visit [RSSImportTwo](http://bueltge.de/wp-rssimporttwo-plugin/165/ "RSSImportTwo") for more features and tutorial to import with more HTML. It give it a tutorial and a plugin.

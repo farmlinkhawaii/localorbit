@@ -1,50 +1,63 @@
 === UMapper ===
 Contributors: umapper
 Donate link: http://www.umapper.com/
-Tags: google, google maps, openstreet, virtual earth, maps, kml, kmz, routes, flash, Post, admin, widgets, media, geo, shortcodes
-Requires at least: 2.5.1
-Tested up to: 2.6.3
+Tags: bing maps, google maps, openstreet, cloudmade, yahoo maps, maps, kml, kmz, routes, widgets, geo, shortcodes
+Requires at least: 2.8
+Tested up to: 2.8
 Stable tag: trunk
 
-UMapper makes it a snap to create engaging maps and add them to your blog posts. Features integrated map editor - no KML knowledge required! 
+UMapper makes it a snap to create engaging maps and add them to your blog posts. Features integrated map editor - no KML knowledge required!
 
 == Description ==
 
-The __UMapper__ plugin is a universal mapping platform that makes it a snap to create engaging maps and add them to your blog posts. Microsoft Virtual Earth, Google Maps, Yahoo and OpenStreet are all supported by this truly universal plugin.
+The __UMapper__ plugin is a universal mapping platform that makes it a snap to create engaging maps and add them to your blog posts.
+
+Microsoft Bing, Google Maps, Yahoo, OpenStreet and CloudMade are all supported by this truly universal plugin.
 
 __Support:__
 
 If you encounter any problem whatsoever, please, feel free to contact me via victor ~at~ afcomponents ~dot~ com.
 
+Please make sure that you are running WP 2.8 or higher + PHP5, otherwise plugin would not work as expected.
+
 __New version includes:__
 
-* New provider added - Yahoo!
-* You can now import your feeds directly into map editor - acceptable formats are KML, GPX, GeoRSS
-* Link Data Feed
-* I18n support - currently work in progress (support for Russian language was added for beta)
-* WordPressMU is truly supported - just enter [UMapper Integrator's Key](http://www.umapper.com/developers/api/integrator/) as site admin and all your hosted blogs would be able to interact with UMapper.com - no other keys are required!
-* By popular request: custom map sizes are now available!
-* Ability to delete maps from within plugin w/o visiting UMapper site.
-* Rewritten UI, should make map creation much more simple.
+* Full WP 2.8 support
+* Interfaces got redesigned and should be more user-friendly now!
+* GeoDart games - [check out](http://www.umapper.com/blog/?p=1088) this tutorial and create your own geo-games!
+* New provider added - CloudMade!
+* Embed templates - additional customization of your maps (including GeoDart games!)
 
 __Supported map providers:__
 
-* Microsoft Virtual Earth
+* Microsoft Bing
 * Google Maps
 * OpenStreet
 * Yahoo!
+* CloudMade (Standard and Stamen)
 
 __Features:__
 
-* Integrated map editor - manipulating geo contents has never been easier!
-* Switching between map providers when creating a map, and later on when editing.
-* Popular shortcode architecture introduced in WordPress 2.5
+* Integrated map editor - must see!
+* Switching between map providers on fly
 * Editor has HTML capabilities and allows Wikipedia and GeoNames search!!
+* Routing
 * Allows non-technical users to create and manipulate objects, markers and geometrical shapes on the map
 * Provides "save" and "edit" functionality
-* Provides collaboration tools, map wiki, and social networking features (comments, ratings, etc.)
 * Allows map distribution via embeds and widgets
-* Allows syndication of map data using KML 
+* Allows syndication of map data using KML
+
+__BIG thanks to our i18n contributors!__
+
+* [Gianni Diurno](http://gidibao.net/) - Italian it_IT
+* [Victor Farazdagi](http://www.phpmag.ru) - Russian ru_RU
+* [Jaakko Kangosjärvi](http://kaljukopla.net/) - Finnish fi_FI
+* [Lukáš Daněk](http://svetkolecek.cz/trasy) - Czech cs_CZ
+* [Bo Zhao](http://www.geoinformatics.cn/) - Chinese zh_CN
+* [Fat Cower](http://www.fatcow.com) - Belorussian by_BY
+
+Want to help translating the plugin into your language? Please, contact me via victor ~at~ afcomponents ~dot~ com..
+
 
 __More Info:__
 
@@ -58,15 +71,16 @@ __More Info:__
 General requirements:
 
 * PHP 5.2.5 (5.1+ would probably also be ok, although no tests have been done)
-* WordPress 2.5.1+ (we test each stable version when it becomes availble)
+* curl library should be enabled in your PHP installation
+* WordPress 2.8+ (we test each stable version when it becomes availble)
 * JS is enabled in browser
 
 Umapper plugin was tested to run in following browsers:
 
-* Firefox 2 - fully supported
-* IE 7 - this browser is not advised as WordPress has several limitations/bugs when run in it.
-* Apple Safari 3 - fully supported
-* Opera 9 - fully supported
+* Firefox 2
+* IE 7
+* Apple Safari 3
+* Opera 9
 * Generally any browser supported by WordPress should be ok
 
 == Installation ==
@@ -77,7 +91,7 @@ This section describes how to install the plugin and get it working.
 
 __Stand-alone WordPress installation:__
 
-1. Download the plugin and unzip archive into `/wp-content/plugins/` directory. 
+1. Download the plugin and unzip archive into `/wp-content/plugins/` directory.
 1. Login into your blog as admin and activate the plugin through the 'Plugins' menu in WordPress
 1. Once activated, you should see the warning requiring you to obtain API-key for UMapper.
 1. UMapper configuration page can be accessed directly at `Plugins/UMapper Configuration` menu in WordPress or by clicking the link present in above-mentioned warning.
@@ -85,28 +99,11 @@ __Stand-alone WordPress installation:__
 1. Once you enter the UMapper API-key, your plugin is ready to rock!
 1. Make sure you go through [FAQ](http://wordpress.org/extend/plugins/umapper/faq/) and [Notes](http://wordpress.org/extend/plugins/umapper/other_notes/) for any additional information.
 
-__WordPressMU installation:__
-
-1. Download the plugin and unzip archive into `/wp-content/plugins/` directory. 
-1. Copy `umapper-mu-inc.php` into `/wp-content/mu-plugins/directory`
-1. Obtain Integrator's API-Key, if you do not want your users bother with manual key activation per blog. If you do not get Integrator's API-Key, then installation for hosted blogs is exactly the same as for stand-alone WordPress (described above)
-1. Go to `Admin Panel/Site Admin/UMapper` and activate obtained Integrator's Key
-1. That's all - your users would auto-get sub-accounts and API keys automatically once they try to use the plugin.
-
-__NOTES:__
-Generally, all your users on WordPressMU would have to activate their local copy of UMapper plugin. If you want UMapper plugin (or any other for that matter) to be auto-activated - I suggest you use [Plugin Commander](http://mu.wordpress.org/forums/topic.php?id=9570).
-
 == Screenshots ==
 1. Admin / Integrated Map Editor
-2. Lines and markers example.
-3. Polygon usage example.
-4. Maps in your language!
-5. UMapper editor fully supports HTML - check out this MU stadium image.
-6. Wikipedia search example.
-
-== Use Instructions ==
-
-1. Would be uploaded soon.
+2. Polygon usage example.
+3. UMapper editor fully supports HTML - check out this MU stadium image.
+4. Wikipedia search example.
 
 == Frequently Asked Questions ==
 
@@ -118,7 +115,7 @@ For simplisity and ease of use you are required to obtain API-key only once, the
 
 Plugin was tested to run with following versions:
 
-* PHP 5.2.5
+* PHP 5.2.5 (with curl module enabled)
 * WordPress 2.5.1
 * JS is enabled in browser
 
@@ -127,10 +124,10 @@ Plugin will NOT work with PHP4, if you are still using it, consider upgrading - 
 = Which browsers have been tested and fully support the plugin? =
 Here is the list:
 
-* Firefox 2 - fully supported
-* IE 7 - this browser is not advised as WordPress has several limitations/bugs when run in it. Plugin support for this browser is scheduled.
-* Apple Safari 3 - fully supported
-* Opera 9 - fully supported
+* Firefox 3
+* IE 7
+* Apple Safari 3
+* Opera 9
 
 = I am getting "parse error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}' in Umapper.php.." error. What causes it? =
 
@@ -138,19 +135,19 @@ You are using PHP4 and PHP5 is required to run the plugin.
 
 = What is the exact code I need to use to add UMapper maps in my posts? =
 
-You do not need to type the code manually, UMapper was designed to be as simple as possible. 
+You do not need to type the code manually, UMapper was designed to be as simple as possible.
 Just navigate to post edit page and click the U button (it is located in Add Media block) to open user-friendly map addition window.
 
 = Am I required to get an account on UMapper and why would I need one? =
-Yes, you are required to obtain account on [UMapper](http://www.umapper.com/). The reason is simple - 
+Yes, you are required to obtain account on [UMapper](http://www.umapper.com/). The reason is simple -
 by registering an account you obtain API-key which serves as a bridge between your WP installations and UMapper API.
 As UMapper strives to become really universal, single account registration would be enough to power any number of WP blogs,
 as well as any other platforms we would support in future.
 
-= What about WordPress MU? = 
+= What about WordPress MU? =
 Plugin should work w/o problems.
 
-= Where maps are stored? = 
+= Where maps are stored? =
 Map data is stored on [UMapper's servers](http://www.umapper.com). You can restrict access to your maps on UMapper site, by logging into your account and editing map preferences.
 
 
@@ -158,7 +155,7 @@ Map data is stored on [UMapper's servers](http://www.umapper.com). You can restr
 Yes.
 
 = Can I request/suggest a feature and how long does it normally take to be implemented? =
-Feature requests and bug submissions should go through [UMapper's Google Group](http://groups.google.com/group/umapper?hl=en). 
+Feature requests and bug submissions should go through [UMapper's Google Group](http://groups.google.com/group/umapper?hl=en).
 UMapper is under heavy development and it normally takes 2-3 days for a new features, and about 12 (generally less) hours for bug requests. So, please, take your time and help us building better UMapper!
 
 = Can I edit map once it is created? =

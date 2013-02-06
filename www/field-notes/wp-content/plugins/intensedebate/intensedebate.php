@@ -3,7 +3,7 @@
 Plugin Name: IntenseDebate
 Plugin URI: http://intensedebate.com/wordpress
 Description: <a href="http://www.intensedebate.com">IntenseDebate Comments</a> enhance and encourage conversation on your blog or website.  Full comment and account data sync between IntenseDebate and WordPress ensures that you will always have your comments.  Custom integration with your WordPress admin panel makes moderation a piece of cake. Comment threading, reply-by-email, user accounts and reputations, comment voting, along with Twitter and friendfeed integrations enrich your readers' experience and make more of the internet aware of your blog and comments which drives traffic to you!  To get started, please activate the plugin and adjust your  <a href="./options-general.php?page=id_settings">IntenseDebate settings</a> .
-Version: 2.5
+Version: 2.9.5
 Author: IntenseDebate & Automattic
 Author URI: http://intensedebate.com
 */
@@ -11,10 +11,10 @@ Author URI: http://intensedebate.com
 // CONSTANTS
 	
 	// This plugin's version 
-	define( 'ID_PLUGIN_VERSION', '2.5' );
+	define( 'ID_PLUGIN_VERSION', '2.9.4' );
 	
 	// API Endpoints
-	define( 'ID_BASEURL', 'http://intensedebate.com' );
+	define( 'ID_BASEURL', ( is_ssl() ? 'https' : 'http' ) . '://intensedebate.com' );
 	define( 'ID_SERVICE', ID_BASEURL . '/services/v1/operations/postOperations.php' );
 	define( 'ID_USER_LOOKUP_SERVICE', ID_BASEURL . '/services/v1/users' );
 	define( 'ID_BLOG_LOOKUP_SERVICE', ID_BASEURL . '/services/v1/sites' );
@@ -25,10 +25,10 @@ Author URI: http://intensedebate.com
 	// Application identifier, passed with all API transactions
 	define( 'ID_APPKEY', 'wpplugin' );
 	
-	// IntenseDebate is not supported (at all) prior to WordPress 2.0
-	define( 'ID_MIN_WP_VERSION', '2.5' );
+	// Minimum tested version of WordPress for this version of the plugin
+	define( 'ID_MIN_WP_VERSION', '3.0' );
 	
-	// URLs for linkage
+	// URL bases for linkage
 	define( 'ID_COMMENT_MODERATION_PAGE', ID_BASEURL . '/wpIframe.php?acctid=' );
 	define( 'ID_REGISTRATION_PAGE', ID_BASEURL . '/signup' );
 	
@@ -39,19 +39,15 @@ Author URI: http://intensedebate.com
 	if ( ! defined( 'WP_CONTENT_URL' ) )
 	    define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
 	if ( ! defined( 'WP_PLUGIN_URL' ) )
-	    define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+	    define( 'WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins' );
 	
 	// Load textdomain for internationalization
 	load_plugin_textdomain( 'intensedebate' );
-	
-	// Loads JSON lib if we don't have native support
-	if ( !function_exists( 'json_encode' ) && !class_exists( 'Services_JSON' ) )
-		include_once( dirname( __FILE__ ) . '/class.json.php' );
-	
+		
 	// Global var to ensure link wrapper script only outputs once	
 	$id_link_wrapper_output = false;
 
-// OVERRIDE MAIL FUNCTIONS
+// Override core mail notification functions with stubs
 
 	if ( !function_exists( 'wp_notify_postauthor' ) ) {
 		function wp_notify_postauthor() { }
@@ -59,25 +55,25 @@ Author URI: http://intensedebate.com
 	if ( !function_exists( 'wp_notify_moderator' ) ) {
 		function wp_notify_moderator() { }
 	}
-
-// JSON support
-
-	// Future-friendly json_encode
-	if ( !function_exists( 'json_encode' ) ) {
-		function json_encode( $data ) {
-	        $json = new Services_JSON();
-	        return( $json->encode( $data ) );
-	    }
+	
+	function id_get_user_meta( $id, $val ) {
+		if ( function_exists( 'get_user_meta' ) )
+			return get_user_meta( $id, $val, true );
+		return get_usermeta( $id, $val );
 	}
-
-	// Future-friendly json_decode
-	if ( !function_exists( 'json_decode' ) ) {
-		function json_decode( $data ) {
-	        $json = new Services_JSON();
-	        return( $json->decode( $data ) );
-	    }
+	
+	function id_delete_user_meta( $id, $val ) {
+		if ( function_exists( 'delete_user_meta' ) )
+			return delete_user_meta( $id, $val );
+		return delete_usermeta( $id, $val );
 	}
-
+	
+	function id_get_author_name() {
+		if ( function_exists( 'get_the_author_meta' ) )
+			return get_the_author_meta( 'display_name' );
+		return get_author_name();
+	}
+	
 // Debug logging
 	function id_debug_log( $text ) {
 		if ( defined( 'ID_DEBUG' ) && true === ID_DEBUG ) {
@@ -87,13 +83,14 @@ Author URI: http://intensedebate.com
 	
 // HOOK ASSIGNMENT
 	function id_activate_hooks() {
-		global $wpmu_version;
-		
 		// warning that we don't support this version of WordPress
-		if ( empty( $wpmu_version ) && version_compare( get_bloginfo( 'version' ), ID_MIN_WP_VERSION, '<' ) ) {
+		if ( version_compare( get_bloginfo( 'version' ), ID_MIN_WP_VERSION, '<' ) ) {
 			add_action( 'admin_head', 'id_wordpress_version_warning' );
 			return;
 		}
+		
+		// hooks onto incoming requests
+		add_action( 'init', 'id_request_handler' );
 		
 		// IntenseDebate individual settings
 		add_action( 'admin_notices', 'id_admin_notices' );
@@ -111,27 +108,18 @@ Author URI: http://intensedebate.com
 			
 			// add comment counts in best way available
 			if ( id_is_active() ) {
-				if ( version_compare( get_bloginfo( 'version' ), '2.8', '>=' ) )
-					add_action( 'admin_print_footer_scripts', 'id_get_comment_footer_script', 21 );
-				else
-					add_action( 'admin_footer', 'id_get_comment_footer_script', 100 );
+				add_action( 'admin_print_footer_scripts', 'id_get_comment_footer_script', 21 );
 			}
 		}
 		
 		if ( is_admin() ) {
 			// Always add comment moderation count in the admin area
-			if ( version_compare( get_bloginfo( 'version' ), '2.8', '>=' ) )
-				add_action( 'admin_print_footer_scripts', 'id_admin_footer', 21 );
-			else
-				add_action( 'admin_footer', 'id_admin_footer', 100 );
+			add_action( 'admin_print_footer_scripts', 'id_admin_footer', 21 );
 		}
 		
 		if ( id_is_active() ) {
-			// hooks onto incoming requests
-			add_action( 'init', 'id_request_handler' );
-
 			// crud hooks
-			add_action( 'comment_post', 'id_save_comment' );
+			add_action( 'wp_insert_comment', 'id_save_comment' );
 			add_action( 'trackback_post', 'id_save_comment' );
 			add_action( 'pingback_post', 'id_save_comment' );
 			add_action( 'edit_comment', 'id_save_comment' );
@@ -140,22 +128,25 @@ Author URI: http://intensedebate.com
 			add_action( 'wp_set_comment_status', 'id_comment_status', 10, 2 );
 			add_action( 'trashed_comment', 'id_comment_trashed', 10 );
 			add_action( 'untrashed_comment', 'id_comment_untrashed', 10 );
-
-			// individual registration
-			add_action( 'show_user_profile', 'id_show_user_profile' );
-			add_action( 'profile_update', 'id_profile_update' );
 			
 			// Settings > Discussion sync
 			add_action( 'load-options.php', 'id_discussion_settings_page' );
 	
 			// Load ID comment template
-			if ( 0 == get_option( 'id_useIDComments') )
-				add_filter( 'comments_template', 'id_comments_template' );
-						
-			// swap out the comment count links
-			add_filter( 'comments_number', 'id_get_comment_number' );
-			add_action( 'wp_footer', 'id_get_comment_footer_script', 21 );
-			add_action( 'get_footer', 'id_get_comment_footer_script', 100 );
+			if ( 0 == get_option( 'id_useIDComments') ) {
+				if ( !id_is_mobile() || ( id_is_mobile() && 0 != get_option( 'id_revertMobile' ) ) ) {
+					add_filter( 'comments_template', 'id_comments_template' );
+					
+					// swap out the comment count links
+					add_filter( 'comments_number', 'id_get_comment_number' );
+					add_action( 'wp_footer', 'id_get_comment_footer_script', 21 );
+					add_action( 'get_footer', 'id_get_comment_footer_script', 100 );
+				}
+			}
+			
+			// Disable email notifications properly
+			add_filter( 'option_moderation_notify', create_function( '$a', 'return 0;' ) );
+			add_filter( 'option_comments_notify', create_function( '$a', 'return 0;' ) );
 		}
 		
 		if ( id_is_active() || id_queue_not_empty() ) {
@@ -196,26 +187,15 @@ Author URI: http://intensedebate.com
 		if ( id_is_active() && 0 == get_option( 'id_moderationPage' ) ) {
 			global $menu;
 			
-			if ( function_exists( 'add_object_page' ) ) { // WP 2.7+
-				unset( $menu[25] );
-				add_object_page(
-					__( 'Comments', 'intensedebate' ),
-					__( 'Comments', 'intensedebate' ),
-					'moderate_comments',
-					'intensedebate',
-					'id_moderate_comments',
-					'../wp-content/plugins/intensedebate/comments.png'
-				);
-			} else { // < WP 2.7
-				unset( $menu[20] );
-				add_menu_page(
-					__( 'Comments', 'intensedebate' ),
-					__( 'Comments', 'intensedebate' ),
-					'moderate_comments',
-					'intensedebate',
-					'id_moderate_comments'
-				);
-			}
+			unset( $menu[25] );
+			add_object_page(
+				__( 'Comments', 'intensedebate' ),
+				__( 'Comments', 'intensedebate' ),
+				'moderate_comments',
+				'intensedebate',
+				'id_moderate_comments',
+				WP_CONTENT_URL . '/plugins/intensedebate/comments.png'
+			);
 		}
 		add_options_page(
 			__( 'IntenseDebate Settings', 'intensedebate' ), 
@@ -224,6 +204,9 @@ Author URI: http://intensedebate.com
 			'id_settings',
 			'id_settings_page'
 		);
+		
+		if ( !get_option( 'id_pdxsync' ) )
+			id_clear_orphan_comments();
 	}
 	
 	function id_whitelist_options( $options ) {
@@ -306,14 +289,7 @@ Author URI: http://intensedebate.com
 	
 	// blog option
 	function id_save_option( $name, $value ) {
-		global $wpmu_version;
-		
-		if ( false === get_option( $name ) && empty( $wpmu_version ) ) { // Avoid WPMU options cache bug
-			add_option( $name, $value, '', 'no' );
-		} else {
-			update_option( $name, $value );
-		}
-		
+		update_option( $name, $value );
 		id_debug_log( 'Save option: ' . $name . ' = ' . print_r( $value, true ) );
 	}
 
@@ -329,17 +305,8 @@ Author URI: http://intensedebate.com
 		if ( isset( $value ) && !empty( $value ) ) {
 			update_usermeta( $user_id, $name, $value );
 		} else {
-			delete_usermeta( $user_id, $name );
+			id_delete_user_meta( $user_id, $name );
 		}
-	}
-	
-	function id_user_connected() {
-		$current_user = wp_get_current_user();
-		$user_id = $current_user->ID;
-		$userID = get_usermeta( $user_id, 'id_userID' );
-		$userKey = get_usermeta( $user_id, 'id_userKey' );
-		
-		return ( $userID && $userKey );
 	}
 
 	// returns first non-null and non empty argment
@@ -362,8 +329,6 @@ Author URI: http://intensedebate.com
 		return (
 			get_option( 'id_blogID' ) &&
 			get_option( 'id_blogKey' ) &&
-			get_option( 'id_userID' ) &&
-			get_option( 'id_userKey' ) &&
 			get_option( 'id_blogAcct' )
 		);
 	}
@@ -399,8 +364,8 @@ Author URI: http://intensedebate.com
 	function id_queue_not_empty() {
 		$queue = id_get_queue();
 		$queue->load();
-		if ( count( $queue->operations ) ) {
-			return true;
+		if ( $count = count( $queue->operations ) ) {
+			return $count;
 		}
 		else {
 			return false;
@@ -436,9 +401,12 @@ Author URI: http://intensedebate.com
 // CRUD OPERATION HOOKS
 
 	function id_save_comment( $comment_ID = 0 ) {
+		if ( 0 == $comment_ID )
+			return;
+			
 		$comment = new id_comment( array( 'comment_ID' => $comment_ID ) );
 		$comment->loadFromWP();
-		if ( $comment->comment_status != 'spam' ) {
+		if ( ! in_array( $comment->comment_approved, apply_filters( 'id_comment_approved_blacklist', array( 'spam' ) ) ) ) {
 			// Don't send the spam
 			$queue = id_get_queue();
 			$queue->add( 'save_comment', $comment->export(), 'id_generic_callback' );
@@ -455,12 +423,22 @@ Author URI: http://intensedebate.com
 		} else {
 			$comment = new id_comment( array( 'comment_ID' => $comment_id ) );
 			$comment->loadFromWP();
-			if ( $status == "hold" )
+			switch ( (string) $status ) {
+			case '0' :
+			case 'hold' :
 				$comment->comment_approved = 0;
-			if ( $status == "approve" )
+				break;
+			case 'approve' :
+			case '1' :
 				$comment->comment_approved = 1;
-			if ( $status == "spam" )
+				break;
+			case 'spam' :
 				$comment->comment_approved = "spam";
+				break;
+			default :
+				return;
+			}
+
 			$queue = id_get_queue();
 			$queue->add( 'save_comment', $comment->export(), 'id_generic_callback' );
 		}
@@ -476,7 +454,6 @@ Author URI: http://intensedebate.com
 		id_save_comment( $comment_id );
 	}
 	
-	// don't save the revisions
 	function id_save_post( $post_id ) {
 		$post = get_post( $post_id );
 		if ( 0 == $post->post_parent || 'page' == $post->post_type ) {
@@ -488,6 +465,18 @@ Author URI: http://intensedebate.com
 	}
 
 	function id_delete_post( $post_id ) {
+		// Core calls delete_post action twice per post.
+		static $post_ids = array();
+		if ( isset( $post_ids[$post_id] ) ) {
+			return;
+		}
+		$post_ids[$post_id] = true;
+
+		// Core calls delete_post for revisions too.
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
 		$packet = new stdClass;
 		$packet->post_id = $post_id;
 		$queue = id_get_queue();
@@ -495,7 +484,7 @@ Author URI: http://intensedebate.com
 	}
 
 	// callbacks return true to remove from queue
-	function id_generic_callback( &$result, &$response, &$operation ) {
+	function id_generic_callback( $result, $response, $operation ) {
 		$args = func_get_args();
 		if ( $result ) return true;
 		if ( $response['attempt_retry'] ) return false;
@@ -635,27 +624,28 @@ Author URI: http://intensedebate.com
 				$this->comment_date = get_date_from_gmt( $this->comment_date_gmt );
 
 			$result = 0;
-			if ( $this->comment_ID ) { // Added by duplicateCheck() if matched against existing comment					
-				remove_action( 'edit_comment', 'id_save_comment' );
+			remove_action( 'edit_comment', 'id_save_comment' );
+			remove_action( 'wp_insert_comment', 'id_save_comment' );
+			if ( $this->comment_ID && get_comment( $this->comment_ID ) ) { // Added by duplicateCheck() if matched against existing comment
 				$result = wp_update_comment( $this->props() );
-				add_action( 'edit_comment', 'id_save_comment' );
 			} else {
-				remove_action( 'comment_post', 'id_save_comment' );
-				$result = wp_insert_comment( $this->props() );
+				$result = wp_insert_comment( wp_filter_comment( $this->props() ) );
 				if ( !$result ) {
-					add_action( 'comment_post', 'id_save_comment' );
+					add_action( 'edit_comment', 'id_save_comment' );
+					add_action( 'wp_insert_comment', 'id_save_comment' );
 					return false;
 				}
 				$this->comment_ID = $result;
-				add_action( 'comment_post', 'id_save_comment' );
 			}
+			add_action( 'edit_comment', 'id_save_comment' );
+			add_action( 'wp_insert_comment', 'id_save_comment' );
 			return true;
 		}
 		
 		// evaluates whether the comment is valid
 		function valid() {
 			$this->duplicateCheck();
-			return ( !empty( $this->comment_content ) && $this->comment_post_ID );
+			return ( !empty( $this->comment_content ) && is_numeric( $this->comment_post_ID ) );
 		}
 		
 		// based on code in wp_allow_comment, updates internal reference so that updates happen on duplicates
@@ -836,13 +826,22 @@ Author URI: http://intensedebate.com
 
 		function create() {
 			$this->operations = array();
-			$this->needs_save = true;
-			$this->store();
 		}
 		
 		function store() {
-			if ( $this->needs_save )
+			if ( $this->needs_save ) {
+				$this->compact_operations();
 				id_save_option( $this->queueName, $this->operations );
+			}
+		}
+		
+		function compact_operations() {
+			$num_ops = count( $this->operations );
+			for ( $o = 0; $o < $num_ops; $o++ ) {
+				if ( in_array( $this->operations[ $o ]->action, array( 'save_comment', 'comment_status' ) ) && isset( $this->operations[ $o ]->data['comment_id'] ) ) {
+					$this->operations[ $o ]->data = array( 'comment_id' => $this->operations[ $o ]->data['comment_id'] );
+				}
+			}
 		}
 		
 		function add( $action, $data, $callback = null ) {
@@ -852,6 +851,8 @@ Author URI: http://intensedebate.com
 		
 		function queue( $operation ) {
 			$this->needs_save = true;
+			if ( in_array( $operation->action, array( 'save_comment', 'comment_status' ) ) && isset( $operation->data->comment_id ) )
+				$operation->data = array( 'comment_id' => $operation->data->comment_id );
 			$this->operations[] = $operation;				
 			return $operation;
 		}
@@ -888,7 +889,7 @@ Author URI: http://intensedebate.com
 					&& in_array( $op->action, array( 'save_comment', 'comment_status' ) ) 
 					&& !empty( $op->data ) 
 					&& isset( $op->data[ 'comment_id' ] )
-					&& substr( gmdate( 'Y-m-d H:i:s' ), 0, 18 ) != substr( $op->time_gmt, 0, 18 ) ) {
+					&& ( substr( gmdate( 'Y-m-d H:i:s' ), 0, 18 ) != substr( $op->time_gmt, 0, 18 ) || empty( $op->data['comment_text'] ) ) ) { // Reload if not from this minute or if no comment text
 						$comment = new id_comment( array( 'comment_ID' => $op->data[ 'comment_id' ] ) );
 						$comment->loadFromWP();
 						$data = $comment->export();
@@ -903,15 +904,17 @@ Author URI: http://intensedebate.com
 			
 			// Update queue to save timestamps
 			$this->needs_save = true;
-			$this->operations = array_merge( $hold, $send );
-			$this->store();
-			
+			$this->operations = array_merge( $hold, $send );			
 			$fields = array(
 				'appKey' => ID_APPKEY,
 				'blogKey' => get_option( 'id_blogKey' ),
 				'blogid' => get_option( 'id_blogID' ),
 				'operations' => json_encode( $send )
 			);
+			$this->store();
+			
+			if ( !count( $send ) )
+				return false;
 			
 			return id_http_query( $this->url . '?blogid=' . urlencode( get_option( 'id_blogID' ) ), $fields, 'POST' );
 		}
@@ -938,7 +941,7 @@ Author URI: http://intensedebate.com
 					if ( isset( $operation->callback ) && function_exists( $operation->callback ) ) {
 						// callback returns true == remove from queue
 						// callback returns false == add back to queue
-						$finished = call_user_func_array( $operation->callback, array( "result" => $result->result, "response" => $result->response, "operation" => $operation ) );
+						$finished = call_user_func_array( $operation->callback, array( "result" => &$result->result, "response" => &$result->response, "operation" => &$operation ) );
 						
 						$operation->success = $finished;
 						$operation->response = $result->response;
@@ -983,10 +986,11 @@ Author URI: http://intensedebate.com
 // REST SERVICE FUNCS
 	
 	function id_request_handler() {
-		global $wpmu_version;
-		
 		// Blanket protection against accidental access to edit-comments.php
-		if ( 0 == get_option( 'id_moderationPage') && 'edit-comments.php' == basename( $_SERVER['REQUEST_URI'] ) )
+		$basename = basename( $_SERVER['REQUEST_URI'] );
+		if ( stristr( $basename, '?' ) )
+			$basename = substr( $basename, 0, strpos( $basename, '?' ) );
+		if ( 0 == get_option( 'id_moderationPage') && 'edit-comments.php' == $basename )
 			wp_redirect( get_bloginfo( 'wpurl' ) . '/wp-admin/admin.php?page=intensedebate' );
 
 		// determine requested action
@@ -1003,6 +1007,10 @@ Author URI: http://intensedebate.com
 			id_debug_log( 'Unknown action requested: ' . $fn );
 			id_request_error( 'Unknown action: ' . $fn );
 			return;
+		}
+		
+		if ( 'id_REST_test_connection' == $fn ) {
+			id_response_render( call_user_func( $fn ) );
 		}
 		
 		// token key
@@ -1034,14 +1042,21 @@ Author URI: http://intensedebate.com
 	}
 	
 	function id_response_render( $result, $contentType = "application/json" ) {
-		ob_end_clean();
+		while ( @ob_end_clean() ) {} // Clear all buffers
 		$charSet = get_bloginfo( 'charset' );
 		header( "Content-Type: {$contentType}; charset={$charSet}" );
 		die( json_encode( $result ) );
 	}
 	
 	function id_REST_ping() {
-		return array( 'id_plugin_version' => ID_PLUGIN_VERSION, 'wp_version' => ( !empty( $wpmu_version ) ? 'WPMU/' : '' ) . get_bloginfo( 'version' ) );
+		return array( 'id_plugin_version' => ID_PLUGIN_VERSION, 'wp_version' => get_bloginfo( 'version' ) );
+	}
+	
+	function id_REST_test_connection() {
+		if ( !empty( $_POST['hash'] ) )
+			return array( 'hash' => preg_replace( '/[^a-f0-9]/', '', $_POST['hash'] ), 'random' => md5( mt_rand( 0, 1000 ) ) );
+		else
+			wp_redirect( get_option( 'siteurl' ) );
 	}
 	
 	function id_REST_get_comments_by_user() {
@@ -1229,10 +1244,16 @@ Author URI: http://intensedebate.com
 		id_debug_log( "Receive Comment: $rawComment" );
 		$comment = new id_comment();
 		$comment->loadFromRemoteJson( $rawComment );
-		return array(
+		$result = array(
 			'success' => $comment->save(),
 			'comment' => $comment->export()
 		);
+		if ( 'delete' == $comment->comment_status ) {
+			remove_action( 'wp_set_comment_status', 'id_comment_status', 10, 2 );
+			wp_delete_comment( $comment->comment_ID );
+			add_action( 'wp_set_comment_status', 'id_comment_status', 10, 2 );
+		}
+		return $result;
 	}
 
 	
@@ -1242,6 +1263,27 @@ Author URI: http://intensedebate.com
 	function id_REST_set_comment_status() {
 		$newStatus = id_param( 'status', '' );
 		$comment_id = id_param( 'comment_id', 0 );
+		$rawComment = stripslashes( id_param( 'comment_data' ) );
+		
+		if ( !$comment_id ) {
+			if ( !$rawComment )
+				return false;
+			
+			$comment = new id_comment();
+			$comment->loadFromRemoteJson( $rawComment );
+			$comment->duplicateCheck(); // Will locate a match and update with the WP id
+			
+			if ( $comment->comment_ID ) {
+				// Found it, carry on
+				$comment_id = $comment->comment_ID;
+			} else {
+				// No match
+				if ( 'delete' == $newStatus )
+					return true; // We were going to delete it anyway
+				else
+					return false;				
+			}
+		}
 		
 		id_debug_log( "Receive Comment Status: $newStatus $comment_id" );
 		
@@ -1345,7 +1387,6 @@ Author URI: http://intensedebate.com
 //			optionally provide &post_id= to get count for a specific post only
 	
 	function id_REST_get_approved_comment_count() {
-		include_once ABSPATH . '/wp-admin/includes/template.php';
 		if ( $p = id_param( 'post_id', 0 ) )
 			$result = wp_count_comments( $p );
 		else
@@ -1360,26 +1401,6 @@ Author URI: http://intensedebate.com
 		update_option( 'id_lock_queue', ( time() + $lock ) );
 		return get_option( 'id_lock_queue' );
 	}
-
-// AUTOLOGIN
-	
-	// drops autologin js after user has logged in via profile page, makes it so
-	// user does not need to login to IntenseDebate if they've already logged in here
-	function id_auto_login() {
-		global $userdata;
-		
-		if ( empty( $userdata->ID ) || get_option( 'id_auto_login' ) == 1 )
-			return false;
-
-		$wp_userID = $userdata->ID;			
-		$appKey = ID_APPKEY;
-		$userID = get_usermeta( $wp_userID, 'id_userID' );
-		$userKey = get_usermeta( $wp_userID, 'id_userKey' );
-		if ( id_user_connected() ) {
-			echo "<script type=\"text/javascript\" src=\"" . ID_BASEURL . "/services/v1/jsLogin.php?appKey={$appKey}&amp;userid={$userID}&amp;userKey={$userKey}\"></script>\n";
-		}
-	}
-	
 	
 // ADMIN BANNERS
 	
@@ -1391,17 +1412,6 @@ Author URI: http://intensedebate.com
 			?>
 			<div class="updated fade-ff0000">
 				<p><strong><?php printf( __( 'The IntenseDebate plugin is enabled but you need to adjust <a href="%s">your settings</a>.', 'intensedebate' ), $settingsurl ); ?></strong></p>
-			</div>
-			<?php
-			return;
-		}
-		
-		// user profile settings prompt
-		if ( !id_user_connected() && !empty( $_GET['page'] ) && $_GET['page'] != 'id_settings' && $_GET['page'] != 'id_registration' ) {
-			$profileurl = get_bloginfo( 'wpurl' ) . '/wp-admin/profile.php#intensedebatelogin';
-			?>
-			<div class="updated fade-ff0000">
-				<p><strong><?php printf( __( 'Connect to your IntenseDebate account. Go to your <a href="%s">WordPress profile</a> to log in or register.', 'intensedebate' ), $profileurl ); ?></strong></p>
 			</div>
 			<?php
 			return;
@@ -1425,138 +1435,6 @@ Author URI: http://intensedebate.com
 		</div>
 		<?php
 	}
-	
-	
-// PROFILE PAGE
-		
-	function id_show_user_profile() {
-		if ( id_user_connected() ) {
-			id_show_user_disconnect();
-			return;
-		}
-
-		global $userdata;
-		$id_username = id_coalesce( $userdata->id_username );
-
-		?>
-		<a name="intensedebatelogin">&nbsp;</a><br/>
-		<h2><img src="<?php echo ID_BASEURL ?>/images/intensedebate.png" alt="IntenseDebate Logo" class="idwp-logo" /> <?php _e( 'User Synchronization', 'intensedebate' ); ?></h2>
-		<table class="form-table">
-			<tbody>
-				<tr>
-					<th><label for="id_username"><?php _e( 'Username', 'intensedebate' ); ?></label></th>
-					<td><input type="text" id="id_username" name="id_username" value="<?php echo $id_username; ?>" /></td>
-				</tr>
-				<tr>
-					<th><label for="id_password"><?php _e( 'Password', 'intensedebate' ); ?></label></th>
-					<td><input type="password" id="id_password" class="required" name="id_password" value="" /></td>
-				</tr>
-			</tbody>
-		</table>
-		<p><?php printf( __( 'Not registered with IntenseDebate yet? <a target="_blank" href="%s">It\'s easy</a>.', 'intensedebate' ), ID_REGISTRATION_PAGE ); ?></p>
-		<?php
-	}
-		
-	function id_profile_update( $wp_userID = 0 ) {
-		// validation
-		if ( !$wp_userID ) {
-			return false;
-		}
-		
-		// Don't clear credentials when they were just being displayed
-		if ( 'true' == id_param( 'id_connected' ) )
-			return;
-		
-		$username = id_param( 'id_username' );
-		$password = id_param( 'id_password' );
-		if ( !$username || !$password ) {
-			id_save_usermeta_array( $wp_userID, array(
-				'id_username' => $username,
-				'id_userID' => null,
-				'id_userKey' => null
-			) );
-			return false;
-		}
-
-		// outgoing fields
-		$fields = array();
-		$fields['username'] = $username;
-		$fields['password'] = $password;
-		$fields['wp_userID'] = $wp_userID;
-		$fields['admin'] = current_user_can( 'manage_options' );
-
-		$queue = id_get_queue();
-		$op = $queue->add( 'user_login', $fields, 'id_profile_update_callback' );
-		$queue->ping( array( $op ) );
-
-		return true;
-	}
-	
-	function id_profile_update_callback( &$result, &$response, &$operation ) {
-		$args = func_get_args();
-		if ( $wp_userID = id_coalesce( @$operation->data['wp_userID'] ) ) {
-			id_save_usermeta_array( $wp_userID, array(
-				'id_username' => id_coalesce( $operation->data['username'] ),
-				'id_userID' => id_coalesce( $response->userID ),
-				'id_userKey' => id_coalesce( $response->userKey )
-			) );
-		}
-		return true;
-	}
-
-	// user disconnect form
-	function id_show_user_disconnect() {
-		$current_user = wp_get_current_user();
-		$user_ID = $current_user->ID;
-		?>
-				<a name="intensedebatelogin">&nbsp;</a><br/>
-				<input type="hidden" name="id_connected" value="true" />
-				<h2><img src="<?php echo ID_BASEURL ?>/images/intensedebate.png" alt="IntenseDebate Logo" class="idwp-logo" /> <?php _e( 'User Synchronization', 'intensedebate' ); ?></h2>
-
-	            <table class="form-table">
-					<tbody>
-						<tr>
-							<td colspan="2">
-	                        	<img src="<?php echo ID_BASEURL ?>/midimages/<?php echo get_usermeta( $user_ID, 'id_userID' ); ?>" alt="[Avatar]" class="idwp-avatar" />
-	                            <h3 class="idwp-floatnone"><?php printf( __( 'Synchronizing as %s', 'intensedebate' ), '<a href="' . ID_BASEURL . '/people/' . get_usermeta( $user_ID, 'id_username' ) . '">' . get_usermeta( $user_ID, 'id_username' ) . '</a>' ); ?></h3>
-	                            <p class="idwp-floatnone"><a href="<?php echo ID_BASEURL ?>/userDash"><?php _e( 'Dashboard', 'intensedebate' ); ?></a> | <a href="<?php echo ID_BASEURL ?>/editprofile"><?php _e( 'Edit profile', 'intensedebate' ); ?></a></p>
-	                            <p><a href="?id_settings_action=user_disconnect" id="id_user_disconnect"><?php _e( 'Disconnect from IntenseDebate', 'intensedebate' ) ?></a></p>
-	                            <span class="idwp-clear"></span>
-	                            <p class="idwp-nomargin"><?php printf( __( 'All WordPress comments are now synchronized with the IntenseDebate account above. <a href="%s">Read more here</a>.', 'intensedebate' ), ID_BASEURL . '/wordpress#userSync' ); ?></p>
-								<p></p>
-	                        </td>
-	                    </tr>
-	               	</tbody>
-	           	</table>				
-		<?php
-	}
-
-	// user disconnect postback
-	function id_SETTINGS_user_disconnect() {
-		$current_user = wp_get_current_user();
-		$user_id = $current_user->ID;
-
-		$fields = array(
-			'userKey' => get_option( 'id_userKey' ),
-			'userid' => get_option( 'id_userID' ),
-		);
-
-		$queue = id_get_queue();
-		$op = $queue->add( 'user_disconnect', $fields, 'id_generic_callback' );
-		$queue->ping( array( $op ) );
-		
-		$meta = array(
-			'id_username'
-			, 'id_displayname'
-			, 'id_email'
-			, 'id_userID'
-			, 'id_userKey'
-		);
-		foreach ( $meta as $key ) {
-			id_save_usermeta( $user_id, $key, null );
-		}
-	}
-	
 
 // DISCUSSION SETTINGS PAGE
 
@@ -1567,8 +1445,6 @@ Author URI: http://intensedebate.com
 	 * @param boolean $merge_moderation_strings Whether or not to request a merging (rather than overwrite) of moderation strings
 	**/
 	function id_discussion_settings_page( $merge_moderation_strings = false ) {
-		global $wpmu_version;
-		
 		if ( ( isset( $_POST['option_page'] ) && 'discussion' == $_POST['option_page'] ) || ( isset( $_POST['page_options'] ) && stristr( $_POST['page_options'], 'comment_moderation' ) ) ) {
 			$settings = array();
 			
@@ -1598,9 +1474,7 @@ Author URI: http://intensedebate.com
 				if ( get_option( 'wordpress_api_key' ) && is_plugin_active( 'akismet/akismet.php' ) )
 					$settings['akismet'] = get_option( 'wordpress_api_key' );
 				
-				// Need to handle like this to avoid older versions turning threading off
-				if ( version_compare( get_bloginfo( 'version' ), '2.7', '>=' ) )
-					$settings['show_threads'] = ( '1' == $_POST['thread_comments'] ? 'T' : 'F' );
+				$settings['show_threads'] = ( '1' == $_POST['thread_comments'] ? 'T' : 'F' );
 				
 				// Need to do some parsing to get moderation strings into the same format as ID
 				$mods = id_separate_tokens( $_POST['moderation_keys'] );
@@ -1642,9 +1516,7 @@ Author URI: http://intensedebate.com
 		if ( get_option( 'wordpress_api_key' ) && is_plugin_active( 'akismet/akismet.php' ) )
 			$settings['akismet'] = get_option( 'wordpress_api_key' );
 
-		// Need to handle like this to avoid older versions turning threading off
-		if ( version_compare( get_bloginfo( 'version' ), '2.7', '>=' ) )
-			$settings['show_threads'] = ( '1' == get_option( 'thread_comments' ) ? 'T' : 'F' );
+		$settings['show_threads'] = ( '1' == get_option( 'thread_comments' ) ? 'T' : 'F' );
 
 		// Need to do some parsing to get moderation strings into the same format as ID
 		$mods = id_separate_tokens( get_option( 'moderation_keys' ) );
@@ -1903,9 +1775,9 @@ Author URI: http://intensedebate.com
 			});
 
 		<?php if ( 0 == get_option( 'id_moderationPage' ) ) : ?>
-			jQuery('#adminmenu a[href=edit-comments.php]').attr('id', "id_moderate_comment_link");
-			jQuery('#adminmenu a[href=edit-comments.php]').attr('href', "admin.php?page=intensedebate");
-			jQuery('#favorite-actions a[href=edit-comments.php]').attr('href', "admin.php?page=intensedebate");
+			jQuery('#adminmenu a[href="edit-comments.php"]').attr('id', "id_moderate_comment_link");
+			jQuery('#adminmenu a[href="edit-comments.php"]').attr('href', "admin.php?page=intensedebate");
+			jQuery('#favorite-actions a[href="edit-comments.php"]').attr('href', "admin.php?page=intensedebate");
 		<?php endif; ?>
 		});
 		/* ]]> */
@@ -1915,8 +1787,6 @@ Author URI: http://intensedebate.com
 	
 	// main settings page handler
 	function id_settings_page() {
-		global $wpmu_version;
-		
 		// errors & alerts
 		id_message();
 		
@@ -1930,7 +1800,7 @@ Author URI: http://intensedebate.com
 			<div class="clear"></div>
 			<h2>
 				<?php if ( get_option( 'id_blogID' ) && get_option( 'id_signup_step' ) >= 3 ) : ?>
-					<span class="idwp-logo-more"><?php printf( __( '<strong>Note:</strong> For more customization options please visit your <a href="%s">blog settings</a> page', 'intensedebate' ), ID_BASEURL . '/editacct/' . get_option( 'id_blogID' ) ); ?></span>
+					<span class="idwp-logo-more"><?php printf( __( '<strong>Note:</strong> For more customization options please visit your <a href="%s">blog settings</a> page', 'intensedebate' ), ID_BASEURL . '/edit-site-account/' . get_option( 'id_blogID' ) ); ?></span>
 				<?php endif; ?>
 				<img src="<?php echo ID_BASEURL ?>/images/intensedebate.png" alt="IntenseDebate" class="idwp-logo" /> <?php _e('Settings', 'intensedebate'); ?>
 			</h2>
@@ -1973,9 +1843,6 @@ Author URI: http://intensedebate.com
 					height: 51px;
 					width: 252px;
 				}
-				/* * html .idwp-install-logo {
-					margin-right: 0;
-				}*/
 
 				/* Steps */
 				.idwp-install-steps {
@@ -2018,9 +1885,9 @@ Author URI: http://intensedebate.com
 					border-radius: 2px; /* For future native implementations */
 				}
 				.idwp-install-main form h4 {
-					clear: none;
+					clear: left;
 					float: left;
-					line-height: 28px;
+					line-height: 20px;
 					margin: 0;
 					width: 160px;
 				}
@@ -2164,28 +2031,36 @@ Author URI: http://intensedebate.com
 					</ul>
 					<div class="idwp-install-main">
 						<?php if ( get_option( 'id_signup_step' ) == 0 ) : // first step (login/signup) ?>
-							<h3 class="idwp-nomargin"><?php _e( 'Please login to your IntenseDebate account', 'intensedebate' ); ?></h3>
+							<h3 class="idwp-nomargin"><?php _e( 'Please log in to your IntenseDebate account', 'intensedebate' ); ?></h3>
 							<p style="margin-top: 4px;"><?php _e( "Don't have an account?", 'intensedebate' ); ?> <a href="<?php echo ID_BASEURL ?>/signup" target="_blank"><?php _e( 'Sign up here', 'intensedebate' ); ?></a>. </p>
 							<p <?php if ( !id_param( 'login_msg' ) ) echo 'style="display:none"'; ?> class="idwp-message_error"><span class="idwp-message_error-symbol"></span> Login failed. Please check your credentials and try again.</p>
 							<?php $username = id_param( 'username' ); ?>
 							<form id="id_user_login" action="options-general.php?page=id_settings" method="POST">
 								<input type="hidden" name="id_settings_action" value="user_login" />							
 								<div class="idwp-install-form_elements form-table">
+									<h4><label for="txtType"><?php _e( 'Log in using...', 'intensedebate' ); ?></label></h4>
+									<div class="idwp-input-text-wrap">
+								    	<input type="radio" name="id_remote_fields[account_type]" value="ID" id="radioTypeID" checked="checked" /> <label for="radioTypeID"><?php printf( __( '%s Account', 'intensedebate' ), 'IntenseDebate' ); ?></label>
+								    	<input type="radio" name="id_remote_fields[account_type]" value="WPC" id="radioTypeWP" /> <label for="radioTypeWP"> <?php printf( __( '%s Account' ), '<a href="http://wordpress.com/">WordPress.com</a>' ); ?></label>
+									</div>
 									<h4><label for="txtEmail"><?php _e( 'Email/Username', 'intensedebate' ); ?></label></h4>
 									<div class="idwp-input-text-wrap">
 								    	<input id="txtEmail" autocomplete="off" type="text" class="required regular-text" name="id_remote_fields[username]" value="<?php echo $username; ?>" />
-								    	<p class="idwp-fade"><?php _e( 'The email address or username you use for your IntenseDebate.com account.', 'intensedebate' ); ?></p>
 									</div>
 									<h4><label for="txtPassword"><?php _e( 'Password/User Key', 'intensedebate' ); ?></label></h4>
 									<div class="idwp-input-text-wrap" style="margin-bottom: 20px;">
 										<input id="txtPassword" autocomplete="off" type="password" class="required regular-text" name="id_remote_fields[password]" value="" /><a href='#' style="text-decoration:none" onclick='document.getElementById("useOpenID").style.display="block";'><img style="padding-left: 5px; padding-right: 2px" src="<?php echo ID_BASEURL ?>/images/icon-openid.png" /> Signed up with OpenID? </a>
 										<p class="idwp-fade"><a href="<?php echo ID_BASEURL ?>/forgot" target="_blank"><?php _e( 'Forgot your IntenseDebate password?', 'intensedebate' ); ?></a></p>
 									</div>
-									<span style="display:none" id="useOpenID"><?php printf( __( 'Unfortunately IntenseDebate and WordPress account syncing with OpenID is currently not directly available.  Please use your IntenseDebate username and user key to sync your account.  You can obtain your username and user key <a href="%s" target="_blank">here</a>.', 'intensedebate' ), ID_BASEURL . '/userkey' ); ?></span>
+									<span style="display:none" id="useOpenID"><?php printf( __( 'Unfortunately IntenseDebate and WordPress account syncing with OpenID is currently not directly available.  Please use your IntenseDebate username and user key to sync your account.  You can obtain your username and user key <a href="%s" target="_blank">here</a>.', 'intensedebate' ), ID_BASEURL . '/edit-user-account' ); ?></span>
 							    </div><!--/ idwp-install-form_elements -->
-							    <input type="submit" value="<?php _e( 'Login to IntenseDebate', 'intensedebate' ); ?>" class="idwp-bigbutton" />
+								<p>
+								    <input type="submit" value="<?php _e( 'Login to IntenseDebate', 'intensedebate' ); ?>" class="idwp-bigbutton" />
+									<span id="test-connection"><img src="<?php echo ID_BASEURL ?>/images/ajax-loader.gif" align="absmiddle" alt="*" border="0" /> Testing connection to IntenseDebate.com...</span>
+								</p>
 							    <p><strong><?php _e( 'Note:', 'intensedebate' ); ?></strong> <?php printf( __( "As is the case when installing any plugin, it's always a good idea to <a href=\"%s\">backup</a> your blog data before proceeding.", 'intensedebate' ), 'export.php' ); ?></p>
 						    </form>
+							<script src="<?php echo ID_BASEURL; ?>/js/wordpress-test-connection.php?url=<?php echo urlencode( get_option( 'siteurl' ) ); ?>" type="text/javascript" charset="utf-8"></script>
 						<?php elseif ( get_option( 'id_signup_step' ) == 1 ) : //second step (start import) ?>
 							<h3 class="idwp-nomargin"><?php _e( 'Import your WordPress comments into IntenseDebate', 'intensedebate' ); ?></h3>
 							<div class="idwp-shortline">				
@@ -2219,14 +2094,14 @@ Author URI: http://intensedebate.com
 							<h3 class="idwp-success"><?php _e( 'Success! IntenseDebate is now fully activated on your blog.', 'intensedebate' ); ?> <a href="<?php echo get_option( 'home' ); ?>" target="_blank">&raquo; <?php _e( 'View blog', 'intensedebate' ); ?></a></h3>
 							<h4><?php _e( 'Here are a few other customization options you might want to check out:', 'intensedebate' ); ?></h4>
 							<ul class="idwp-list-arrows">
-								<li><a href="<?php echo ID_BASEURL ?>/editacct/<?php echo get_option( 'id_blogID' ); ?>" target="_blank"><?php _e( 'Edit your blog settings on IntenseDebate.com', 'intensedebate' ); ?></a></li>
-								<li><a href="<?php echo ID_BASEURL ?>/bTheme/<?php echo get_option( 'id_blogID' ); ?>" target="_blank"><?php _e( 'Customize the comment layout', 'intensedebate' ); ?></a></li>
-								<li><a href="<?php echo ID_BASEURL ?>/addOns" target="_blank"><?php _e( 'Grab some comment widgets for your blog.', 'intensedebate' ); ?></a></li>
+								<li><a href="<?php echo ID_BASEURL ?>/edit-site-account/<?php echo get_option( 'id_blogID' ); ?>" target="_blank"><?php _e( 'Edit your blog settings on IntenseDebate.com', 'intensedebate' ); ?></a></li>
+								<li><a href="<?php echo ID_BASEURL ?>/edit-site-layout/<?php echo get_option( 'id_blogID' ); ?>" target="_blank"><?php _e( 'Customize the comment layout', 'intensedebate' ); ?></a></li>
+								<li><a href="<?php echo ID_BASEURL ?>/extras-widgets" target="_blank"><?php _e( 'Grab some comment widgets for your blog.', 'intensedebate' ); ?></a></li>
 							</ul>
 							<form id="id_close_box" action="options-general.php?page=id_settings&hideSettingsTop=true" method="POST">
 							</form>
 							<p style="margin: 20px 0 0;"><a href="javascript: document.getElementById('id_close_box').submit();"><?php _e( 'Close this box', 'intensedebate' ); ?></a></p>
-						<?php endif; ?>						
+						<?php endif; ?>
 					</div><!--/ idwp-install-main -->
 					<span class="idwp-clear"></span>
 				</div><!--/ idwp-install -->
@@ -2238,13 +2113,8 @@ Author URI: http://intensedebate.com
 					<form id="id_manual_settings" class="ui-tabs-panel" action="options.php" method="post">
 						<input type="hidden" name="action" value="update" />
 						<input type="hidden" name="option_page" value="intensedebate" />
-						<?php
-						if ( version_compare( get_bloginfo( 'version' ), '2.7', '<' ) && empty( $wpmu_version ) )
-							wp_nonce_field( 'update-options' );
-						else
-							wp_nonce_field( 'intensedebate-options' );
-						?>
-						
+						<?php wp_nonce_field( 'intensedebate-options' ); ?>
+
 						<table class="form-table">
 							<tbody>
 								<tr valign="top">
@@ -2259,7 +2129,7 @@ Author URI: http://intensedebate.com
 								<tr valign="top">
 									<th scope="row" style="white-space: nowrap;" ><?php _e( 'Comment Links', 'intensedebate' ); ?> <span style="cursor:pointer;" onclick="jQuery('#divCommentLinkInfo').slideToggle();"><img src="<?php echo ID_BASEURL ?>/images1/wp-info.png" /></span></th>
 									<td>
-										<input type="radio" name="id_jsCommentLinks" value="0" <?php if ( get_option( 'id_jsCommentLinks' ) == 0 ) echo "checked"; ?> id="id_jsCommentLinks_0"> <label for="id_jsCommentLinks_0"><?php _e( 'IntenseDebate Enhanced Comment Links', 'intensedebate' ); ?></label> (<a href="<?php echo ID_BASEURL ?>/editacct/<?php echo get_option('id_blogID'); ?>" target="_blank" title="Customize Comment Links"><?php _e( 'Customize Links', 'intensedebate' ); ?></a>)<br />
+										<input type="radio" name="id_jsCommentLinks" value="0" <?php if ( get_option( 'id_jsCommentLinks' ) == 0 ) echo "checked"; ?> id="id_jsCommentLinks_0"> <label for="id_jsCommentLinks_0"><?php _e( 'IntenseDebate Enhanced Comment Links', 'intensedebate' ); ?></label> (<a href="<?php echo ID_BASEURL ?>//edit-site-misc/<?php echo get_option('id_blogID'); ?>" target="_blank" title="Customize Comment Links"><?php _e( 'Customize Links', 'intensedebate' ); ?></a>)<br />
 										<input type="radio" name="id_jsCommentLinks" value="1" <?php if ( get_option( 'id_jsCommentLinks' ) == 1 ) echo "checked"; ?> id="id_jsCommentLinks_1"> <label for="id_jsCommentLinks_1"><?php _e( 'WordPress Standard Comment Links', 'intensedebate' ); ?></label>
 										<span class="idwp-clear"></span>                            
 										<p id="divCommentLinkInfo" class="hidden"><?php printf( __( 'Use customized comment link text by enabling IntenseDebate Enhanced Comment Links.  <a href="%s">Learn more</a> about customizing your comment links.', 'intensedebate' ), ID_BASEURL . '/faq#li181' ); ?></p>
@@ -2283,18 +2153,8 @@ Author URI: http://intensedebate.com
 										<p id="divModPageInfo" class="hidden"><?php _e( "Moderate and reply to IntenseDebate comments from your WordPress admin panel using our custom moderation page that mirrors the WordPress page that you're already used to.  The only difference is the extra IntenseDebate zest we've added by including IntenseDebate avatars, reputation points, profile links and all of our other metadata gravy that you'll love.", 'intensedebate' ); ?></p>
 									</td>
 								</tr>
-
-								<tr valign="top">
-									<th scope="row" style="white-space: nowrap;" ><?php _e( 'Auto Login', 'intensedebate' ); ?> <span style="cursor:pointer;" onclick="jQuery('#divAutoLoginInfo').slideToggle();"><img src="<?php echo ID_BASEURL ?>/images1/wp-info.png" /></span></th>
-									<td>
-										<input type="radio" name="id_auto_login" value="0" <?php if ( get_option( 'id_auto_login' ) == 0 ) echo "checked"; ?> id="id_auto_login_0"> <label for="id_auto_login_0"><?php printf( __( 'Automatically log me in to IntenseDebate when possible (<a href="%s">Connect your IntenseDebate account to your WordPress profile</a>)', 'intensedebate' ), 'profile.php#intensedebatelogin' ); ?></label> <br />
-										<input type="radio" name="id_auto_login" value="1" <?php if ( get_option( 'id_auto_login' ) == 1 ) echo "checked"; ?> id="id_auto_login_1"> <label for="id_auto_login_1"><?php _e( "Don't automatically log me in to IntenseDebate", 'intensedebate' ); ?></label>
-										<span class="idwp-clear"></span>                            
-										<p id="divAutoLoginInfo" class="hidden"><?php _e( "This setting will determine if we attempt to log you (or any users that have synced a WordPress account to an IntenseDebate account) in to IntenseDebate automatically when you're signed into your WordPress account.  Note: this might not work in Safari if third party cookies are not enabled.", 'intensedebate' ); ?></p>
-									</td>
-								</tr>
 							</tbody>
-						</table>						
+						</table>
 						
 						<p class="submit">
 							<input type="submit" name="Submit" value="<?php _e( 'Save Changes', 'intensedebate' ) ?>" class="button-primary" /> 
@@ -2351,7 +2211,6 @@ Author URI: http://intensedebate.com
 			, 'id_import_token'
 			, 'id_userID'
 			, 'id_userKey'
-			, 'id_comment_template_file'
 			, 'id_jsCommentLinks'
 			, 'id_moderationPage'
 			, ID_REQUEST_QUEUE_NAME
@@ -2372,11 +2231,11 @@ Author URI: http://intensedebate.com
 		id_clear_blog_settings();
 		
 		global $wpdb;
-		$users = $wpdb->get_results( "SELECT * FROM $wpdb->users" );
+		$users = get_users_of_blog();
 		$meta = array( 'id_username', 'id_userID', 'id_userKey' );
 		foreach ( $users as $user ) {
 			foreach ( $meta as $key ) {
-				delete_usermeta( $user->ID, $key );
+				id_delete_user_meta( $user->user_id, $key );
 			}
 		}
 
@@ -2447,7 +2306,7 @@ Author URI: http://intensedebate.com
 		$fields['blog_rss'] = get_bloginfo( 'rss_url' );
 		$fields['blog_title'] = id_get_blog_name();
 		$fields['blog_sitetype'] = "wordpress";
-		$fields['rest_service'] = $fields['blog_url'] . '/index.php?id_action=import'; 
+		$fields['rest_service'] = $fields['blog_url'] . '/index.php?id_action=import';
 		$fields['token'] = id_generate_token( $fields );
 		$fields['wp_userID'] = $userdata->ID;
 		$fields['start_import'] = "false";
@@ -2492,8 +2351,6 @@ Author URI: http://intensedebate.com
 			&& $response->blogKey 
 			&& $response->blogAcct != ''
 		) {
-			id_save_option( 'id_userID', $response->userID );
-			id_save_option( 'id_userKey', $response->userKey );
 			id_save_option( 'id_blogID', $response->blogID );
 			id_save_option( 'id_blogKey', $response->blogKey );
 			id_save_option( 'id_blogAcct', $response->blogAcct );
@@ -2507,13 +2364,7 @@ Author URI: http://intensedebate.com
 			
 			//Set to go to next step
 			id_save_option( 'id_signup_step', 1 );
-			
-			id_save_usermeta_array( $userdata->ID, array(
-				'id_userID' => $response->userID,
-				'id_userKey' => $response->userKey,
-				'id_username' => $response->username
-			) );
-			
+						
 			// password IntenseDebate uses to request imported comments
 			id_save_option( 'id_import_token', $operation->data['token'] );
 
@@ -2537,21 +2388,22 @@ Author URI: http://intensedebate.com
 	function id_moderate_comments() {
 		global $userdata;
 		$wp_userID = $userdata->ID;
-		
-		$userID = get_usermeta( $wp_userID, 'id_userID' );
-		$userKey = get_usermeta( $wp_userID, 'id_userKey' );
-		
+				
 		$curSysTime = gmdate( "U" );
+		
+		$iframe_url = ID_COMMENT_MODERATION_PAGE;
+		if ( is_ssl() )
+			$iframe_url = str_replace( 'http://', 'https://secure.', $iframe_url );
 		?>
 		
-			<div class="wrap">
-				<?php if ( function_exists( 'screen_icon' ) ) screen_icon( 'edit-comments' ); ?>
-				<h2><?php _e( 'Edit Comments', 'intensedebate' ); ?></h2>
-				<iframe frameborder="0" id="id_iframe_moderation" src="<?php echo ID_COMMENT_MODERATION_PAGE . get_option( 'id_blogID' ) . "&userid=$userID&time=$curSysTime&authstr=" . md5( $userKey . $curSysTime ); ?>" style="width: 100%; height: 500px; border: none;" onload="addScript()" scrolling="auto"></iframe>
-			</div>
+		<div class="wrap">
+			<?php if ( function_exists( 'screen_icon' ) ) screen_icon( 'edit-comments' ); ?>
+			<h2><?php _e( 'Edit Comments', 'intensedebate' ); ?></h2>
+			<iframe frameborder="0" id="id_iframe_moderation" src="<?php echo $iframe_url . get_option( 'id_blogID' ); ?>" style="width: 100%; height: 500px; border: none;" onload="addScript()" scrolling="auto"></iframe>
+		</div>
 		
 		<script type="text/javascript">		
-		jQuery('#adminmenu a[href=edit-comments.php]').addClass('current');				
+		jQuery('#adminmenu a[href="edit-comments.php"]').addClass('current');
 		function addScript() {
 			setTimeout("addScript2();", 100);
 		}
@@ -2565,29 +2417,33 @@ Author URI: http://intensedebate.com
 		<?php
 	}
 
-	/*  Hook into existing template and inject IntenseDebate comment system 
-	(as well as old system in a noscript tags for browsers w/out JS and crawlers)
-	Add template file in options for later use in intensedebate-comment-template.php */
+	// Load our own custom comments template
 	function id_comments_template( $file ) {
 		if ( !is_singular() )
 			return $file;
-		
-		update_option( "id_comment_template_file", $file );
+
 		return dirname( __FILE__ ) . '/intensedebate-comment-template.php';
+	}
+	
+	// Force-load the original template (fall-back)
+	function id_get_original_comment_template() {
+		remove_filter( 'comments_template', 'id_comments_template' );
+		comments_template();
+		add_filter( 'comments_template', 'id_comments_template' );
 	}
 
 	function id_get_comment_number( $comment_text ) {
 		global $post;		
 		
 		if ( get_option( "id_jsCommentLinks" ) == 0 ) {
-			$id = $post->ID;
+			$id         = $post->ID;
 			$posttitle  = urlencode( $post->post_title );
 			$posttime   = urlencode( $post->post_date_gmt );
-			$postauthor = urlencode( get_author_name( $post->post_author ) );
-			$permalink  = get_permalink( $id );
-			$permalinkEncoded = urlencode( $permalink );
+			$postauthor = urlencode( id_get_author_name() );
+			$permalink  = urlencode( get_permalink( $post->ID ) );
+			$guid       = urlencode( $post->guid );
 			
-			return "<span class='IDCommentsReplace' style='display:none'>$id</span>$comment_text<span style='display:none' id='IDCommentPostInfoPermalink$id'>$permalink</span><span style='display:none' id='IDCommentPostInfoTitle$id'>$posttitle</span><span style='display:none' id='IDCommentPostInfoTime$id'>$posttime</span><span style='display:none' id='IDCommentPostInfoAuthor$id'>$postauthor</span>";
+			return "<span class='IDCommentsReplace' style='display:none'>$id</span>$comment_text<span style='display:none' id='IDCommentPostInfoPermalink$id'>$permalink</span><span style='display:none' id='IDCommentPostInfoTitle$id'>$posttitle</span><span style='display:none' id='IDCommentPostInfoTime$id'>$posttime</span><span style='display:none' id='IDCommentPostInfoAuthor$id'>$postauthor</span><span style='display:none' id='IDCommentPostInfoGuid$id'>$guid</span>";
 		} else {
 			return $comment_text;
 		}
@@ -2599,7 +2455,9 @@ Author URI: http://intensedebate.com
 		?>
 		<script type="text/javascript">
 		/* <![CDATA[ */
+		(function() {
 		var s = document.createElement("script"); s.type = "text/javascript";<?php echo $id ? " s.id = '" . addslashes( $id ) . "';" : ''; ?> s.src = "<?php echo addslashes( $url ); ?>"; document.getElementsByTagName("head")[0].appendChild(s);
+		}());
 		/* ]]> */
 		</script>
 <?php
@@ -2611,19 +2469,233 @@ Author URI: http://intensedebate.com
 	}
 
 	function id_get_comment_footer_script() {	
-		global $id_link_wrapper_output, $id_cur_post;
+		global $id_link_wrapper_output;
 		
 		if ( !$id_link_wrapper_output ) {
 			$id_link_wrapper_output = true;
 		
-			if ( get_option( "id_blogAcct" ) ) {
+			if ( get_option( "id_blogAcct" ) )
 				id_postload_js( ID_BASEURL . '/js/wordpressTemplateLinkWrapper2.php?acct=' . get_option( "id_blogAcct" ) );
-			}
 		}
+	}
+	
+	function id_clear_orphan_comments() {
+		global $wpdb;
+		
+		remove_action( 'trashed_comment', 'id_comment_trashed', 10 );
+		remove_action( 'wp_set_comment_status', 'id_comment_status', 10, 2 );
+		
+		// Get comments with post=0
+		$offset = 0;
+		// Using direct queries because get_comments() doesn't give access to post_ID=0, or date ranges
+		while ( $comments = $wpdb->get_col( $wpdb->prepare( "SELECT `comment_ID` FROM {$wpdb->comments} WHERE `comment_post_ID` = 0 AND `comment_date_gmt` BETWEEN '2010-07-16 00:00:00' AND '2010-07-23 00:00:00' LIMIT $offset, 50" ) ) ) {
+			foreach ( $comments as $comment ) {
+				// Check date
+				wp_delete_comment( $comment, true );
+			}
+			$offset += 50;
+		}
+		
+		// Ping ID for a resync
+		$fields = array( 'sync_type' => 'PDX' );
+		$queue = id_get_queue();
+		$op = $queue->add( 'request_resync', $fields, 'id_generic_callback' );
+		$queue->ping( array( $op ) );
+		
+		add_option( 'id_pdxsync', time() );
+		
+		add_action( 'trashed_comment', 'id_comment_trashed', 10 );
+		add_action( 'wp_set_comment_status', 'id_comment_status', 10, 2 );
+	}
+	
+	// Add ID blog stats widget
+	function widget_id_blog_stats($args) {
+		extract($args);
+		echo $before_widget;
+		echo "<script type='text/javascript' src='http://www.intensedebate.com/widgets/blogStats/" . get_option( "id_blogID" ) . "'></script>";
+		echo $after_widget;
+	}
+ 
+	function id_blog_stats_init() {
+		wp_register_sidebar_widget( 'id-stats', __( 'IntenseDebate - Site Stats' ), 'widget_id_blog_stats' );
+	}
+	
+	add_action( "plugins_loaded", "id_blog_stats_init" );
+	
+	// Add ID recent comments widget
+	function widget_id_recent_comments( $args ) {
+		extract( $args );
+		echo $before_widget;
+		$count = intval( get_option( 'id_recent_comments_count' ) );
+		if ( $count <= 0 )
+			$count = 5;
+		echo "<script type='text/javascript' src='http://www.intensedebate.com/widgets/acctComment/" . get_option( "id_blogID" ) . "/$count'></script>";
+		echo $after_widget;
+	}
+	
+	function widget_id_recent_comments_control() {
+		$count = get_option( 'id_recent_comments_count' );
+		?>
+		<p><label>Number of comments to display:<input name="id_recent_comments_count" type="text" value="<?php echo $count; ?>" /></label></p>
+		<?php
+		if ( isset( $_POST['id_recent_comments_count'] ) ) {
+			if ( !is_numeric( $_POST['id_recent_comments_count'] ) ) {
+				echo "Please enter a number";
+				return;
+			}
+			
+			$count = intval( $_POST['id_recent_comments_count'] );
+			if ( $count <= 0 ) {
+				echo "Please enter an integer greater than zero.";
+				return;
+			}
+			update_option( 'id_recent_comments_count', attribute_escape( $_POST['id_recent_comments_count'] ) );
+		}
+	}
+ 
+	function id_recent_comments_init() {
+		wp_register_sidebar_widget( 'id-recent', __( 'IntenseDebate - Recent Comments' ), 'widget_id_recent_comments' );
+		wp_register_widget_control( 'id-recent', __( 'IntenseDebate - Recent Comments' ), 'widget_id_recent_comments_control' );
+	}
+	
+	add_action( "plugins_loaded", "id_recent_comments_init" );
+	
+	// Add ID top commenters widget
+	function widget_id_top_commenters( $args ) {
+		extract($args);
+		echo $before_widget;
+		$count = intval( get_option( 'id_top_commenters_count' ) );
+		if ( $count <= 0 )
+			$count = 10;
+		echo "<script type='text/javascript' src='http://www.intensedebate.com/widgets/topCommenters/" . get_option( "id_blogID" ) . "/$count'></script>";
+		echo $after_widget;
+	}
+	
+	function widget_id_top_commenters_control() {
+		$count = get_option( 'id_top_commenters_count' );
+		?>
+		<p><label>Number of commenters to display:<input name="id_top_commenters_count" type="text" value="<?php echo $count; ?>" /></label></p>
+		<?php
+		if ( isset( $_POST['id_top_commenters_count'] ) ) {
+			if ( !is_numeric( $_POST['id_top_commenters_count'] ) ) {
+				echo "Please enter a number";
+				return;
+			}
+			
+			$count = intval( $_POST['id_top_commenters_count'] );
+			if ( $count <= 0 ) {
+				echo "Please enter an integer greater than zero.";
+				return;
+			}
+			update_option( 'id_top_commenters_count', attribute_escape( $_POST['id_top_commenters_count'] ) );
+		}
+	}
+ 
+	function id_top_commenters_init() {
+		wp_register_sidebar_widget( 'id-top', __( 'IntenseDebate - Top Commenters' ), 'widget_id_top_commenters' );
+		wp_register_widget_control( 'id-top', __( 'IntenseDebate - Top Commenters' ), 'widget_id_top_commenters_control' );
+	}
+	
+	add_action( "plugins_loaded", "id_top_commenters_init" );
+	
+	// Add ID most commented posts widget
+	function widget_id_most_commented_posts( $args ) {
+		extract( $args );
+		echo $before_widget;
+		$count = intval( get_option( 'id_most_commented_posts_count' ) );
+		if ( $count <= 0 )
+			$count = 10;
+		echo "<script type='text/javascript' src='http://www.intensedebate.com/widgets/mostComments/" . get_option( "id_blogID" ) . "/$count'></script>";
+		echo $after_widget;
+	}
+	
+	function widget_id_most_commented_posts_control() {
+		$count = get_option( 'id_most_commented_posts_count' );
+		?>
+		<p><label>Number of posts to display:<input name="id_most_commented_posts_count" type="text" value="<?php echo $count; ?>" /></label></p>
+		<?php
+		if ( isset( $_POST['id_most_commented_posts_count'] ) ) {
+			if ( !is_numeric( $_POST['id_most_commented_posts_count'] ) ) {
+				echo "Please enter a number";
+				return;
+			}
+			
+			$count = intval( $_POST['id_most_commented_posts_count'] );
+			if ( $count <= 0 ) {
+				echo "Please enter an integer greater than zero.";
+				return;
+			}
+			update_option( 'id_most_commented_posts_count', attribute_escape( $_POST['id_most_commented_posts_count'] ) );
+		}
+	}
+ 
+	function id_most_commented_posts_init() {
+		wp_register_sidebar_widget( 'id-commented', __( 'IntenseDebate - Most Commented Posts' ), 'widget_id_most_commented_posts' );
+		wp_register_widget_control( 'id-commented', __( 'IntenseDebate - Most Commented Posts'), 'widget_id_most_commented_posts_control' );
+	}
+	
+	add_action("plugins_loaded", "id_most_commented_posts_init");
+
+	// Detect if this is a mobile client based on the user agent
+	function id_is_mobile() {
+		$op = !empty( $_SERVER['HTTP_X_OPERAMINI_PHONE'] ) ? strtolower( $_SERVER['HTTP_X_OPERAMINI_PHONE'] ) : '';
+		$ua = strtolower( $_SERVER['HTTP_USER_AGENT'] );
+		$ac = !empty( $_SERVER['HTTP_ACCEPT'] ) ? strtolower( $_SERVER['HTTP_ACCEPT'] ) : '';
+		$ip = $_SERVER['REMOTE_ADDR'];
+
+		if ( strpos( $ua, 'ipad' ) )
+			return false;
+
+		 $isMobile = strpos( $ac, 'application/vnd.wap.xhtml+xml' ) !== false
+	        || $op != ''
+	        || strpos( $ua, 'sony' ) !== false 
+			|| strpos( $ua, 'webos/' ) !== false 
+	        || strpos( $ua, 'symbian' ) !== false 
+	        || strpos( $ua, 'nokia' ) !== false 
+	        || strpos( $ua, 'samsung' ) !== false 
+	        || strpos( $ua, 'mobile' ) !== false
+	        || strpos( $ua, 'windows ce' ) !== false
+	        || strpos( $ua, 'epoc' ) !== false
+	        || strpos( $ua, 'opera mini' ) !== false
+	        || strpos( $ua, 'nitro' ) !== false
+	        || strpos( $ua, 'j2me' ) !== false
+	        || strpos( $ua, 'midp-' ) !== false
+	        || strpos( $ua, 'cldc-' ) !== false
+	        || strpos( $ua, 'netfront' ) !== false
+	        || strpos( $ua, 'mot' ) !== false
+	        || strpos( $ua, 'up.browser' ) !== false
+	        || strpos( $ua, 'up.link' ) !== false
+	        || strpos( $ua, 'audiovox' ) !== false
+	        || strpos( $ua, 'blackberry' ) !== false
+	        || strpos( $ua, 'ericsson,' ) !== false
+	        || strpos( $ua, 'panasonic' ) !== false
+	        || strpos( $ua, 'philips' ) !== false
+	        || strpos( $ua, 'sanyo' ) !== false
+	        || strpos( $ua, 'sharp' ) !== false
+	        || strpos( $ua, 'sie-' ) !== false
+	        || strpos( $ua, 'portalmmm' ) !== false
+	        || strpos( $ua, 'blazer' ) !== false
+	        || strpos( $ua, 'avantgo' ) !== false
+	        || strpos( $ua, 'danger' ) !== false
+	        || strpos( $ua, 'palm' ) !== false
+	        || strpos( $ua, 'series60' ) !== false
+	        || strpos( $ua, 'palmsource' ) !== false
+	        || strpos( $ua, 'pocketpc' ) !== false
+	        || strpos( $ua, 'smartphone' ) !== false
+	        || strpos( $ua, 'rover' ) !== false
+	        || strpos( $ua, 'ipaq' ) !== false
+	        || strpos( $ua, 'au-mic,' ) !== false
+	        || strpos( $ua, 'alcatel' ) !== false
+	        || strpos( $ua, 'ericy' ) !== false
+	        || strpos( $ua, 'up.link' ) !== false
+	        || strpos( $ua, 'vodafone/' ) !== false
+	        || strpos( $ua, 'wap1.' ) !== false
+	        || strpos( $ua, 'wap2.' ) !== false;
+
+		return $isMobile;
 	}
 
 
 // ACTIVATE HOOKS
 
 	id_activate_hooks();
-?>

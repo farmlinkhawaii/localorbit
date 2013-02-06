@@ -1,3 +1,26 @@
+3.1.0
+ + Updated language files
+ + Added Belorussian translation
+3.0.5
+ + Added Chinese - Thanks Bo Zhao
+3.0
+ + Completely rewritten. Plain JS used instead of ZF classes
+2.4.14
+ + Added Finish language
+2.4.1
+ + Updated Italian language files
+2.3.8
+ + Revamped configuration page - now users see extra links
+ + Added Italian lang files - thanks Gianni!
+2.3.7
+ + Added context help to umapper configuration
+ + Moved configuration page into settings instead of plugins sub-page
+2.3.5
+ + Map templates are fully supported - most prominentely geodart games are now available
+2.3.0
+ + Made plugin WP 2.7.1 compatible
+ + Updated internal ZF to 1.8.1
+ + Fixed various estetic bugs
 2.2.0
  + Completely rewritted user interface - map creation made more easy and straightforward process
  + ability to delete maps

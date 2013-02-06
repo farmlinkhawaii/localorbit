@@ -10,8 +10,6 @@ Makes the links that Twitter Tools posts to Twitter be API-created bit.ly links 
 
 == Description ==
 
-**As of v1.1.0, this plugin is now working properly and the bugs have been fixed.**
-
 [Twitter Tools](http://wordpress.org/extend/plugins/twitter-tools/) is an excellent plugin for posting notifications of new blog posts to [Twitter](http://twitter.com/). However Twitter Tools just sends the URL to the new post normally which is then shortened by Twitter itself to a [bit.ly](http://bit.ly/) short link. This is done anonymously.
 
 This plugin will replace the normal URLs sent by Twitter Tools to Twitter with bit.ly URLs tied to your bit.ly account. You can then easily track the number of clicks from your bit.ly profile.
@@ -45,6 +43,10 @@ Visit Settings -> Twitter Tools: bit.ly and fill in your login and API key.
 Did you make sure to fill in your bit.ly login and API key on the plugin's settings page?
 
 == ChangeLog ==
+
+**Version 1.1.2**
+
+* Starting with version 2.0, Twitter Tools comes with it's own plugin to allow this. As such, my plugin will now give way to if the other plugin is activated.
 
 **Version 1.1.1**
 

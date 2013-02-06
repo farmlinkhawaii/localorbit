@@ -1,16 +1,13 @@
 <?php
 /*
-Plugin Name: Add to Any: Subscribe Button
+Plugin Name: AddToAny: Subscribe Button
 Plugin URI: http://www.addtoany.com/buttons/
-Description: Helps readers subscribe to your blog using any feed reader.  [<a href="widgets.php">Enable Widget</a> | <a href="options-general.php?page=add-to-any-subscribe.php">Settings</a>]
-Version: .9.7
-Author: Add to Any
-Author URI: http://www.addtoany.com/contact/
+Description: Help readers subscribe to your blog using any feed reader or feed service.  [<a href="widgets.php">Enable Widget</a> | <a href="options-general.php?page=add-to-any-subscribe.php">Settings</a>]
+Version: .9.9.1
+Author: AddToAny
+Author URI: http://www.addtoany.com/
 */
 
-
-if( !isset($A2A_javascript) )
-	$A2A_javascript = '';
 if( !isset($A2A_locale) )
 	$A2A_locale = '';
 
@@ -33,6 +30,10 @@ if ( $A2A_wpmu )
 else
 	$A2A_SUBSCRIBE_plugin_url_path = WP_PLUGIN_URL.'/'.$A2A_SUBSCRIBE_plugin_basename; // /wp-content/plugins/add-to-any-subscribe
 
+// Fix SSL
+if (function_exists('is_ssl') && is_ssl()) // @since 2.6.0
+	$A2A_SUBSCRIBE_plugin_url_path = str_replace('http:', 'https:', $A2A_SUBSCRIBE_plugin_url_path);
+
 function A2A_SUBSCRIBE_textdomain() {
 	global $A2A_SUBSCRIBE_plugin_url_path, $A2A_SUBSCRIBE_plugin_basename;
 	load_plugin_textdomain('add-to-any-subscribe',
@@ -42,38 +43,40 @@ function A2A_SUBSCRIBE_textdomain() {
 add_action('init', 'A2A_SUBSCRIBE_textdomain');
 
 		
-class Add_to_Any_Subscribe_Widget {
-
-  	// static init callback
-	function init() {
-		// Check for the required plugin functions. This will prevent fatal
-		// errors occurring when you deactivate the dynamic-sidebar plugin.
-		if ( !function_exists('register_sidebar_widget') )
-		  return;
-		
-		$widget = new Add_to_Any_Subscribe_Widget();
-		
-		// This registers our widget so it appears with the other available
-		// widgets and can be dragged and dropped into any active sidebars.
-		register_sidebar_widget('Add to Any Subscribe', array($widget,'display'));
-		
-		//Registering the control form.
-		register_widget_control('Add to Any Subscribe', 'A2A_SUBSCRIBE_options_widget', 450);
+class Add_to_Any_Subscribe_Widget extends WP_Widget {
+	/** constructor */
+    function Add_to_Any_Subscribe_Widget() {
+        parent::WP_Widget('', 'AddToAny Subscribe Button', array('description' => 'A button to help people subscribe to your blog using any service'), array('width' => 400));	
+    }
+	
+	/** Backwards compatibility for Add_to_Any_Subscribe_Widget::display(); usage */
+	function display( $args = false ) {
+		self::widget($args, NULL);
 	}
 
-
-	function display( $args = false ) {
+    /** @see WP_Widget::widget */	
+	function widget($args = array(), $instance) {
 	
 		global $A2A_SUBSCRIBE_plugin_url_path;
 		
-		if( $args )
-			extract( $args );
+		$defaults = array(
+			'feedname' => get_bloginfo('name'),
+			'feedname_enc' => '',
+			'feedurl' => get_bloginfo('rss2_url'),
+			'$feedurl_enc' => '',
+			'before_widget' => '',
+			'after_widget' => '',
+			'before_title' => '',
+			'after_title' => '',
+		);
 		
-		$feedname		= ($feedname) ? $feedname : get_bloginfo('name');
+		$args = wp_parse_args( $args, $defaults );
+		extract( $args );
+		
 		$feedname		= ($feedname=='') ? 'Blog' : $feedname ; // Blog name cannot be blank for A2A
 		$feedname_enc	= rawurlencode( $feedname );
-		$feedurl		= ($feedurl) ? $feedurl : get_bloginfo('rss2_url');
 		$feedurl_enc 	= rawurlencode( $feedurl );
+		$style 			= '';
 		
 		$button_target	= (get_option('A2A_SUBSCRIBE_button_opens_new_window')=='1' && (get_option('A2A_SUBSCRIBE_onclick')!='1')) ? ' target="_blank"' : '';
 		
@@ -97,7 +100,7 @@ class Add_to_Any_Subscribe_Widget {
 			$button_text	= stripslashes(get_option('A2A_SUBSCRIBE_button_text'));
 		}
 		
-		if( $button_fname == 'subscribe_16_16.png' ) {
+		if( isset($button_fname) && $button_fname == 'subscribe_16_16.png' ) {
 			if( !is_feed() ) {
 				$style_bg	= 'background:url('.$A2A_SUBSCRIBE_plugin_url_path.'/'.$button_fname.') no-repeat scroll 9px 0px'; // padding-left:9 (9=other icons padding)
 				$style_bg	= ';' . $style_bg . ' !important;';
@@ -105,7 +108,7 @@ class Add_to_Any_Subscribe_Widget {
 			}
 		}
 		
-		if( $button_text && (!$button_fname || $button_fname == 'subscribe_16_16.png') ) {
+		if( isset($button_text) && ( ! isset($button_fname) || $button_fname == 'subscribe_16_16.png') ) {
 			$button			= $button_text;
 		} else {
 			$style = '';
@@ -122,47 +125,58 @@ class Add_to_Any_Subscribe_Widget {
 		} ?>
 
         <a class="a2a_dd addtoany_subscribe" href="http://www.addtoany.com/subscribe?linkname=<?php echo $feedname_enc; ?>&amp;linkurl=<?php echo $feedurl_enc; ?>"<?php echo $style . $button_target; ?>><?php echo $button; ?></a>
-        <?php echo $after_widget;
+        <?php 
 		
-		global $A2A_javascript, $A2A_SUBSCRIBE_external_script_called;
-		if( $A2A_javascript == '' || !$A2A_SUBSCRIBE_external_script_called ) {
-			$external_script_call = '</script><script type="text/javascript" src="http://static.addtoany.com/menu/feed.js"></script>';
+		if (function_exists('is_ssl') ) // @since 2.6.0
+			$http_or_https = (is_ssl()) ? 'https' : 'http';
+		else
+			$http_or_https = 'http';
+		
+		global $A2A_SUBSCRIBE_external_script_called;
+		if ( ! $A2A_SUBSCRIBE_external_script_called ) {
+			// Enternal script call + initial JS + set-once variables
+			$initial_js = 'var a2a_config = a2a_config || {};' . "\n";
+			$additional_js = get_option('A2A_SUBSCRIBE_additional_js_variables');
+			$external_script_call = ((get_option('A2A_SUBSCRIBE_onclick')=='1') ? 'a2a_config.onclick=1;' . "\n" : '')
+				. ((get_option('A2A_SUBSCRIBE_show_title')=='1') ? 'a2a_config.show_title=1;' . "\n" : '')
+				. (($additional_js) ? stripslashes($additional_js) . "\n" : '')
+				. "//]]>" . '</script><script type="text/javascript" src="' . $http_or_https . '://static.addtoany.com/menu/feed.js"></script>';
 			$A2A_SUBSCRIBE_external_script_called = true;
 		}
-		else
-			$external_script_call = 'a2a_init("feed");</script>';
-		$A2A_javascript .= '<script type="text/javascript">' . "\n"
+		else {
+			$external_script_call = 'a2a.init("feed");\n//]]></script>';
+			$initial_js = '';
+		}
+			
+		$button_javascript = "\n" . '<script type="text/javascript">' . "//<![CDATA[\n"
+			. $initial_js
 			. A2A_menu_locale()
-			. 'a2a_linkname="' . js_escape($feedname) . '";' . "\n"
-			. 'a2a_linkurl="' . $feedurl . '";' . "\n"
-			. ((get_option('A2A_SUBSCRIBE_onclick')=='1') ? 'a2a_onclick=1;' . "\n" : '')
-			. ((get_option('A2A_SUBSCRIBE_hide_embeds')=='-1') ? 'a2a_hide_embeds=0;' . "\n" : '')
-			. ((get_option('A2A_SUBSCRIBE_show_title')=='1') ? 'a2a_show_title=1;' . "\n" : '')
-			. (($A2A_javascript == '' || !$A2A_SUBSCRIBE_external_script_called) ? stripslashes(get_option('A2A_SUBSCRIBE_additional_js_variables')) . "\n" : '')
+			. 'a2a_config.linkname="' . esc_js($feedname) . '";' . "\n"
+			. 'a2a_config.linkurl="' . $feedurl . '";' . "\n"
 			. $external_script_call . "\n\n";
 		
-		remove_action('wp_footer', 'A2A_menu_javascript');
-		add_action('wp_footer', 'A2A_menu_javascript');
+		echo $button_javascript;
 		
+		echo $after_widget;
 	}
+	
+	/** @see WP_Widget::form */
+    function form($instance) {
+		A2A_SUBSCRIBE_options_widget();
+    }
 	
 }
 
-// Run our code later in case this loads prior to any required plugins.
-add_action('widgets_init', array('Add_to_Any_Subscribe_Widget','init'), 99);
-
-
-if (!function_exists('A2A_menu_javascript')) {
-	function A2A_menu_javascript() {
-		global $A2A_javascript;
-		echo $A2A_javascript;
-	}
-}
+// register AddToAny Subscribe widget
+add_action('widgets_init', create_function('', 'return register_widget("Add_to_Any_Subscribe_Widget");'));
 
 if (!function_exists('A2A_menu_locale')) {
 	function A2A_menu_locale() {
 		global $A2A_locale;
-		if( $A2A_locale != '' ) return false;
+		$locale = get_locale();
+		if($locale  == 'en_US' || $locale == 'en' || $A2A_locale != '' )
+			return false;
+		
 		$A2A_locale = 'a2a_localize = {
 	Share: "' . __("Share", "add-to-any") . '",
 	Save: "' . __("Save", "add-to-any") . '",
@@ -230,7 +244,7 @@ function A2A_SUBSCRIBE_options_widget() {
 
 	global $A2A_SUBSCRIBE_plugin_url_path;
 	
-	if( $_POST[ 'A2A_SUBSCRIBE_submit_hidden' ] == 'Y' ) {
+	if ( isset($_POST['A2A_SUBSCRIBE_submit_hidden']) ) {
 
 		update_option( 'A2A_SUBSCRIBE_button', $_POST['A2A_SUBSCRIBE_button'] );
 		update_option( 'A2A_SUBSCRIBE_button_custom', $_POST['A2A_SUBSCRIBE_button_custom'] );
@@ -322,8 +336,11 @@ function A2A_SUBSCRIBE_options_page() {
 
 	global $A2A_SUBSCRIBE_plugin_url_path;
 
-    if( $_POST[ 'A2A_SUBSCRIBE_submit_hidden' ] == 'Y' ) {
-
+    if( isset($_POST['Submit']) ) {
+		
+		// Nonce verification 
+		check_admin_referer('add-to-any-subscribe-update-options');
+		
 		update_option( 'A2A_SUBSCRIBE_hide_embeds', ($_POST['A2A_SUBSCRIBE_hide_embeds']=='1') ? '1':'-1' );
 		update_option( 'A2A_SUBSCRIBE_show_title', ($_POST['A2A_SUBSCRIBE_show_title']=='1') ? '1':'-1' );
 		update_option( 'A2A_SUBSCRIBE_onclick', ($_POST['A2A_SUBSCRIBE_onclick']=='1') ? '1':'-1' );
@@ -350,13 +367,11 @@ function A2A_SUBSCRIBE_options_page() {
     
     <div class="wrap">
 
-	<h2><?php _e( 'Add to Any: Subscribe ', 'add-to-any-subscribe' ) . _e( 'Settings' ); ?></h2>
+	<h2><?php _e( 'AddToAny: Subscribe ', 'add-to-any-subscribe' ) . _e( 'Settings' ); ?></h2>
 
     <form method="post" action="">
     
-	<?php wp_nonce_field('update-options'); ?>
-    
-    	<input type="hidden" name="A2A_SUBSCRIBE_submit_hidden" value="Y">
+	<?php wp_nonce_field('add-to-any-subscribe-update-options'); ?>
     
         <table class="form-table">
         	<tr valign="top">
@@ -416,9 +431,9 @@ function A2A_SUBSCRIBE_options_page() {
             <tr valign="top">
             <th scope="row"><?php _e("Menu Style", "add-to-any-subscribe"); ?></th>
             <td><fieldset>
-					<p><?php _e("Using Add to Any's Menu Styler, you can customize the colors of your Subscribe menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SUBSCRIBE_additional_js_variables').focus();return false\">Additional Options</a> box below.", "add-to-any-subscribe"); ?></p>
+					<p><?php _e("Using AddToAny's Menu Styler, you can customize the colors of your Subscribe menu! When you're done, be sure to paste the generated code in the <a href=\"#\" onclick=\"document.getElementById('A2A_SUBSCRIBE_additional_js_variables').focus();return false\">Additional Options</a> box below.", "add-to-any-subscribe"); ?></p>
                     <p>
-                		<a href="http://www.addtoany.com/buttons/subscribe/menu_style/wordpress" class="button-secondary" title="<?php _e("Open the Add to Any Menu Styler in a new window", "add-to-any-subscribe"); ?>" target="_blank"
+                		<a href="http://www.addtoany.com/buttons/subscribe/menu_style/wordpress" class="button-secondary" title="<?php _e("Open the AddToAny Menu Styler in a new window", "add-to-any-subscribe"); ?>" target="_blank"
                         	onclick="document.getElementById('A2A_SUBSCRIBE_additional_js_variables').focus();
                             	document.getElementById('A2A_SUBSCRIBE_menu_styler_note').style.display='';"><?php _e("Open Menu Styler", "add-to-any-subscribe"); ?></a>
 					</p>
@@ -427,11 +442,6 @@ function A2A_SUBSCRIBE_options_page() {
             <tr valign="top">
             <th scope="row"><?php _e("Menu Options", "add-to-any-subscribe"); ?></th>
             <td><fieldset>
-            	<label>
-                	<input name="A2A_SUBSCRIBE_hide_embeds" 
-                        type="checkbox"<?php if(get_option('A2A_SUBSCRIBE_hide_embeds')!='-1') echo ' checked="checked"'; ?> value="1"/>
-                	<?php _e("Hide embedded objects (Flash, video, etc.) that intersect with the menu when displayed", "add-to-any-subscribe"); ?>
-                </label><br />
                 <label>
                 	<input name="A2A_SUBSCRIBE_show_title" 
                         type="checkbox"<?php if(get_option('A2A_SUBSCRIBE_show_title')=='1') echo ' checked="checked"'; ?> value="1"/>
@@ -457,12 +467,12 @@ function A2A_SUBSCRIBE_options_page() {
             <td><fieldset>
             		<p id="A2A_SUBSCRIBE_menu_styler_note" style="display:none">
                         <label for="A2A_SUBSCRIBE_additional_js_variables" class="updated">
-                            <strong><?php _e("Paste the code from Add to Any's Menu Styler in the box below!", "add-to-any-subscribe"); ?></strong>
+                            <strong><?php _e("Paste the code from AddToAny's Menu Styler in the box below!", "add-to-any-subscribe"); ?></strong>
                         </label>
                     </p>
                     <label for="A2A_SUBSCRIBE_additional_js_variables">
                     	<p><?php _e("Below you can set special JavaScript variables to apply to your Subscribe menu.", "add-to-any-subscribe"); ?>
-                    	<?php _e("Advanced users might want to explore Add to Any's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>.", "add-to-any-subscribe"); ?></p>
+                    	<?php _e("Advanced users might want to explore AddToAny's <a href=\"http://www.addtoany.com/buttons/api/\" target=\"_blank\">JavaScript API</a>.", "add-to-any-subscribe"); ?></p>
 					</label>
                     <p>
                 		<textarea name="A2A_SUBSCRIBE_additional_js_variables" id="A2A_SUBSCRIBE_additional_js_variables" class="code" style="width: 98%; font-size: 12px;" rows="5" cols="50"><?php echo stripslashes(get_option('A2A_SUBSCRIBE_additional_js_variables')); ?></textarea>
@@ -488,9 +498,9 @@ function A2A_SUBSCRIBE_options_page() {
 function A2A_SUBSCRIBE_add_menu_link() {
 	if( current_user_can('manage_options') ) {
 		add_options_page(
-			'Add to Any: '. __("Subscribe", "add-to-any-subscribe") . " " . __("Settings")
+			'AddToAny: '. __("Subscribe", "add-to-any-subscribe") . " " . __("Settings")
 			, __("Subscribe Buttons", "add-to-any-subscribe")
-			, 8 
+			, 'activate_plugins'
 			, basename(__FILE__)
 			, 'A2A_SUBSCRIBE_options_page'
 		);
