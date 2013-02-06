@@ -1,3 +1,6 @@
+<?php if (!have_posts()) : ?>
+	New posts coming soon.
+<?php endif; ?>
 <?php while (have_posts()) : the_post();?>
 	<div class="article" id="post-<?php the_ID(); ?>">
   
