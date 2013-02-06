@@ -75,6 +75,8 @@ if ($branding)
   $options['headingsFontFamily'] = $branding['font_name'];
   $options['mastercolor'] = '#' . str_pad(dechex($branding['text_color']), 6, '0', STR_PAD_LEFT);
   $options['headingLetterSpacing'] = isset($branding['kerning'])?$branding['kerning'].'px':'normal';
+  $options['headingWordSpacing'] = isset($branding['kerning'])?(-$branding['kerning']).'px':'normal';
+  
 }
 else
 {
@@ -82,6 +84,7 @@ else
   $options['headingsFontFamily'] = '"Open Sans Condensed","Domine", Georgia, "Times New Roman", Times, serif';
   $options['mastercolor'] = '#1f7169';
   $options['headingLetterSpacing'] = 'normal';
+  $options['headingWordSpacing'] = 'normal';
 }
 
 $less->setVariables($options);
