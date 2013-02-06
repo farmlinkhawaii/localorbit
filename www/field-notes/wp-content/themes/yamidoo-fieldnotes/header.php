@@ -20,7 +20,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="top_background"/>
+<div id="top_background">
 <table id="main_layout_homepage" width="100%">
 			<colgroup><col>
 			<col width="1100">
@@ -44,7 +44,7 @@
 					</div>
 				</td>
 				<td><img src="/img/blank.png" width="1" height="120"></td>
-			</tr></table>
+			</tr></table></div>
 	<div id="page-wrap">
 
  		<div id="main-wrap">
