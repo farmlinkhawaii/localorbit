@@ -13,7 +13,9 @@ if(lo3::is_admin())
 else if(lo3::is_market())
 {
 	$payments = new core_collection('
-		select * from v_payments vp
+		select *,
+		UNIX_TIMESTAMP(creation_date) as creation_date
+		from v_payments vp
 		where (
 			vp.from_org_id in (
 				select otd1.org_id 
