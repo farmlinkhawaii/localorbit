@@ -8,6 +8,9 @@
 	array("id"   => "2",
 		"name" => "Homepage"),
 
+	array("id"    => "5",
+				"name"  => "Styling"),
+
 	array("id"   => "7",
 		"name" => "Banners")
 ),
@@ -317,6 +320,89 @@
 			"id"   => "cf_photo",
 			"std"  => "image",
 			"type" => "text")
+),
+
+"id5" => array(
+    array("type"  => "preheader",
+          "name"  => "Colors"),
+
+    array("name"  => "Page Background Color",
+           "id"   => "bg_color",
+           "type" => "color",
+           "selector" => "#main-wrap",
+           "attr" => "background-color"),
+
+    array("name"  => "Logo Color",
+           "id"   => "logo_color",
+           "type" => "color",
+           "selector" => "#logo h1 a",
+           "attr" => "color"),
+
+    array("name"  => "Slider Background Color",
+           "id"   => "slidebg_color",
+           "type" => "color",
+           "selector" => "#feature",
+           "attr" => "background-color"),
+   
+    array("name"  => "Link Color",
+           "id"   => "a_css_color",
+           "type" => "color",
+           "selector" => "a",
+           "attr" => "color"),
+           
+    array("name"  => "Link Hover Color",
+           "id"   => "ahover_css_color",
+           "type" => "color",
+           "selector" => "a:hover",
+           "attr" => "color"),
+
+    array("name"  => "Widget Title Color",
+           "id"   => "widget_color",
+           "type" => "color",
+           "selector" => ".widget h3.title",
+           "attr" => "color"),
+
+    array("name"  => "Widget Title Background",
+           "id"   => "widget_background",
+           "type" => "color",
+           "selector" => ".widget h3.title, #sidebar .tabberlive, #articles .head_title, h3.archive_title, .post_author, ul.dropdown li ul",
+           "attr" => "background"),
+
+     array("name"  => "Widget Title Top Border",
+           "id"   => "widget_border",
+           "type" => "color",
+           "selector" => ".widget h3.title, #sidebar .tabberlive, #articles .head_title, h3.archive_title, ul.dropdown li ul",
+           "attr" => "border-color"),
+
+
+    array("type"  => "preheader",
+          "name"  => "Fonts"),
+
+    array("name" => "General Text Font Style", 
+          "id" => "typo_body", 
+          "type" => "typography", 
+          "selector" => "body" ),
+
+    array("name" => "Logo Text Style", 
+          "id" => "typo_logo", 
+          "type" => "typography", 
+          "selector" => "#logo h1 a" ),
+
+    array("name"  => "Post Title Style",
+           "id"   => "typo_post_title",
+           "type" => "typography",
+           "selector" => ".article h2.title a"),
+
+    array("name"  => "Individual Post Title Style",
+           "id"   => "typo_individual_title",
+           "type" => "typography",
+           "selector" => ".single .post h1.title a"),
+ 
+     array("name"  => "Widget Title Style",
+           "id"   => "typo_widget",
+           "type" => "typography",
+           "selector" => ".widget h3.title"),
+
 ),
 
 "id7" => array(

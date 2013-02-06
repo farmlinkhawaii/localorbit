@@ -30,6 +30,7 @@ if(strpos($_SERVER['HTTP_HOST'],'dev') !== false)
 	define('WP_SITEURL','http://dev.localorb.it/field-notes');
 	define('DB_USER', 'localorb_www');
 	define('DB_PASSWORD', 'localorb_www_dev');
+	define('DB_HOST', 'localhost');
 }
 else if(strpos($_SERVER['HTTP_HOST'],'newui') !== false)
 {
@@ -38,6 +39,7 @@ else if(strpos($_SERVER['HTTP_HOST'],'newui') !== false)
 	define('WP_SITEURL','http://newui.localorb.it/field-notes');
 	define('DB_USER', 'localorb_www');
 	define('DB_PASSWORD', 'l0cal1sdab3st');
+	define('DB_HOST', 'localorb.cc2ndox9watl.us-west-2.rds.amazonaws.com');
 }
 else if(strpos($_SERVER['HTTP_HOST'],'qa') !== false)
 {
@@ -46,6 +48,7 @@ else if(strpos($_SERVER['HTTP_HOST'],'qa') !== false)
 	define('WP_SITEURL','http://qa.localorb.it/field-notes');
 	define('DB_USER', 'localorb_www');
 	define('DB_PASSWORD', 'l0cal1sdab3st');
+	define('DB_HOST', 'localorb.cc2ndox9watl.us-west-2.rds.amazonaws.com');
 }
 else if(strpos($_SERVER['HTTP_HOST'],'testing') !== false)
 {
@@ -54,6 +57,7 @@ else if(strpos($_SERVER['HTTP_HOST'],'testing') !== false)
 	define('WP_SITEURL','http://testing.localorb.it/field-notes');
 	define('DB_USER', 'localorb_www');
 	define('DB_PASSWORD', 'l0cal1sdab3st');
+	define('DB_HOST', 'localorb.cc2ndox9watl.us-west-2.rds.amazonaws.com');
 }
 else
 {
@@ -62,6 +66,7 @@ else
 	define('WP_SITEURL','http://www.localorb.it/field-notes');
 	define('DB_USER', 'localorb_www');
 	define('DB_PASSWORD', 'l0cal1sdab3st');
+	define('DB_HOST', 'localorb.cc2ndox9watl.us-west-2.rds.amazonaws.com');
 }
 
 	//~ define('DB_USER', 'localorb_www');
@@ -72,11 +77,6 @@ else
 	//~ define('LOGGED_IN_KEY', 'vcp~,9dJ56pL80aapU/ec}A*kFpgfaN4rPaMLWPj3E:[3Z6/8FsZ2H1.dYS]p0');
 	//~ define('NONCE_KEY', 'nIu=`+g-&>qffQL{&P{RxYNs+$$zqNg_8h|`h+f+];Sd_4@(z');
 
-
-
-
-/** MySQL hostname */
-define('DB_HOST', 'localorb.cc2ndox9watl.us-west-2.rds.amazonaws.com');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');

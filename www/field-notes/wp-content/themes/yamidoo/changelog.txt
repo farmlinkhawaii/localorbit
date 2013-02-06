@@ -4,6 +4,20 @@ http://www.wpzoom.com/themes/yamidoo/
 CHANGELOG
 ---------
 
+v 2.0.6 (January 30, 2013)
+	
+	- Added option to change the background of widgets and the yellow color from other elements.
+	- modified files:
+		/functions/theme/options.php
+
+		
+v 2.0.5 (January 26, 2013)
+	
+	- Added "Styling" section in Theme Options.
+ 	- modified files:
+		/functions/theme/options.php
+
+
 v 2.0.4 (December 25, 2012)
 
 	- Fixed background bug
