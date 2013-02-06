@@ -2,6 +2,17 @@
 
 class core_controller_payments extends core_controller
 {
+	
+	function reload_all_tabs()
+	{
+		core_datatable::js_reload('overview');
+		core_datatable::js_reload('receivables');
+		core_datatable::js_reload('invoices');
+		core_datatable::js_reload('transactions');
+		core_datatable::js_reload('payments');
+		core_datatable::js_reload('payables');
+	}
+	
 	function record_payments()
 	{
 		global $core;
@@ -85,10 +96,7 @@ class core_controller_payments extends core_controller
 			}
 		}
 		
-		core_datatable::js_reload('invoices');
-		core_datatable::js_reload('transactions');
-		core_datatable::js_reload('payments');
-		core_datatable::js_reload('payables');
+		$this->reload_all_tabs();
 		core::js("$('#".$prefix."s_pay_area,#all_all_".$prefix."s').toggle();");
 		core_ui::notification('payments saved');
 	}
@@ -136,8 +144,7 @@ class core_controller_payments extends core_controller
 			
 		}
 		
-		core_datatable::js_reload('invoices');
-		core_datatable::js_reload('receivables');
+		$this->reload_all_tabs();
 		
 		core::js("$('#receivables_create_area,#all_receivables').toggle();");
 		#core_datatable::js_reload('receivables');
