@@ -41,7 +41,7 @@ foreach($invoices as $invoice)
 		?>
 <h3>From <?=$invoice['from_org_name']?> to <?=$invoice['to_org_name']?></h3>
 <?=core_form::value('Amount Due','',array('id'=>'invoice_amount_due_'.$cur_group))?>
-<?=core_form::input_text('Amount Received','invoice_amount_'.$cur_group,0,array('onkeyup'=>'core.payments.applyMoneyToInvoices(this.value,\''.$cur_group.'\',this);'))?>
+<?=core_form::input_text('Amount Paid','invoice_amount_'.$cur_group,0,array('onkeyup'=>'core.payments.applyMoneyToInvoices(this.value,\''.$cur_group.'\',this);'))?>
 <?=core_form::input_select('Payment Method','payment_method_'.$cur_group,null,array(
 	4=>'Check',
 	5=>'Cash',
