@@ -15,13 +15,13 @@ function org_col_formatter($data)
 	$data['activate_action'] = ($data['is_active'] == 1)?'deactivate':'activate';
 	$data['enable_action']   = ($data['is_enabled'] == 1)?'suspend':'enable';
 	
-	switch($data['composite_role'])
+	/* switch($data['composite_role'])
 	{
 		case 1: $data['role'] = 'Admin';	break;
 		case 2: $data['role'] = 'Market Manager';	break;
 		case '3-0': $data['role'] = 'Buyer'; break;
 		case '3-1': $data['role'] = 'Seller'; break;
-	}
+	} */
 	
 	
 	return $data;

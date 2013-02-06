@@ -21,7 +21,7 @@ else
 }
 
 
-function user_role_formatter($data)
+/* function user_role_formatter($data)
 {
 	global $core;
 	$data['role'] = ($data['allow_sell'] == 1)?'Seller':'Buyer';
@@ -49,10 +49,10 @@ function user_role_formatter($data)
 	#core::log('role: '.$data['role']);
 	return $data;
 }
-
+ */
 
 $col->add_formatter('enable_suspend_links');
-$col->add_formatter('user_role_formatter');
+//$col->add_formatter('user_role_formatter');
 
 
 
@@ -118,7 +118,7 @@ $actions = '
 $users->add(new core_datacolumn('first_name','Name',true,'25%','<a href="#!users-edit--entity_id-{entity_id}"><b>{first_name} {last_name}</b></a><br /><small><i class="icon-envelope"></i> <a href="mailTo:{email}">{email}</a></small>','{first_name} {last_name}','{first_name} {last_name}'));
 $users->add(new core_datacolumn('org_name','Organization',true,'20%','<b>{org_name}</b><br /><small>{domain_name}</small>','{org_name}','{org_name}'));
 $users->add(new core_datacolumn('created_at','Registered On',true,'15%','{created_at}','{created_at}','{created_at}'));
-$users->add(new core_datacolumn('role_label','Role',true,'10%','{role}','{role}','{role}'));
+$users->add(new core_datacolumn('role_label','Role',true,'10%','{role_label}','{role_label}','{role_label}'));
 $users->add(new core_datacolumn('entity_id',' ',false,'30%',$actions,'  ','  '));
 
 $users->sort_column = 2;
