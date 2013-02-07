@@ -47,14 +47,18 @@ else
 
 function transaction_formatter($data)
 {
+	#core::log(print_r($data,true));
 	switch($data['payment_method'])
 	{
 		case 'check':
 			$data['method_description'] = 'Check: '.$data['ref_nbr'];
+			break;
 		case 'ach':
 			$data['method_description'] = 'ACH: '.$data['ref_nbr'];
+			break;
 		case 'paypal':
 			$data['method_description'] = 'Paypal: '.$data['ref_nbr'];
+			break;
 		case 'cash':
 			$data['method_description'] = 'Cash';
 			break;

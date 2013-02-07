@@ -42,10 +42,14 @@ foreach($invoices as $invoice)
 <h3>From <?=$invoice['from_org_name']?> to <?=$invoice['to_org_name']?></h3>
 <?=core_form::value('Amount Due','',array('id'=>'invoice_amount_due_'.$cur_group))?>
 <?=core_form::input_text('Amount Paid','invoice_amount_'.$cur_group,0,array('onkeyup'=>'core.payments.applyMoneyToInvoices(this.value,\''.$cur_group.'\',this);'))?>
-<?=core_form::input_select('Payment Method','payment_method_'.$cur_group,null,array(
-	4=>'Check',
-	5=>'Cash',
-))?>
+<?=core_form::input_select('Payment Method','invoice_payment_method_'.$cur_group,null,array(
+		4=>'Check',
+		5=>'Cash',
+	),array(
+		'onchange'=>'core.payments.setCheckNumber(\''.$cur_group.'\',this.options[this.selectedIndex].value);',
+	)
+)?>
+<?=core_form::input_text('Check Number','invoice_ref_nbr_'.$cur_group,'',array('row_id'=>'area_check_nbr_'.$cur_group))?>
 <?=core_form::input_textarea('Memo:','invoice_admin_note__'.$cur_group)?>
 <table class="dt">
 	<?=core_form::column_widths('22%','32%','14%','14%','15%')?>

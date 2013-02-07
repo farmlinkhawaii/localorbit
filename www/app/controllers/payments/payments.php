@@ -53,6 +53,9 @@ class core_controller_payments extends core_controller
 		}
 		
 		core::log('payment structure: '.print_r($payments,true));
+		#core::log(print_r($core->data,true));
+		#core::deinit();
+		
 		foreach($payments as $cur_group=>$payment)
 		{
 			if($payment['total'] > 0)
@@ -62,9 +65,18 @@ class core_controller_payments extends core_controller
 				list($new_payment['to_org_id'],$new_payment['from_org_id']) = explode('_',$cur_group);
 				$new_payment['amount'] = $payment['total'];
 				$new_payment['admin_note'] = $core->data[$prefix.'_admin_note__'.$cur_group];
+				
 				if($prefix == 'invoice')
 				{
-					$new_payment['payment_method_id'] = $core->data['payment_method_'.$cur_group];
+					$new_payment['payment_method_id'] = $core->data['invoice_payment_method_'.$cur_group];
+					
+					
+					if(intval($new_payment['payment_method_id']) == 4)
+					{
+						core::log('here: '.$core->data[$prefix.'_ref_nbr_'.$cur_group]);
+						$new_payment['ref_nbr'] = $core->data[$prefix.'_ref_nbr_'.$cur_group];
+					}
+					
 					$new_payment->save();
 				}
 				else
@@ -96,7 +108,7 @@ class core_controller_payments extends core_controller
 			}
 		}
 		
-		$this->reload_all_tabs();
+		#$this->reload_all_tabs();
 		core::js("$('#".$prefix."s_pay_area,#all_all_".$prefix."s').toggle();");
 		core_ui::notification('payments saved');
 	}
