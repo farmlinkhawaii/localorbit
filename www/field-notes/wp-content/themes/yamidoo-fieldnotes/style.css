@@ -7,7 +7,7 @@ Template: yamidoo
 @import url("../yamidoo/style.css");
 
 body {
-	font-family: 'Francois One', sans-serif !important;
+	
 	margin: 0 auto;
 	font-size: 13px;
 }
@@ -17,11 +17,18 @@ body {
 margin-right: auto;
 }
 
+
+#articles .head_title{
+	text-transform: none !important;
+}
+
 #main_layout_homepage a {
 	color: #fff;
+	font-family: 'Francois One', sans-serif !important;
+	font-size: 15px;
 }
 a.nav1 {
-font-size: 22px;
+font-size: 22px !important;
 margin-right: 30px;
 }
 
@@ -30,12 +37,13 @@ margin-right: 30px;
 position: absolute;
 left: 165px;
 top: 00px;
-width: 320px;
+width: 520px;
 height: 40px;
 color: #fff !important;
 line-height: 50px;
 vertical-align: center;
-font-size: 15px;
+font-size: 22px !important;
+font-family: 'Francois One', sans-serif !important;
 }
 
 #nav2 {
@@ -67,20 +75,36 @@ font-size: 90%;
 
 #logo h1 a {
 	font-size:50px;
+font-family: 'Francois One', serif !important;
+}
+
+#logo span{
+	text-transform: none !important;
+	font-family: 'Francois One', serif !important;
+	font-size: 115% !important;
 }
 
 #topmenu a {
 	font-size:14px;
-	font-family:Francois, Georgia, serif;
+	font-family: 'Francois One', Georgia, serif;
+}
+
+ul.dropdown a{
+	font-size: 110% !important;
 }
 
 ul.dropdown li { 
-	font-family:Francois, Georgia, serif; 
+
+	text-transform: none !important;
 }
 
 ul.dropdown li ul {
         	background-color: #e0e1e2;
         	border-top:3px solid #650B0B;
+}
+
+ul.dropdown ul li a {
+	text-transform: none !important;
 }
 
 #feature {
@@ -113,6 +137,7 @@ ul.dropdown li ul {
  
 .article h2.title a {
         	color:#650d0d;
+		font-size: 50px;
  }
 
  #articles .head_title,
@@ -185,4 +210,12 @@ ul.tabbernav li a { font-family:Francois, Georgia, serif; }
 
 h1.title a, .post-info h3 a{
 	color: #650B0B;
+}
+
+.single .post h1.title a {
+font-size: 32px !important;
+}
+
+#topmenu a {
+	font-size: 14px !important;
 }
