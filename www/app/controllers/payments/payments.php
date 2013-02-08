@@ -56,6 +56,10 @@ class core_controller_payments extends core_controller
 		#core::log(print_r($core->data,true));
 		#core::deinit();
 		
+		# this is used to check the payable status of orders to invoice sllers
+		# since it's reused, it makes since to instantiate here
+		$orders_controller = core::controller('orders');
+		
 		foreach($payments as $cur_group=>$payment)
 		{
 			if($payment['total'] > 0)
@@ -103,12 +107,26 @@ class core_controller_payments extends core_controller
 						$x_invoices_payments['payment_id'] = $new_payment['payment_id'];
 						$x_invoices_payments['amount_paid'] = $amount;
 						$x_invoices_payments->save();
+						
+						# next we need to examine all of the payables related to this invoice
+						# that are buyer orders. Each of those need to be checked to see if 
+						# they meet all of the conditions for making seller payments.
+						$payables = core::model('payables')
+							->collection()
+							->filter('payable_type_id','=',1)
+							->filter('invoice_id','=',$invoice_id);
+							
+						
+						foreach($payables as $payable)
+						{
+							$orders_controller->update_statuses_due_to_payments($payable['parent_obj_id'],$payable['payable_id']);
+						}
 					}
 				}
 			}
 		}
 		
-		#$this->reload_all_tabs();
+		$this->reload_all_tabs();
 		core::js("$('#".$prefix."s_pay_area,#all_all_".$prefix."s').toggle();");
 		core_ui::notification('payments saved');
 	}
@@ -117,9 +135,9 @@ class core_controller_payments extends core_controller
 	function do_create_invoices()
 	{
 		global $core;
-		core::log('called!');
+		#core::log('called!');
 		
-		core::log(print_r($core->data,true));
+		#core::log(print_r($core->data,true));
 		
 		for($i=0;$i<$core->data['invoicecreate_groupcount'];$i++)
 		{
@@ -231,6 +249,7 @@ function org_amount ($data) {
 
 
 function payable_info ($data) {
+	
    $payable_info = array_map(function ($item) { return explode('|',$item); }, explode('$$', $data['payable_info']));
 
    if (count($payable_info) == 1) {
@@ -269,6 +288,7 @@ function format_html_header ($payable_info) {
 }
 
 function format_html ($info) {
+	core::log('here: '.print_r($info,true));
    $text = '';
    if (count($info) > 0) {
       if (strcmp($info[0],'buyer order') == 0) {

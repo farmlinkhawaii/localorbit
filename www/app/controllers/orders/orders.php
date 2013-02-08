@@ -12,6 +12,42 @@ class core_controller_orders extends core_controller
 		core_ui::notification('email sent');
 	}
 	
+	function update_statuses_due_to_payments($lo_oid,$payable_id)
+	{
+		global $core;
+		
+		core::log('called update_statuses_due_to_payments on lo_oid '.$lo_oid.' and payable '.$payable_id);
+		$amount_due = floatval(core_db::col('select amount_due from v_payables where payable_id='.$payable_id,'amount_due'));
+		
+		# if the buyer has fully paid, then we need to look through the seller orders
+		# and see if one of them is NOT invoiced, but fully delivered. If that is so, then we need to invoice them.
+		if($amount_due == 0)
+		{
+			$seller_orders    = new core_collection('
+				select lo_foid,ldstat_id,payables.payable_id,payables.amount,payables.to_org_id,payables.from_org_id
+				from lo_fulfillment_order 
+				inner join payables on (lo_fulfillment_order.lo_foid=payables.parent_obj_id and payables.payable_type_id=2 and payables.invoice_id is null)
+				where lo_foid in (
+					 select lo_foid from lo_order_line_item where lo_oid=4419
+				);
+			');
+			foreach($seller_orders as $seller_order)
+			{
+				$invoice = core::model('invoices');
+				$invoice['to_org_id']   = $seller_order['to_org_id'];
+				$invoice['from_org_id'] = $seller_order['from_org_id'];
+				$invoice['due_date']    = core_format::date(time() + (86400*7),'db');
+				$invoice['amount']      = $seller_order['amount'];
+				$invoice->save();
+				core_db::query('update payables set invoice_id='.$invoice['invoice_id'].' where payable_id='.$seller_order['payable_id']);
+			}
+			
+		}
+		#core::log('info is: '.$amount_due.'/'.$ldstat_id);
+		
+	}
+	
+	
 	function update_delivery_address ()
 	{
 		global $core;

@@ -185,7 +185,6 @@ class core_form
 		$value .= (isset($options['info'])  && $options['info'] != '')?
 			core_form::info($options['info'],$options['info_icon'],$options['info_show']):'';
 
-
 		$html = '<div class="control-group"';
 		$html .= ($options['display_row'])?'':' style="display: none;"';
 		$html .= ($options['row_id'] == '')?'':' id="'.$options['row_id'].'"';
@@ -259,7 +258,7 @@ class core_form
 	{
 		$options = core_form::finalize_options($options,array(
 			'sublabel'=>'',
-			'rowid'=>'',
+			'row_id'=>'',
 			'display_row'=>true,
 			'required'=>false,
 			'info'=>'',
@@ -283,7 +282,7 @@ class core_form
 	{
 		$options = core_form::finalize_options($options,array(
 			'sublabel'=>'',
-			'rowid'=>'',
+			'row_id'=>'',
 			'display_row'=>true,
 			'required'=>false,
 			'info'=>'',
@@ -317,7 +316,7 @@ class core_form
 		$value   = core_form::get_final_value($name,$value);
 		$options = core_form::finalize_options($options,array(
 			'sublabel'=>'',
-			'rowid'=>'',
+			'row_id'=>'',
 			'display_row'=>true,
 			'required'=>false,
 			'info'=>'',
@@ -332,9 +331,11 @@ class core_form
 		if ($options['required'] == true): $required = core_form::required(); endif;
 		#return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
 		
-		$html = '<div class="control-group">';
-		$html .= '<label class="control-label" for="' . $name . '">' . $required . $label;
-		
+		$html = '<div class="control-group"';
+		$html .= ($options['display_row'])?'':' style="display: none;"';
+		$html .= ($options['row_id'] == '')?'':' id="'.$options['row_id'].'"';
+		$html .='><label class="control-label" for="' . $options['field_name'] . '">'.$label;
+				
 		if ($options['sublabel']): $html .= '<span class="help-block">' . $options['sublabel'] . '</span>'; endif;
 
 		if ($options['popover']):
@@ -366,7 +367,7 @@ class core_form
 		$value = core_form::get_final_value($name,$value);
 		$options = core_form::finalize_options($options,array(
 			'sublabel'=>'',
-			'rowid'=>'',
+			'row_id'=>'',
 			'display_row'=>true,
 			'required'=>false,
 			'info'=>'',
@@ -385,7 +386,7 @@ class core_form
 		$value = core_form::get_final_value($name,$value);
 		$options = core_form::finalize_options($options,array(
 			'sublabel'=>'',
-			'rowid'=>'',
+			'row_id'=>'',
 			'display_row'=>true,
 			'required'=>false,
 			'info'=>'',
@@ -404,7 +405,7 @@ class core_form
 		$value   = core_form::get_final_value($name,$value);
 		$options = core_form::finalize_options($options,array(
 			'sublabel'=>'',
-			'rowid'=>'',
+			'row_id'=>'',
 			'display_row'=>true,
 			'required'=>false,
 			'info'=>'',
@@ -465,6 +466,7 @@ class core_form
 
 		$out = '<select name="'.$name.'"';
 		$out .= (isset($options['select_style']) && $options['select_style'] != '')?' style="'.$options['select_style'].'"':'';
+		$out .= (isset($options['onchange']) && $options['onchange'] != '')?' onchange="'.$options['onchange'].'"':'';
 		$out .='>';
 
 		if($options['default_show'] == true)

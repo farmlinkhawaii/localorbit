@@ -73,7 +73,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 		#
 		# if the hub is managed by LO, then the money is collected by LO
 		# and LO owes the hub the fee_percen_hub
-		$hub_org_id = core_db::col('SELECT payable_org_id from domains where domain_id ='.$core->config['domain']['domain_id'],'payable_org_id');
+		$hub_org_id = $core->config['domain']['payable_org_id'];
 		if($core->config['domain']['payment_configuration']  == 'self_managed')
 		{
 			$payable['payable_type_id'] = 4;
