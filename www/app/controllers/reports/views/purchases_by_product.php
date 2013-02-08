@@ -168,8 +168,18 @@ if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)
 
 # date, product cat, item, amount, status (filter by item specific to producer - see weekly specials)
 $items->add(new core_datacolumn('order_date','Placed On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{order_date}</a>','{order_date}','{order_date}'));
-$items->add(new core_datacolumn('category_ids','Category',true,'20%','<a href="#!products-edit--prod_id-{prod_id}">{parent_cat_name}</a>','{parent_cat_name}','{parent_cat_name}'));
-$items->add(new core_datacolumn('product_name','Product',true,'29%','<a href="#!products-edit--prod_id-{prod_id}">{product_name}</a> from {seller_name}','{product_name}','{product_name}'));
+if (lo3::is_seller()) {
+	$items->add(new core_datacolumn('category_ids','Category',true,'20%','<a href="#!products-edit--prod_id-{prod_id}">{parent_cat_name}</a>','{parent_cat_name}','{parent_cat_name}'));
+} else {
+	$items->add(new core_datacolumn('category_ids','Category',true,'20%','{parent_cat_name}','{parent_cat_name}','{parent_cat_name}'));
+}
+
+if (lo3::is_seller()) {
+	$items->add(new core_datacolumn('product_name','Product',true,'25%','<a href="#!products-edit--prod_id-{prod_id}">{product_name}</a> from {seller_name}','{product_name}','{product_name}'));
+} else {
+	$items->add(new core_datacolumn('product_name','Product',true,'25%','{product_name} from {seller_name}','{product_name}','{product_name}'));
+}
+
 $items->add(new core_datacolumn('qty_ordered','Quantity',true,'9%'));
 $items->add(new core_datacolumn('unit_price','Unit Price',true,'9%'));
 $items->add(new core_datacolumn('row_discount','Discount',true,'9%','{row_discount}','{row_discount}','{row_discount}'));
