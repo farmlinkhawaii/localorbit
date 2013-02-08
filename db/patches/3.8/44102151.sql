@@ -22,7 +22,7 @@ CREATE VIEW v_payables AS
 	lo.lo3_order_nbr as buyer_order_identifier,
 	lfo.lo3_order_nbr as seller_order_identifier,
 	p.description,
-	concat_ws('|',p.description,pt.payable_type,p.parent_obj_id) as payable_info
+	concat_ws('|',p.description,pt.payable_type,p.parent_obj_id) as payable_info,
 	
 	COALESCE((
 		select sum(xip.amount_paid) 
