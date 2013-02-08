@@ -1,6 +1,5 @@
-
 INSERT INTO migrations (version_id, pt_ticket_no) 
-VALUES ('006', '');
+VALUES ('009', '');
 
 
 DROP VIEW v_users;
@@ -32,7 +31,7 @@ select
   `d`.`hostname` AS `hostname`,
   `o`.`is_deleted` AS `org_is_deleted`,
   if((`otd`.`orgtype_id` < 3),`otd`.`orgtype_id`,concat_ws('-',3,ifnull(`o`.`allow_sell`,0))) AS `composite_role`,
-  CASE otd.orgtype_id 
+  CASE  if((`otd`.`orgtype_id` < 3),`otd`.`orgtype_id`,concat_ws('-',3,ifnull(`o`.`allow_sell`,0)))
   WHEN '1' then 'Admin'
   WHEN '2' then 'Market Manager'
   WHEN '3-0' then 'Buyer'

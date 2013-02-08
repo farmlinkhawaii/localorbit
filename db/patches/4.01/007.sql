@@ -32,7 +32,6 @@
 INSERT INTO migrations (version_id, pt_ticket_no) 
 VALUES ('007', '');
 
-
 DROP TABLE admin_assert;
 DROP TABLE amazonfps_api_debug;
 DROP TABLE amazonpayments_api_debug;
@@ -99,7 +98,6 @@ DROP TABLE dataflow_profile_history;
 DROP TABLE dataflow_session;
 DROP TABLE directory_country_format;
 DROP TABLE discount;
-DROP TABLE domains_branding;
 DROP TABLE downloadable_link;
 DROP TABLE downloadable_link_price;
 DROP TABLE downloadable_link_purchased;
@@ -124,8 +122,8 @@ DROP TABLE latestnews;
 DROP TABLE log_customer;
 DROP TABLE log_summary;
 DROP TABLE log_visitor_online;
-DROP TABLE lo_fulfillment_order_delivery_fees;
 DROP TABLE lo_order_comment;
+DROP TABLE mike_test_ddprod;
 DROP TABLE newsletter_archive;
 DROP TABLE newsletter_problem;
 DROP TABLE newsletter_queue;
@@ -134,7 +132,6 @@ DROP TABLE newsletter_queue_store_link;
 DROP TABLE orbitadmin;
 DROP TABLE orbitbuyer;
 DROP TABLE orbitvendor;
-DROP TABLE organization_payment_methods;
 DROP TABLE paygate_authorizenet_debug;
 DROP TABLE paypaluk_api_debug;
 DROP TABLE phrase_overrides;
@@ -163,4 +160,4 @@ DROP TABLE unit_requests;
 DROP TABLE users;
 DROP TABLE weee_discount;
 DROP TABLE weee_tax;
-DROP TABLE wishlist_item;
+DROP TABLE wishlist_item;TABLE wishlist_item;
