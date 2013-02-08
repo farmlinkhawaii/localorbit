@@ -87,7 +87,8 @@ if(lo3::is_admin())
 }
 $payments_table->columns[2]->autoformat='date-long';
 $payments_table->columns[3]->autoformat='price';
-
+$payments_table->sort_column = 2;
+$payments_table->sort_direction = 'desc';
 $payments_table = payments__add_standard_filters($payments_table);
 
 
