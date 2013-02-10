@@ -315,6 +315,44 @@ market.initialize=function () {
 	});
 
 	$('#main_save_buttons').before($('#restore-defaults')).prepend($('#preview-style'));
+	
+	
+	function hidePreviewButtons() {
+		$("#restore-defaults").hide();
+		$("#preview-style").hide();
+	}
+	function showPreviewButtons() {
+		$("#restore-defaults").show();
+		$("#preview-style").show();
+	}
+	$('a[href="#markettabs-a1"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a2"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a3"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a5"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a6"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a7"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a8"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a9"]').click(function() {
+		hidePreviewButtons();
+	});
+	$('a[href="#markettabs-a5"]').click(function() {
+		showPreviewButtons();
+	});
+	hidePreviewButtons();
 };
 
 market.initialize();
