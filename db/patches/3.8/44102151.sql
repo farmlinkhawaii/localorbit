@@ -2,7 +2,7 @@
 drop view  if exists v_payables;
 
 CREATE VIEW v_payables AS 
-select p.payable_id,p.amount as payable_amount,p.creation_date,
+select p.payable_id,p.amount as payable_amount,p.creation_date,p.parent_obj_id,
 (p.invoice_id is not null) as is_invoiced,
 p.invoicable,
 d.name as domain_name,
