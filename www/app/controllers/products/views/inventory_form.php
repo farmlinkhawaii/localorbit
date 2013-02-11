@@ -28,7 +28,7 @@ if(false)
 
 ?>
 <div id="inventory_basic">
-	<?=core_form::input_text('Quantity','qty',floatval($lot['qty']))?>
+	<?=core_form::input_text('Quantity','qty',floatval($lot['qty']), array('natural_numbers' => true))?>
 	<!--<?=core_form::value('<a class="btn btn-info" href="Javascript:product.switchToAdvancedInventory();"><i class="icon icon-arrow-right" /> Advanced Inventory Mode</a>',$core->i18n['note:inventorymode'])?>-->
 	<input type="hidden" name="basic_inv_id" value="<?=$lot['inv_id']?>" />
 </div>
@@ -79,7 +79,7 @@ else
 		<?=core_form::input_text('Lot #','lot_id','',array())?>
 		<?=core_form::input_datepicker('Good from','good_from','')?>
 		<?=core_form::input_datepicker('Product expires on','expires_on','')?>
-		<?=core_form::input_text('Qty','lot_qty','',array('required'=>true))?>
+		<?=core_form::input_text('Qty','lot_qty','',array('required'=>true, 'natural_numbers' => true))?>
 		<?=core_form::input_hidden('inv_id','')?>
 		<? subform_buttons('product.saveLot();','Save This Lot','product.cancelLotChanges();'); ?>
 		<? core::js('$(\'[name="lot_qty"]\').focus(function () {core.ui.onFocusQty(this);}).blur(function () {core.ui.integerOnBlur(this);});'); ?>

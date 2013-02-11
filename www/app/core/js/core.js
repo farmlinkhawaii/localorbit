@@ -98,6 +98,14 @@ core.changePopoverExpandButton = function (popover, show) {
 	}
 };
 
+core.isNumberKey=function(evt) {
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if (charCode < 48 || charCode > 57)
+		return false;
+
+	return true;
+}
+
 core.jqInit=function(){
 	$(function() {
 		$(".helpslug, [rel=popover]").each(function() {
@@ -117,6 +125,7 @@ core.jqInit=function(){
 		$(".chzn-select").chosen();
 
 		$('[rel="clickover"]').clickover({ html : true, onShown : function () { core.changePopoverExpandButton(this, true); }, onHidden : function () { core.changePopoverExpandButton(this, false); } });
+		$('.natural-num-only').keypress(core.isNumberKey);
 	});
 
 }

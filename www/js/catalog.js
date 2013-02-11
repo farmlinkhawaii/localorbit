@@ -506,14 +506,6 @@ core.catalog.updateRowContinue=function(prodId, newQty, dd_id, failure) {
 	}
 }
 
-core.catalog.isNumberKey=function(evt) {
-	var charCode = (evt.which) ? evt.which : event.keyCode;
-	if (charCode < 48 || charCode > 57)
-		return false;
-
-	return true;
-}
-
 core.catalog.updateRow=function(prodId,newQty,dd){
 	if(newQty == '')
 		newQty = 0;

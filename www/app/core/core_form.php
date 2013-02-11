@@ -326,7 +326,11 @@ class core_form
 			'render'=>true,
 			'onkeyup'=>'',
 			'onblur'=>'',
+			'natural_numbers'=>false
 		));
+
+		$natural_class = ($options['natural_numbers'])?' natural-num-only':'';
+
 		if($options['render'] != true)	return '';
 		if ($options['required'] == true): $required = core_form::required(); endif;
 		#return core_form::tr_nv($label,'<input type="text" name="'.$name.'" value="'.$value.'" />',$options);
@@ -345,7 +349,7 @@ class core_form
 		$html .= '</label>';
 		$html .= '<div class="controls">';
 		
-		$html .= '<input type="text" name="'.$name.'" class="' . $options['size'] . '" value="'.$value.'"';
+		$html .= '<input type="text" name="'.$name.'" class="' . $options['size'] . $natural_class . '" value="'.$value.'"';
 		
 		if($options['onkeyup'] != '')
 			$html .= ' onkeyup="'.$options['onkeyup'].'"';

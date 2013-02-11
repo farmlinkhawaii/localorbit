@@ -410,7 +410,7 @@ class core_controller_products extends core_controller
 		global $core;
 
 		$inv = core::model('product_inventory')->load();
-		$inv['qty'] = floatval($core->data['qty']);
+		$inv['qty'] = min(intval($core->data['qty']), '99999999');
 		$inv->save();
 
 		core_datatable::js_reload('market_products');

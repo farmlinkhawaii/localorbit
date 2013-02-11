@@ -17,7 +17,7 @@ if($inv->__num_rows == 1 && $inv->__row->__data['lot_id'] == ''  && $inv->__row-
 <form name="invform" action="/products/save_inventory" class="form-horizontal" onsubmit="return core.submit('/products/save_inventory',this);">
 	<fieldset id="editInv">
 		<legend>Inventory Info</legend>
-		<?=core_form::input_text('Stock','qty',floatval($inv->__row['qty']))?>
+		<?=core_form::input_text('Stock','qty',floatval($inv->__row['qty']), array('natural_numbers' => true))?>
 
 		<input type="hidden" name="prod_id" value="<?=$prod['prod_id']?>" />
 		<input type="hidden" name="inv_id" value="<?=$inv->__row['inv_id']?>" />
