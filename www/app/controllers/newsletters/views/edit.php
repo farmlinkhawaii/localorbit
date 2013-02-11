@@ -1,5 +1,5 @@
 <?php
-
+global $core;
 core::ensure_navstate(array('left'=>'left_dashboard'),'newsletters-list','marketing');
 core_ui::fullWidth();
 core::head('Edit Newsletter','Edit Newsletter');
@@ -48,7 +48,7 @@ echo(core_form::page_header('Editing '.$data['title']));
 	<button id="cancelTest" style="display: none;" class="btn btn-danger" onclick="core.newsletters.toggleTestEmail();">cancel test</button>
 	<button id="sendTest" style="display: none;" class="btn btn-info" onclick="core.newsletters.sendTest();">send now</button>
 	<button id="showTest" class="btn btn-info" onclick="core.newsletters.toggleTestEmail();">send test</button>
-	<button id="sendCustomers" class="btn btn-primary" onclick="core.newsletters.sendNewsletter(this.form);">send to customers</button>
+	<button id="sendCustomers" class="btn btn-primary" onclick="core.newsletters.sendNewsletter('<?=addslashes($core->i18n['error:newsletter:must_choose_group'])?>');">send to customers</button>
 </div>
 <?
 echo(

@@ -1,9 +1,10 @@
 core.newsletters={customerCheckboxes:[]};
 
-core.newsletters.sendNewsletter=function(){
+core.newsletters.sendNewsletter=function(errorMsg){
 	if(core.newsletters.customerCheckboxes.filter(':checked').length  <= 0){
 		//alert('you must select either buyers, sellers, or both');
-		core.ui.popup('','','<h2>The following errors have occurred</h2>You must check at least one group that will receive this newsletter.<br /><br />Please correct these errors and try again.','close');
+		//core.ui.popup('','','<h2>The following errors have occurred</h2>You must check at least one group that will receive this newsletter.<br /><br />Please correct these errors and try again.','close');
+		core.ui.popup('','',errorMsg,'close');
 		$('#checkMsg').show();
 	}else{
 		$('#sendCustomers,#showTest,#checkMsg').hide();
