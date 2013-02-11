@@ -62,12 +62,17 @@ else
 			->limit(1);
 		$address = $address->row();
 		core::log('address: '.$address['latitude'].'/'.$address['longitude']);
-		$map = '';
+		
+		$map = core_ui::map('mymap','100%','240px',8);
 		if(is_numeric($address['latitude'])  && is_numeric($address['longitude']))
 		{
-			$map = core_ui::map('mymap','100%','240px',8);
 			core_ui::map_center('mymap',$address['latitude'],$address['longitude']);
 			core_ui::map_add_point('mymap',$address['latitude'],$address['longitude'],'<h1>'.$seller['name'].'</h1>'.$address['formatted_address'],image('farm_map_marker'));
+		} 
+		else 
+		{
+			core_ui::map_center('mymap',$address['postal_code']);
+			core_ui::map_add_point('mymap',$address['postal_code'],$address['longitude'],null,image('farm_map_marker'));
 		}
 		list($has_image,$web_path) = $seller->get_image();
 
@@ -128,13 +133,13 @@ else
 		<?if($has_image){?><img src="<?=$web_path?>" /><?}?>
 	
 	</div>
-	<?if(is_numeric($address['latitude'])  && is_numeric($address['longitude'])){?> 
+	<?//if(is_numeric($address['latitude'])  && is_numeric($address['longitude'])){?> 
 	<div class="span4">
 		<h3><?= $address['city'] ?>, <?= $address['code'] ?></h3>
 		<?=$map?>
 
 	</div>
-	<?}?>
+	<?//}?>
 </div> <!-- /row-->
 
 <div class="row">
