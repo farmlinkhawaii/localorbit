@@ -149,7 +149,8 @@ $cart->arrange_by_next_delivery();
 </div>
 <hr class="span12 hr_thick"/>
 <div class="row">
-	<div class="span5 pull-right" id="checkout_buttons" style="text-align: right;">
+	<div class="span7 pull-right" id="checkout_buttons" style="text-align: right;">
+		<a class="btn btn-large btn-danger" href="#!catalog-shop">Cancel</a>
 		<a class="btn btn-large btn-info" href="#!catalog-shop--cart-yes">Modify Your Cart</a>
 		<input type="button" value="Place Order" class="btn btn-large btn-success" onclick="core.checkout.process();" />
 			
