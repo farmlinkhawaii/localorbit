@@ -75,9 +75,11 @@ class core_controller_sold_items extends core_controller
 			->collection()
 			->filter('lo_liid','in',explode(',',$core->data['items']));
 		
+		# these are used to keep track of what we might need to update based on the changes.
 		$orders_to_check  = array();
 		$fulfils_to_check = array();
 		$inventory_to_edit = array();
+		$invoices_to_check = array();
 		
 		$lbps_id = $core->data['lbps_id'];
 		$lsps_id = $core->data['lsps_id'];
@@ -88,11 +90,13 @@ class core_controller_sold_items extends core_controller
 		
 		foreach($items as $item)
 		{
-			# load the item
+			# start from the assumption that the change is ok. 
+			# then run through all the reasons why it is NOT ok.
 			$do_change_lbps = true;
 			$do_change_lsps = true;
 			$do_change_ldstat = true;
 		
+			# apply MM specific rules.
 			if(lo3::is_market())
 			{
 				# market managers are NOT allowed to mark 
@@ -207,6 +211,11 @@ class core_controller_sold_items extends core_controller
 				{
 					$inventory_to_edit[] = $item->__data;
 				}
+				
+				if($ldstat_id == 4)
+				{
+					$invoices_to_check[] = $item['lo_oid'];
+				}
 			}
 				
 			# only perform this change if item meets all rules
@@ -224,6 +233,16 @@ class core_controller_sold_items extends core_controller
 			$order = core::model('lo_order')->load($order);
 			$order->update_totals();
 			$order->update_status();
+		}
+		
+		# this checks if we need to invoice sellers based on the changes made
+		if(count($invoices_to_check) > 0)
+		{
+			$controller = core::controller('orders');
+			foreach($invoices_to_check as $invoice)
+			{
+				$controller->update_statuses_due_to_payments($invoice);
+			}
 		}
 		
 		# popup the inventory editor if necessary

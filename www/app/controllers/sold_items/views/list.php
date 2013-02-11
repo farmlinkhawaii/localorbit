@@ -9,7 +9,8 @@ core_ui::load_library('js','sold_items.js');
 
 # get the start and end times for the default filters
 $start = ($core->config['time'] - (86400*30));
-$end = $core->config['time'];
+$end = $core->config['time'] + 86400;
+
 
 $col = core::model('lo_order_line_item')->collection();
 $col->__model->autojoin(

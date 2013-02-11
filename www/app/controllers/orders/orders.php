@@ -12,12 +12,14 @@ class core_controller_orders extends core_controller
 		core_ui::notification('email sent');
 	}
 	
-	function update_statuses_due_to_payments($lo_oid,$payable_id)
+	function update_statuses_due_to_payments($lo_oid,$payable_id=null)
 	{
 		global $core;
 		
-		core::log('called update_statuses_due_to_payments on lo_oid '.$lo_oid.' and payable '.$payable_id);
-		$amount_due = floatval(core_db::col('select amount_due from v_payables where payable_id='.$payable_id,'amount_due'));
+		#core::log('called update_statuses_due_to_payments on lo_oid '.$lo_oid.' and payable '.$payable_id);
+		# we need to figure out how much is due on the order
+		$changes_made = false;
+		$amount_due = floatval(core_db::col('select amount_due from v_payables where payable_type=\'buyer order\' and parent_obj_id='.$lo_oid,'amount_due'));
 		
 		# if the buyer has fully paid, then we need to look through the seller orders
 		# and see if one of them is NOT invoiced, but fully delivered. If that is so, then we need to invoice them.
@@ -28,8 +30,9 @@ class core_controller_orders extends core_controller
 				from lo_fulfillment_order 
 				inner join payables on (lo_fulfillment_order.lo_foid=payables.parent_obj_id and payables.payable_type_id=2 and payables.invoice_id is null)
 				where lo_foid in (
-					 select lo_foid from lo_order_line_item where lo_oid=4419
-				);
+					 select lo_foid from lo_order_line_item where lo_oid='.$lo_oid.'
+				)
+				and lo_fulfillment_order.ldstat_id=4
 			');
 			foreach($seller_orders as $seller_order)
 			{
@@ -40,11 +43,10 @@ class core_controller_orders extends core_controller
 				$invoice['amount']      = $seller_order['amount'];
 				$invoice->save();
 				core_db::query('update payables set invoice_id='.$invoice['invoice_id'].' where payable_id='.$seller_order['payable_id']);
-			}
-			
+				$changes_made = true;
+			}			
 		}
-		#core::log('info is: '.$amount_due.'/'.$ldstat_id);
-		
+		return $changes_made;
 	}
 	
 	
