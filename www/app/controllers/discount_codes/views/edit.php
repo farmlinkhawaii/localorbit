@@ -88,7 +88,7 @@ echo(
 			)
 		),
 		core_form::input_hidden('disc_id',$data),
-		core_form::save_only_button(array('cancel_button' => true, 'on_cancel' => 'location.href=\'#!discount_codes-list\';core.go(\'#!discount_codes-list\');'))
+		core_form::save_buttons(array('cancel_button' => true, 'on_cancel' => 'location.href=\'#!discount_codes-list\';core.go(\'#!discount_codes-list\');'))
 	)
 );
 
