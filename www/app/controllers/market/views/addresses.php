@@ -49,7 +49,7 @@ echo('</div>');
 		}	
 	</script>
 
-	<?=core_form::input_text('Label','label','','')?>
+	<?=core_form::input_text('Address Label','label','','')?>
 	<?=core_form::input_text('Address','address','','')?>
 	<?=core_form::input_text('City','city','','')?>
 	
