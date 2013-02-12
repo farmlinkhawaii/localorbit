@@ -12,6 +12,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
  	
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+		<script language="Javascript" type="text/javascript" src="/js/jquery.min.js"></script>
 
 	<?php if ( option::get('sidebar_pos') == 'Left' ) { ?><style type="text/css">#sidebar{float:left;margin-right:20px;} #articles, #main {float:right;}</style><?php } ?>
 
@@ -43,7 +44,13 @@
 						<div id="tagline">re-linking the food chain ™</div>
 					</div>
 				</td>
-				<td><img src="/img/blank.png" width="1" height="120"></td>
+				<td><img src="/img/blank.png" width="1" height="120">					<div id="popup_closer"><a href="#" onclick="$('#overlay,.popup,#popup_closer').fadeOut(100);"><img src="/homepage/img/icon_popup_close.png" /></a></div>
+					<div id="overlay"></div>
+					<div class="popup" id="popup3">
+						<div class="popup_content">
+							<iframe height="942" allowTransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none" src="http://localorbit.wufoo.com/embed/z7x3k1/"><a href="http://localorbit.wufoo.com/forms/z7x3k1/">Submit</a></iframe>
+						</div>
+					</div></td>
 			</tr></table></div>
 	<div id="page-wrap">
 

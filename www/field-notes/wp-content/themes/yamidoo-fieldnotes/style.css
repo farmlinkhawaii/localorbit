@@ -5,6 +5,7 @@ Template: yamidoo
 */
 @import url(//fonts.googleapis.com/css?family=Francois+One);
 @import url("../yamidoo/style.css");
+@import url("/homepage/includes/popup.css");
 
 body {
 	
