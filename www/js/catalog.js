@@ -697,11 +697,14 @@ core.catalog.popupLoginRegister=function(idx){
 	core.doRequest('/catalog/popup_login_register',{});
 }
 
-core.catalog.changeProductDeliveryDay=function(prodId, dd_ids) {
+core.catalog.changeProductDeliveryDay=function(event, prodId, dd_ids) {
 	var jq = $('#product_' + prodId);
 	var text = $.trim($('#filter_dd_' + dd_ids).text());
 	jq.find('.dd_selector .content').text(text);
 	jq.find('.prodDd').val(dd_ids);
+	jq.find('.filter.dd').dropdown('toggle');
+    event.stopPropagation();
+	return false;
 };
 
 core.catalog.updateDropDown=function(totalQty) {
