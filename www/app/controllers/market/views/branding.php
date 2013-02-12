@@ -18,7 +18,7 @@
 <div class="control-group">
 	<label class="control-label">Custom Tagline</label>
 	<div class="controls">
-		<input type="text" name="custom_tagline" class="input-xxlarge" value="<?=$data['custom_tagline']?>" />
+		<input type="text" name="custom_tagline" class="input-xxlarge" value="<?=$data['custom_tagline']?>" maxlength="60" />
 	</div>
 </div>
 
