@@ -22,48 +22,18 @@
 </div>
 
 <div class="control-group">
-	<label class="control-label">Store Closed Note</label>
-	<div class="controls">
-		<textarea rows="5" class="input-xxlarge" name="closed_note"><?=htmlentities($data['closed_note'])?></textarea>
-	</div>
-</div>
-
-<div class="control-group">
 	<label class="control-label">Market Profile</label>
 	<div class="controls">
-		<textarea rows="5" class="input-xxlarge" name="market_profile"><?=htmlentities($data['market_profile'])?></textarea>
+		<textarea rows="5" class="input-xxlarge" name="market_profile"><?=$data['market_profile']?></textarea>
 	</div>
 </div>
 
 <div class="control-group">
 	<label class="control-label">Market Policies</label>
 	<div class="controls">
-		<textarea rows="5" class="input-xxlarge" cols="60" name="market_policies"><?=htmlentities($data['market_policies'])?></textarea>
+		<textarea rows="5" class="input-xxlarge" cols="60" name="market_policies"><?=$data['market_policies']?></textarea>
 	</div>
 </div>
-
-<div class="control-group">
-	<label class="control-label">Buyer Types</label>
-	<div class="controls">
-		<input type="text" name="buyer_types_description" value="<?=$data['buyer_types_description']?>" />
-	</div>
-</div>
-
-<? if(lo3::is_admin()) { ?>
-<div class="control-group">
-	<label class="control-label">Support Option</label>
-	<div class="controls">
-		<select name="seller_payment_managed_by">
-			<option value="fully_managed"<?=(($data['seller_payment_managed_by'] == 'fully_managed')?' selected="selected"':'')?>>Local Orbit Managed</option>
-			<option value="self_managed"<?=(($data['seller_payment_managed_by'] == 'self_managed')?' selected="selected"':'')?>>Self-Managed</option>
-		</select>
-	</div>
-</div>
-
-<?=core_ui::checkdiv('custom_zendesk','Custom Zendesk')?>
-<? } ?>
-
-
 
 <? 
 $logo = image('profile',$data['domain_id']);
@@ -83,5 +53,12 @@ $has_custom = (strpos($logo,'default') === false);
 			<iframe name="uploadArea3" id="uploadArea3" width="300" height="20" style="color:#fff;background-color:#fff;overflow:hidden; border: 0;"></iframe>
 		</div>
 			
+	</div>
+</div>
+
+<div class="control-group">
+	<label class="control-label">Store Closed Note</label>
+	<div class="controls">
+		<textarea rows="5" class="input-xxlarge" name="closed_note"><?=$data['closed_note']?></textarea>
 	</div>
 </div>
