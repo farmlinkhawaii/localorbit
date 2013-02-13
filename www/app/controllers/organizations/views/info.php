@@ -3,6 +3,7 @@ global $data,$domains,$all_domains;
 $social_options = core::model('social_options')->collection()->to_array();
 $domain = core::model('domains')->load($data['domain_id']);
 $users = core::model('customer_entity')->add_custom_field('CONCAT(first_name, \' \', last_name) as full_name')->collection()->filter('is_deleted',0)->filter('is_enabled', 1)->filter('is_active', 1)->filter('org_id', $data['org_id']);
+$style = ($data['orgtype_id']==2)?' style="display: none;"':'';
 //print_r($users);
 /*
 $items = array();
@@ -26,7 +27,6 @@ echo(
 	)
 );
 */
-
 ?>
 
 <h3>Organization Info</h3>
@@ -73,7 +73,7 @@ echo(
 </div>
 -->
 
-<div class="control-group">
+<div class="control-group"<?=$style?>>
 	<label class="control-label" for="facebook">Facebook</label>
 	<div class="controls">
 		<div class="input-prepend">
@@ -83,7 +83,7 @@ echo(
 	</div>
 </div>
 
-<div class="control-group">
+<div class="control-group"<?=$style?>>
 	<label class="control-label" for="twitter">Twitter</label>
 	<div class="controls">
 		<div class="input-prepend">
@@ -94,7 +94,7 @@ echo(
 </div>
 
 
-<div class="control-group">
+<div class="control-group"<?=$style?>>
 	<label class="control-label" for="twitter">Display Feed on Profile Page</label>
 	<div class="controls">
 		<select name="social_option_id">
