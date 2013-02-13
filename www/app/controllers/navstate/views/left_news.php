@@ -2,8 +2,9 @@
 
 ?>
 <div id="tweets">
+	<span>
 	<h3>Tweets</h3>
-	<span></span>
+	</span>
 	<div>
 	</div>
 </div>

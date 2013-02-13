@@ -27,7 +27,7 @@ var jqTweet;
                     include_entities: true
                 },
                 success: function(data, textStatus, xhr) {
-                    var html = '<div class="tweet">TWEET_TEXT<div class="tweet_media">TWEET_MEDIA</div><div class="time">AGO</div></div>',
+                    var html = '<div class="tweet"><div class="content"><div class="header"><img class="logo" src="LOGO_SRC"/><div class="user"><div class="user_label">USER_LABEL</div><div class="name">USER</div></div><div class="time">AGO</div></div><div class="text">TWEET_TEXT</div><div class="tweet_media">TWEET_MEDIA</div></div></div>',
                         media_html = '<a class="tweet_media_item" href="MEDIA_DISPLAY_URL" target="_blank" ><img id="IMG_ID" src="IMG_SRC" /></a>'
 
                     // Append tweets into page
@@ -88,13 +88,15 @@ var jqTweet;
                                 }
                             }
                         }
-
+                        console.log(data[i]);
                         $(appendTo).append(
                             html.replace(/TWEET_TEXT/g, jqTweet.ify.clean(data[i].text))
-                            .replace(/USER/g, data[i].user.screen_name)
+                            .replace(/USER_LABEL/g, data[i].user.name)
+                            .replace(/USER/g, '@'+data[i].user.screen_name)
                             .replace(/AGO/g, timeAgo(data[i].created_at))
                             .replace(/ID/g, data[i].id_str)
                             .replace(/TWEET_MEDIA/g, media)
+                            .replace(/LOGO_SRC/g, data[i].user.profile_image_url)
                         );
                     }
 
@@ -137,7 +139,7 @@ var jqTweet;
             }
 
             if (diff < minute) {
-                return Math.floor(diff / second) + " seconds ago";
+                return Math.floor(diff / second) + "s";
             }
 
             if (diff < minute * 2) {
@@ -145,15 +147,15 @@ var jqTweet;
             }
 
             if (diff < hour) {
-                return Math.floor(diff / minute) + " minutes ago";
+                return Math.floor(diff / minute) + "m";
             }
 
-            if (diff < hour * 2) {
-                return "about 1 hour ago";
-            }
+            //if (diff < hour * 2) {
+            //    return "about 1 hour ago";
+            //}
 
             if (diff < day) {
-                return  Math.floor(diff / hour) + " hours ago";
+                return  Math.floor(diff / hour) + "h";
             }
 
             if (diff > day && diff < day * 2) {
@@ -161,11 +163,11 @@ var jqTweet;
             }
 
             if (diff < day * 365) {
-                return Math.floor(diff / day) + " days ago";
+                return Math.floor(diff / day) + "d";
             }
 
             else {
-                return "over a year ago";
+                return "+1yr";
             }
         }
 
