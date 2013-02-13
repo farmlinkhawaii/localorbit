@@ -75,6 +75,9 @@ class core_model_base_domains extends core_model
 		$this->add_field(new core_model_field(69,'feature_paymentsportal_bankaccounts','int',8,'','domains'));
 		$this->add_field(new core_model_field(70,'payment_default_ach','int',8,'','domains'));
 		$this->add_field(new core_model_field(71,'payment_allow_ach','int',8,'','domains'));
+		$this->add_field(new core_model_field(72,'facebook','string',-4,'','domains'));
+		$this->add_field(new core_model_field(73,'twitter','string',-4,'','domains'));
+		$this->add_field(new core_model_field(74,'social_option_id','int',8,'','domains'));
 		$this->init_data();
 	}
 }

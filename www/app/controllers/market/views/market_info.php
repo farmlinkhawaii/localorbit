@@ -1,4 +1,7 @@
-<?php global $data; ?>
+<?php 
+global $data; 
+$social_options = core::model('social_options')->collection()->to_array();
+?>
 
 <div class="control-group">
 	<label class="control-label">Contact Name</label>
@@ -18,6 +21,41 @@
 	<label class="control-label">Contact Telephone</label>
 	<div class="controls">
 		<input type="text" name="secondary_contact_phone" value="<?=$data['secondary_contact_phone']?>" />
+	</div>
+</div>
+
+<div class="control-group">
+	<label class="control-label" for="facebook">Facebook</label>
+	<div class="controls">
+		<div class="input-prepend">
+		  	<span class="add-on">facebook.com/</span>
+			<input type="text" name="facebook" class="input-small" value="<?=$data['facebook']?>" placeholder="Username">
+		</div>
+	</div>
+</div>
+
+<div class="control-group">
+	<label class="control-label" for="twitter">Twitter</label>
+	<div class="controls">
+		<div class="input-prepend">
+		  	<span class="add-on">@</span>
+		  	<input type="text" name="twitter" class="input-large" value="<?=$data['twitter']?>" placeholder="Username">
+		</div>
+	</div>
+</div>
+
+
+<div class="control-group">
+	<label class="control-label" for="twitter">Display Feed on Profile Page</label>
+	<div class="controls">
+		<select name="social_option_id">
+			<option>None</option>
+<?foreach ($social_options as $so) {?>
+			<option value="<?=$so['social_option_id']?>"<?=$data['social_option_id']===$so['social_option_id']?'selected':''?>>
+  				<?=$so['display_name']?>
+  			</option>
+<?}?>
+		</select>
 	</div>
 </div>
 
