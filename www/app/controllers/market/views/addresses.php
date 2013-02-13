@@ -22,7 +22,7 @@ echo('<div id="addressTable">');
 core::model('addresses')->get_table('market',$col,'market/addresses?domain_id='.$core->data['domain_id']);
 echo('</div>');
 ?>
-<div class="buttonset unlock_area pull-right" id="addAddressButton"<?=(($core->session['sec_pin'] == 1)?'':' style="display:none;"')?>>
+<div class="buttonset unlock_area pull-right" id="addAddressButton"<?=(($core->session['sec_pin'] == 1 || lo3::is_market())?'':' style="display:none;"')?>>
 	<input type="button" class="btn btn-info" value="Add New Address" onclick="core.address.editAddress('market',0);" />
 	<input type="button" class="btn btn-danger" value="Remove Checked" onclick="core.address.removeCheckedAddresses(this.form);" />
 </div>
