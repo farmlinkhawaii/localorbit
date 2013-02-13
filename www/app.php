@@ -56,6 +56,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 	<!--<script language="Javascript" type="text/javascript" src="app/core/js/console.min.js"></script>-->
 	<script language="Javascript" type="text/javascript" src="js/jquery.min.js"></script>
+	<script language="Javascript" type="text/javascript" src="js/jquery.jqtweets.js"></script>
 	<script language="Javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script language="Javascript" type="text/javascript" src="js/bootbox.min.js"></script>
 	<script language="Javascript" type="text/javascript" src="js/bootstrapx-clickover.js"></script>
