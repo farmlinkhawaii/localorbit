@@ -27,6 +27,7 @@ $payables->add_formatter('payable_info');
 $payables->add_formatter('payment_link_formatter');
 $payables->add_formatter('payment_direction_formatter');
 $payables_table = new core_datatable('receivables','payments/receivables',$payables);
+$payables_table = payments__add_standard_filters($payables_table,'receivables');
 $payables_table->add(new core_datacolumn('payable_id','Description',true,'22%',			'<b>R-{payable_id}</b><br />{description_html}','{description}','{description}'));
 $payables_table->add(new core_datacolumn(null,'Payment Info',false,'40%','{direction_info}','{direction_info}','{direction_info}'));
 $payables_table->add(new core_datacolumn('creation_date','Date',true,'20%','{creation_date}','{creation_date}','{creation_date}'));
@@ -35,7 +36,7 @@ $payables_table->add(new core_datacolumn('payable_id',array(core_ui::check_all('
 $payables_table->columns[2]->autoformat='date-long';
 $payables_table->columns[3]->autoformat='price';
 $payables_table->sort_direction='desc';
-$payables_table = payments__add_standard_filters($payables_table);
+
 ?>
 
 <div class="tabarea tab-pane" id="paymentstabs-a<?=$core->view[0]?>">

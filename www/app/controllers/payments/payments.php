@@ -443,12 +443,13 @@ function payment_description_formatter($data)
    return $data;
 }
 
-function payments__add_standard_filters($datatable)
+function payments__add_standard_filters($datatable,$tab='')
 {
-	global $hub_filters,$to_filters,$from_filters;
+	global $core,$hub_filters,$to_filters,$from_filters;
 	if($hub_filters !== false)
 	{
 		
+	
 		$datatable->add_filter(new core_datatable_filter('from_domain_id'));
 		$datatable->filter_html .= core_datatable_filter::make_select(
 			$datatable->name,
@@ -478,6 +479,12 @@ function payments__add_standard_filters($datatable)
 	
 	if($from_filters !== false)
 	{
+		
+		if(($tab == 'payables' || $tab == 'payments') && !isset($datatable->filter_states[$datatable->name.'__filter__from_org_id']))
+		{
+			$datatable->filter_states[$datatable->name.'__filter__from_org_id'] = $core->session['org_id'];
+		}
+		
 		$datatable->add_filter(new core_datatable_filter('from_org_id'));
 		$datatable->filter_html .= core_datatable_filter::make_select(
 			$datatable->name,
@@ -493,6 +500,12 @@ function payments__add_standard_filters($datatable)
 	
 	if($to_filters !== false)
 	{
+		
+		if(($tab == 'receivables' || $tab == 'invoices') && !isset($datatable->filter_states[$datatable->name.'__filter__to_org_id']))
+		{
+			$datatable->filter_states[$datatable->name.'__filter__to_org_id'] = $core->session['org_id'];
+		}
+		
 		$datatable->add_filter(new core_datatable_filter('to_org_id'));
 		$datatable->filter_html .= core_datatable_filter::make_select(
 			$datatable->name,

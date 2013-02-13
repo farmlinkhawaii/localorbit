@@ -24,6 +24,7 @@ $invoices->add_formatter('payable_info');
 $invoices->add_formatter('payment_link_formatter');
 $invoices->add_formatter('payment_direction_formatter');
 $invoices_table = new core_datatable('invoices','payments/invoices',$invoices);
+$invoices_table = payments__add_standard_filters($invoices_table,'invoices');
 $invoices_table->add(new core_datacolumn('invoice_id','Description',true,'22%',			'<b>I-{invoice_id}</b><br />{description_html}','{description}','{description}'));
 $invoices_table->add(new core_datacolumn('from_org_name','Payment Info',true,'40%','{direction_info}','{from_org_name}','{from_org_name}'));
 $invoices_table->add(new core_datacolumn('due_date','Due Date',true,'20%','{due_date}','{due_date}','{due_date}'));
@@ -33,7 +34,7 @@ $invoices_table->columns[2]->autoformat='date-long';
 $invoices_table->columns[3]->autoformat='price';
 $invoices_table->sort_direction='desc';
 
-$invoices_table = payments__add_standard_filters($invoices_table);
+
 ?>
 
 <div class="tabarea tab-pane" id="paymentstabs-a<?=$core->view[0]?>">
