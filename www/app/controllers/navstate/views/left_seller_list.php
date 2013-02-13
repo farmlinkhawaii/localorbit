@@ -1,7 +1,7 @@
 <?php 
 
 $sellers = core::model('domains')->load_sellers();
-
+$social_option = null;
 
 global $random_seller;
 
@@ -43,5 +43,12 @@ foreach($sellers as $seller)
 echo('</ul>');
 ?>
 
+<div id="tweets">
+	<h2>Tweets</h2>
+	<span></span>
+	<div>
+	</div>
+</div>
+<iframe id="facebook" style="display: none;"></iframe>
 
 <? core::replace('left'); ?>
