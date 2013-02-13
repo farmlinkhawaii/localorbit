@@ -94,33 +94,37 @@ $items->add_filter(new core_datatable_filter('sbbcreatedat2','lo_fulfillment_ord
 $items->filter_html .= core_datatable_filter::make_date('sales_by_buyer','sbbcreatedat1',core_format::date($start,'short'),'Placed on or after ');
 $items->filter_html .= core_datatable_filter::make_date('sales_by_buyer','sbbcreatedat2',core_format::date($end,'short'),'Placed on or before ');
 
-$items->add_filter(new core_datatable_filter('sbborg_id','lo_order.org_id'));
+
 
 if (lo3::is_admin()) {
-	$items->add_filter(new core_datatable_filter('sbporg_id','lo_fulfillment_order.org_id'));
+	$items->add_filter(new core_datatable_filter('sbborg_id','lo_order.org_id'));
 	$items->filter_html .= core_datatable_filter::make_select(
-		'sales_by_product',
-		'sbporg_id',
-		$items->filter_states['sales_by_product__filter__sbporg_id'],
+		'sales_by_buyer',
+		'sbborg_id',
+		$items->filter_states['sales_by_buyer__filter__sbborg_id'],
 		new core_collection('
-			select org_id,name from organizations where org_id>0 
-			 and org_id in (select org_id from lo_order where ldstat_id<>1)  order by name'),
+			select organizations.org_id, CONCAT(d.name, \': \', organizations.name) as name from organizations 
+			left join organizations_to_domains otd on (organizations.org_id = otd.org_id and otd.is_home=1)
+			left join domains d on otd.domain_id = d.domain_id
+			where organizations.org_id in (select distinct org_id from lo_order where ldstat_id<>1)  order by name'),
 		'org_id',
 		'name',
 		'Show from all buyers',
 		'width: 230px;'
 	);
+	
 } else if(lo3::is_market()) {	
-	$items->add_filter(new core_datatable_filter('sbporg_id','lo_fulfillment_order.org_id'));
+	$items->add_filter(new core_datatable_filter('sbborg_id','lo_order.org_id'));
 	$items->filter_html .= core_datatable_filter::make_select(
-		'sales_by_product',
-		'sbporg_id',
-		$items->filter_states['sales_by_product__filter__sbporg_id'],
+		'sales_by_buyer',
+		'sbborg_id',
+		$items->filter_states['sales_by_buyer__filter__sbborg_id'],
 		new core_collection('
-			select organizations.org_id, CONCAT(d.name, \': \', organizations.name) as name from organizations 
-			left join organizations_to_domains otd on organizations.org_id = otd.org_id
-			left join domains d on otd.domain_id = d.domain_id
-			where allow_sell=1 and otd.domain_id in ('.implode(',', $core->session['domains_by_orgtype_id'][2]).') order by d.name, organizations.name'),
+			select distinct organizations.org_id, CONCAT(d.name, \': \', organizations.name) as name from organizations 
+			left join organizations_to_domains otd on (organizations.org_id = otd.org_id and otd.is_home=1)
+			left join domains d on (otd.domain_id = d.domain_id)
+			left join lo_order on (lo_order.org_id=organizations.org_id and  lo_order.ldstat_id<>1)
+			where lo_order.domain_id in  ('.implode(',', $core->session['domains_by_orgtype_id'][2]).') order by d.name, organizations.name'),
 		'org_id',
 		'name',
 		'Show from all buyers',
