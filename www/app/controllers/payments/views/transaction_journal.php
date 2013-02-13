@@ -74,8 +74,8 @@ $payments_table = new core_datatable('transactions','payments/transaction_journa
 
 $col_widths = (lo3::is_admin())?array('14%','10%','12%','12%'):array('22%','22%');
 
-$payments_table->add(new core_datacolumn('payable_info','Description',false,'22%',			'<b>T-{payment_id}</b><br />{description_html}','{description}','{description}'));
-$payments_table->add(new core_datacolumn(null,'Payment Info',false,'30%','{method_description}<br />{direction_info}','{direction_info}','{direction_info}'));
+$payments_table->add(new core_datacolumn('payment_id','Description',true,'22%',			'<b>T-{payment_id}</b><br />{description_html}','{description}','{description}'));
+$payments_table->add(new core_datacolumn('payment_info','Payment Info',false,'30%','{method_description}<br />{direction_info}','{direction_info}','{direction_info}'));
 $payments_table->add(new core_datacolumn('creation_date','Date Paid',true,$col_widths[0],'{creation_date}','{creation_date}','{creation_date}'));
 $payments_table->add(new core_datacolumn('amount','Amount',true,$col_widths[1],							'{amount}','{amount}','{amount}'));
 if(lo3::is_admin())
@@ -87,7 +87,7 @@ if(lo3::is_admin())
 }
 $payments_table->columns[2]->autoformat='date-long';
 $payments_table->columns[3]->autoformat='price';
-$payments_table->sort_column = 2;
+$payments_table->sort_column = 0;
 $payments_table->sort_direction = 'desc';
 $payments_table = payments__add_standard_filters($payments_table);
 

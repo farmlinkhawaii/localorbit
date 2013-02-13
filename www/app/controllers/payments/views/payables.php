@@ -31,7 +31,7 @@ $payables->add_formatter('payment_direction_formatter');
 $payables_table = new core_datatable('payables','payments/payables',$payables);
 $payables_table = payments__add_standard_filters($payables_table,'payables');
 $payables_table->add(new core_datacolumn('payable_id','Description',true,'22%',			'<b>P-{payable_id}</b><br />{description_html}','{description}','{description}'));
-$payables_table->add(new core_datacolumn('from_org_name','Payment Info',true,'40%','{direction_info}','{to_org_name}','{to_org_name}'));
+$payables_table->add(new core_datacolumn('from_org_name','Payment Info',false,'40%','{direction_info}','{to_org_name}','{to_org_name}'));
 $payables_table->add(new core_datacolumn('creation_date','Date',true,'20%','{creation_date}','{creation_date}','{creation_date}'));
 $payables_table->add(new core_datacolumn('payable_amount','Amount',true,'14%',							'{payable_amount}','{payable_amount}','{payable_amount}'));
 #$payables_table->add(new core_datacolumn('payable_id',array(core_ui::check_all('payments'),'',''),false,'4%',core_ui::check_all('payments','payment_id'),' ',' '));

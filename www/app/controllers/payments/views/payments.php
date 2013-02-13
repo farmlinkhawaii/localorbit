@@ -25,7 +25,7 @@ $payments_owed->add_formatter('payment_direction_formatter');
 $payments_table = new core_datatable('payments','payments/payments',$payments_owed);
 $payments_table = payments__add_standard_filters($payments_table,'payments');
 $payments_table->add(new core_datacolumn('invoice_id','Description',true,'22%',			'<b>I-{invoice_id}</b><br />{description_html}','{description}','{description}'));
-$payments_table->add(new core_datacolumn('from_org_name','Payment Info',true,'40%','{direction_info}','{to_org_name}','{to_org_name}'));
+$payments_table->add(new core_datacolumn('from_org_name','Payment Info',false,'40%','{direction_info}','{to_org_name}','{to_org_name}'));
 $payments_table->add(new core_datacolumn('creation_date','Date',true,'20%','{creation_date}','{creation_date}','{creation_date}'));
 $payments_table->add(new core_datacolumn('amount_due','Amount',true,'14%',							'{amount_due}','{amount_due}','{amount_due}'));
 $payments_table->add(new core_datacolumn('payment_id',array(core_ui::check_all('payments'),'',''),false,'4%',core_ui::check_all('payments','invoice_id'),' ',' '));
