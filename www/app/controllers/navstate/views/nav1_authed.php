@@ -87,6 +87,7 @@ $(function()
 
 	<li class="divider-vertical"></li>
 	<li class="dropdown">
+		<input type="hidden" id="emptyCart" value="<?=($totalQty<=0)?>"/>
 		<a id="yourCartDropDown" class="dropdown-toggle" data-toggle="dropdown" href=""><i class="icon-cart icon-white"></i> Your Cart <span class="badge" id="totalQty"><?=$totalQty?></span></a>
 		<div class="dropdown-menu span4 yourCart">
 			<?
@@ -169,4 +170,3 @@ $(function()
 </li>
 
 <? core::replace('mainnav');?>
-<? core::js('core.catalog.updateDropDown('.$totalQty.');');?>

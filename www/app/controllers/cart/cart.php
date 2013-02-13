@@ -122,7 +122,7 @@ class core_controller_cart extends core_controller
 		$cart->verify_integrity();
 		$cart->update_totals();
 		core::process_command('navstate/left_cart',false);
-		core_ui::notification('cart updated');
+		core_ui::notification('cart updated');	
 	}
 
 	function parse_items () {

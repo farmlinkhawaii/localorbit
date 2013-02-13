@@ -380,6 +380,8 @@ core.catalog.initCatalog=function(){
 		});
 	}
 
+core.catalog.updateDropDown();
+	//$('#emptyCart').val(core.cart.items.length < 1);
 /*
 	$('.icon-plus-circle').click(function () {
 		var jq = $(this);
@@ -561,7 +563,9 @@ core.catalog.sendNewQtys=function(){
 
 core.catalog.handleCartResponse=function(itemHash){
 	core.cart = itemHash;
-	$('input.total_line').val(core.format.price(core.cart.total));
+	$('input.total_line').val(core.format.price(core.cart.total));	
+	$('#emptyCart').val(core.cart.items.length < 1);
+	core.catalog.updateDropDown();
 }
 
 
@@ -707,8 +711,29 @@ core.catalog.changeProductDeliveryDay=function(event, prodId, dd_ids) {
 	return false;
 };
 
-core.catalog.updateDropDown=function(totalQty) {
-	//if (totalQty > 0)
-		//$('#yourCartDropDown').dropdown('toggle');
+core.catalog.isOpen = false;
+core.catalog.emptyCart = (core.cart.items.length < 1);
+
+
+core.catalog.updateDropDown=function() {
+	setTimeout( function () {
+		if (core.cart.items.length == 1 && !core.catalog.isOpen && core.catalog.emptyCart) // && $('#emptyCart').val() === 'true') {
+		{
+			core.catalog.isOpen = true;
+			$('#yourCartDropDown').dropdown('toggle');
+			setTimeout(function () {
+				if (core.catalog.isOpen) {
+					core.catalog.isOpen = false;
+					$('#yourCartDropDown').dropdown('toggle');
+				}
+
+			}, 2000);
+		}
+		else if (core.cart.items.length <= 0) 
+		{
+			core.catalog.emptyCart = true;
+		}
+	core.catalog.emptyCart = (core.cart.items.length < 1);
+	}, 200);
 };
 //core.catalog.initCatalog();

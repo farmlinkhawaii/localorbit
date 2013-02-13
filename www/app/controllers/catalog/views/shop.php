@@ -309,4 +309,4 @@ core_ui::showLeftNav();
   </div>
 </div>
 
-
+<input type="hidden" id="emptyCart"/>
