@@ -43,7 +43,7 @@ $invoices_table->sort_direction='desc';
 		$invoices_table->render();
 		?>
 		<div class="pull-right" id="create_payment_form_toggler">
-			<input type="button" onclick="core.payments.recordPayments();" class="btn btn-info" value="Record Payments" />
+			<input type="button" onclick="core.payments.recordPayments();" class="btn btn-info" value="Make Payments" />
 		</div>
 		<br />&nbsp;<br />
 	</div>

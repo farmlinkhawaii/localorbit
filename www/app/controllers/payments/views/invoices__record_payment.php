@@ -92,7 +92,7 @@ if($cur_group != '')
 <br />&nbsp;<br />
 <div class="pull-right">
 	<input type="button" class="btn btn-warning" value="cancel" onclick="$('#invoices_pay_area,#all_all_invoices').toggle();" />
-	<input type="button" class="btn btn-primary" value="record payments" onclick="core.payments.saveInvoicePayments('invoice');" />
+	<input type="button" class="btn btn-primary" value="make payments" onclick="core.payments.saveInvoicePayments('invoice');" />
 </div>
 <?
 core::replace('invoices_pay_area');
