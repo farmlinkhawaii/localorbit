@@ -1,5 +1,6 @@
 <?
 global $data,$domains,$all_domains;
+$social_options = core::model('social_options')->collection()->to_array();
 $domain = core::model('domains')->load($data['domain_id']);
 $users = core::model('customer_entity')->add_custom_field('CONCAT(first_name, \' \', last_name) as full_name')->collection()->filter('is_deleted',0)->filter('is_enabled', 1)->filter('is_active', 1)->filter('org_id', $data['org_id']);
 //print_r($users);
@@ -71,6 +72,41 @@ echo(
 	</div>
 </div>
 -->
+
+<div class="control-group">
+	<label class="control-label" for="facebook">Facebook</label>
+	<div class="controls">
+		<div class="input-prepend">
+		  	<span class="add-on">facebook.com/</span>
+			<input type="text" name="facebook" class="input-small" value="<?=$data['facebook']?>" placeholder="Username">
+		</div>
+	</div>
+</div>
+
+<div class="control-group">
+	<label class="control-label" for="twitter">Twitter</label>
+	<div class="controls">
+		<div class="input-prepend">
+		  	<span class="add-on">@</span>
+		  	<input type="text" name="twitter" class="input-large" value="<?=$data['twitter']?>" placeholder="Username">
+		</div>
+	</div>
+</div>
+
+
+<div class="control-group">
+	<label class="control-label" for="twitter">Display Feed on Profile Page</label>
+	<div class="controls">
+		<select name="social_option_id">
+			<option>None</option>
+<?foreach ($social_options as $so) {?>
+			<option value="<?=$so['social_option_id']?>"<?=$data['social_option_id']===$so['social_option_id']?'selected':''?>>
+  				<?=$so['display_name']?>
+  			</option>
+<?}?>
+		</select>
+	</div>
+</div>
 
 <? if(lo3::is_admin() || lo3::is_market()): ?>
 		
