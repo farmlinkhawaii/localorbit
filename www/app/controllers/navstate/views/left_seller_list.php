@@ -44,8 +44,9 @@ echo('</ul>');
 ?>
 
 <div id="tweets">
-	<h2>Tweets</h2>
-	<span></span>
+	<span>
+	<h3>Tweets</h3>
+	</span>
 	<div>
 	</div>
 </div>

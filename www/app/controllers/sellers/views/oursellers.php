@@ -222,7 +222,7 @@ else
 	} else if ($seller['social_option_id'] == 2 && !empty($seller['twitter'])) {
 		core::js('var tweets = new jqTweet("'.$seller['twitter'].'", "#tweets > div", 10);			
 		tweets.loadTweets(function() { $("#tweets").fadeIn(); 
-			$("#tweets > span").append(\'<iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?show_screen_name=false&show_count=false&screen_name='.$seller['twitter'].'" style="width:300px; height:20px;"></iframe>\');
+			$("#tweets > span").append(\'<iframe allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?show_screen_name=false&show_count=false&screen_name='.$seller['twitter'].'" style="width:60px; height:20px;"></iframe>\');
 		});');
 	}
 ?>
