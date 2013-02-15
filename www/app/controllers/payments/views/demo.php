@@ -34,10 +34,12 @@ if(lo3::is_admin())
 		->filter('organizations.org_id','in','(select distinct from_org_id from payables)')
 		->sort('name');
 
-
+	$tabs[] = 'Payables';
 }
 else if(lo3::is_market())
 {
+	$tabs[] = 'Payables';
+	
 	if(count($core->session['domains_by_orgtype_id'][2]) > 1)
 	{
 		$hub_filters = core::model('domains')
@@ -69,7 +71,7 @@ else
 }
 
 
-$tabs[] = 'Payables';
+
 $tabs[] = 'Payments Owed';
 $tabs[] = 'Transaction Journal';
 

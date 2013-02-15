@@ -17,9 +17,9 @@ if(lo3::is_admin())
 else if (lo3::is_market())
 {
 	# if we're a market manager, we only want payables that apply to our market
-	$receivables_ov->filter('from_domain_id','in','('.implode(',',$core->session['domains_by_orgtype_id'][2]).')');
-	$payables_ov->filter('from_domain_id','in','('.implode(',',$core->session['domains_by_orgtype_id'][2]).')');
-	$payables_dt->filter('from_domain_id','in','('.implode(',',$core->session['domains_by_orgtype_id'][2]).')');
+	$receivables_ov->filter('from_domain_id','in',$core->session['domains_by_orgtype_id'][2]);
+	$payables_ov->filter('from_domain_id','in',$core->session['domains_by_orgtype_id'][2]);
+	$payables_dt->filter('from_domain_id','in',$core->session['domains_by_orgtype_id'][2]);
 }
 else
 {
@@ -71,6 +71,9 @@ $payables_table->add(new core_datacolumn(null,'Amount',false,'25%',	'{amount_due
 $payables_table->columns[1]->autoformat='date-long';
 
 
+
+#echo('<h1>'.core_format::date(time()).'-'.$core->session['time_offset'].'</h1>');
+
 ?>
 
 <div class="tabarea tab-pane active" id="paymentstabs-a<?=$core->view[0]?>">
@@ -109,6 +112,7 @@ $payables_table->columns[1]->autoformat='date-long';
 				<?}?>
 			</td>
 		</tr>
+		<?if(lo3::is_market() || lo3::is_admin()){?>
 		<tr>
 			<td colspan="3">
 				<br />&nbsp;<br />
@@ -118,5 +122,6 @@ $payables_table->columns[1]->autoformat='date-long';
 				?>
 			</td>
 		</tr>
+		<?}?>
 	</table>
 </div>
