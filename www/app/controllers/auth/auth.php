@@ -232,8 +232,8 @@ class core_controller_auth extends core_controller
 		$user->autojoin(
 			'left',
 			'domains',
-			'(domains.domain_id=organizations_to_domains.domain_id)',
-			array('domains.hostname','domains.domain_id','domains.name as hub_name','domains.detailed_name as hub_detailed_name')
+			'(domains.domain_id=organizations_to_domains.domain_id and organizations_to_domains.is_home=1)',
+			array('domains.hostname','domains.domain_id','domains.name as hub_name','domains.detailed_name as hub_detailed_name','domains.do_daylight_savings')
 		);
 		$user->autojoin(
 			'left',
@@ -258,7 +258,7 @@ class core_controller_auth extends core_controller
 		$core->session['buyer_type'] = $user['buyer_type'];
 		$core->session['allow_sell'] = $user['allow_sell'];
 		$core->session['is_active'] = $user['is_active'];
-		$core->session['time_offset'] = $user['offset_seconds'];
+		$core->session['time_offset'] = $user['offset_seconds'] - (3600 * $user['do_daylight_savings']);
 		$core->session['tz_name'] = $user['tz_name'];
 		$core->session['org_is_active'] = $user['org_is_active'];
 		$core->session['login_note_viewed'] = $user['login_note_viewed'];

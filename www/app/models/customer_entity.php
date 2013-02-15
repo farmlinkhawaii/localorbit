@@ -38,7 +38,7 @@ class core_model_customer_entity extends core_model_base_customer_entity
 			o.name,o.buyer_type,o.allow_sell,o.is_active as org_is_active,
 			o.is_enabled as org_is_enabled,otd.orgtype_id,
 			d.name as hub_name,d.detailed_name as hub_detailed_name,
-			tz.offset_seconds,tz_name
+			(tz.offset_seconds - (3600 * d.do_daylight_savings)) as offset_seconds
 
 			from customer_entity ce
 			inner join organizations o on (ce.org_id=o.org_id)
