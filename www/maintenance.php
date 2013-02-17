@@ -15,7 +15,7 @@
 			}
 			body {
 			    background-color: #FFFFFF !important;
-			    background-image: url("/homepage/includes/header_bg.png");
+			    background-image: url("/img/header_bg.png");
 			    background-repeat: repeat-x;
 			    font-family: 'Droid Sans',sans-serif;
 			    font-size: 15px;
