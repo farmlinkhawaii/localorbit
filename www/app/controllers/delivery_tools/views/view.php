@@ -20,7 +20,7 @@ foreach($delivs as $key=>$deliv)
 		<?
 		# only show the delivery address if there's only ONE delivery address on this day 
 		#print_r($deliv['addresses']);
-		if(count($deliv['addresses']) == 1)
+		if(count($deliv['addresses']) > 0)
 		{
 			foreach($deliv['addresses'] as $address=>$flag)
 			{
