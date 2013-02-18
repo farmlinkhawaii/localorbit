@@ -52,8 +52,8 @@ $(function()
 	<li><a href="#" rel="styles3" class="styleswitch"><small>3</small></a></li>
 
 </ul>
--->
 <?}?>
+-->
 <ul class="nav pull-right">
 	<li class="divider-vertical"></li>
 
