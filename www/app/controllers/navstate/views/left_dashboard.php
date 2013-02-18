@@ -31,6 +31,9 @@
 			</li>
 		</ul>
 
+		<ul class="nav"><li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-checkbox-unchecked  icon-large"></i>Payments Portal</a></li></ul>
+		
+		
 		<ul class="nav">
 			<li class="dropdown">
 				<a id="products-delivery" href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -42,8 +45,7 @@
 					<li><a id="orders-list" href="#!orders-list" onclick="core.go(this.href);"><i class="icon-clipboard"></i><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
 					<li><a id="sold_items-list" href="#!sold_items-list" onclick="core.go(this.href);"><i class="icon-stack-checkmark"></i><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
 					<li><a id="products-list" href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"></i><?=$core->i18n['nav2:marketadmin:products']?></a></li>
-					<li><a id="units-list" href="#!units-list" onclick="core.go(this.href);"><i class="icon-cube"></i><?=$core->i18n['nav2:marketadmin:units']?></a></li>
-					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
+					<li><a id="units-list" href="#!units-list" onclick="core.go(this.href);"><i class="icon-checkbox-unchecked "></i><?=$core->i18n['nav2:marketadmin:units']?></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -111,6 +113,7 @@
 				</ul>
 			</li>
 		</ul>
+		<ul class="nav"><li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-checkbox-unchecked  icon-large"></i>Payments Portal</a></li></ul>
 		<ul class="nav">
 			<li class="dropdown">
 				<a id="products-delivery" href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -122,12 +125,11 @@
 					<li><a id="delivery_tools-view" href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i><?=$core->i18n['nav2:marketadmin:weeklysalesndeliveryinfo']?></a></li>
 					<li><a id="orders-list" href="#!orders-list" onclick="core.go(this.href);"><i class="icon-clipboard"></i><?=$core->i18n['nav2:marketadmin:orders']?></a></li>
 					<li><a id="sold_items-list" href="#!sold_items-list" onclick="core.go(this.href);"><i class="icon-stack-checkmark"></i><?=$core->i18n['nav2:marketadmin:sold_items']?></a></li>
-					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
 				</ul>
 			</li>
 		</ul>
-		<ul class="nav"><li><a id="products-list" href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"></i><?=$core->i18n['nav2:marketadmin:products']?></a></li>
-		</ul>
+		
+		<ul class="nav"><li><a id="products-list" href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit"></i><?=$core->i18n['nav2:marketadmin:products']?></a></li></ul>
 		<ul class="nav">
 			<li class="dropdown">
 				<a id="marketing" href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -162,12 +164,12 @@
 					<li><a id="delivery_tools-view" href="#!delivery_tools-view" onclick="core.go(this.href);"><i class="icon-truck"></i>Upcoming Deliveries</a></li>
 					<li><a id="orders-current_sales" href="#!orders-current_sales" onclick="core.go(this.href);"><i class="icon-signup"></i>Current Sales</a></li>
 					<li><a id="reports-edit" href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
-					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
 					<!-- <li><a href="#!orders-sales_report" onclick="core.go(this.href);">Sales History</a></li> -->
 					<!-- <li><a href="#!payment_report-view" onclick="core.go(this.href);">Payment History</a></li> -->
 				</ul>
 			</li>
 		</ul>
+		<ul class="nav"><li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-checkbox-unchecked  icon-large"></i>Payments Portal</a></li></ul>
 		<ul class="nav"><li><a id="products-list" href="#!products-list" onclick="core.go(this.href);"><i class="icon-apple-fruit icon-large"></i> Products</a></li></ul>
 
 		<?} # / is customer or seller ?>
@@ -190,11 +192,13 @@
 							<li><a id="reports-edit" href="#!reports-edit" onclick="core.go(this.href);"><i class="icon-bars"></i>Reports</a></li>
 						<?}?>
 					<?}?>
-					<li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-cube"></i>Payments Portal</a></li>
 				</ul>
 			</li>
 		</ul>
-
+		
+		<? if(!lo3::is_admin() && !lo3::is_market()){?>
+			<ul class="nav"><li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-checkbox-unchecked  icon-large"></i>Payments Portal</a></li></ul>
+		<?}?>
 		</div> <!-- /.nav-collapse-->
 
 	</div>
