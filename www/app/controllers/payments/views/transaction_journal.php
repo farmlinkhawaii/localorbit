@@ -48,7 +48,7 @@ else
 function transaction_formatter($data)
 {
 	#core::log(print_r($data,true));
-	switch($data['payment_method'])
+	switch(strtolower($data['payment_method']))
 	{
 		case 'check':
 			$data['method_description'] = 'Check: '.$data['ref_nbr'];
