@@ -212,6 +212,11 @@ class core_ui
 			{
 				#core::log('found!');
 				return $value;
+			} 
+			else if($core->data[$prefix] == $prefix.'_'.$value)
+			{
+				#core::log('found!');
+				return $value;
 			}
 		}
 		return null;
