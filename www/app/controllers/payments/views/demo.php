@@ -12,9 +12,9 @@ core_ui::load_library('js','payments.js');
 # build the list of tabs that we need to render
 global $tabs;
 $tabs = array('Overview');
-if(lo3::is_admin() || lo3::is_market() || $core->session['allow_sell'] ==1)
+if($core->session['allow_sell'] ==1)
 {
-	$tabs[] = 'Receivables';
+	
 	$tabs[] = 'Invoices Due';
 	
 }
@@ -35,6 +35,8 @@ if(lo3::is_admin())
 		->sort('name');
 
 	$tabs[] = 'Payables';
+	$tabs[] = 'Receivables';
+	
 }
 else if(lo3::is_market())
 {
@@ -64,6 +66,7 @@ else if(lo3::is_market())
 			where domain_id in ('.implode(',',$core->session['domains_by_orgtype_id'][2]).')
 		)')
 		->sort('name');
+	$tabs[] = 'Receivables';
 }
 else
 {

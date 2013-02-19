@@ -208,7 +208,7 @@ class core_ui
 		foreach($values as $value)
 		{
 			#core::log('checking '.$value);
-			if($core->data[$prefix.'_'.$value] == 1)
+			if($core->data[$prefix] == $prefix.'_'.$value)
 			{
 				#core::log('found!');
 				return $value;

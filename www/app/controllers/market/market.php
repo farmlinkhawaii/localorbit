@@ -60,9 +60,16 @@ class core_controller_market extends core_controller
 
 		if(lo3::is_admin())
 		{
+			core::log(print_r($core->data, true));
+			
 			$core->data['hostname'] = strtolower($core->data['hostname']);
-			$core->data['seller_payer'] = core_ui::radio_value('seller_payer',array('lo','hub'));
+			$core->data['seller_payer']   = core_ui::radio_value('seller_payer',  array('lo','hub'));
 			$core->data['buyer_invoicer'] = core_ui::radio_value('buyer_invoicer',array('lo','hub'));
+			
+			
+			core::log('seller payer value: '.$core->data['seller_payer']);
+			core::log('buyer_invoicer  value: '.$core->data['buyer_invoicer']);
+			#core::deinit();
 
 			$market->import_fields(
 				'domain_id','name',

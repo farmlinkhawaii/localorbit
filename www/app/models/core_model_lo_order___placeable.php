@@ -20,9 +20,9 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 		$payable['from_org_id'] = $this['org_id'];
 		$payable['description'] = $this['lo3_order_nbr'];
 
-		if ($core->config['domain']['payment_configuration']  == 'self_managed' && $this['payment_method'] == 'purchaseorder')
+		if ($core->config['domain']['buyer_invoicer']  == 'hub' && $this['payment_method'] == 'purchaseorder')
 		{
-			$payable['to_org_id'] = core_db::col('SELECT payable_org_id from domains where domain_id ='.$core->config['domain']['domain_id'],'payable_org_id');
+			$payable['to_org_id'] = $core->config['domain']['domain_id']['payable_org_id'];
 		}
 		else
 		{
@@ -74,7 +74,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 		# if the hub is managed by LO, then the money is collected by LO
 		# and LO owes the hub the fee_percen_hub
 		$hub_org_id = $core->config['domain']['payable_org_id'];
-		if($core->config['domain']['payment_configuration']  == 'self_managed')
+		if($core->config['domain']['buyer_invoicer']  == 'hub')
 		{
 			$payable['payable_type_id'] = 4;
 			$payable['from_org_id'] = $hub_org_id;
