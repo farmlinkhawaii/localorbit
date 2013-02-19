@@ -2,6 +2,17 @@
 
 class core_controller_payments extends core_controller
 {
+	function wipe_payables()
+	{
+		global $core;
+		
+		if($core->config['stage'] != 'production')
+		{
+			core_db::query('delete from payables;');
+			core_db::query('delete from invoices;');
+			core_db::query('delete from payments;');
+		}
+	}
 	
 	function reload_all_tabs()
 	{
