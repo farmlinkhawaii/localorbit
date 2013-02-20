@@ -1,34 +1,10 @@
 #!/bin/bash
-TRUNK_PATH=$1
-MYSQL_PASSWORD=$2
-MYSQL_PASSWORD_ARG=-$2
+MYSQL_PASSWORD=$1
+MYSQL_PASSWORD_ARG=-$1
 
-if [ -z "$2" ]; then
+if [ -z "$1" ]; then
    MYSQL_PASSWORD_ARG=""
 fi
-
-rm -Rf $TRUNK_PATH/www/img/products/raws/*.dat
-rm -Rf $TRUNK_PATH/www/img/products/cache/*.dat
-
-rm $TRUNK_PATH/www/img/newsletters/*.jpg
-rm $TRUNK_PATH/www/img/newsletters/*.png
-rm $TRUNK_PATH/www/img/newsletters/*.gif
-
-rm $TRUNK_PATH/www/img/organizations/*.jpg
-rm $TRUNK_PATH/www/img/organizations/*.png
-rm $TRUNK_PATH/www/img/organizations/*.gif
-rm $TRUNK_PATH/www/img/organizations/cached/*.jpg
-
-rm $TRUNK_PATH/www/img/weeklyspec/*.jpg
-rm $TRUNK_PATH/www/img/weeklyspec/*.png
-rm $TRUNK_PATH/www/img/weeklyspec/*.gif
-
-scp -r 'lo-web1:/var/www/production/www/img/organizations/*.jpg' $TRUNK_PATH/www/img/organizations
-scp -r 'lo-web1:/var/www/production/www/img/organizations/*.gif' $TRUNK_PATH/www/img/organizations
-scp -r 'lo-web1:/var/www/production/www/img/organizations/*.png' $TRUNK_PATH/www/img/organizations
-scp -r 'lo-web1:/var/www/production/www/img/products/raws/*.dat' $TRUNK_PATH/www/img/products/raws
-scp -r 'lo-web1:/var/www/production/www/img/newsletters/*' $TRUNK_PATH/www/img/newsletters
-scp -r 'lo-web1:/var/www/production/www/img/weeklyspec/*' $TRUNK_PATH/www/img/weeklyspec
 
 # dump production db
 echo 'downloading production db...'	
@@ -48,4 +24,3 @@ echo 'grant all on localorb_www_dev.* to localorb_www identified by "localorb_ww
 echo 'running script...'
 mysql -u root -p$MYSQL_PASSWORD < localorb_local.sql
 echo 'done.'
-
