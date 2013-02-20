@@ -10,6 +10,7 @@ if(count($argv) != 3)
 }
 
 $domain_id = $argv[1];
+$date      = $argv[2];
 
 $sql = 'update domains set service_fee_last_paid=\''.mysql_escape_string($date).'\' where domain_id='.$domain_id;
 
