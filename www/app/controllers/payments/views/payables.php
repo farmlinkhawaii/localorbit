@@ -36,7 +36,7 @@ $payables_table->add(new core_datacolumn('creation_date','Date',true,'20%','{cre
 $payables_table->add(new core_datacolumn('payable_amount','Amount',true,'14%',							'{payable_amount}','{payable_amount}','{payable_amount}'));
 #$payables_table->add(new core_datacolumn('payable_id',array(core_ui::check_all('payments'),'',''),false,'4%',core_ui::check_all('payments','payment_id'),' ',' '));
 $payables_table->columns[2]->autoformat='date-long';
-$payables_table->columns[3]->autoformat='price';
+//$payables_table->columns[3]->autoformat='price';
 $payables_table->sort_direction='desc';
 
 
