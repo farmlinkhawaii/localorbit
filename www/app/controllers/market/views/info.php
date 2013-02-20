@@ -80,6 +80,7 @@ else
 	</div>
 </div>
 
+<? if(trim($market['market_profile']) != '' || trim($market['market_policies']) != ''){?>
 <div class="row">
 	<div class="span5">
 		
@@ -96,9 +97,6 @@ else
 		<? if (trim($market['market_policies']) != ''): ?>
 			<h3><i class="icon-clipboard"/>Policies</h3>
 			<p class="note"><?=core_format::plaintext2html($market['market_policies'])?></p>
-		<? else: ?>
-			<h3><i class="icon-clipboard"/>Policies</h3>
-			<p class="note">We only source our products from Michigan producers, and insist on only the finest results and sustainable manufacturing processes.</p>
 		<? endif; ?>
 
 	
@@ -106,8 +104,8 @@ else
 		
 	</div>
 </div>
-
 <hr>
+<?}?>
 
 <div class="row">
 	
