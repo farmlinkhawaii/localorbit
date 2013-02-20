@@ -4,17 +4,14 @@
 if(count($argv) != 3)
 {
 	echo("Usage: set_lastpaid [domain_id] [date]\n");
-	echo("	date format example: 2013:01:01:16:32:20\n");
+	echo("	date format example: 2013-01-01 16:32:20\n");
 	echo("		In human readable: January 1st, 2013 4:32pm, 20 seconds\n");
 	exit();
 }
 
 $domain_id = $argv[1];
-$date  = explode(':',$argv[2]);
 
-$date = mktime(intval($date[3]),intval($date[4]),intval($date[5]),intval($date[1]),intval($date[2]),intval($date[0]));
-
-$sql = 'update domains set service_fee_last_paid='.$date.' where domain_id='.$domain_id;
+$sql = 'update domains set service_fee_last_paid=\''.mysql_escape_string($date).'\' where domain_id='.$domain_id;
 
 mysql_connect('localorb.cc2ndox9watl.us-west-2.rds.amazonaws.com','localorb_www','l0cal1sdab3st');
 mysql_select_db('localorb_www_testing');
