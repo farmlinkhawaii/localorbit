@@ -12,7 +12,7 @@ core_ui::load_library('js','payments.js');
 # build the list of tabs that we need to render
 global $tabs;
 $tabs = array('Overview');
-if($core->session['allow_sell'] ==1)
+if(lo3::is_market() || lo3::is_admin())
 {
 	
 	$tabs[] = 'Invoices Due';
