@@ -34,6 +34,7 @@ $sql = '
 	and   p.from_org_id=1
 	and   lo.ldstat_id=4
 	and   lo.payment_method in (\'ach\',\'paypal\')
+	and   d1.seller_payer = \'hub\'
 	group by lfo.lo_foid
 ';
 
