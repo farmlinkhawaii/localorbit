@@ -12,6 +12,10 @@ org.setCrosssell=function(domain_id,ddList){
 	}
 }
 
+org.makePrimaryAccount=function(orgId,opmId){
+	core.doRequest('/organizations/set_primary_account',{'org_id':orgId,'opm_id':opmId});
+}
+
 org.inviteUser=function(domainId){
 
 	if(core.validateForm(document.organizationsForm,[

@@ -2,7 +2,7 @@
 	global $data,$core;
 	
 	if(!is_object($data))
-		$data = array('org_id'=>intval($core->data['org_id']));
+		$data = core::model('organizations')->load($core->data['org_id']);
 	if($data['org_id'] != $core->session['org_id'])
 	{
 		$pm_org = core::model('organizations')->load($data['org_id']);
@@ -14,12 +14,13 @@
 	$col = core::model('organization_payment_methods')->collection()->filter('org_id','=',$data['org_id']);
 
 	$pms = new core_datatable('payment_methods','organizations/payment_methods?org_id='.$data['org_id'],$col);
-
+	$col->add_formatter('show_opm_id_button');
 	# add the columns
 	$pms->add(new core_datacolumn('label','Label',true,'25%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">{label}</a>','{label}','{label}'));
-	$pms->add(new core_datacolumn('name_on_account','Name on Account',true,'25%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">{name_on_account}</a>','{name_on_account}','{name_on_account}'));
-	$pms->add(new core_datacolumn('nbr1_last_4','Account #',true,'25%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">************{nbr1_last_4}</a>','************{nbr1_last_4}','************{nbr1_last_4}'));
-	$pms->add(new core_datacolumn('nbr2_last_4','Routing #',true,'25%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">************{nbr2_last_4}</a>','************{nbr2_last_4}','************{nbr2_last_4}'));
+	$pms->add(new core_datacolumn('name_on_account','Name on Account',true,'20%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">{name_on_account}</a>','{name_on_account}','{name_on_account}'));
+	$pms->add(new core_datacolumn('nbr1_last_4','Account #',true,'20%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">************{nbr1_last_4}</a>','************{nbr1_last_4}','************{nbr1_last_4}'));
+	$pms->add(new core_datacolumn('nbr2_last_4','Routing #',true,'20%','<a href="#!organizations-edit--org_id-{org_id}" onclick="org.editPaymentMethod({opm_id},\'{name_on_account}\',\'{label}\',\'{nbr1_last_4}\',\'{nbr2_last_4}\');">************{nbr2_last_4}</a>','************{nbr2_last_4}','************{nbr2_last_4}'));
+	$pms->add(new core_datacolumn('opm_id','&nbsp;',false,'15%','{opm_id_button}','',''));
 	$pms->add(new core_datacolumn('opm_id',core_ui::check_all('opmids'),false,'4%',core_ui::check_all('opmids','opm_id')));
 	
 	
@@ -30,7 +31,21 @@
 	$pms->render_page_arrows = false;
 	
 	
-	
+	function show_opm_id_button($in_data)
+	{
+		global $data;
+		
+		if($data['opm_id'] == $in_data['opm_id'])
+		{
+			$in_data['opm_id_button'] = 'Default';
+		}
+		else
+		{
+			$in_data['opm_id_button'] = '<input type="button" class="btn btn-info" onclick="org.makePrimaryAccount('.$in_data['org_id'].','.$in_data['opm_id'].');" value="Make Default" />';
+		}
+		
+		return $in_data;
+	}
 	
 	
 	?>

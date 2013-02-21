@@ -84,6 +84,21 @@ class core_controller_organizations extends core_controller
 
 		core_ui::notification('bank account saved',false);
 	}
+	
+	function set_primary_account()
+	{
+		global $core;
+		
+		if($core->data['org_id'] != $core->session['org_id'])
+			lo3::require_orgtype('market');
+		
+		core_db::query('update organizations set opm_id='.intval($core->data['opm_id']).' where org_id='.intval($core->data['org_id']));
+		
+		core_datatable::js_reload('payment_methods');
+
+		core_ui::notification('Default set',false);
+	}
+
 
 	function delete_payment_methods()
 	{
