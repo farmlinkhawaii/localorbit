@@ -18,7 +18,6 @@ $sql = '
 		 where xip.invoice_id=i.invoice_id), p.amount
 	)) as amount_due,o.org_id
 	from payables p
-	inner join invoices i on (p.invoice_id=i.invoice_id)
 	inner join domains d on d.domain_id=p.domain_id
 	inner join organizations o on (i.to_org_id=o.org_id)
 	
