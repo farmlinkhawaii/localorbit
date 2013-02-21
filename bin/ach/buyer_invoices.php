@@ -4,6 +4,8 @@ define('__CORE_ERROR_OUTPUT__','exit');
 include(dirname(__FILE__).'/../../www/app/core/core.php');
 core::init();
 core::load_library('crypto');
+ob_end_flush();
+
 
 $actually_send = $argv[1] == 'do-send';
 
@@ -14,9 +16,7 @@ echo("-------------------\n");
 
 $sql = '
 	select 
-	p.payable_id,p.amount,o.name,o.org_id,
-	(select group_concat(email) from customer_entity ce where ce.org_id=o.org_id) as emails
-
+	p.payable_id,p.amount,o.name,o.org_id,d.domain_id,p.description
 	from payables p
 	inner join lo_order lo on (lo.lo_oid=p.parent_obj_id and p.payable_type_id=1)
 	inner join domains d on (lo.domain_id=d.domain_id)
@@ -41,6 +41,7 @@ foreach($payables as $payable)
 			'org_id'=>$payable['org_id'],
 			'name'=>$payable['name'],
 			'emails'=>$payable['emails'],
+			'domain_id'=>$payable['domain_id'],
 			'payables'=>array(),
 		);
 	}
@@ -82,6 +83,10 @@ if($actually_send)
 			$payable_obj['invoice_id'] = $invoice['invoice_id'];
 			$payable_obj->save();
 		}
+		
+		core::process_command('emails/payments_portal__invoice',false,
+			$invoice,$buyer['payables'] ,$buyer['domain_id'],core_format::date(time() + (7 * 86400),'short')
+		);
 	}
 }
 
