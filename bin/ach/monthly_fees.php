@@ -144,7 +144,7 @@ function do_monthly_payment($domain)
 		
 		$transaction->FrontEndTrace = $trace;
 		$transaction->CustomerName  = strtoupper($domain['name_on_account']);
-		$transaction->CustomerRoutingNo  = 
+		$transaction->CustomerRoutingNo  = core_crypto::decrypt($domain['nbr2']);
 		$transaction->CustomerAcctNo     = core_crypto::decrypt($domain['nbr1']);
 		$transaction->TransAmount   = $domain['service_fee'];
 		$transaction->TransactionCode = 'WEB';
