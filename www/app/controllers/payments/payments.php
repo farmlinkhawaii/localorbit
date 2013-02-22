@@ -29,6 +29,8 @@ class core_controller_payments extends core_controller
 		global $core;
 		core::log(print_r($core->data,true));
 		
+		core::load_library('crypto');
+		
 		$invoices = core::model('v_invoices')
 				->collection()
 				->filter('invoice_id','in',explode(',',$core->data['invoice_list']))

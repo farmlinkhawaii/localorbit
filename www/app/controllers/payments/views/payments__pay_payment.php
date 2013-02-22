@@ -15,6 +15,10 @@ $cur_group = '';
 $group_total = 0;
 core::js('core.payments.invoiceGroups={};');
 
+
+$button_label = (lo3::is_market() || lo3::is_admin())?'save payments':'make payment';
+
+
 foreach($invoices as $invoice)
 {
 	core::log('building UI for invoice '.$invoice['invoice_id']);
@@ -109,7 +113,7 @@ if($cur_group != '')
 <div class="pull-right">
 	<input type="button" onclick="$('#payments_pay_area,#all_all_payments').toggle();" class="btn btn-warning" value="cancel" />
 		
-	<input type="button" class="btn btn-info" value="save payments" onclick="core.payments.saveInvoicePayments('payment');" />
+	<input type="button" class="btn btn-info" value="<?=$button_label?>" onclick="core.payments.saveInvoicePayments('payment');" />
 </div>
 <?
 core::log('building payments UI complete. ready to send back to client');
