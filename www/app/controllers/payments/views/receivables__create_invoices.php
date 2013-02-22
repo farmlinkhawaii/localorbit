@@ -26,10 +26,13 @@ $payables = core::model('payables')
 			
 			$style = (!$style);
 			$group_key = str_replace(',','-',$payable['payables']);
+			
+			#print_r($payable);
 		?>
 		<tr class="dt<?=$style?>">
 			<td class="dt">
-				<?=$payable['org_name']?>
+				From: <?=$payable['from_org_name']?><br />
+				To: <?=$payable['to_org_name']?>
 				<input type="hidden" name="invoicecreate_<?=$counter?>" value="<?=$group_key?>" />
 				<input type="hidden" name="invoicecreate_<?=$group_key?>__to" value="<?=$payable['to_org_id']?>" />
 				<input type="hidden" name="invoicecreate_<?=$group_key?>__from" value="<?=$payable['from_org_id']?>" />
