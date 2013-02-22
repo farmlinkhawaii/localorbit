@@ -30,10 +30,17 @@ foreach($invoices as $invoice)
 		$group_total = 0;
 		$inv_counter = 0;
 		
+		$label = 'Amount Received';
+		
+		if($invoice['from_org_id'] == $core->session['org_id'])
+		{
+			$label = 'Amount to Pay';
+		}
+		
 		?>
 		<h3>From <?=$invoice['from_org_name']?> to <?=$invoice['to_org_name']?></h3>
 		<?=core_form::value('Amount Due','',array('id'=>'payment_amount_due_'.$cur_group))?>
-		<?=core_form::input_text('Amount Received','payment_amount_'.$cur_group,0,array('onkeyup'=>'core.payments.applyMoneyToInvoices(this.value,\''.$cur_group.'\',this);'))?>
+		<?=core_form::input_text($label ,'payment_amount_'.$cur_group,0,array('onkeyup'=>'core.payments.applyMoneyToInvoices(this.value,\''.$cur_group.'\',this);'))?>
 		
 			<?
 			# if this is NOT from local orbit, we need to let the user select 
@@ -100,6 +107,8 @@ if($cur_group != '')
 ?>
 
 <div class="pull-right">
+	<input type="button" onclick="$('#payments_pay_area,#all_all_payments').toggle();" class="btn btn-warning" value="cancel" />
+		
 	<input type="button" class="btn btn-info" value="save payments" onclick="core.payments.saveInvoicePayments('payment');" />
 </div>
 <?
