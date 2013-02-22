@@ -1,6 +1,6 @@
 <?php
 core::ensure_navstate(array('left'=>'left_dashboard'));
-core::head('Payments Portal','This page is used to manage orders');
+core::head('Financials','This page is used to manage orders');
 lo3::require_permission();
 lo3::require_login();
 
@@ -18,7 +18,7 @@ if(lo3::is_admin() || lo3::is_market() )
 
 # setup the page header and tab switchers
 core_ui::tabset('paymentstabs');
-page_header('Payments Portal');
+page_header('Financials');
 echo(core_ui::tab_switchers('paymentstabs',$tabs));
 
 # based on our rules, render the tabs one by one

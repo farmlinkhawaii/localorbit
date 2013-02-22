@@ -15,6 +15,7 @@ class core_controller_orders extends core_controller
 	function update_statuses_due_to_payments($lo_oid,$payable_id=null)
 	{
 		global $core;
+		return;
 		
 		#core::log('called update_statuses_due_to_payments on lo_oid '.$lo_oid.' and payable '.$payable_id);
 		# we need to figure out how much is due on the order
