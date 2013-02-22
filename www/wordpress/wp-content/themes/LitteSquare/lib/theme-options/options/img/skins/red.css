@@ -1,0 +1,74 @@
+/* Red Color Scheme
+================================================== */
+
+/*links*/
+body #sidebar a,
+body a.read-more,
+body .entry a,
+body a.comment-reply-link{ color: #ec2316 }
+body a.comment-reply-link:hover,
+body a.read-more:hover,
+body .entry a:hover,
+body #sidebar a:hover{ color: #000 }
+
+/*red - backgrounds*/
+body #navigation,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active,
+body .faq-title.active,
+body .pricing-header h4,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link:hover,
+body .ThemeStudio-accordion .ui-state-active,
+body .post-tags a,
+body #single-nav a:hover,
+body .flex-direction-nav li a:hover,
+body .page-pagination span.current,
+body #wp-calendar caption,
+body button,
+body input[type="button"],
+body input[type="submit"]{ background: #ed2316; background: -webkit-gradient(linear, left top, left bottom, from(#f14f44), to(#ed2316)); background: -moz-linear-gradient(top, #f14f44, #ed2316); filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f14f44',EndColorStr='#ed2316'); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f14f44',EndColorStr='#ed2316')"; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,0.2) }
+
+/*red - backgrounds hover & active */
+body #navigation .current-menu-item > a,
+body #navigation .sf-menu > li > a:hover,
+body #navigation .sf-menu > li.sfHover > a, body ul.filter a.active,
+body button:hover,
+body input[type="button"]:hover,
+body input[type="submit"]:hover,
+body .post-tags a:hover{ background-color: #ed2316; background-color: #f14f44;  background: -webkit-gradient(linear, left top, left bottom, from(#ed2316), to(#f14f44)); background: -moz-linear-gradient(top, #ed2316, #f14f44) }
+
+/*red - borders*/
+body #navigation .sf-menu { border-right-color: #df1f12; /*for modern browsers ==> */ border-right-color: rgba(0,0,0,.05) }
+body #navigation .sf-menu > li { border-left-color: #df1f12; border-right-color: #f14f44; /*for modern browsers ==> */ border-left-color: rgba(0,0,0,.05); border-right-color: rgba(255,255,255,.07) }
+body #navigation { border-bottom: 1px solid #df1f12 }
+body .ThemeStudio-accordion .ui-state-active,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link,
+body .faq-title.active,
+body .page-pagination span.current,
+body #single-nav a:hover,
+body ul.filter a.active,
+body ul.filter a.active,
+body .page-pagination span.current span,
+body .post-tags a,
+body #wp-calendar caption,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active,
+body button,
+body input[type="button"],
+body input[type="submit"]{ border-color: #df1f12}
+body ul.filter a.active span,
+body #single-nav a:hover .inner,
+body .faq-title.active a,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active a,
+body .page-pagination span.current > span.inner{ border-top: none; }
+
+/*overlay defaults*/
+body .portfolio-entry-img-link:hover,
+body .staff-entry-img-link:hover,
+body .blog-entry-img-link:hover{ background: #f14f44 }
+
+/*red - other */
+body .flex-direction-nav li a:hover,
+body .hp-highlight span[class*='icon-'] { color: #ef4135 }
+body #full-slider{ border-bottom-color: #df1f12; }
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active a,
+body .faq-title.active a{ text-shadow: 0 -1px 0 rgba(0,0,0,0.2) }

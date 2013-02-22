@@ -1,0 +1,32 @@
+/* common rules for all fields */
+.ts-label-td {width: 35% !important; }
+.ts-label-td small{ color: #555; }
+.ts-label { font-weight: bold; }
+
+/* select text */
+.ts-text {width: 100% !important}
+
+/* select field */
+.ts-select {height: auto !important; text-transform: capitalize; width: 100%; }
+.ts-select option{ text-transform: capitalize; }
+
+/* Filter select field */
+.ts-filter-select {height: auto !important; text-transform: capitalize; width: 100%; }
+.ts-filter-select option{ text-transform: capitalize; }
+.ts_filterselect{
+	float:bottom;
+}
+
+
+
+/* meta slider */
+.ts-ms-container{background:#fcfcfc; padding:7px 10px; border:1px solid #e3e3e3; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; margin-bottom:10px}
+.meta-slides .placeholder{background:#fcfcfc; border:1px dashed #e3e3e3; height:36px; margin-bottom:10px}
+.ts-ms-head{font-weight:bold; color:#000; cursor:move; overflow:hidden}
+.ts-ms-head a.ts-ms-toggle, .ts-ms-head a.ts-ms-delete{font-weight:normal; float:right; text-decoration:none}
+.ts-ms-head a:hover.ts-ms-toggle, .ts-ms-head a:hover.ts-ms-delete{text-decoration:underline}
+.ts-ms-body{margin-top:10px; display:none}
+.ts-ms-input, .ts-ms-textarea{width:100%; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box}
+.ms-upload-button{margin:5px 0 0}
+a.ts-ms-add-new{padding-top:10px; text-decoration:none}
+a:hover.ts-ms-add-new{text-decoration:underline}
