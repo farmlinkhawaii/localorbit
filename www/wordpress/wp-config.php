@@ -101,7 +101,27 @@ define('WP_DEBUG', false);
 /* Multisite */
 define('MULTISITE', true);
 define('SUBDOMAIN_INSTALL', false);
-define('DOMAIN_CURRENT_SITE', 'dev.localorb.it');
+if(strpos($_SERVER['HTTP_HOST'],'dev') !== false)
+{
+	define('DOMAIN_CURRENT_SITE', 'dev.localorb.it');
+}
+else if(strpos($_SERVER['HTTP_HOST'],'newui') !== false)
+{
+	define('DOMAIN_CURRENT_SITE', 'newui.localorb.it');
+}
+else if(strpos($_SERVER['HTTP_HOST'],'qa') !== false)
+{
+	define('DOMAIN_CURRENT_SITE', 'qa.localorb.it');
+}
+else if(strpos($_SERVER['HTTP_HOST'],'testing') !== false)
+{
+	define('DOMAIN_CURRENT_SITE', 'testing.localorb.it');
+}
+else
+{
+	define('DOMAIN_CURRENT_SITE', 'localorb.it');
+}
+
 define('PATH_CURRENT_SITE', '/');
 define('SITE_ID_CURRENT_SITE', 1);
 define('BLOG_ID_CURRENT_SITE', 1);
