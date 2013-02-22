@@ -27,8 +27,8 @@ class core_controller_payments extends core_controller
 	function record_payments()
 	{
 		global $core;
-		core::log(print_r($core->data,true));
-		
+	#	core::log(print_r($core->data,true));
+		#core::deinit();
 		core::load_library('crypto');
 		
 		$invoices = core::model('v_invoices')
@@ -54,10 +54,8 @@ class core_controller_payments extends core_controller
 				);
 			}
 			
-			core::log('looking for invoice payment: '.$invoice['invoice_id']);
-			core::log($core->data[$prefix.'_pay_group_id_'.$invoice['invoice_id']]);
 			
-			$line_total = core_format::parse_price($core->data[$prefix.'_pay_group_id_'.$invoice['invoice_id']]);
+			$line_total = core_format::parse_price($core->data[$prefix.'_invoice_'.$invoice['invoice_id']]);
 			$payments[$cur_group]['total'] += $line_total;
 			$payments[$cur_group]['invoices'][$invoice['invoice_id']] = $line_total;
 			
@@ -82,65 +80,76 @@ class core_controller_payments extends core_controller
 				list($new_payment['to_org_id'],$new_payment['from_org_id']) = explode('_',$cur_group);
 				$new_payment['amount'] = $payment['total'];
 				$new_payment['admin_note'] = $core->data[$prefix.'_admin_note__'.$cur_group];
+				$new_payment['payment_method_id'] = $core->data[$prefix.'_payment_method_'.$cur_group];
 				
-				if($prefix == 'invoice')
+				$result = true;
+				
+				# checks have check nbrs
+				if($new_payment['payment_method_id']  == 4)
 				{
-					$new_payment['payment_method_id'] = $core->data['invoice_payment_method_'.$cur_group];
-					
-					
-					if(intval($new_payment['payment_method_id']) == 4)
-					{
-						core::log('here: '.$core->data[$prefix.'_ref_nbr_'.$cur_group]);
-						$new_payment['ref_nbr'] = $core->data[$prefix.'_ref_nbr_'.$cur_group];
-					}
-					
-					$new_payment->save();
+					$new_payment['ref_nbr'] = $core->data[$prefix.'_ref_nbr_'.$cur_group];
 				}
-				else
+				
+				# ach means we actually have to transfer
+				if($new_payment['payment_method_id']  == 3)
 				{
-					$new_payment['payment_method_id'] = 3;
-					$new_payment->save();
-					
 					$trace_nbr = 'LO-';
 					if($core->config['stage'] != 'production')
 						$trace_nbr = $core->config['stage'].'-'.$trace_nbr;
 					$trace_nbr .= str_pad($new_payment['payment_id'],8,0,STR_PAD_LEFT);
 
-					$paymeth = core::model('organization_payment_methods')->load($core->data['payment_group_'.$cur_group.'__opm_id']);
-					$paymeth->make_payment($trace_nbr,$new_payment['amount']);
-					#core::log(print_r($paymeth->__data,true));
-				}
-				
-				foreach($payment['invoices'] as $invoice_id=>$amount)
-				{
-					if(floatval($amount) > 0)
+					$paymeth = core::model('organization_payment_methods')->load($core->data[$prefix.'_payment_group_'.$cur_group.'__opm_id']);
+					
+					
+					$ach_amount = $new_payment['amount'];
+					# if the money is coming FROM local orbit, pass to the make_payment method as a negative amount
+					if($new_payment['from_org_id'] == 1)
 					{
-						$x_invoices_payments = core::model('x_invoices_payments');
-						$x_invoices_payments['invoice_id'] = $invoice_id;
-						$x_invoices_payments['payment_id'] = $new_payment['payment_id'];
-						$x_invoices_payments['amount_paid'] = $amount;
-						$x_invoices_payments->save();
-						
-						# next we need to examine all of the payables related to this invoice
-						# that are buyer orders. Each of those need to be checked to see if 
-						# they meet all of the conditions for making seller payments.
-						$payables = core::model('payables')
-							->collection()
-							->filter('payable_type_id','=',1)
-							->filter('invoice_id','=',$invoice_id);
-							
-						
-						foreach($payables as $payable)
+						$ach_amount = (-1) * $ach_amount;
+					}
+					
+					$result = $paymeth->make_payment($trace_nbr,$new_payment['admin_note'],$ach_amount);
+				}
+				$new_payment->save();
+				
+				
+				if($result)
+				{
+					foreach($payment['invoices'] as $invoice_id=>$amount)
+					{
+						if(floatval($amount) > 0)
 						{
-							$orders_controller->update_statuses_due_to_payments($payable['parent_obj_id'],$payable['payable_id']);
+							$x_invoices_payments = core::model('x_invoices_payments');
+							$x_invoices_payments['invoice_id'] = $invoice_id;
+							$x_invoices_payments['payment_id'] = $new_payment['payment_id'];
+							$x_invoices_payments['amount_paid'] = $amount;
+							$x_invoices_payments->save();
+							
+							# next we need to examine all of the payables related to this invoice
+							# that are buyer orders. Each of those need to be checked to see if 
+							# they meet all of the conditions for making seller payments.
+							$payables = core::model('payables')
+								->collection()
+								->filter('payable_type_id','=',1)
+								->filter('invoice_id','=',$invoice_id);
+								
+							
+							foreach($payables as $payable)
+							{
+								$orders_controller->update_statuses_due_to_payments($payable['parent_obj_id'],$payable['payable_id']);
+							}
 						}
 					}
+				}
+				else
+				{
+					core_ui::error('ACH Transfer failed. Please contact customer service');
 				}
 			}
 		}
 		
 		$this->reload_all_tabs();
-		core::js("$('#".$prefix."s_pay_area,#all_all_".$prefix."s').toggle();");
+		core::js("$('#".$prefix."_pay_area,#all_all_".$prefix."').toggle();");
 		core_ui::notification('payments saved');
 	}
 	

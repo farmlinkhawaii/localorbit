@@ -43,14 +43,12 @@ $payables_table->sort_direction='desc';
 	<div id="all_receivables">
 		<?php
 		$payables_table->render();
-		if($payables->__num_rows > 0)
-		{
+
 		?>
 		<div class="pull-right" id="create_invoice_toggler">
 			<input type="button" onclick="core.payments.getCreatePaymentsForm('receivables');" value="pay checked" class="btn btn-info" />
 			<input type="button" onclick="core.payments.getCreateInvoicesForm();" value="create invoice from checked" class="btn btn-info" />
 		</div>
-		<?}?>
 	<br />&nbsp;<br />
 	</div>
 	<div id="receivables_create_area" style="display: none;">

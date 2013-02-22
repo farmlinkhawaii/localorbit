@@ -29,7 +29,7 @@ $invoices_table->add(new core_datacolumn('invoice_id','Description',true,'22%',	
 $invoices_table->add(new core_datacolumn('from_org_name','Payment Info',false,'40%','{direction_info}','{from_org_name}','{from_org_name}'));
 $invoices_table->add(new core_datacolumn('due_date','Due Date',true,'20%','{due_date}','{due_date}','{due_date}'));
 $invoices_table->add(new core_datacolumn('amount_due','Amount Due',true,'14%',			'{amount_due}','{amount_due}','{amount_due}'));
-$invoices_table->add(new core_datacolumn('invoice_id',array(core_ui::check_all('dueinvoices'),'',''),false,'4%',core_ui::check_all('dueinvoices','invoice_id'),' ',' '));
+$invoices_table->add(new core_datacolumn('invoice_id',array(core_ui::check_all('invoices'),'',''),false,'4%',core_ui::check_all('invoices','invoice_id'),' ',' '));
 $invoices_table->columns[2]->autoformat='date-long';
 $invoices_table->columns[3]->autoformat='price';
 $invoices_table->sort_direction='desc';
@@ -43,7 +43,7 @@ $invoices_table->sort_direction='desc';
 		$invoices_table->render();
 		?>
 		<div class="pull-right" id="create_payment_form_toggler">
-			<input type="button" onclick="core.payments.recordPayments();" class="btn btn-info" value="Make Payments" />
+			<input type="button" onclick="core.payments.makePayments('invoices');" class="btn btn-info" value="Make Payments" />
 		</div>
 		<br />&nbsp;<br />
 	</div>

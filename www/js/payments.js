@@ -15,9 +15,9 @@ core.payments.recordPayments=function(){
 	core.doRequest('/payments/invoices__record_payment',{'due_invoices':core.ui.getCheckallList(document.paymentsForm,'dueinvoices').join(',')});
 }
 
-core.payments.makePayments=function(){
+core.payments.makePayments=function(tabName){
 	//alert(core.ui.getCheckallList(document.paymentsForm,'payments').join(','));
-	core.doRequest('/payments/payments__pay_payment',{'checked_invoices':core.ui.getCheckallList(document.paymentsForm,'payments').join(',')});
+	core.doRequest('/payments/payments__pay_payment',{'tab_name':tabName,'checked_invoices':core.ui.getCheckallList(document.paymentsForm,tabName).join(',')});
 }
 
 core.payments.initInvoiceGroups=function(tabName){
@@ -26,6 +26,23 @@ core.payments.initInvoiceGroups=function(tabName){
 	for(var key in core.payments.invoiceGroups){
 		$('#'+tabName+'_amount_due_'+key).html(core.format.price(parseFloat(core.payments.invoiceGroups[key])));
 		core.payments.invoiceGroups[key]=[];
+		
+		invoiceList = new String(document.paymentsForm[tabName+'_group_'+key+'_invoices'].value).split(/,/gi);
+		
+		for(var i=0;i<invoiceList.length;i++)
+		{
+			var amountDueObj = document.paymentsForm[tabName+'_invoice_'+invoiceList[i]+'_amount_due'];
+			var allocObj = document.paymentsForm[tabName+'_invoice_'+invoiceList[i]];
+			var info = {
+				'invoiceId':invoiceList[i],
+				'amountDue':parseFloat(amountDueObj.value),
+				'invAllocObj':allocObj,
+				'invAllocAmt':0
+			};
+			core.payments.invoiceGroups[key].push(info);
+		}
+		
+		/*
 		
 		var i=0;
 		var val = document.paymentsForm[tabName+'_pay_group_'+key+'__'+i].value;
@@ -56,16 +73,21 @@ core.payments.initInvoiceGroups=function(tabName){
 				val = val.value;
 		}
 		//alert('done with group '+key);
-	
+		
+		*/
+		//core.alertHash(core.payments.invoiceGroups[key]);
 	}
+	
 	//alert('here');
 	//alert('#'+tabName+'s_pay_area,#all_all_'+tabName+'s');
-	$('#'+tabName+'s_pay_area,#all_all_'+tabName+'s').toggle();
+	//$('#'+tabName+'s_pay_area,#all_all_'+tabName+'s').toggle();
 }
 
-core.payments.applyMoneyToInvoices=function(inAmount,groupSuffix,inAmountObj){
+core.payments.applyMoneyToInvoices=function(tabName,inAmount,groupSuffix,inAmountObj){
 	var inAmount = core.format.parsePrice(inAmount);
 	var totalDue = 0;
+	//alert(inAmount);
+	//core.alertHash(core.payments.invoiceGroups[groupSuffix]);
 	for(var i=0;i<core.payments.invoiceGroups[groupSuffix].length;i++){
 		var obj = core.payments.invoiceGroups[groupSuffix][i];
 		totalDue += parseFloat(obj.amountDue);
@@ -118,4 +140,21 @@ core.payments.saveInvoicePayments=function(tabName){
 	core.doRequest('/payments/record_payments',core.getFormDataForSubmit(document.paymentsForm));
 }
 
+core.payments.setPaymentOptions=function(curGroup,val){
+	//alert('called: '+val+'/'+curGroup);
+	$('#area_check_nbr_'+curGroup+',#area_ach_'+curGroup).hide();
+	switch(val+'')
+	{
+		case '3':
+			//alert('here: '+'#area_ach_'+curGroup);
+			$('#area_ach_'+curGroup).show(300);
+			break;
+		case '4':
+			//alert('here: '+'#area_check_nbr_'+curGroup);
+			$('#area_check_nbr_'+curGroup).show(300);
+			break;
+		case '5':
+			break;
+	}
+}
 
