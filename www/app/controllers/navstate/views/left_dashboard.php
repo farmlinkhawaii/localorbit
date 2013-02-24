@@ -195,8 +195,7 @@
 				</ul>
 			</li>
 		</ul>
-		
-		<? if(!lo3::is_admin() && !lo3::is_market()){?>
+		<? if(lo3::is_customer() && !lo3::is_seller()){1?>
 			<ul class="nav"><li><a id="payments-demo" href="#!payments-demo" onclick="core.go(this.href);"><i class="icon-checkbox-unchecked  icon-large"></i>Financials</a></li></ul>
 		<?}?>
 		</div> <!-- /.nav-collapse-->
