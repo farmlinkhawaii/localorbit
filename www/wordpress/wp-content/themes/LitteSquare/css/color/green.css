@@ -1,0 +1,61 @@
+#header, #header-navigation nav > ul > li > a, #header-navigation ul ul, #header-navigation ul ul li:first-child a:hover, #header-navigation ul ul > li.current-menu-item:first-child a, #filter a:hover, #filter a.active, textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus, .sc-staff .thumbnail:hover, blockquote, #home-top-content input[type="text"]:focus, #home-top-content textarea:focus{ border-color:#a0ce4e}#header-navigation em, #header-title h2, #page-404 strong, #filter a:hover, #filter a.active, #pagination strong, #comments .author a, .widget_archives a:hover, .tabs-left > .nav-tabs .active > a, .tabs-left > .nav-tabs .active > a:hover, .tabs-right > .nav-tabs .active > a, .tabs-right > .nav-tabs .active > a:hover{ color:#a0ce4e}#portfolio-container .c2 dd,.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover,#header-navigation ul ul > li.current-menu-item a, #header-navigation ul ul a:hover, #header-navigation ul ul > li.current-menu-item a, .nivo-directionNav .nivo-nextNav:hover, .nivo-directionNav .nivo-prevNav:hover, .da-arrows span:hover, #portfolio-container dd, #copyright, .first, .pricing-table, .accordion-heading .accordion-toggle span, .highlight,#portfolio-container .c3 dd{background-color:#a0ce4e}.wpb_tour .ui-tabs .ui-tabs-nav li.ui-tabs-active a,.wpb_tour .ui-tabs .ui-tabs-nav li:hover a,a{color:#a0ce4e}a:hover{color:#b3d871}.sequence_wrap .controls li.prev:hover{background:url(http://www.themecenter.net/wp/littesquarbox/wp-content/themes/littlesquare-v1.0.0/img/direct-nav-big.png) #a0ce4e}
+			
+			.pricing-table h2{border-bottom:1px solid #7b9f3c;}
+			.price {
+				background: none repeat scroll 0 0 #b3d871;
+				text-shadow: 1px 0 0 #90b946;
+			}
+			.sidebar .widget a:hover{ color:#a0ce4e; }
+			.wpb_content_element .ui-state-default .ui-icon, .wpb_content_element .ui-state-active .ui-icon{background-color:#a0ce4e}
+			.sign-up .button{box-shadow: 0 0 1px #aad360}
+.flex-control-paging li a.flex-active,
+.flex-control-paging li a:hover,
+input[type="submit"], button, .button, .button-big,
+input[type="submit"]:hover, button:hover, .button:hover, .button-big:hover {
+	
+	background: -moz-linear-gradient(to bottom, #aad360 0%, #b3d871 100%);
+    background: -webkit-gradient(to bottom, #aad360 0%, #b3d871 100%);
+    background: -webkit-linear-gradient(top, #aad360 0%, #b3d871 100%);
+	background: -o-linear-gradient(to bottom, #aad360 0%, #b3d871 100%);
+    background: linear-gradient(to bottom, #aad360 0%, #b3d871 100%);
+    background: -ms-linear-gradient(to bottom, #aad360 0%, #b3d871 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=#aad360, endColorstr=b3d871,GradientType=0 ); /* IE6-9 */
+	
+	border-color: #b3d871 #aed569 #7b9f3c;
+    box-shadow: 0 0 0 1px #c9e39a inset, 0 1px 1px 0 #D9D9D9;
+    color: #40521f;
+    text-shadow: 0 1px 0 #d9ebb8;
+}
+input[type="submit"]:hover, button:hover, .button:hover, .button-big:hover {
+	/* invert for hover effect (replace colors) */
+	background: -moz-linear-gradient(top, #b3d871 0%, #aad360 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b3d871), color-stop(100%,#aad360)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #b3d871 0%,#aad360 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #b3d871 0%,#aad360 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #b3d871 0%,#aad360 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #b3d871 0%,#aad360 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#b3d871", endColorstr="#aad360",GradientType=0 ); /* IE6-9 */
+}
+
+/* the same main color, but in RGBA format ([72, 204, 205], 0.7) - change value in [] 
+:hover > .overlay {
+    background: none repeat scroll 0 0 rgba(72, 204, 205, 0.7);
+}
+*/
+*:hover > .overlay { background: rgba(160,206,78,0.7); }
+#filter a:hover, #filter a.active {
+	-moz-box-shadow: 1px 1px 1px #aad360;
+	-webkit-box-shadow: 1px 1px 1px #aad360;
+	box-shadow: 1px 1px 1px #aad360;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus, #home-top-content input[type="text"]:focus, #home-top-content textarea:focus {
+	-moz-box-shadow: 0 0 8px #aad360;
+	-webkit-box-shadow: 0 0 8px #aad360;
+	box-shadow: 0 0 8px  #aad360;
+}
+.ls-nav-prev:hover{ background-color: #a0ce4e !important;}
+.ls-nav-next:hover{ background-color: #a0ce4e !important;}
+.ls-container  h2{ color : #a0ce4e}
+.ls_heading_bg_color{ background:#a0ce4e !important;}
+#filter a:hover, #filter a.active{box-shadow:#d9ebb8}
+	

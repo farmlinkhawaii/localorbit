@@ -1,0 +1,82 @@
+/* Orange Color Scheme
+================================================== */
+
+/*links*/
+body #sidebar a,
+body a.read-more,
+body .entry a,
+body a.comment-reply-link{ color: #f99b0e }
+body a.comment-reply-link:hover,
+body a.read-more:hover,
+body .entry a:hover,
+body #sidebar a:hover{ color: #000 }
+
+body #navigation .sf-menu > li > a{ text-shadow: 0 -1px 0 rgba(0,0,0,0.2) }
+
+body .home-entry:hover h2 a,
+body .staff-entry:hover h2 a,
+body .portfolio-entry:hover h2 a{ color: #f99b0e }
+
+body .flexslider-container .flex-caption a { color: #f99b0e !important }
+
+/*orange - backgrounds*/
+body #navigation,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active,
+body .faq-title.active,
+body .pricing-header h4,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link:hover,
+body .ThemeStudio-accordion .ui-state-active,
+body .post-tags a,
+body #single-nav a:hover,
+body .flex-direction-nav li a:hover,
+body .page-pagination span.current,
+body #wp-calendar caption,
+body button,
+body input[type="button"],
+body input[type="submit"] { background: #f99b0e; background: -webkit-gradient(linear, left top, left bottom, from(#faa92f), to(#f99b0e)); background: -moz-linear-gradient(top, #faa92f, #f99b0e); filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#faa92f',EndColorStr='#f99b0e'); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#faa92f',EndColorStr='#f99b0e')"; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,0.2) }
+
+/*orange - backgrounds hover & active */
+body #navigation .current-menu-item > a,
+body #navigation .sf-menu > li > a:hover,
+body #navigation .sf-menu > li.sfHover > a,
+body ul.filter a.active,
+body button:hover,
+body input[type="button"]:hover,
+body input[type="submit"]:hover,
+body .post-tags a:hover{ background-color: #faa92f;  background: -webkit-gradient(linear, left top, left bottom, from(#f99b0e), to(#faa92f)); background: -moz-linear-gradient(top, #f99b0e, #faa92f); filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f99b0e',EndColorStr='#faa92f'); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#f99b0e',EndColorStr='#faa92f')";}
+
+/*orange - borders*/
+body #navigation .sf-menu { border-right-color: rgba(0,0,0,.05) }
+body #navigation .sf-menu > li { border-left-color: rgba(0,0,0,.05); border-right-color: rgba(255,255,255,.07) }
+body #navigation { border-bottom: 1px solid #f99b0e }
+body .ThemeStudio-accordion .ui-state-active,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link,
+body .faq-title.active,
+body .page-pagination span.current,
+body #single-nav a:hover,
+body ul.filter a.active,
+body ul.filter a.active,
+body .page-pagination span.current span,
+body .post-tags a,
+body #wp-calendar caption,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active,
+body button,
+body input[type="button"],
+body input[type="submit"]{ border-color: #f99b0e}
+body ul.filter a.active span,
+body #single-nav a:hover .inner,
+body .faq-title.active a,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active a,
+body .page-pagination span.current > span.inner{ border-top: none; }
+
+/*overlay defaults*/
+body .portfolio-entry-img-link:hover,
+body .staff-entry-img-link:hover,
+body .blog-entry-img-link:hover{ background: #f99b0e }
+
+/*orange - other */
+body .flex-direction-nav li a:hover,
+body .hp-highlight span[class*='icon-'] { color: #f99b0e }
+body #full-slider{ border-bottom-color: #f99b0e; }
+body .faq-title.active a{ text-shadow: 0 -1px 0 rgba(0,0,0,0.2) }

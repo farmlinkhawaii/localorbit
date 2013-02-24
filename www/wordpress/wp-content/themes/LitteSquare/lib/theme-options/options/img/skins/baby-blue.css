@@ -1,0 +1,75 @@
+/* Baby Blue Color Scheme
+================================================== */
+
+/*links*/
+body #sidebar a,
+body a.read-more,
+body .entry a,
+body a.comment-reply-link{ color: #41a0d5 }
+body a.comment-reply-link:hover,
+body a.read-more:hover,
+body .entry a:hover,
+body #sidebar a:hover{ color: #000 }
+
+/*baby-blue - backgrounds*/
+body #navigation,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active,
+body .faq-title.active,
+body .pricing-header h4,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link:hover,
+body .ThemeStudio-accordion .ui-state-active,
+body .post-tags a,
+body #single-nav a:hover,
+body .flex-direction-nav li a:hover,
+body .page-pagination span.current,
+body #wp-calendar caption,
+body button,
+body input[type="button"],
+body input[type="submit"]{ background: #79bce1; background: -webkit-gradient(linear, left top, left bottom, from(#87c3e4), to(#79bce1)); background: -moz-linear-gradient(top, #87c3e4, #79bce1); filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#87c3e4',EndColorStr='#79bce1'); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#87c3e4',EndColorStr='#79bce1')"; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0,0.2) }
+
+/*baby-blue - backgrounds hover & active */
+body #navigation .current-menu-item > a,
+body #navigation .sf-menu > li > a:hover,
+body #navigation .sf-menu > li.sfHover > a,
+body ul.filter a.active,
+body button:hover,
+body input[type="button"]:hover,
+body input[type="submit"]:hover,
+body .post-tags a:hover{ background-color: #79bce1; background-color: #87c3e4;  background: -webkit-gradient(linear, left top, left bottom, from(#79bce1), to(#87c3e4)); background: -moz-linear-gradient(top, #79bce1, #87c3e4) }
+
+/*baby-blue - borders*/
+body #navigation .sf-menu { border-right-color: #ef9207; /*for modern browsers ==> */ border-right-color: rgba(0,0,0,.05) }
+body #navigation .sf-menu > li { border-left-color: #ef9207; border-right-color: #87c3e4; /*for modern browsers ==> */ border-left-color: rgba(0,0,0,.05); border-right-color: rgba(255,255,255,.07) }
+body #navigation { border-bottom: 1px solid #5daedb }
+body .ThemeStudio-accordion .ui-state-active,
+body .ThemeStudio-toggle-wrap h3.active a.trigger-link,
+body .faq-title.active,
+body .page-pagination span.current,
+body #single-nav a:hover,
+body ul.filter a.active,
+body ul.filter a.active,
+body .page-pagination span.current span,
+body .post-tags a,
+body  #wp-calendar caption,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active,
+body button,
+body input[type="button"],
+body input[type="submit"]{ border-color: #5daedb}
+body ul.filter a.active span,
+body #single-nav a:hover .inner,
+body .faq-title.active a,
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active a,
+body .page-pagination span.current > span.inner{ border-top: none; }
+
+/*overlay defaults*/
+body .portfolio-entry-img-link:hover,
+body .staff-entry-img-link:hover,
+body .blog-entry-img-link:hover{ background: #87c3e4 }
+
+/*baby-blue - other */
+body .flex-direction-nav li a:hover,
+body .hp-highlight span[class*='icon-'] { color: #87c3e4 }
+body #full-slider{ border-bottom-color: #79bce1; }
+body #services-template-left > ul.ui-tabs-nav li.ui-state-active a,
+body .faq-title.active a { text-shadow: 0 -1px 0 rgba(0,0,0,0.2) }

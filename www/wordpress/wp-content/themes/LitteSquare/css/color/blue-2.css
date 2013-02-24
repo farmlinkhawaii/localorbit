@@ -1,0 +1,62 @@
+#header, #header-navigation nav > ul > li > a, #header-navigation ul ul, #header-navigation ul ul li:first-child a:hover, #header-navigation ul ul > li.current-menu-item:first-child a, #filter a:hover, #filter a.active, textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus, .sc-staff .thumbnail:hover, blockquote, #home-top-content input[type="text"]:focus, #home-top-content textarea:focus{ border-color:#269ccb}#header-navigation em, #header-title h2, #page-404 strong, #filter a:hover, #filter a.active, #pagination strong, #comments .author a, .widget_archives a:hover, .tabs-left > .nav-tabs .active > a, .tabs-left > .nav-tabs .active > a:hover, .tabs-right > .nav-tabs .active > a, .tabs-right > .nav-tabs .active > a:hover{ color:#269ccb}#portfolio-container .c2 dd,.flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover,#header-navigation ul ul > li.current-menu-item a, #header-navigation ul ul a:hover, #header-navigation ul ul > li.current-menu-item a, .nivo-directionNav .nivo-nextNav:hover, .nivo-directionNav .nivo-prevNav:hover, .da-arrows span:hover, #portfolio-container dd, #copyright, .first, .pricing-table, .accordion-heading .accordion-toggle span, .highlight,#portfolio-container .c3 dd{background-color:#269ccb}.wpb_tour .ui-tabs .ui-tabs-nav li.ui-tabs-active a,.wpb_tour .ui-tabs .ui-tabs-nav li:hover a,a{color:#269ccb}a:hover{color:#51b0d5}.sequence_wrap .controls li.prev:hover{background:url(http://www.themecenter.net/wp/littesquarewide/wp-content/themes/littlesquare-v1.0.0.0/img/direct-nav-big.png) #269ccb}
+			.sequence_wrap .controls li.next:hover{background:url(http://www.themecenter.net/wp/littesquarewide/wp-content/themes/littlesquare-v1.0.0.0/img/direct-nav-big.png) -42px 0 #269ccb}
+			.sequence_wrap .wpbslider-inner h2{color:#269ccb}
+			
+			.pricing-table h2{border-bottom:1px solid #1d789c;}
+			.price {
+				background: none repeat scroll 0 0 #51b0d5;
+				text-shadow: 1px 0 0 #228cb7;
+			}
+			.sidebar .widget a:hover{ color:#269ccb; }
+			.wpb_content_element .ui-state-default .ui-icon, .wpb_content_element .ui-state-active .ui-icon{background-color:#269ccb}
+			.sign-up .button{box-shadow: 0 0 1px #3ca6d0}
+.flex-control-paging li a.flex-active,
+.flex-control-paging li a:hover,
+input[type="submit"], button, .button, .button-big,
+input[type="submit"]:hover, button:hover, .button:hover, .button-big:hover {
+	
+	background: -moz-linear-gradient(to bottom, #3ca6d0 0%, #51b0d5 100%);
+    background: -webkit-gradient(to bottom, #3ca6d0 0%, #51b0d5 100%);
+    background: -webkit-linear-gradient(top, #3ca6d0 0%, #51b0d5 100%);
+	background: -o-linear-gradient(to bottom, #3ca6d0 0%, #51b0d5 100%);
+    background: linear-gradient(to bottom, #3ca6d0 0%, #51b0d5 100%);
+    background: -ms-linear-gradient(to bottom, #3ca6d0 0%, #51b0d5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=#3ca6d0, endColorstr=51b0d5,GradientType=0 ); /* IE6-9 */
+	
+	border-color: #51b0d5 #47abd3 #1d789c;
+    box-shadow: 0 0 0 1px #83c7e1 inset, 0 1px 1px 0 #D9D9D9;
+    color: #0f3e51;
+    text-shadow: 0 1px 0 #a8d7ea;
+}
+input[type="submit"]:hover, button:hover, .button:hover, .button-big:hover {
+	/* invert for hover effect (replace colors) */
+	background: -moz-linear-gradient(top, #51b0d5 0%, #3ca6d0 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#51b0d5), color-stop(100%,#3ca6d0)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #51b0d5 0%,#3ca6d0 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #51b0d5 0%,#3ca6d0 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #51b0d5 0%,#3ca6d0 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #51b0d5 0%,#3ca6d0 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#51b0d5", endColorstr="#3ca6d0",GradientType=0 ); /* IE6-9 */
+}
+
+/* the same main color, but in RGBA format ([72, 204, 205], 0.7) - change value in [] 
+:hover > .overlay {
+    background: none repeat scroll 0 0 rgba(72, 204, 205, 0.7);
+}
+*/
+*:hover > .overlay { background: rgba(38,156,203,0.7); }
+#filter a:hover, #filter a.active {
+	-moz-box-shadow: 1px 1px 1px #3ca6d0;
+	-webkit-box-shadow: 1px 1px 1px #3ca6d0;
+	box-shadow: 1px 1px 1px #3ca6d0;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus, #home-top-content input[type="text"]:focus, #home-top-content textarea:focus {
+	-moz-box-shadow: 0 0 8px #3ca6d0;
+	-webkit-box-shadow: 0 0 8px #3ca6d0;
+	box-shadow: 0 0 8px  #3ca6d0;
+}
+.ls-nav-prev:hover{ background-color: #269ccb !important;}
+.ls-nav-next:hover{ background-color: #269ccb !important;}
+.ls-container  h2{ color : #269ccb}
+.ls_heading_bg_color{ background:#269ccb !important;}
+#filter a:hover, #filter a.active{box-shadow:#a8d7ea}
