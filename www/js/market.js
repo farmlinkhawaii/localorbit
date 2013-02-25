@@ -187,12 +187,17 @@ market.toggleAnon=function(){
 }
 
 market.reloadCss=function () {
+	$('link.old').remove();
 	var newLink = $('<link rel="stylesheet" type="text/css" href="css/less.php?reload=' + new Date().getTime() + '" media="all"/>').insertAfter($('#less-css'));
+	$('#less-css').addClass('old').removeAttr('id');
+	newLink.attr('id', 'less-css');
+	/*
 	setTimeout(function () {
 		//$('#less-css').remove();
-		$('#less-css').attr('id', '');
+		$('#less-css').addClass('old').removeAttr('id');
 		newLink.attr('id', 'less-css');
 	}, 5000);
+	*/
 	//$('#less-css').attr('href', 'css/less.php?reload=' + new Date().getTime());
 };
 
