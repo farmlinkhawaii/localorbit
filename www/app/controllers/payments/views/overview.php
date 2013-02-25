@@ -25,7 +25,7 @@ else
 {
 	# otherwise, we want payables only for our organization.
 	$receivables_ov->filter('to_org_id','=',$core->session['org_id']);
-	$receivables_ov->filter('from_org_id','=',$core->session['org_id']);
+	$payables_ov->filter('from_org_id','=',$core->session['org_id']);
 	$payables_dt->filter('invoice_id','in','(select invoice_id from v_invoices where to_org_id='.$core->session['org_id'].' or from_org_id='.$core->session['org_id'].')');
 }
 
