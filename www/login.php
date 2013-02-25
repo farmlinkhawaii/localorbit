@@ -162,7 +162,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 
 					</form>
 				</div>
-				<div id="left" class="row"></div>
+				<div id="left"></div>
 
 			</div><!--/#left-->
 
