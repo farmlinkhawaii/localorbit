@@ -51,6 +51,7 @@ foreach($delivs as $deliv)
 <?}?>
 <p>&nbsp;</p>
 
+<div class="row">
 <div id="tweets" class="span3">
 	<span>
 	<h3>Tweets</h3>
@@ -58,7 +59,7 @@ foreach($delivs as $deliv)
 	<div>
 	</div>
 </div>
-
+</div>
 <?
 core::js('!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");');
 core::replace('left'); 
