@@ -191,7 +191,7 @@ market.reloadCss=function () {
 	setTimeout(function () {
 		$('#less-css').remove();
 		newLink.attr('id', 'less-css');
-	}, 500);
+	}, 3500);
 	//$('#less-css').attr('href', 'css/less.php?reload=' + new Date().getTime());
 };
 
