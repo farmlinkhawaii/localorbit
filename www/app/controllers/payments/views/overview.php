@@ -37,11 +37,12 @@ $intervals = array('Overdue' => 0, 'Today' => 1, 'Next 7 days' => 7, 'Next 30 da
 $receivables_intervals = array_fill_keys(array_values($intervals), 0);
 $payables_intervals    = array_fill_keys(array_values($intervals), 0);
 
+$previousIndex = 0;
 foreach ($intervals as $val) 
 {
 	for($index = 0; $index < count($receivables_ov); $index++)
 	{
-		if ($receivables_ov[$index]['days_since'] < $val)
+		if ($receivables_ov[$index]['days_since'] <= $val && ($val == $previousIndex || ($val != $previousIndex && $receivables_ov[$index]['days_since'] > 0)))
 		{
 			$receivables_intervals[$val] += $receivables_ov[$index]['amount_due'];
 		}
@@ -49,11 +50,12 @@ foreach ($intervals as $val)
 	
 	for($index = 0; $index < count($payables_ov); $index++)
 	{
-		if ($payables_ov[$index]['days_since'] < $val)
+		if ($payables_ov[$index]['days_since'] <= $val && ($val == $previousIndex || ($val != $previousIndex && $payables_ov[$index]['days_since'] > 0)))
 		{
 			$payables_intervals[$val] += $payables_ov[$index]['amount_due'];
 		}
 	}
+	$previousIndex = $val;
 }
 
 
