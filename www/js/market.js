@@ -187,7 +187,11 @@ market.toggleAnon=function(){
 }
 
 market.reloadCss=function () {
-	$('#less-css').attr('href', 'css/less.php?reload=' + new Date().getTime());
+	var newLink = $('<link rel="stylesheet" type="text/css" href="css/less.php?reload=' + new Date().getTime() + '" title="styles1" media="all"/>').insertAfter($('#less-css'));
+	setTimeout(function () {
+		$('#less-css').remove();
+		newLink.attr('id', 'less-css');
+	}, 1000);
 };
 
 market.setDefaults=function(bgColor, bgImageId, fontColor, fontId) {
