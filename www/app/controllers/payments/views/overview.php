@@ -77,52 +77,47 @@ $payables_table->columns[1]->autoformat='date-long';
 ?>
 
 <div class="tabarea tab-pane active" id="paymentstabs-a<?=$core->view[0]?>">
-	<h1>Financial Management coming soon!</h1><br />
-	<table>
-		<?=core_form::column_widths('48%','4%','48%')?>
-		<tr>
-			<td>
-				<h2>Payments Owed</h2>
-				<table class="form">
-				<?
-				foreach ($intervals as $key=>$value)
-				{
-					echo core_form::value($key,
-						(($value<=0)?'<div class="error">':'').
-						core_format::price($payables_intervals[$val], false)
-						.(($value<=0)?'</div>':''));
-				}
-				?>
-				</table>
-			</td>
-			<td>&nbsp;</td>
-			<td>
-				<? if(lo3::is_admin() || lo3::is_market() || $core->session['allow_sell'] ==1){?>
+	<h1>Financial Management coming soon!</h1>
+	<div class="row row-top-margin-buffer">
+		<div class="span4">
+			<h2>Payments Owed</h2>
+			<?
+			foreach ($intervals as $key => $value)
+			{
+				echo '<div class="overview-summary-list-item">
+					<div class="overview-summary-list-item-label">' . $key . '</div>
+					<div class="overview-summary-list-item-value">' .
+					(($payables_intervals[$value] <= 0)?'<div class="error">':'').
+					core_format::price($payables_intervals[$value], false)
+					.(($payables_intervals[$value] <= 0)?'</div>':'') .
+					'</div></div>';
+			}
+			?>
+		</div>
+		<div class="span4">
+			<? if(lo3::is_admin() || lo3::is_market() || $core->session['allow_sell'] ==1){?>
 				<h2>Invoices Due</h2>
-				<table class="form">
 				<?
-				foreach ($intervals as $key=>$value)
+				foreach ($intervals as $key => $value)
 				{
-					echo core_form::value($key,
-						(($value<=0)?'<div class="error">':'').
-						core_format::price($receivables_intervals[$val], false)
-						.(($value<=0)?'</div>':''));
+					echo '<div class="overview-summary-list-item">
+						<div class="overview-summary-list-item-label">' . $key . '</div>
+						<div class="overview-summary-list-item-value">' . 
+							(($receivables_intervals[$value] <= 0)?'<div class="error">':'').
+							core_format::price($receivables_intervals[$value], false)
+							.(($receivables_intervals[$value] <= 0)?'</div>':'') . 
+						'</div></div>';
 				}
 				?>
-				</table>
-				<?}?>
-			</td>
-		</tr>
-		<?if(lo3::is_market() || lo3::is_admin()){?>
-		<tr>
-			<td colspan="3">
-				<br />&nbsp;<br />
-				<h3>Payables/Receivables by Organization</h3>
-				<?
-				$payables_table->render();
-				?>
-			</td>
-		</tr>
-		<?}?>
-	</table>
+			<?}?>
+		</div>
+	</div>
+	<div class="row row-top-margin-buffer">
+		<div class="span10">
+			<h3>Payables/Receivables by Organization</h3>
+			<?
+			$payables_table->render();
+			?>
+		</div>
+	</div>
 </div>
