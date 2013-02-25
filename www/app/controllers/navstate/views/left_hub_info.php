@@ -53,7 +53,7 @@ foreach($delivs as $deliv)
 
 <div id="tweets" class="span3">
 	<span>
-	<h2>Tweets</h2>
+	<h3>Tweets</h3>
 	</span>
 	<div>
 	</div>
