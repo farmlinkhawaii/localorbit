@@ -73,6 +73,9 @@ echo(
 					'sublabel'=>'(No larger than 600 pixels wide and 300 pixels tall)',
 					'img_id'=>'newsletterImage',
 					'src'=>$webpath,
+					'form_name'=>'nlForm',
+					'action'=>'app/newsletters/save_image',
+					'callback'=>'core.newsletters.refreshImage({params});'
 				)),
 				core_form::input_text('Subject','title',$data),
 				core_form::input_text('Header','header',$data),
