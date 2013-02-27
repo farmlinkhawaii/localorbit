@@ -68,7 +68,6 @@ class core_controller_newsletters extends core_controller
 		$nl = core::model('newsletter_content')->import_fields('cont_id','domain_id','title','header','body','send_buyer','send_seller','send_to_groups');
 		$nl['is_draft'] = 0;
 		$nl->save('nlForm');
-		core_db::query('delete from newsletter_content where is_draft = 1 and (TIMESTAMPDIFF(DAY,created_date,now()) > 1 or created_date = 0)');
 		core::js("$('#img_upload_row').show();$('#img_msg_row').hide();");
 		$core->data['cont_id'] = $nl['cont_id'];
 
