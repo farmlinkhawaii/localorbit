@@ -123,6 +123,7 @@ core.jqInit=function(){
 		});
 		$('.control-label i.icon-required').hover(function() { changeTooltipColorTo('#990000') });
 		$(".chzn-select").chosen();
+		$("textarea.wysihtml5").wysihtml5();
 
 		$('[rel="clickover"]').clickover({ html : true, onShown : function () { core.changePopoverExpandButton(this, true); }, onHidden : function () { core.changePopoverExpandButton(this, false); } });
 		$('.natural-num-only').keypress(core.isNumberKey);
