@@ -396,15 +396,15 @@ function payment_direction_formatter($data)
 		$data['direction_info'] = 'From: ';
 		
 		if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2]) > 1)
-			$data['direction_info'] .= $data['from_domain_name'].':';
+			$data['direction_info'] .= $data['from_domain_name'].': ';
 			
-		$data['direction_info'] .= '<a href="#!organizations-edit--org_id-'.$data['from_org_id'].'">'.$data['from_org_name'].'</a><br />';
+		$data['direction_info'] .= $data['from_org_name'].'<br />';
 		$data['direction_info'] .= 'To: ';
 		
 		if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2]) > 1)
-			$data['direction_info'] .= $data['to_domain_name'].':';
+			$data['direction_info'] .= $data['to_domain_name'].': ';
 
-		$data['direction_info'] .= '<a href="#!organizations-edit--org_id-'.$data['to_org_id'].'">'.$data['to_org_name'].'</a>';
+		$data['direction_info'] .= $data['to_org_name'];
 		$data['payable_amount' ] = core_format::price($data['amount_due']);
 	}
 	else
@@ -482,8 +482,8 @@ function payments__add_standard_filters($datatable,$tab='')
 			$hub_filters,
 			'domain_id',
 			'name',
-			'Filter by From Hub: All Hubs',
-			'width: 270px;'
+			'Filter by From Market: All Markets',
+			'width: 270px; max-width: 210px;'
 		);
 		
 		$datatable->add_filter(new core_datatable_filter('to_domain_id'));
@@ -494,7 +494,7 @@ function payments__add_standard_filters($datatable,$tab='')
 			$hub_filters,
 			'domain_id',
 			'name',
-			'Filter by To Hub: All Hubs',
+			'Filter by To Market: All Markets',
 			'width: 270px;'
 		);
 	
