@@ -58,7 +58,7 @@ else if(lo3::is_market())
 			where domain_id in ('.implode(',',$core->session['domains_by_orgtype_id'][2]).')
 		)')
 		->sort('name');
-	$to_filters  = core::model('organizations')
+	$from_filters  = core::model('organizations')
 		->collection()
 		->filter('organizations.org_id','in','(
 			select org_id
@@ -83,7 +83,7 @@ $tabs[] = 'Transaction Journal';
 	
 # setup the page header and tab switchers
 
-page_header('Financial Management');
+page_header('Financial Management - Coming Soon!');
 echo('<form name="paymentsForm" class="form-horizontal">');
 echo(core_ui::tab_switchers('paymentstabs',$tabs));
 echo('<div class="tab-content">');
