@@ -81,7 +81,6 @@ $payables_table->columns[2]->autoformat='price';
 ?>
 
 <div class="tabarea tab-pane active" id="paymentstabs-a<?=$core->view[0]?>">
-	<h1>Financial Management</h1>
 	<div class="row row-top-margin-buffer">
 		<div class="span4">
 			<h2>Payments Owed</h2>
