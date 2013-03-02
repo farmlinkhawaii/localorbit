@@ -145,9 +145,8 @@ $(function()
 </p>
 <ul class="nav pull-left">
 	<li>
-		<a style="line-height: normal; padding: 5px; font-size: 10px" href="http://<?=$core->config['hostname_prefix']?><?=$core->config['default_hostname']?>">
+		<a style="line-height: normal; padding: 12px; font-size: 10px" href="http://<?=$core->config['hostname_prefix']?><?=$core->config['default_hostname']?>">
 			<strong>Powered by Local Orbit</strong><br/>
-			<small >Copyright 2013, All Rights Reserved</small>
 		</a>
 	</li>
 </ul>
