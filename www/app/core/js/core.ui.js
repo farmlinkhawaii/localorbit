@@ -42,11 +42,14 @@ core.ui.facebookfeed=function (name) {
 			core.ui.pullfacebookfeed(name);
 		});
 	}
+	$('.fb-follow').attr('data-href',"https://www.facebook.com/" + name)
 }
 
 core.ui.pullfacebookfeed = function (name) {
 	//$('#facebook').fadeIn();
-	$('#facebook > ol').facebookfeed({access_token : core.ui.facebook.token, id : name});
+	$('#facebook > ol').facebookfeed({access_token : core.ui.facebook.token, id : name}, function () {
+		$('#facebook').fadeIn();
+	});
 }
 
 core.ui.errorClose=function(){
