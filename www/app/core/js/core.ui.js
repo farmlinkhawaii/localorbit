@@ -394,7 +394,7 @@ core.ui.map=function(newId,refObj,width,height,zoom){
 }
 
 core.ui.mapCenterByCoord=function(id,latitude,longitude){
-	console.log('centering map '+id+' on '+latitude+'/'+longitude);
+	core.log('centering map '+id+' on '+latitude+'/'+longitude);
 	core.ui.maps[id].setCenter(new google.maps.LatLng(latitude,longitude));
 }
 
