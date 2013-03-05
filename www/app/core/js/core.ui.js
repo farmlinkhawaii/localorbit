@@ -47,6 +47,7 @@ core.ui.facebookfeed=function (name) {
 
 core.ui.pullfacebookfeed = function (name) {
 	//$('#facebook').fadeIn();
+	core.log(core.ui.facebook.token);
 	$('#facebook > ol').facebookfeed({access_token : core.ui.facebook.token, id : name}, function () {
 		$('#facebook').fadeIn();
 	});
