@@ -19,7 +19,7 @@ function to_address_html ($data)
 	$popup_content = htmlentities(implode(', ',array_map('make_html', array_slice($addresses, 3))));
 	$data['to_address_html'] = implode(', ', $address_list);
 	if (count($addresses) > 3) {
-		$data['to_address_html'] .= ', <a style="cursor: pointer" rel="clickover" data-content="' . $popup_content . '">more</a>';
+		$data['to_address_html'] .= ', <a style="cursor: pointer" rel="popover" data-content="' . $popup_content . '">more</a>';
 	}
 	return $data;
 }

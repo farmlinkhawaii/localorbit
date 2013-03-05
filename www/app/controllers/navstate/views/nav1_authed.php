@@ -143,6 +143,7 @@ $(function()
 <p class="navbar-text pull-right">
 	<?=$core->i18n['greeting']?> <?=$core->session['first_name']?>
 </p>
+
 <ul class="nav pull-left">
 	<li>
 		<a style="line-height: normal; padding: 12px; font-size: 10px" href="http://<?=$core->config['hostname_prefix']?><?=$core->config['default_hostname']?>">
