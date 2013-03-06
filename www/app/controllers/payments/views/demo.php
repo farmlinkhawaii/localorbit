@@ -9,15 +9,15 @@ lo3::require_login();
 
 core_ui::load_library('js','payments.js');
 
-# build the list of tabs that we need to render
-global $tabs;
-$tabs = array('Overview');
-if(lo3::is_market() || lo3::is_admin())
-{
-	
-	$tabs[] = 'Invoices Due';
-	
-}
+#
+$tabs = array();
+$tabs[] = 'Overview';
+$tabs[] = 'Purchase Orders';
+$tabs[] = 'Receivables';
+$tabs[] = 'Payables';
+$tabs[] = 'Transaction Journal';
+$tabs[] = 'Systemwide Payables/Receivables';
+
 
 # prepare the filters
 global $hub_filters,$to_filters,$from_filters;
@@ -33,10 +33,6 @@ if(lo3::is_admin())
 		->collection()
 		->filter('organizations.org_id','in','(select distinct from_org_id from payables)')
 		->sort('name');
-
-	$tabs[] = 'Payables';
-	$tabs[] = 'Receivables';
-	
 }
 else if(lo3::is_market())
 {
@@ -73,6 +69,45 @@ else
 	
 }
 
+page_header('Financial Management - Coming Soon!');
+echo('<form name="paymentsForm" class="form-horizontal">');
+echo(core_ui::tab_switchers('paymentstabs',$tabs));
+echo('<div class="tab-content">');
+
+$this->overview(1);
+$this->purchase_orders(2);
+$this->receivables(3);
+$this->payables(4);
+$this->transaction_journal(5);
+$this->systemwide_payablesreceivables(6);
+
+?>
+
+
+
+	</div>
+	<input type="hidden" name="invoice_list" value="" />
+	<input type="hidden" name="payment_from_tab" value="" />
+</form>
+<?
+
+/*
+
+# build the list of tabs that we need to render
+global $tabs;
+
+
+
+$tabs = array('Overview');
+if(lo3::is_market() || lo3::is_admin())
+{
+	
+	$tabs[] = 'Invoices Due';
+	
+}
+
+
+
 
 
 $tabs[] = 'Payments Owed';
@@ -83,10 +118,7 @@ $tabs[] = 'Transaction Journal';
 	
 # setup the page header and tab switchers
 
-page_header('Financial Management - Coming Soon!');
-echo('<form name="paymentsForm" class="form-horizontal">');
-echo(core_ui::tab_switchers('paymentstabs',$tabs));
-echo('<div class="tab-content">');
+
 
 
 # based on our rules, render the tabs one by one
@@ -108,3 +140,7 @@ $this->transaction_journal((array_search('Transaction Journal',$tabs) + 1));
 	<input type="hidden" name="invoice_list" value="" />
 	<input type="hidden" name="payment_from_tab" value="" />
 </form>
+
+<?
+*/
+?>
