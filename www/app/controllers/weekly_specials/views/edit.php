@@ -39,7 +39,9 @@ else
 $placeholder_image = '/img/blank.png';
 $web_path = '/img/weeklyspec/'.$data['spec_id'].'.';
 $fs_path  = $core->paths['base'].'/..'.$web_path;
-if(file_exists($fs_path.'png'))	
+if (!$data['spec_id']) 
+	$image_path = $placeholder_image;
+else if(file_exists($fs_path.'png'))	
 	$image_path = $web_path.'png?_time_='.$core->config['time'];
 else if(file_exists($fs_path.'jpg'))	
 	$image_path = $web_path.'jpg?_time_='.$core->config['time'];
