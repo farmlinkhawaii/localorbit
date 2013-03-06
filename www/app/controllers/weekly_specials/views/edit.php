@@ -68,7 +68,7 @@ page_header('Editing '.$data['name'],'#!weekly_specials-list','cancel', 'cancel'
 			<label class="control-label" for="domain_id">Market</label>
 			<div class="controls">
 				<select name="domain_id" onchange="core.lo3.getUpdatedDataForSelector('get_products',this.options[this.selectedIndex].value,document.specialsForm.product_id,'Select a product');">
-					<option value="0">Select a hub</option>
+					<option value="0">Select a market</option>
 					<?=core_ui::options($hubs,$data['domain_id'],'domain_id','name')?>
 				</select>
 			</div>

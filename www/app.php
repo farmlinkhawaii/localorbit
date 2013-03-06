@@ -52,6 +52,7 @@ $stage = (strpos($_SERVER['HTTP_HOST'],'qa') !== false)?'qa':$stage;
 	<link rel="stylesheet" type="text/css" href="css/less.php" title="styles1" media="all" id="less-css" />
 	<link rel="stylesheet" type="text/css" href="css/fonts.php" media="all" />
 	<link rel="stylesheet" href="/css/icomoon-ultimate1563/style.css">
+	<link rel="stylesheet" href="/css/icomoon-ultimate88910/style.css">
 
 	<!--<link rel="stylesheet" type="text/css" href="css/responsive.css" />-->
 
