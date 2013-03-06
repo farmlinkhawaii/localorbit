@@ -35,23 +35,32 @@ list(
 ) = core::model('customer_entity')->get_domain_permissions( $data['org_id']);
 
 
-# get all the delivery days that could apply to this product
-$all_dds = new core_collection('
-	select distinct dd.*,d.name as domain_name,d.feature_require_seller_all_delivery_opts,a.address,a.city,a.postal_code,dcr.code as state
+$sql = '
+	select dd.*,d2.name as domain_name,d2.feature_require_seller_all_delivery_opts,
+	a.address,a.city,a.postal_code,dcr.code as state
 	from delivery_days dd
 	left join addresses  a on (dd.deliv_address_id=a.address_id)
 	left join directory_country_region  dcr on (a.region_id=dcr.region_id)
-	left join organization_delivery_cross_sells  odcs using (dd_id)
-	left join domains  d using (domain_id)
-	where  
-	(
-		odcs.org_id='.$data['org_id'].'
-		or
-		dd.domain_id in ('.implode(',',$org_all_domains).')
-	)
-	
-	order by d.name'
-);
+	inner join domains d2 on (d2.domain_id=dd.domain_id)
+	where dd.domain_id in (
+		select d.domain_id 
+		from domains d
+		where d.domain_id in (
+			select otd.domain_id
+			from organizations_to_domains otd
+			where otd.org_id='.$data['org_id'].'
+		)
+		or d.domain_id in (
+			select ocs.sell_on_domain_id
+			from organization_cross_sells ocs
+			where ocs.org_id='.$data['org_id'].'
+			
+		)
+	);
+';
+
+# get all the delivery days that could apply to this product
+$all_dds = new core_collection($sql);
 $all_dds->__model = core::model('delivery_days');
 $all_dds->load();
 
