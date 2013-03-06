@@ -305,7 +305,7 @@ class core_ui
 		for ($i = 0; $i < count($tab_list); $i++)
 		{
 			if ($i == 0): $default_active = 'active'; else: $default_active = ''; endif; # Picks first tab as default active
-			$html .= '<li class="' . $default_active . '"><a href="#'.$tabset_name.'-a'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
+			$html .= '<li class="' . $default_active . '"><a href="#'.$tabset_name.'-a'.($i + 1).'" id="'.$tabset_name.'-s'.($i + 1).'" class="tabswitch" data-toggle="tab">'.$tab_list[$i].'</a></li>';
 		}
 		$html .= '</ul>';
 		return $html;
