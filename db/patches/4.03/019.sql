@@ -1,5 +1,5 @@
 INSERT INTO migrations (version_id, pt_ticket_no) 
-VALUES ('018', '43173555');
+VALUES ('019', '43173555');
 
 UPDATE `phrases`
 SET
