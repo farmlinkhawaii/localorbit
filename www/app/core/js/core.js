@@ -46,6 +46,11 @@ var core={
 	}
 };
 
+core.wysihtml5_init=function(width, height, stylesheet) {
+	var options = $.extend({'stylesheets' : [stylesheet]}, core.wysihtml5);
+	$('.wysihtml5').wysihtml5(options);
+}
+
 core.loadingStart=function(){
 	var v1 = $('#body-start').position();
 	$('#loading').css('left',v1.left).fadeIn();
