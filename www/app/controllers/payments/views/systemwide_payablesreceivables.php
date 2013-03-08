@@ -23,7 +23,7 @@ else
 $invoices->add_formatter('payable_info');
 $invoices->add_formatter('payment_link_formatter');
 $invoices->add_formatter('payment_direction_formatter');
-$systemwide_table = new core_datatable('systemwide','payments/invoices',$invoices);
+$systemwide_table = new core_datatable('systemwide','payments/systemwide_payablesreceivables',$invoices);
 $systemwide_table = payments__add_standard_filters($systemwide_table,'systemwide');
 $systemwide_table->add(new core_datacolumn('invoice_id','Description',true,'22%',			'<b>I-{invoice_id}</b><br />{description_html}','{description}','{description}'));
 $systemwide_table->add(new core_datacolumn('from_org_name','Payment Info',false,'40%','{direction_info}','{from_org_name}','{from_org_name}'));

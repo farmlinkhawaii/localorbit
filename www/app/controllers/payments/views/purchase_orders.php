@@ -26,7 +26,7 @@ else if (!lo3::is_admin())
 $payables->add_formatter('payable_info');
 $payables->add_formatter('payment_link_formatter');
 $payables->add_formatter('payment_direction_formatter');
-$payables_table = new core_datatable('receivables','payments/receivables',$payables);
+$payables_table = new core_datatable('purchase_orders','payments/purchase_orders',$payables);
 $payables_table = payments__add_standard_filters($payables_table,'receivables');
 $payables_table->add(new core_datacolumn('payable_id','Description',true,'22%',			'<b>R-{payable_id}</b><br />{description_html}','{description}','{description}'));
 $payables_table->add(new core_datacolumn(null,'Payment Info',false,'40%','{direction_info}','{direction_info}','{direction_info}'));
