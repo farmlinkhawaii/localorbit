@@ -471,13 +471,19 @@ function payments__add_standard_filters($datatable,$tab='')
 {
 	global $core,$hub_filters,$to_filters,$from_filters;
 	
-	$datatable->add_filter(new core_datatable_filter($tab.'createdat1','creation_date','>','date',null));
-	$datatable->add_filter(new core_datatable_filter($tab.'createdat2','creation_date','<','date',null));
-	$datatable->filter_html .= core_datatable_filter::make_date($datatable->name,$tab.'createdat1',null,'Placed on or after ');
-	$datatable->filter_html .= core_datatable_filter::make_date($datatable->name,$tab.'createdat2',null,'Placed on or before ');
-	
 	$filter_width = 285;
 	$label_width  = 85;
+	$date_verb    = (in_array($datatable->name,array('payables','systemwide','receivables')))?'Invoiced':'Placed';
+	
+	core_format::fix_dates(
+		$datatable->name.'__filter__'.$tab.'createdat1',
+		$datatable->name.'__filter__'.$tab.'createdat2'
+	);
+	$datatable->add_filter(new core_datatable_filter($tab.'createdat1','creation_date','>','date',null));
+	$datatable->add_filter(new core_datatable_filter($tab.'createdat2','creation_date','<','date',null));
+	$datatable->filter_html .= core_datatable_filter::make_date($datatable->name,$tab.'createdat1',null,$date_verb.' on or after ');
+	$datatable->filter_html .= core_datatable_filter::make_date($datatable->name,$tab.'createdat2',null,$date_verb.' on or before ');
+	
 	$datatable->filter_html .= '</div><br /><div style="width: '.($filter_width * 3).'px;clear:both;">';
 	
 	# check to see if we need a market from filter.
@@ -568,7 +574,7 @@ function payments__add_standard_filters($datatable,$tab='')
 	}
 	else
 	{
-		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">&nbsp;</div>';
+		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;height: 33px;"><img src="/img/blank.png" width="285" height="33" /></div>';
 	}
 	
 	# Check to see if we need either of the To filters and the method filter. MMs and Admins get all of them
@@ -631,85 +637,13 @@ function payments__add_standard_filters($datatable,$tab='')
 			
 			$datatable->filter_html .= '</div>';
 		}
+		
+			
+
 	}
 
+	$datatable->filter_html .= '<br /><div style="width: '.($filter_width * 3).'px;clear:both;">&nbsp;</div>';
 	
-	
-	#$datatable->filter_html .= '</div>';
-	/*
-	if($hub_filters !== false)
-	{
-		
-	
-		$datatable->add_filter(new core_datatable_filter('from_domain_id'));
-		$datatable->filter_html .= core_datatable_filter::make_select(
-			$datatable->name,
-			'from_domain_id',
-			$datatable->filter_states[$datatable->name.'__filter__from_domain_id'],
-			$hub_filters,
-			'domain_id',
-			'name',
-			'Filter by From Market: All Markets',
-			'width: 270px; max-width: 210px;'
-		);
-		
-		$datatable->add_filter(new core_datatable_filter('to_domain_id'));
-		$datatable->filter_html .= core_datatable_filter::make_select(
-			$datatable->name,
-			'to_domain_id',
-			$datatable->filter_states[$datatable->name.'__filter__to_domain_id'],
-			$hub_filters,
-			'domain_id',
-			'name',
-			'Filter by To Market: All Markets',
-			'width: 270px;'
-		);
-	
-	}
-	
-	
-	if($from_filters !== false)
-	{
-		
-		if(($tab == 'payables' || $tab == 'payments') && !isset($datatable->filter_states[$datatable->name.'__filter__from_org_id']))
-		{
-			$datatable->filter_states[$datatable->name.'__filter__from_org_id'] = $core->session['org_id'];
-		}
-		
-		$datatable->add_filter(new core_datatable_filter('from_org_id'));
-		$datatable->filter_html .= core_datatable_filter::make_select(
-			$datatable->name,
-			'from_org_id',
-			$datatable->filter_states[$datatable->name.'__filter__from_org_id'],
-			$from_filters,
-			'org_id',
-			'name',
-			'Filter by From Org: All Orgs',
-			'width: 270px;'
-		);
-	}
-	
-	if($to_filters !== false)
-	{
-		
-		if(($tab == 'receivables' || $tab == 'invoices') && !isset($datatable->filter_states[$datatable->name.'__filter__to_org_id']))
-		{
-			$datatable->filter_states[$datatable->name.'__filter__to_org_id'] = $core->session['org_id'];
-		}
-		
-		$datatable->add_filter(new core_datatable_filter('to_org_id'));
-		$datatable->filter_html .= core_datatable_filter::make_select(
-			$datatable->name,
-			'to_org_id',
-			$datatable->filter_states[$datatable->name.'__filter__to_org_id'],
-			$to_filters,
-			'org_id',
-			'name',
-			'Filter by To Org: All Orgs',
-			'width: 270px;'
-		);
-	}
-	*/
 	return $datatable;
 }
 
