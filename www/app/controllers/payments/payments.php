@@ -476,7 +476,8 @@ function payments__add_standard_filters($datatable,$tab='')
 	$datatable->filter_html .= core_datatable_filter::make_date($datatable->name,$tab.'createdat1',null,'Placed on or after ');
 	$datatable->filter_html .= core_datatable_filter::make_date($datatable->name,$tab.'createdat2',null,'Placed on or before ');
 	
-	$filter_width = 300;
+	$filter_width = 285;
+	$label_width  = 85;
 	$datatable->filter_html .= '</div><br /><div style="width: '.($filter_width * 3).'px;clear:both;">';
 	
 	# check to see if we need a market from filter.
@@ -506,7 +507,7 @@ function payments__add_standard_filters($datatable,$tab='')
 		$datatable->add_filter(new core_datatable_filter('from_domain_id'));
 		
 		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">';
-		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;">From Market: </div>';
+		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;width:'.$label_width.'px;text-align: right;">From Market: </div>';
 		$datatable->filter_html .= core_datatable_filter::make_select(
 			$datatable->name,
 			'from_domain_id',
@@ -526,7 +527,7 @@ function payments__add_standard_filters($datatable,$tab='')
 	{
 		$datatable->add_filter(new core_datatable_filter('from_org_id'));
 		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">';
-		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;">From Org: </div>';
+		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;width:'.$label_width.'px;text-align: right;">From Org: </div>';
 		$datatable->filter_html .= core_datatable_filter::make_select(
 			$datatable->name,
 			'from_org_id',
@@ -542,14 +543,14 @@ function payments__add_standard_filters($datatable,$tab='')
 	
 	if($datatable->name == 'transactions' && (lo3::is_admin() || lo3::is_market() || lo3::is_seller()))
 	{
-		$datatable->add_filter(new core_datatable_filter('payable_type_id'));
+		$datatable->add_filter(new core_datatable_filter('payable_type'));
 		
 		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">';
-		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;">Transaction Type: </div>';
+		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;width:'.($label_width + 30).'px;text-align: right;">Transaction Type: </div>';
 		$datatable->filter_html .= core_datatable_filter::make_select(
 			$datatable->name,
 			'payable_type',
-			$datatable->filter_states[$datatable->name.'__filter__payable_type_id'],
+			$datatable->filter_states[$datatable->name.'__filter__payable_type'],
 			array(
 				'buyer order'=>'Purchase',
 				'seller order'=>'Seller Pmt',
@@ -569,6 +570,69 @@ function payments__add_standard_filters($datatable,$tab='')
 	{
 		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">&nbsp;</div>';
 	}
+	
+	# Check to see if we need either of the To filters and the method filter. MMs and Admins get all of them
+	if(lo3::is_admin() || lo3::is_market())
+	{
+		$datatable->add_filter(new core_datatable_filter('to_domain_id'));
+		
+		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">';
+		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;width:'.$label_width.'px;text-align: right;">To Market: </div>';
+		$datatable->filter_html .= core_datatable_filter::make_select(
+			$datatable->name,
+			'to_domain_id',
+			$datatable->filter_states[$datatable->name.'__filter__to_domain_id'],
+			$hub_filters,
+			'domain_id',
+			'name',
+			'All Markets',
+			'width: 180px; max-width: 180px;'
+		);
+		
+		$datatable->filter_html .= '</div>';
+		
+		$datatable->add_filter(new core_datatable_filter('to_org_id'));
+		$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">';
+		$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;width:'.$label_width.'px;text-align: right;">To Org: </div>';
+		$datatable->filter_html .= core_datatable_filter::make_select(
+			$datatable->name,
+			'to_org_id',
+			$datatable->filter_states[$datatable->name.'__filter__to_org_id'],
+			$to_filters,
+			'org_id',
+			'name',
+			'All Organizationss',
+			'width: 180px;'
+		);
+		$datatable->filter_html .= '</div>';
+		
+		
+		if($datatable->name == 'transactions' )
+		{
+			$datatable->add_filter(new core_datatable_filter('payment_method'));
+			
+			$datatable->filter_html .= '<div style="float:left;width: '.$filter_width.'px;">';
+			$datatable->filter_html .= '<div class="pull-left" style="padding: 10px 10px 0px 0px;width:'.($label_width + 30).'px;text-align: right;">Payment Method: </div>';
+			$datatable->filter_html .= core_datatable_filter::make_select(
+				$datatable->name,
+				'payment_method',
+				$datatable->filter_states[$datatable->name.'__filter__payment_method'],
+				array(
+					'cash'=>'Cash',
+					'check'=>'Check',
+					'ACH'=>'ACH',
+					'paypal'=>'Paypal',
+				),
+				null,
+				null,
+				'All Types',
+				'width: 120px; max-width: 120px;'
+			);
+			
+			$datatable->filter_html .= '</div>';
+		}
+	}
+
 	
 	
 	#$datatable->filter_html .= '</div>';
