@@ -2,38 +2,36 @@
 global $core;
 #$payments = new core_collection('select v_payments.*,unix_timestamp(v_payments.creation_date) as creation_date from v_payments where (from_org_id = ' . $core->session['org_id'] . ' or to_org_id = '. $core->session['org_id'] . ')');
 
-
-# the admin sees all transactions
 if(lo3::is_admin())
 {
+	# the admin sees all transactions
 	$payments = core::model('v_payments')->collection();
 }
-# the market manager sees only transactions that apply to orgs that 
-# they manage
 else if(lo3::is_market())
 {
+	# the market manager sees only transactions that apply to orgs that they manage
 	$payments = new core_collection('
 		select *,
 		UNIX_TIMESTAMP(creation_date) as creation_date
 		from v_payments vp
 		where (
 			vp.from_org_id in (
-				select otd1.org_id 
-				from organizations_to_domains otd1 
+				select otd1.org_id
+				from organizations_to_domains otd1
 				where otd1.domain_id in ('.implode(',',$core->session['domains_by_orgtype_id'][2]).')
 			)
 			or
 			vp.to_org_id in (
-				select otd1.org_id 
-				from organizations_to_domains otd1 
+				select otd1.org_id
+				from organizations_to_domains otd1
 				where otd1.domain_id in ('.implode(',',$core->session['domains_by_orgtype_id'][2]).')
 			)
 		)
 	');
 }
-# buyers and sellers only see transactions to/from themselves.
 else
 {
+	# buyers and sellers only see transactions to/from themselves.
 	$payments = new core_collection('
 		select *,
 		UNIX_TIMESTAMP(creation_date) as creation_date
@@ -45,7 +43,6 @@ else
 		)
 	');
 }
-
 
 function transaction_formatter($data)
 {
@@ -65,6 +62,41 @@ function transaction_formatter($data)
 			$data['method_description'] = 'Cash';
 			break;
 	}
+	
+	$data['payment_method'] = ucfirst($data['payment_method']);
+	
+	if ($data['from_org_id'] == $core->session['org_id'])
+	{
+		$data['formatted_amount'] = '<span style="color: red;">$(' . number_format($data['amount'], 2) . ')</span>';
+		$data['amount'] = -$data['amount'];
+	}
+	else
+	{
+		$data['formatted_amount'] = '$' . number_format($data['amount'], 2);
+	}
+	
+	switch(strtolower($data['payable_type']))
+	{
+		case 'buyer order':
+			$data['payable_type_formatted'] = 'Purchase';
+			break;
+		case 'seller order':
+			$data['payable_type_formatted'] = 'Seller Pmt';
+			break;
+		case 'hub fees':
+			$data['payable_type_formatted'] = 'Hub Fees';
+			break;
+		case 'lo fees':
+			$data['payable_type_formatted'] = 'LO Fees';
+			break;
+		case 'monthly fees':
+			$data['payable_type_formatted'] = 'Monthly Fees';
+			break;
+		default:
+			$data['payable_type_formatted'] = ucfirst($data['payable_type']);
+			break;
+	}
+	
 	return $data;
 }
 
@@ -74,38 +106,23 @@ $payments->add_formatter('payment_direction_formatter');
 $payments->add_formatter('transaction_formatter');
 $payments_table = new core_datatable('transactions','payments/transaction_journal',$payments);
 
-$col_widths = (lo3::is_admin())?array('14%','10%','12%','12%'):array('22%','22%');
+$payments_table->add(new core_datacolumn('payment_id','Reference',true,'17%','{description_html}','{description}','{description}'));
 
-$payments_table->add(new core_datacolumn('payment_id','Description',true,'22%',			'<b>T-{payment_id}</b><br />{description_html}','{description}','{description}'));
-$payments_table->add(new core_datacolumn('payment_info','Payment Info',false,'30%','{method_description}<br />{direction_info}','{direction_info}','{direction_info}'));
-$payments_table->add(new core_datacolumn('creation_date','Date Paid',true,$col_widths[0],'{creation_date}','{creation_date}','{creation_date}'));
-$payments_table->add(new core_datacolumn('payable_type','payable_type',true,'10%','{payable_type}'));
-$payments_table->add(new core_datacolumn('amount','Amount',true,$col_widths[1],							'{amount}','{amount}','{amount}'));
-if(lo3::is_admin())
-{
-	$payments_table->add(new core_datacolumn('transaction_fees','Trans. Fee',true,$col_widths[2],			'{transaction_fees}','{transaction_fees}','{transaction_fees}'));
-	$payments_table->add(new core_datacolumn('net_amount','Net Amount',true,$col_widths[3],			'{net_amount}','{net_amount}','{net_amount}'));
-	#$payments_table->columns[4]->autoformat='price';
-	#$payments_table->columns[5]->autoformat='price';
-}
-#$payments_table->columns[2]->autoformat='date-long';
-#$payments_table->columns[3]->autoformat='price';
+$payments_table->add(new core_datacolumn('payable_type','Type',true,'10%','{payable_type_formatted}','{payable_type_formatted}','{payable_type_formatted}'));
+
+$payments_table->add(new core_datacolumn('creation_date','Date Paid',true,'18%','{creation_date}','{creation_date}','{creation_date}'));
+
+$payments_table->add(new core_datacolumn('payment_info','Description',false,'30%','{direction_info}','{direction_info}','{direction_info}'));
+
+$payments_table->add(new core_datacolumn('payment_method','Method',false,'15%','{payment_method}','{payment_method}','{payment_method}'));
+
+$payments_table->add(new core_datacolumn('amount','Amount',true,'10%','{formatted_amount}','{formatted_amount}','{formatted_amount}'));
+
+$payments_table->columns[2]->autoformat='date-long';
 $payments_table->sort_column = 0;
 $payments_table->sort_direction = 'desc';
 $payments_table = payments__add_standard_filters($payments_table,'transactionjournal');
 
-
-function fake_order_area($id)
-{
-	return '
-		<a href="#!payments-demo" onclick="$(\'#orders_'.$id.'\').toggle();">Orders</a>
-		<div id="orders_'.$id.'" style="display: none;">
-			<a href="https://testingannarbor-mi.localorb.it/app.php#!orders-view_order--lo_oid-2491">	LO-12-015-0002423</a><br />
-			<a href="https://testingannarbor-mi.localorb.it/app.php#!orders-view_order--lo_oid-2489">	LO-12-023-0002431</a><br />
-			<a href="https://testingannarbor-mi.localorb.it/app.php#!orders-view_order--lo_oid-2489">	LO-12-023-0002455</a><br />
-		</div>
-	';
-}
 ?>
 
 <div class="tabarea tab-pane" id="paymentstabs-a<?=$core->view[0]?>">
