@@ -10,8 +10,8 @@ class core_controller_catalog extends core_controller
 		$dd_id   = $core->data['dd_id'];
 		$cart_item    = null;
 		$lodeliv_id = 0;
-		
-		
+		$lo_liid = 0;
+		core::log('here');
 		
 		# figure out if a delivery for this dd_id already exists. If it does, reuse this.
 		$cart = core::model('lo_order')->get_cart();
@@ -21,19 +21,22 @@ class core_controller_catalog extends core_controller
 			if($item['dd_id'] == $dd_id)
 			{
 				$lodeliv_id = $item['lodeliv_id'];
+				
 			}
 			
 			if($item['prod_id'] == $prod_id)
 			{
-				$cart_item = $item;
+				
+				$lo_liid = $item['lo_liid'];
 			}
 		}
-		
-		
+		$cart_item = core::model('lo_order_line_item')->load($lo_liid);
+		core::log('attempting to change item '.$cart_item['lo_liid'].' from '.$cart_item['dd_id'].' to '.$dd_id);
 		
 		# check if we did not find a delivery. If we did not, then create it.
 		if($lodeliv_id == 0)
 		{
+			core::log('tryign to create delivery day');
 			$delivery = core::model('lo_order_deliveries');
 			
 			$sql = 'select dd.*,';
@@ -51,6 +54,13 @@ class core_controller_catalog extends core_controller
 				$dd[$field] = $value;
 			$dd->next_time();
 			
+			
+			$dds = core::model('delivery_days')->get_days_for_prod($prod_id,$core->config['domain']['domain_id']);
+			$all_dds = array();
+			foreach($dds as $dd_item)
+			{
+				$all_dds[] = $dd_item['dd_id'];
+			}
 			
 			$delivery['lo_oid'] = $cart_item['lo_oid'];
 			$delivery['lo_foid'] = $cart_item['lo_foid'];
@@ -80,6 +90,7 @@ class core_controller_catalog extends core_controller
 			$delivery['pickup_fax'] = $dd['pickup_fax'];
 			$delivery['pickup_longitude'] = $dd['pickup_longitude'];
 			$delivery['pickup_latitude'] = $dd['pickup_latitude'];
+			$delivery['dd_id_group'] = $dd_id;
 
 			$delivery->save();
 			$cart_item['lodeliv_id'] = $delivery['lodeliv_id'];
@@ -87,7 +98,9 @@ class core_controller_catalog extends core_controller
 		}
 		else
 		{
+			$cart_item->__orig_data = array();
 			$cart_item['lodeliv_id'] = $lodeliv_id;
+			$cart_item['dd_id'] = $dd_id;
 			$cart_item->save();
 		}
 	}
@@ -191,22 +204,25 @@ class core_controller_catalog extends core_controller
 		core::log('------ done with discount code ------');
 
 		core::log('ready to calculate delivery fees');
+		core::log(print_R($core->data,true));
 		# we need to reorganize all of the items by their final delivery combinations
 		foreach($cart->items_by_delivery as $delivery_opt_key=>$items)
 		{
-			$final_delivery_breakdown[$core->data['group_'.$delivery_opt_key]] = array();
+			core::log('looking for fees for '.$delivery_opt_key);
+			$final_delivery_breakdown[$delivery_opt_key] = array();
 			foreach($items as $item)
 			{
-				$final_delivery_breakdown[$core->data['group_'.$delivery_opt_key]][] = $item;
+				$final_delivery_breakdown[$delivery_opt_key][] = $item;
 			}
 		}
 		core::log('breakdown complete');
 
 
 		# now all items are in the correct breakdown. determine all the unique dd_ids
-		foreach($final_delivery_breakdown as $ddaddr_id=>$items)
+		foreach($final_delivery_breakdown as $dd_id=>$items)
 		{
-			list($dd_id,$addr_id) = explode('-',$ddaddr_id);
+			core::log('attempting to pick apart breakdown keys: '.$dd_id);
+			#list($dd_id,$addr_id) = explode('-',$ddaddr_id);
 			$dd_list[] = $dd_id;
 		}
 
@@ -241,6 +257,7 @@ class core_controller_catalog extends core_controller
 		core::log('looking for fees to add');
 		foreach($dd_cache as $dd_id=>$data)
 		{
+			core::log('examining first dd: '.$dd_id);
 			if($data[0]['exists'] !== true)
 			{
 				core::log('adding new fee: '.$fee['dd_id']);
