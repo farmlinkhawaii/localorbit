@@ -37,6 +37,8 @@ class core_controller_payments extends core_controller
 			->sort('concat_ws(\'-\',to_org_id,from_org_id)');
 		
 		$invoice_groups = array();
+		$order_ids = array();
+		
 		foreach($invoices as $invoice)
 		{
 			if(!isset($invoice_groups[$invoice['to_org_id']]))
@@ -50,6 +52,17 @@ class core_controller_payments extends core_controller
 				);
 			}
 			
+			# look for buyer orders that may need sellers invoiced based on 
+			# this action.
+			$payable_items = explode('$$',$invoice['payable_info']);
+			foreach($payable_items as $payable_item)
+			{
+				$payable_item = explode('|',$payable_item);
+				if($payable_item[1] == 'buyer order')
+				{
+					$order_ids[] = $payable_item[2];
+				}
+			}
 			$invoice_groups[$invoice['to_org_id']]['invoices'][] = $invoice->__data;
 			$invoice_groups[$invoice['to_org_id']]['amount'] += $invoice['amount']; 
 		}
@@ -129,6 +142,16 @@ class core_controller_payments extends core_controller
 					break;
 			}
 		}
+		
+		if(count($order_ids) > 0)
+		{
+			$controller = core::controller('orders');
+			foreach($order_ids as $lo_oid)
+			{
+				$controller->update_statuses_due_to_payments($lo_oid);
+			}
+		}
+		
 		$this->reload_all_tabs();
 		core::js("$('#all_all_payments,#payments_pay_area').toggle();");
 		core_ui::notification('payments saved');
@@ -281,7 +304,9 @@ class core_controller_payments extends core_controller
 			$from      = $core->data['invoicecreate_'.$group_key.'__from'];
 			
 			$invoice = core::model('invoices');
-			$invoice['due_date'] = date('Y-m-d H:i:s',time() + ($terms * 86400));
+			$invoice['due_date_epoch'] = time() + ($terms * 86400);
+			$invoice['due_date'] = date('Y-m-d H:i:s',$invoice['due_date_epoch']);
+			
 			$invoice['amount']   = core_format::parse_price($amount);
 			$invoice['to_org_id'] = $to;
 			$invoice['from_org_id'] = $from;;
@@ -299,6 +324,12 @@ class core_controller_payments extends core_controller
 				$payable['is_invoiced'] = 1;
 				$payable->save();
 				
+			}
+			$payables = core::model('v_payables')->collection()->filter('payable_id','in',$payable_ids);
+			foreach($payables as $payable)
+			{
+				$payable_info = explode('|',$payable['payable_info']);
+				$invoice['order_nbr'] = $payable_info[0];
 			}
 			core::process_command('emails/payments_portal__invoice',false,
 				$invoice,$payables,$domain_id,core_format::date(time() + ($terms * 86400),'short')
@@ -442,7 +473,7 @@ function format_html_header ($payable_info) {
 	}
 
 	$id = str_replace(' ', '_', $payable_info[0][0]) . '_' . $payable_info[0][1];
-	return '<a href="#!payments-demo" onclick="$(\'#' . $id . '\').toggle();">' . $title . '</a><div id="' . $id .'" style="display: none;">';
+	return '<a href="#!payments-home" onclick="$(\'#' . $id . '\').toggle();">' . $title . '</a><div id="' . $id .'" style="display: none;">';
 }
 
 function format_html ($info) {

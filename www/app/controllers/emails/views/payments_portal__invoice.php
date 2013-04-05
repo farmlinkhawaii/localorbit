@@ -26,20 +26,24 @@ else
 
 $domain = core::model('domains')->load($domain_id);
 $values['hubname'] = $domain['name'];
-$values['invoicenbr'] = 'LINV-'.$invoice['invoice_id'];
+$values['invoicenbr'] = $invoice['order_nbr'];
 $values['duedate'] = $due_date;
 $values['amount'] = core_format::price($invoice['amount']);
-$values['pay_link'] = 'https://'.$domain['hostname'].'/app.php#!payments-demo';
+$values['pay_link'] = 'https://'.$domain['hostname'].'/app.php#!payments-home';
 
 
 $values['payables'] = '
 <table class="dt">
 	<col width="20%" />
-	<col width="40%" />
-	<col width="40%" />
+	<col width="20%" />
+	<col width="20%" />
+	<col width="20%" />
+	<col width="20%" />
 	<tr>
-		<th class="dt">Payable</th>
+		<th class="dt">Reference</th>
 		<th class="dt">Description</th>
+		<th class="dt">Invoice Date</th>
+		<th class="dt">Due Date</th>
 		<th class="dt">Amount</th>
 	</tr>
 ';
@@ -51,9 +55,11 @@ foreach($payables as $payable)
 	#$values['payables'] .= print_r($payable->__data,true);
 	$values['payables'] .= '
 		<tr class="dt'.$counter.'">
-			<td class="dt">P-'.$payable['payable_id'].'</td>
 			<td class="dt">'.$payable['description'].'</td>
-			<td class="dt">'.core_format::price($payable['amount']).'</td>
+			<td class="dt">'.$payable['to_org_name'].'</td>
+			<td class="dt">'.core_format::date(time(),'long-wrapped').'</td>
+			<td class="dt">'.core_format::date($invoice['due_date_epoch'],'short').'</td>
+			<td class="dt">'.core_format::price($payable['amount_due']).'</td>
 		</tr>';
 	$counter = (!$counter);
 }
