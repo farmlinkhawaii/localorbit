@@ -148,4 +148,17 @@ org.savePaymentMethod=function(formObj){
 
 org.cancelPaymentChanges=function(){
 	$('#paymentsTable,#main_save_buttons,#addPaymentButton,#editPaymentMethod').toggle();
+<<<<<<< .working
+=======
+}
+
+org.securityAssurance=function(refObj){
+	
+	var pos = $(refObj).offset(); 
+	$('#edit_popup').css( { 
+		'left': (pos.left - 160)+'px', 
+		'top': (pos.top - 60)+'px'
+	});
+	core.doRequest('/organizations/security_assurance',{});
+>>>>>>> .merge-right.r1381
 }
