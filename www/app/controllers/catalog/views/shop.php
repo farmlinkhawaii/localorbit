@@ -38,11 +38,11 @@ else if(
 else
 {
 
-# if the buyer is reaching this page after logging in, show the news
-if($core->data['show_news'] == 'yes')
-{
-	core::process_command('dashboard/release_news');
-}
+	# if the buyer is reaching this page after logging in, show the news
+	if($core->data['show_news'] == 'yes')
+	{
+		core::process_command('dashboard/release_news');
+	}
 
 	#core::ensure_navstate(array('left'=>'left_shop'));
 	core::head('Buy Local Food','Buy local food on Local Orbit');
@@ -197,6 +197,9 @@ if($core->data['show_news'] == 'yes')
 		# this array keeps track of the style for each row type
 		$styles =array(1,1);
 
+		
+		
+		
 		# 1st total line
 		echo('<div id="filter_container"><ol id="filter_list"/></div>');
 		echo('<form name="cartForm">');
@@ -302,15 +305,20 @@ if($core->data['show_news'] == 'yes')
 
 	//$this->weekly_special();
 }
-
-core::js("window.setTimeout('core.catalog.initCatalog();',1000);");
+#print_r($core->data);
+$js = "core.catalog.initCatalog();";
+if(is_numeric(trim($core->data['cat1'])))
+	$js .= 'core.catalog.setFilter(\'cat1\','.intval(trim($core->data['cat1'])).');';
+core::js("window.setTimeout('".$js."',1000);");
 core::js("$('[rel=\"clickover\"]').clickover({ html : true, onShown : function () { core.changePopoverExpandButton(this, true); }, onHidden : function () { core.changePopoverExpandButton(this, false); } });");
 core_ui::showLeftNav();
 
 
-
 #core::log('total time on server: '.($end - $start))
-?><div id="deliveryDateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+?>
+
+
+<div id="deliveryDateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Delivery Date Change</h3>
@@ -325,3 +333,4 @@ core_ui::showLeftNav();
 </div>
 
 <input type="hidden" id="emptyCart"/>
+
