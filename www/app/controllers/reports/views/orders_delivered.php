@@ -65,7 +65,7 @@ $hubs = $hubs->sort('name');
 
 # apply permissions
 if(lo3::is_market())
-	$col->filter('organizations_to_domains.domain_id','in',$core->session['domains_by_orgtype_id'][2]);
+	$col->filter('lo_order.domain_id','in',$core->session['domains_by_orgtype_id'][2]);
 if(lo3::is_customer())
 	$col->filter('lo_fulfillment_order.org_id',$core->session['org_id']);
 
@@ -124,7 +124,7 @@ if(lo3::is_admin() || count($core->session['domains_by_orgtype_id'][2])>1)
 	);
 }
 
-# date, product cat, item, amount, status (filter by item specific to producer - see weekly specials)
+# date, product cat, item, amount, status (filter by item specific to producer - see Featured Promotions)
 
 $price_formatter_start = 4;
 
