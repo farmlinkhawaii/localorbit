@@ -73,7 +73,7 @@ function add_parent_column1($data)
 
 # apply permissions
 if(lo3::is_market())
-	$col->filter('organizations_to_domains.domain_id','in',$core->session['domains_by_orgtype_id'][2]);
+	$col->filter('lo_order.domain_id','in',$core->session['domains_by_orgtype_id'][2]);
 if(lo3::is_customer())
 	$col->filter('lo_fulfillment_order.org_id',$core->session['org_id']);
 
@@ -201,7 +201,7 @@ $items->filter_html .= core_datatable_filter::make_select(
 	);
 
 
-# date, product cat, item, amount, status (filter by produ cat and filter by item specific to producer - see weekly specials for example
+# date, product cat, item, amount, status (filter by produ cat and filter by item specific to producer - see Featured Promotions for example
 $items->add(new core_datacolumn('lo_fulfillment_order.order_date','Placed On',true,'15%','<a href="#!orders-view_sales_order--lo_foid-{lo_foid}">{formatted_order_date}</a>','{formatted_order_date}','{formatted_order_date}'));
 $items->add(new core_datacolumn('category_ids','Category',true,'20%','<a href="#!products-edit--prod_id-{prod_id}">{parent_cat_name}</a>','{parent_cat_name}','{parent_cat_name}'));
 $items->add(new core_datacolumn('product_name','Product',true,'29%','<a href="#!products-edit--prod_id-{prod_id}">{product_name}</a> from {seller_name}','{product_name}','{product_name}'));
