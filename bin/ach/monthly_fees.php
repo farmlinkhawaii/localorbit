@@ -145,13 +145,13 @@ function do_monthly_payment($domain)
 		$transaction->LocID      = $core->config['ach']['LocID'];
 		$transaction->CompanyKey = $core->config['ach']['CompanyKey'];
 		
-		$trace = 'LSO-';
+		$trace = 'LSO';
 		if($core->config['stage'] != 'production')
 		{
 			$trace .= $core->config['stage'].time().'-';
 		}
-		$trace .= $domain['domain_id'].'-';
-		$trace .= date('Ym');
+		$trace .= $domain['domain_id'];
+		$trace .= date('ym');
 		echo "trace is: ".$trace."\n";
 		
 		$transaction->FrontEndTrace = $trace;
@@ -164,7 +164,7 @@ function do_monthly_payment($domain)
 		$transaction->OriginatorName  = $core->config['ach']['Company'];
 		$transaction->OpCode = 'R';
 		$transaction->CustTransType = 'D';
-		$transaction->Memo = 'Service Fee for domain '.$domain['name'];
+		$transaction->Memo = 'ServiceFee' ;
 		$transaction->CheckOrTransDate = date('Y-m-d');
 		$transaction->EffectiveDate = date('Y-m-d');
 		$transaction->AccountSet = $core->config['ach']['AccountSet'];
