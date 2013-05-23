@@ -75,7 +75,9 @@ else
 		<?=core_form::value('Order #','<b>'.$order['lo3_order_nbr'].'</b>')?>
 		<?=core_form::value('Buyer #',$order['buyer_org_name'])?>
 		<?=core_form::value('Placed On',core_format::date($order['order_date'],'long'))?>
-		<?=core_form::value('Item Total',core_format::price($order['item_total']))?>
+		<? if(!lo3::is_seller()){?>
+			<?=core_form::value('Item Total',core_format::price($order['item_total']))?>
+		<?}?>
 		<? if($order['discount_total'] != 0){?>
 			<?=core_form::value('Discounts',core_format::price($order['discount_total']))?>
 		<?}?>
@@ -215,7 +217,7 @@ foreach($order->items as $item)
 <h2>Order Summary</h2>
 <?
 # calculate the totals here
-$hub_fee_total        = (($all_but_proc_fees/100) * $order['adjusted_total']);
+$hub_fee_total	= (($all_but_proc_fees/100) * $order['adjusted_total']);
 $processing_fee_total = (($processing_fee/100) * $order['adjusted_total']);
 $net_sale  = ($order['adjusted_total'] - $hub_fee_total - $processing_fee_total);
 ?>
@@ -279,5 +281,3 @@ $net_sale  = ($order['adjusted_total'] - $hub_fee_total - $processing_fee_total)
 	<br />
 	<input type="button" class="button_primary" value="send email" onclick="core.doRequest('/orders/send_email',{'lo_oid':<?=$lo_oid?>});" />
 <?}?>
-
-<br />&nbsp;<br />
