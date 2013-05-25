@@ -12,27 +12,30 @@ if($actually_do_payment)
 
 echo("-------------------\n");
 
-$sql = '
+$sql = "
 	select 
-	p.payable_id,p.amount,p.payable_type_id,p.invoice_id,
+	p.payable_id,p.amount,p.payable_type_id,p.invoice_id,p.parent_obj_id,
 	lfo.org_id as seller_org_id,o.name,
 	opm.*,lo.domain_id
 	from payables p
 	inner join lo_fulfillment_order lfo on (lfo.lo_foid=p.parent_obj_id)
 	inner join lo_order_line_item loi on (lfo.lo_foid=loi.lo_foid)
 	inner join lo_order lo on (lo.lo_oid=loi.lo_oid)
-    inner join domains d on (d.domain_id=lo.domain_id)
+   inner join lo_order_item_status_changes loisc on (loi.lo_liid=loisc.lo_liid and loisc.ldstat_id=4)
+	 inner join domains d on (d.domain_id=lo.domain_id)
 	inner join organizations o on (lfo.org_id=o.org_id)
 	inner join organization_payment_methods opm on (o.opm_id = opm.opm_id)
 		
 	where p.payable_type_id=2
+	and loisc.creation_date >= '2013-05-15 00:00:00'
+	and loisc.creation_date <= '2013-05-21 23:59:59'
 	and   p.invoice_id is null
 	and   p.from_org_id=1
 	and   lo.ldstat_id=4
     and   lo.lbps_id=2
-	and   d.seller_payer = \'lo\'
+	and   d.seller_payer = 'lo'
 	group by lfo.lo_foid
-';
+";
 
 $payables = new core_collection($sql);
 $sellers = array();
@@ -59,10 +62,10 @@ foreach($payables as $payable)
 echo("Seller invoices: \n");
 foreach($sellers as $org_id=>$seller)
 {
-	echo('we need to invoice '.$seller['name'] .' '.$seller['total'].' for payables: ');
+	echo('we need to send '.$seller['name'] .' '.$seller['total'].' for payables: '."\n");
 	foreach($seller['payables'] as $payable)
 	{
-		echo($payable['seller_payable_id'].' ');
+		echo("\t".$payable['parent_obj_id'].' ('.$payable['amount'].') '."\n");
 	}
 	echo("\n");
 }
@@ -84,10 +87,18 @@ if($actually_do_payment)
 		#print_r($opm->__data);
 		
 		#exit();
-		$trace = 'LO-FMSP-'.$org_id.'-'.date('Ymd');
-		$trace .= '-'.time();
 		
-		$result = $opm->make_payment($trace,'Payments for products on '.date('M, d Y'),(-1) * $info['total']);
+		$payment = core::model('payments');
+		$payment['from_org_id'] = 1;
+		$payment['to_org_id'] = $org_id;
+		$payment['amount'] = $info['total'];
+		$payment['payment_method_id'] = 3;
+		$payment['admin_note'] = $memo;
+		$payment->save();
+		
+		$trace = 'LMP-'.$payment['payment_id'];
+		
+		$result = $opm->make_payment($trace,'Orders',(-1) * $info['total']);
 		
 		if($result)
 		{
@@ -106,13 +117,7 @@ if($actually_do_payment)
 				$payable_obj->save();
 			}
 			
-			$payment = core::model('payments');
-			$payment['from_org_id'] = 1;
-			$payment['to_org_id'] = $org_id;
-			$payment['amount'] = $info['total'];
-			$payment['payment_method_id'] = 3;
 			$payment['ref_nbr'] = $trace;
-			$payment['admin_note'] = $memo;
 			$payment->save();
 			
 			$xpi = core::model('x_invoices_payments');
@@ -120,6 +125,10 @@ if($actually_do_payment)
 			$xpi['payment_id']  = $payment['payment_id'];
 			$xpi['amount_paid'] = $info['total'];
 			$xpi->save();
+		}
+		else
+		{
+			mysql_query('delete from payments where payment_id='.$payment['payment_id']);
 		}
 		#print_r($info);
 	}
