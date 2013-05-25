@@ -134,5 +134,5 @@ if($actually_do_payment)
 	}
 }
 
-exit("complete!\n");
+#exit("complete!\n");
 ?>
