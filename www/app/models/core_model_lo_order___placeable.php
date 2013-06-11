@@ -80,7 +80,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 					$core->data['pp_state'],
 					$core->data['pp_zip'],
 					core_db::col('select country_id from directory_country_region where code=\''.$core->data['pp_state'].'\' and country_id in (\'US\',\'CA\');','country_id'),
-					core_format::parse_price($this['grand_total']),
+					$payment['amount'],
 					$cleaned_pp_cc_number,
 					core_payments::get_cc_type($core->data['pp_cc_number']),
 					$core->data['pp_exp_month'].$core->data['pp_exp_year'],
@@ -96,7 +96,7 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 					$core->data['pp_state'],
 					$core->data['pp_zip'],
 					core_db::col('select country_id from directory_country_region where code=\''.$core->data['pp_state'].'\' and country_id in (\'US\',\'CA\');','country_id'),
-					core_format::parse_price($this['grand_total']),
+					$payment['amount'],
 					$cleaned_pp_cc_number,
 					core_payments::get_cc_type($core->data['pp_cc_number']),
 					$core->data['pp_exp_month'].$core->data['pp_exp_year'],
@@ -677,8 +677,8 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 		}
 
 		# finalize things!
-		#$this['grand_total'] = $this['item_total'] + $adjusted_total;
-		#$this['adjusted_total'] = $adjusted_total;
+		$this['grand_total'] = $this['item_total'] + $adjusted_total;
+		$this['adjusted_total'] = $adjusted_total;
 		$this['amount_paid']    = ($method == 'paypal' || $method == 'ach')?$this['grand_total']:0;
 		$this['domain_id']      = $core->config['domain']['domain_id'];
 		$this['buyer_mage_customer_id'] = $core->session['user_id'];

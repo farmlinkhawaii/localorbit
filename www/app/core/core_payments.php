@@ -90,7 +90,7 @@ class core_payments
 		curl_close($ch);
 		$text = ob_get_clean();
 		parse_str($text,$response_vars);
-		
+		core::log(print_r($response_vars,true));
 		# handle the response. If we've got an error, report it.
 		if($response_vars['ACK'] == 'Success')
 		{
