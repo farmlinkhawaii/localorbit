@@ -298,7 +298,7 @@ core.ui.dataTable.prototype.loadData=function(format){
 	}
 	//alert('loading data: '+url);
 }
-
+ 
 core.ui.dataTable.prototype.insertData=function(jsondata){
 	
 	this.adjustPager(jsondata.page,jsondata.max_page);
