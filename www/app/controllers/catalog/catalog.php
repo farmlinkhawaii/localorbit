@@ -376,7 +376,7 @@ class core_controller_catalog extends core_controller
 		global $core;
 		return new core_ruleset('checkoutForm',array(
 			array('type'=>'min_length','name'=>'pp_cc_number','data1'=>14,'msg'=>$core->i18n['error:payment:cc_number']),
-			array('type'=>'min_length','name'=>'pp_cvv2','data1'=>3,'msg'=>$core->i18n['error:payment:cc_cvv2']),
+			array('type'=>'min_length','name'=>'pp_cvv2','data1'=>4,'msg'=>$core->i18n['error:payment:cc_cvv2']),
 			array('type'=>'min_length','name'=>'pp_first_name','data1'=>2,'msg'=>$core->i18n['error:customer:firstname']),
 			array('type'=>'min_length','name'=>'pp_last_name','data1'=>2,'msg'=>$core->i18n['error:customer:lastname']),
 			array('type'=>'min_length','name'=>'pp_street','data1'=>5,'msg'=>$core->i18n['error:address:address']),
