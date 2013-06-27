@@ -61,13 +61,6 @@ if($org['payment_allow_paypal'] == 1)
 					</div>
 				</div>
 				<div class="row">
-					<label class="span3">3-Digit Verification Code</label>
-					<div class="span3"><input class="input-medium" type="text" name="pp_cvv2" value="" /></div>
-					<!--
-					?=info('For most cards, the Verification Code is the last 3 digit number on the BACK of your card, on or above your signature line. For American Express, it is the last 4 digits found on the FRONT of your card above your card number.','paperclip')?>
-				-->
-				</div>
-				<div class="row">
 					<div class="span6">
 						<h4>Billing Address</h4>
 					</div>

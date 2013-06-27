@@ -95,7 +95,6 @@ core.checkout.process=function(){
 core.checkout.fakeFill=function(){
 	var form=document.checkoutForm;
 	form.pp_cc_number.value = '4996014203540108';
-	form.pp_cvv2.value = '123';
 	form.pp_exp_month.selectedIndex = 2;
 	form.pp_exp_year.selectedIndex = 5;
 	form.pp_first_name.value = 'Mike';
