@@ -591,8 +591,10 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 			$item['lbps_id']   = ($method == 'paypal' || $method == 'ach' || $method == 'cash')?2:1;
 			$item['lsps_id']   = 1;
 
-			$fulfills[$item['seller_org_id']]['grand_total']    = $fulfills[$item['seller_org_id']]['grand_total']    + $item['row_total'];
-			$fulfills[$item['seller_org_id']]['adjusted_total'] = $fulfills[$item['seller_org_id']]['adjusted_total'] + $item['row_adjusted_total'];
+			$fulfills[$item['seller_org_id']]['grand_total']    = $fulfills[$item['seller_org_id']]['grand_total']    + $item['row_adjusted_total'];
+			$fulfills[$item['seller_org_id']]['adjusted_total'] = $fulfills[$item['seller_org_id']]['adjusted_total'] + ($item['row_total'] - $item['row_adjusted_total']);
+			$adjusted_total += ($item['row_total'] - $item['row_adjusted_total']);
+			
 			#$fulfills[$item['seller_org_id']]['adjusted_total'] + $item['row_adjusted_total'];
 			$item->save();
 
@@ -679,7 +681,12 @@ class core_model_lo_order___placeable extends core_model_base_lo_order
 		}
 
 		# finalize things!
-		$this['grand_total'] = $this['item_total'] + $adjusted_total;
+		$final_fee_total = floatval(core_db::col('
+			select sum(applied_amount) as delivery_fees 
+			from lo_order_delivery_fees
+			where lo_oid='.$this['lo_oid'],'delivery_fees'));
+		$this['grand_total'] = $this['item_total'] - $adjusted_total + $final_fee_total;
+		
 		$this['adjusted_total'] = $adjusted_total;
 		$this['amount_paid']    = ($method == 'paypal' || $method == 'ach')?$this['grand_total']:0;
 		$this['domain_id']      = $core->config['domain']['domain_id'];
