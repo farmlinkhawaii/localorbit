@@ -12,13 +12,15 @@ $start = ($core->config['time'] - (86400*30));
 $end = $core->config['time'] + 86400;
 
 
+core::log(print_r($core->data,true));
+
 $sql = '
 	select 
 	loi.lo_liid,loi.product_name,loi.qty_ordered,loi.row_total,loi.row_adjusted_total,loi.row_total,
 	loi.unit_price,loi.seller_name,
 	o.name as buyer_name,o.org_id as buyer_org_id,d.name as domain_name,
 	ds.delivery_status,bps.buyer_payment_status,sps.seller_payment_status,
-	lo.fee_percen_lo,lo.fee_percen_hub,lo.payment_method,UNIX_TIMESTAMP(lfo.order_date) as order_date,
+	lo.fee_percen_lo,lo.fee_percen_hub,lo.paypal_processing_fee,lo.payment_method,UNIX_TIMESTAMP(lfo.order_date) as order_date,
 	lfo.lo3_order_nbr as lfo3_order_nbr,lo.lo3_order_nbr,lo.lo_oid,lfo.lo_foid
 	from lo_order_line_item loi
 	inner join lo_order lo on (loi.lo_oid=lo.lo_oid and lo.ldstat_id<>1)
@@ -67,7 +69,7 @@ $core->data['sold_items_data'] = array(
 function sold_items_formatter($data)
 {
 	global $core;
-
+	print_r($data);
 	# calculate the totals for each type of fee
 	$lo   = round($data['row_adjusted_total'] * (floatval($data['fee_percen_lo']) / 100), 2);
 	$hub  = round($data['row_adjusted_total'] * (floatval($data['fee_percen_hub']) / 100), 2);
