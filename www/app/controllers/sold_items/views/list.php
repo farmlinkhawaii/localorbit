@@ -69,7 +69,6 @@ $core->data['sold_items_data'] = array(
 function sold_items_formatter($data)
 {
 	global $core;
-	print_r($data);
 	# calculate the totals for each type of fee
 	$lo   = round($data['row_adjusted_total'] * (floatval($data['fee_percen_lo']) / 100), 2);
 	$hub  = round($data['row_adjusted_total'] * (floatval($data['fee_percen_hub']) / 100), 2);
