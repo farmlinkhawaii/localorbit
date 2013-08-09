@@ -5,27 +5,26 @@ class PayPalApi {
 	}
 
 	
-	private function getPaypalApiRS($rqParamString) {
+	private function getPaypalApiRS($rqParamStringVars) {
 		global $core;
 		
 		try {
-			$url  = $core->config['payments']['paypal']['url'];
-			$url .= '?VERSION=85.0';
-			$url .= '&USER='.$core->config['payments']['paypal']['username'];
-			$url .= '&PWD='.$core->config['payments']['paypal']['password'];
-			$url .= '&SIGNATURE='.$core->config['payments']['paypal']['signature'];
-			//$url .= '&'.urlencode($rqParamString);
-			$url .= '&'.$rqParamString;
+			$rqParamString .= 'VERSION=85.0';
+			$rqParamString .= '&USER='.$core->config['payments']['paypal']['username'];
+			$rqParamString .= '&PWD='.$core->config['payments']['paypal']['password'];
+			$rqParamString .= '&SIGNATURE='.$core->config['payments']['paypal']['signature'];
+			$rqParamString .= '&'.$rqParamStringVars;
 		
 			//echo $url;
 			
 			# setup curl
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_URL, $core->config['payments']['paypal']['url']);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 			curl_setopt($ch, CURLOPT_TIMEOUT, 8);
+ 			curl_setopt ($ch, CURLOPT_POSTFIELDS, $rqParamString);
 				
 			$response = curl_exec($ch);
 			
@@ -75,7 +74,7 @@ class PayPalApi {
 			$items_total += $item['row_total'];
 
 			$rqParamString .= '&L_PAYMENTREQUEST_0_NAME'.$count.'='.urlencode($item['product_name']);
-			#$rqParamString .= '&L_PAYMENTREQUEST_0_DESC'.$count.'='.urlencode('');
+			$rqParamString .= '&L_PAYMENTREQUEST_0_DESC'.$count.'='.urlencode('');
 			$rqParamString .= '&L_PAYMENTREQUEST_0_AMT'.$count.'='.round($item['unit_price'],2);
 			$rqParamString .= '&L_PAYMENTREQUEST_0_QTY'.$count.'='.$item['qty_ordered'];
 			$rqParamString .= '&L_PAYMENTREQUEST_0_TAXAMT'.$count.'=0';
@@ -131,7 +130,7 @@ class PayPalApi {
 
 		// HACKER CHECK - confirm amount returned is same as cart
 		$cart = core::model('lo_order')->get_cart();		
-		$cart_total = core_format::parse_price($cart['grand_total']);		//return core_format::parse_price($cart['grand_total']);
+		$cart_total = str_replace(",", "", core_format::parse_price($cart['grand_total']));		//return core_format::parse_price($cart['grand_total']);
 		
 		
 		// 1. paypal returns to page with vars in URL
@@ -152,6 +151,7 @@ class PayPalApi {
 			throw new Exception("PayPal Error: Amounts do not match ".$response_vars['AMT']. " != ".$cart_total);
 		}
 		
+				
 
 		if ($response_vars['ACK'] == 'Success') {
 			$token = $response_vars['TOKEN'];
