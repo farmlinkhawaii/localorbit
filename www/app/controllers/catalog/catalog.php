@@ -208,7 +208,7 @@ class core_controller_catalog extends core_controller
 			}
 		}
 	}
-
+	
 	function update_fees($return_data='no',$cart = null)
 	{
 		global $core;
@@ -236,6 +236,9 @@ class core_controller_catalog extends core_controller
 		$cart->rebuild_totals_payables(false);
 		
 
+		if($return_data == 'yes')
+			return $cart;
+			
 		
 		core::log('returning ajax');
 		if($cart['delivery_total'] > 0)
@@ -247,6 +250,8 @@ class core_controller_catalog extends core_controller
 		}else{
 			core::js("core.checkout.hideNoPayment();");
 		}
+		
+		
 		core::replace('grand_total',core_format::price($cart['grand_total'],false));
 		core::replace('adjusted_total',core_format::price($cart['adjusted_total'],false));
 		core::js("$('#totals_loading').hide();$('#total_table').show(200);");
