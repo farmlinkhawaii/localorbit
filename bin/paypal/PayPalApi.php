@@ -84,13 +84,14 @@ class PayPalApi {
 		$rqParamString .= '&PAYMENTREQUEST_0_PAYMENTACTION=Sale';
 		$rqParamString .= '&PAYMENTREQUEST_0_CURRENCYCODE=USD';
 		$rqParamString .= '&PAYMENTREQUEST_0_DESC='.urlencode('Local Orbit EC payment');
+		$delivery_fee = round($cart['grand_total'],2) - round($items_total,2);
 
-		$rqParamString .= '&PAYMENTREQUEST_0_SHIPPINGAMT='.round($cart['delivery_fee'],2);
+		$rqParamString .= '&PAYMENTREQUEST_0_SHIPPINGAMT='.round($delivery_fee,2); // $cart['delivery_fee'] not calculated yet
 		$rqParamString .= '&PAYMENTREQUEST_0_SHIPDISCAMT='.round($discount_total,2);
 		$rqParamString .= '&PAYMENTREQUEST_0_TAXAMT=0';
 		$rqParamString .= '&PAYMENTREQUEST_0_ITEMAMT='.round($items_total,2);
 		$rqParamString .= '&PAYMENTREQUEST_0_AMT='.round($cart['grand_total'],2);
-		
+
 		core::log('paypal rqParamString: '.$rqParamString);
 		/* echo 'delivery_fee = '.$cart['delivery_fee']."<br>";
 		echo 'discount_total = '.$discount_total."<br>";
