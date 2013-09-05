@@ -380,6 +380,11 @@ class core_model_lo_order extends core_model_lo_order___utility
 			->collection()
 			->filter('lo_oid','=',$this['lo_oid'])
 			->to_hash('dd_id');
+
+core::log("========================================= this['lo_oid']=".$this['lo_oid']);
+		core::log('delivs: '.print_r($delivs->__data,true));
+			
+			
 		foreach($delivs as $dd_id=>$deliv)
 			$delivs[$dd_id][0]['applicable_total'] = 0;
 
@@ -418,12 +423,12 @@ class core_model_lo_order extends core_model_lo_order___utility
 				'grand_total'=>0,
 				'adjusted_total'=>0,
 			);
-			
+
 			# if the seller hasn't yet entered the delivered amount and 
 			# also hasn't canceled the item, calculate assuming full
 			# delivery.
 			$qty = $item[(($item['qty_delivered'] == 0 and $item['ldstat_id'] != 3)?'qty_ordered':'qty_delivered')];
-		
+
 			
 			# handle item to delivery total
 			
@@ -448,12 +453,23 @@ class core_model_lo_order extends core_model_lo_order___utility
 				$delivs[$item['dd_id']][0]['applicable_total'] += floatval($item['qty_delivered']);
 			}
 		}
-		
+
+
+core::log("========================================= delivs REMOVE THIS ");
+core::log(print_r($delivs->__data,true));
+
 		#next, calculate the final delivery fees
-		foreach($delivs as $dd_id=>$deliv)
+	 	$delivery_total = core_db::row("SELECT SUM(COALESCE(lo_order_delivery_fees.amount, 0)) AS delivery_total
+			FROM lo_order_delivery_fees
+			WHERE lo_order_delivery_fees.lo_oid=".$this['lo_oid']);
+	 	$delivery_total = $delivery_total['delivery_total'];
+	 	core::log("delivery_total " . $delivery_total);
+	 	
+		/* foreach($delivs as $dd_id=>$deliv)
 		{
 			if($delivs[$dd_id][0]['fee_calc_type_id'] == 1)
 			{
+			core::log("lo_order_delivery_fees 11111======================================================");
 				# if this is a percentage fee,
 				$final_amount = round(floatval($delivs[$item['dd_id']][0]['applicable_total'] * ($delivs[$dd_id][0]['amount'] / 100)),2);
 				core::log($dd_id.' requires a '.$delivs[$dd_id][0]['amount'].' % delivery fee.');
@@ -463,10 +479,12 @@ class core_model_lo_order extends core_model_lo_order___utility
 			}
 			else
 			{
+			core::log("lo_order_delivery_fees 2222======================================================");
 				# if this is a fixed $ fee, then ONLY apply the fee
 				# if some positive quantity has been delivered:
 				if($delivs[$item['dd_id']][0]['applicable_total'] > 0)
 				{
+			core::log("lo_order_delivery_fees 3333======================================================");
 					$final_amount = $delivs[$dd_id][0]['amount'];
 					core::log($dd_id.' requires a $'.$delivs[$dd_id][0]['amount'].' delivery fee.');
 					core::log($delivs[$item['dd_id']][0]['applicable_total'].' applicable items were delivered');
@@ -475,15 +493,19 @@ class core_model_lo_order extends core_model_lo_order___utility
 				}
 			}
 			
-			$delivery_total += $delivs[$dd_id][0]['applied_amount'];
-			
-			core::log('ready to save lo_order_delivery_fees '.$dd_id.': '.print_r($delivs[$dd_id][0],true));
+			$delivery_total += $delivs[$dd_id][0]['applied_amount'];			
+			core::log('ready to save lo_order_delivery_fees '.$dd_id.': '.print_r($delivs[$dd_id][0]->__data,true));
 			$delivery = core::model('lo_order_delivery_fees')
 				->import($delivs[$dd_id][0]);
 			$delivery->__orig_data = array();
-			$delivery->save();			
-		}
-		
+			core::log("lo_order_delivery_fees ======================================================");
+			core::log(print_r($delivs[$dd_id][0]->__data,true));
+			core::log("delivery ======================================================");
+			core::log(print_r($delivery->__data,true));
+			//$delivery->save();			
+		} */
+
+		#next, calculate the final delivery fees
 		if($update_payables)
 		{
 			$deliveries = core::model('payables')
@@ -686,6 +708,7 @@ class core_model_lo_order extends core_model_lo_order___utility
 		$this['item_total'] = $item_total;
 		$this['adjusted_total'] = $item_total - $adjusted_item_total;
 		$this['delivery_total'] = $delivery_total;
+		
 		$this->save();
 
 		return $this;
