@@ -257,8 +257,8 @@ class core_controller_catalog extends core_controller
 			delivery_fees.dd_id,
 			'delivery' AS fee_type,
 			1 AS fee_calc_type_id ,
-			Round(SUM(COALESCE(delivery_fees.amount / 100 * row_total,0)),2) AS amount,
-			Round(SUM(COALESCE(delivery_fees.amount / 100 * row_total,0)),2) AS applied_amount
+			SUM(COALESCE(delivery_fees.amount / 100 * row_total,0)) AS   amount,
+			SUM(COALESCE(delivery_fees.amount / 100 * row_total,0)) AS   applied_amount
 			FROM delivery_fees INNER JOIN lo_order_line_item ON delivery_fees.dd_id = lo_order_line_item.dd_id
 			WHERE delivery_fees.fee_calc_type_id = 1 /* percentage amount */
 			AND lo_order_line_item.lo_oid=".$cart['lo_oid']);
