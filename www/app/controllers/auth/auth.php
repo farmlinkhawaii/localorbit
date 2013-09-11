@@ -143,7 +143,14 @@ class core_controller_auth extends core_controller
 			$core->session['org_payment_allow_ach'] = $user['payment_allow_ach'];
 			$core->session['org_purchase_order_count'] = $user['purchase_order_count'];
 			
-			
+			if(!is_array($core->session['domains_by_orgtype_id'][1]))
+				$core->session['domains_by_orgtype_id'][1] = array();
+			if(!is_array($core->session['domains_by_orgtype_id'][2]))
+				$core->session['domains_by_orgtype_id'][2] = array();
+			if(!is_array($core->session['domains_by_orgtype_id'][3]))
+				$core->session['domains_by_orgtype_id'][3] = array();
+				
+				
 			if($core->data['remember_me'] == 'on')
 			{
 				core_session::write_id_cookie();
@@ -320,6 +327,13 @@ class core_controller_auth extends core_controller
 			$core->session['all_domains'],
 			$core->session['domains_by_orgtype_id']
 		) = core::model('customer_entity')->get_domain_permissions( $user['org_id']);
+		
+		if(!is_array($core->session['domains_by_orgtype_id'][1]))
+			$core->session['domains_by_orgtype_id'][1] = array();
+		if(!is_array($core->session['domains_by_orgtype_id'][2]))
+			$core->session['domains_by_orgtype_id'][2] = array();
+		if(!is_array($core->session['domains_by_orgtype_id'][3]))
+			$core->session['domains_by_orgtype_id'][3] = array();
 		
 		
 		if($do_redirect !== false)
