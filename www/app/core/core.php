@@ -301,7 +301,9 @@ class core
 		core_session::init();
 		core_i18n::init();
 		core::log('fully started up: '.$core->config['db']['database']);
-
+		$core->config['org-id-start'] = $core->session['org_id'];
+		$core->config['orgtypes-start'] = print_r($core->session['domains_by_orgtype_id'],true);
+		
 		if(isset($core->session['postauth_url']))
 		{
 			core::log('found a postauth url in the sessioN: '. $core->session['postauth_url']);
@@ -448,6 +450,35 @@ class core
 
 		$end = microtime(true);
 		core::log('total request time: '.($end - $core->config['microtime']));
+		
+		
+		$core->config['org-id-end'] = $core->session['org_id'];
+		$core->config['orgtypes-end'] = print_r($core->session['domains_by_orgtype_id'],true);
+		if($core->config['org-id-start'] != $core->config['org-id-end'] || $core->config['orgtypes-start'] != $core->config['orgtypes-end'])
+		{
+			core::log('SESSION ORG ID CHANGED: '.$core->config['org-id-start'].' to '.$core->config['org-id-end']);
+			error_log('SESSION ORG ID CHANGED: '.$core->config['org-id-start'].' to '.$core->config['org-id-end']);
+			core::log('ORGTYPES CHANGED: '.$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']);
+			error_log('ORGTYPES CHANGED: '.$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']);
+			$body = "Details:\n\n";
+			$body .= "Org id: ".$core->config['org-id-start'].' to '.$core->config['org-id-end']."\n\n";
+			$body .= "Role Matrix: ".$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']."\n\n";
+			
+			if(isset($_REQUEST['password']))
+			{
+				$_REQUEST['password'] = '*********';
+			}
+			$body .= "Request Data: ".print_r($_REQUEST,true);
+			
+			
+			core::controller('emails')->send_email('Session change!','mike@localorb.it',$body);
+		}
+		else
+		{
+			error_log('No change to session org id: '.$core->config['org-id-start']);
+			error_log('No change to orgtypes: '.$core->config['orgtypes-start']);
+		}
+		
 		core_session::deinit();
 		core_i18n::deinit();
 		core_logger::deinit();
