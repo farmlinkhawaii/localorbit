@@ -461,7 +461,7 @@ class core
 			core::log('ORGTYPES CHANGED: '.$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']);
 			error_log('ORGTYPES CHANGED: '.$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']);
 			$body = "Details:\n\n";
-			$body .= "Org id: ".$core->config['org-id-start'].' to '.$core->config['org-id-end']."\n\n";
+			$body .= "Org id: ".intval($core->config['org-id-start']).' to '.intval($core->config['org-id-end'])."\n\n";
 			$body .= "Role Matrix: ".$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']."\n\n";
 			
 			if(isset($_REQUEST['password']))
