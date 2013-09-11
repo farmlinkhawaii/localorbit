@@ -456,8 +456,8 @@ class core
 		$core->config['orgtypes-end'] = print_r($core->session['domains_by_orgtype_id'],true);
 		if($core->config['org-id-start'] != $core->config['org-id-end'] || $core->config['orgtypes-start'] != $core->config['orgtypes-end'])
 		{
-			core::log('SESSION ORG ID CHANGED: '.$core->config['org-id-start'].' to '.$core->config['org-id-end']);
-			error_log('SESSION ORG ID CHANGED: '.$core->config['org-id-start'].' to '.$core->config['org-id-end']);
+			core::log('SESSION ORG ID CHANGED: '.intval($core->config['org-id-start']).' to '.intval($core->config['org-id-end']));
+			error_log('SESSION ORG ID CHANGED: '.intval($core->config['org-id-start']).' to '.intval($core->config['org-id-end']));
 			core::log('ORGTYPES CHANGED: '.$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']);
 			error_log('ORGTYPES CHANGED: '.$core->config['orgtypes-start'].' to '.$core->config['orgtypes-end']);
 			$body = "Details:\n\n";
