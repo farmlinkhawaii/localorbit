@@ -364,8 +364,7 @@ class core_controller_auth extends core_controller
 	
 	
 	function zendesk_single_sign_on() {
-		include($_SERVER['DOCUMENT_ROOT'].'/../bin/zendesk/JWT.php');	
-		core::log('zendesk_single_sign_on');
+		core::log('zendesk_single_sign_on id='.$core->session['user_id']);	
 		
 		// user not logged in
 		if($core->session['user_id'] == 0) {
@@ -376,7 +375,9 @@ class core_controller_auth extends core_controller
 			exit();
 			
 		// user logged in
-		} else {		
+		} else {
+			include($_SERVER['DOCUMENT_ROOT'].'/../bin/zendesk/JWT.php');
+			
 			$key       = "7BVWqU8uTHxUFwKnOKUe2JVh3GEmnaHKMhpsxROUFhNU4CCW";
 			$subdomain = "localorbit";
 			$now       = time();
