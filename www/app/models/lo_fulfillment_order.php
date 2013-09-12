@@ -19,7 +19,8 @@ class core_model_lo_fulfillment_order extends core_model_base_lo_fulfillment_ord
 			->collection()
 			->filter('lo_foid',$this['lo_foid'])
 			->sort('deliv_time')
-			->sort('seller_name');
+			->sort('seller_name')
+			->sort('product_name');
 		return $this->items;
 	}
 

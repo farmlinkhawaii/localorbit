@@ -181,8 +181,9 @@ class core_model_lo_order extends core_model_lo_order___utility
 
 		$this->items = $this->items->collection()
 			->filter('lo_oid',$this['lo_oid'])
-			->sort('deliv_time')
-			->sort('seller_name');
+			->sort('product_name')
+			->sort('seller_name')
+			->sort('deliv_time');
 
 		# check for zero quantities
 		if($check_for_zeros)
@@ -268,6 +269,8 @@ class core_model_lo_order extends core_model_lo_order___utility
          )
 			->collection()
 			->add_formatter('determine_delivery_language')
+			->sort('lo_order_line_item.product_name')
+			->sort('lo_order_line_item.seller_name')
 			->sort('pickup_start_time')
 			->filter('lo_order_line_item.lo_oid',$this['lo_oid']);
 		return $this->items;
