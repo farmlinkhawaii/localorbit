@@ -364,6 +364,7 @@ class core_controller_auth extends core_controller
 	
 	
 	function zendesk_single_sign_on() {
+		global $core;
 		core::log('zendesk_single_sign_on id='.$core->session['user_id']);	
 		
 		// user not logged in
