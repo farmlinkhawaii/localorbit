@@ -60,6 +60,7 @@ class PayPalApi {
 		// popup
 		$rqParamString .= '&RETURNURL='.$this->getDomainUrl().'/app/catalog/payment_paypal_express_popup_return';
 		$rqParamString .= '&CANCELURL='.$this->getDomainUrl().'/app/controllers/catalog/views/payment_paypal_express_popup_close.php';
+		$rqParamString .= '&LANDINGPAGE=Login';
 		$rqParamString .= '&SOLUTIONTYPE=Sole';
 		$rqParamString .= '&L_PAYMENTTYPE0=InstantOnly';	
 
