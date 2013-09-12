@@ -360,10 +360,50 @@ class core_controller_auth extends core_controller
 		return true;
 	}
 	
+	
+	
+	
+	function zendesk_single_sign_on() {
+		include($_SERVER['DOCUMENT_ROOT'].'/../bin/zendesk/JWT.php');	
+		core::log('zendesk_single_sign_on');
+		
+		// user not logged in
+		if($core->session['user_id'] == 0) {
+			#print_r($core->config);
+			$core->session['postauth_url'] = '/app/auth/zendesk_work?';
+			core::log('zendesk_single_sign_on not logged in: setting postauth url to '.$core->session['postauth_url']);
+			header('Location: /app.php#!auth-form');
+			exit();
+			
+		// user logged in
+		} else {		
+			$key       = "7BVWqU8uTHxUFwKnOKUe2JVh3GEmnaHKMhpsxROUFhNU4CCW";
+			$subdomain = "localorbit";
+			$now       = time();
+			
+			$token = array(
+				"jti"   => md5($now . rand()),
+				"iat"   => $now,
+				"name"  => $core->session['first_name']." ".$core->session['last_name'],
+				"email" => $core->session['email']
+			);
+			
+			$jwt = JWT::encode($token, $key);
+			
+			// Redirect
+			core::log('zendesk_single_sign_on logged in: redirect to '.$subdomain . '.zendesk.com/access/jwt?jwt='.$jwt);
+			header("Location: https://" . $subdomain . ".zendesk.com/access/jwt?jwt=" . $jwt);
+		}
+	}
+	
+	
 	function zendesk_work()
 	{
 		global $core;
-		
+		// Remote login URL http://localorb.it/app/auth/zendesk_work
+		// Remote logout URL http://localorb.it
+		// Update of external IDs? ON
+		// Shared Secret Jgk5oJ
 		if($core->session['user_id'] == 0)
 		{
 			#print_r($core->config);
