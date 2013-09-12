@@ -147,6 +147,7 @@ class core_model_lo_fulfillment_order extends core_model_base_lo_fulfillment_ord
 			)
 			->collection()
 			->add_formatter('determine_delivery_language')
+			->sort('product_name')
 			->sort('delivery_start_time')
 			->filter('lo_order_line_item.lo_foid',$this['lo_foid']);
 		return $this->items;
