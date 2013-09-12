@@ -121,8 +121,8 @@ class core_model_products extends core_model_base_products
 			$domain_id = intval($core->config['domain']['domain_id']);
 		if($org_id == -1)
 			$org_id = intval($core->session['org_id']);
-		$core->session['domains_by_orgtype_id'][2][] = 0;
-		$core->session['domains_by_orgtype_id'][3][] = 0;
+		#$core->session['domains_by_orgtype_id'][2][] = 0;
+		#$core->session['domains_by_orgtype_id'][3][] = 0;
 		$sql = '
 			select p.prod_id,p.name,p.how,p.how,p.who as product_who,description,
 			p.short_description,
