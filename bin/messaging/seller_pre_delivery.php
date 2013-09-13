@@ -63,8 +63,8 @@ if($config['report-sql'] == 1)
 }
 
 # change some path settings to help with the market logo
-$core->paths['base'] = '/var/www/'.$core-config['stage'].'/www/app';
-$core->paths['web'] = '/var/www/'.$core-config['stage'].'/www/app';
+$core->paths['base'] = '/var/www/'.$core->config['stage'].'/www/app';
+$core->paths['web'] = '/var/www/'.$core->config['stage'].'/www/app';
 $core->config['domain'] = array();
 
 $users = new core_collection($sql);
