@@ -32,7 +32,7 @@ $end_time = $start_time + (86400 * $config['days-after-start']);
 echo("Final date range is: ".date('Y-m-d H:i:s',$start_time).' -> '.date('Y-m-d H:i:s',$end_time)."\n\n");
 $sql = '
 	select ce.entity_id,ce.email,ce.first_name,ce.last_name,d.domain_id,
-	d.name as market_name,d.secondary_contact_phone
+	d.name as market_name,d.hostname,d.secondary_contact_phone
 	from lo_fulfillment_order lfo
 	inner join lo_order_line_item loi on (loi.lo_foid=lfo.lo_foid)
 	inner join lo_order_deliveries lod on (lod.lodeliv_id=loi.lodeliv_id)
@@ -62,10 +62,17 @@ if($config['report-sql'] == 1)
 	echo($sql."\n\n");
 }
 
+# change some path settings to help with the market logo
+$core->paths['base'] = '/var/www/'.$core-config['stage'].'/www/app';
+$core->paths['web'] = '/var/www/'.$core-config['stage'].'/www/app';
+$core->config['domain'] = array();
+
 $users = new core_collection($sql);
 foreach($users as $user)
 {
 	echo(print_r($user,true));
+	$core->config['domain']['domain_id'] = $user['domain_id'];
+	$core->config['domain']['hostname']  = $user['hostname'];
 	if($config['do-send'] == 1)
 	{
 		echo(" :: SENDING\n");
