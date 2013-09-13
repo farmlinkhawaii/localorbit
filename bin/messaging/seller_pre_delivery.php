@@ -63,6 +63,7 @@ if($config['report-sql'] == 1)
 }
 
 # change some path settings to help with the market logo
+$email_controller = core::controller('emails');
 $core->paths['base'] = 'www/app';
 $core->paths['web'] = 'www/app';
 $core->config['domain'] = array();
@@ -76,7 +77,7 @@ foreach($users as $user)
 	if($config['do-send'] == 1)
 	{
 		echo(" :: SENDING\n");
-		core::controller('emails')->seller_pre_delivery(
+		$email_controller->seller_pre_delivery(
 			$user['email'],
 			$user['first_name'],
 			$user['last_name'],
