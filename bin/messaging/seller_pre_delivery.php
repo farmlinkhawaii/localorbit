@@ -64,7 +64,7 @@ if($config['report-sql'] == 1)
 
 # change some path settings to help with the market logo
 $email_controller = core::controller('emails');
-$core->paths['base'] = 'www/app';
+$core->paths['base'] = '/var/www/'.$core->config['stage'].'/www/app';
 $core->paths['web'] = 'www/app';
 $core->config['domain'] = array();
 
