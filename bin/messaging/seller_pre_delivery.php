@@ -9,7 +9,7 @@ ob_end_flush();
 
 $config = array(
 	'do-send'=>0,  # allows you to run in test mode only
-	'start-days-in-future'=>0,
+	'start-days-in-future'=>1,
 	'days-after-start'=>1,
 	'exclude-domains'=>0,
 	'only-domains'=>0,
