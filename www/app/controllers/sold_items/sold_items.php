@@ -219,10 +219,10 @@ class core_controller_sold_items extends core_controller
 					$inventory_to_edit[] = $item->__data;
 				}
 				
-				if($ldstat_id == 4)
+				/* if($ldstat_id == 4)
 				{
 					$payables_to_invoice[] = $item['lo_liid'];
-				}
+				} */
 			}
 				
 			# only perform this change if item meets all rules
@@ -244,12 +244,12 @@ class core_controller_sold_items extends core_controller
 		}
 		
 		# this checks if we need to invoice sellers based on the changes made
-		core::log('total items: '.count($payables_to_invoice));
+		/* core::log('total items: '.count($payables_to_invoice));
 		if(count($payables_to_invoice) > 0)
 		{
 			$controller = core::controller('orders');
 			$controller->invoice_seller_payables($payables_to_invoice);
-		}
+		} */
 		
 		# popup the inventory editor if necessary
 		if(count($inventory_to_edit) > 0)
@@ -278,6 +278,7 @@ class core_controller_sold_items extends core_controller
 			->filter('lo_liid','in',explode(',',$core->data['id_list']));
 		
 		$oids = array();
+		$oids_to_notify = array();
 		foreach($items as $item)
 		{
 			if(isset($core->data['qty_delivered_'.$item['lo_liid']]))
@@ -291,9 +292,24 @@ class core_controller_sold_items extends core_controller
 				else
 				{
 					$item['qty_delivered'] = intval($core->data['qty_delivered_'.$item['lo_liid']]);
+					if($item['qty_delivered'] != $item['qty_ordered'])
+					{
+						$oids_to_notify[] = $item['lo_oid'];
+					}
 				}
 				$item->save();
 			}
+		}
+		
+		$oids_to_notify = array_unique($oids_to_notify);
+		foreach($oids_to_notify as $oid)
+		{
+			$order = core::model('lo_order')->load($oid);
+			core::process_command('emails/mm_underdelivery',true,
+				$order['domain_id'],
+				$order['lo_oid'],
+				$order['lo3_order_nbr']
+			);
 		}
 		
 		$orders = core::model('lo_order')
