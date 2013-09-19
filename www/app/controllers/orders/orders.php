@@ -12,7 +12,7 @@ class core_controller_orders extends core_controller
 		core_ui::notification('email sent');
 	}
 	
-	function invoice_seller_payables($item_ids)
+	/* function invoice_seller_payables($item_ids)
 	{
 		global $core;
 	
@@ -59,36 +59,9 @@ class core_controller_orders extends core_controller
 		
 		# if the buyer has fully paid, then we need to look through the seller orders
 		# and see if one of them is NOT invoiced, but fully delivered. If that is so, then we need to invoice them.
-		/*
-		if($amount_due == 0)
-		{
-			$seller_orders    = new core_collection('
-				select lo_foid,ldstat_id,payables.payable_id,payables.amount,
-				payables.to_org_id,payables.from_org_id
-				from lo_fulfillment_order 
-				inner join payables on (lo_fulfillment_order.lo_foid=payables.parent_obj_id and payables.payable_type_id=2 and payables.invoice_id is null)
-				inner join domains d on (lo_fulfillment_order.domain_id = d.domain_id)
-				where lo_foid in (
-					 select lo_foid from lo_order_line_item where lo_oid='.$lo_oid.'
-				)
-				and d.seller_payer = \'hub\'
-				and (payables.invoice_id is null or payables.invoice_id=0)
-				and lo_fulfillment_order.ldstat_id=4
-			');
-			foreach($seller_orders as $seller_order)
-			{
-				$invoice = core::model('invoices');
-				$invoice['creation_date']    = time();
-				$invoice['due_date']    = time() + (7*86400);
-				$invoice['amount']      = $seller_order['amount'];
-				$invoice->save();
-				core_db::query('update payables set invoice_id='.$invoice['invoice_id'].' where payable_id='.$seller_order['payable_id']);
-				$changes_made = true;
-			}			
-		}
-		*/
+		
 		return $changes_made;
-	}
+	} */
 	
 	
 	function update_delivery_address ()
@@ -142,7 +115,9 @@ class core_controller_orders extends core_controller
 		
 		$changes = false;
 		
-		#core::log(print_r($core->data,true));
+		# use this flag to record if we need to notify the MM
+		# that an order was underdelivered.
+		$notify_underdeliver = false;
 		
 		foreach($order->items as $item)
 		{
@@ -168,6 +143,11 @@ class core_controller_orders extends core_controller
 						$item->save();
 						$inventory->save();
 						$changes = true;
+					}
+					
+					if($qty != $item['qty_ordered'])
+					{
+						$notify_underdeliver = true;
 					}
 				}
 				else
@@ -205,6 +185,17 @@ class core_controller_orders extends core_controller
 				*/
 			}
 		}
+		
+		if($notify_underdeliver)
+		{
+			core::process_command('emails/mm_underdelivery',true,
+				$order['domain_id'],
+				$order['lo_oid'],
+				$order['lo3_order_nbr']
+			);
+			ob_get_clean();
+		}
+		
 		if($changes)
 		{
 			#$order->get_items_by_delivery();
