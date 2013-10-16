@@ -153,37 +153,10 @@ class core_model_lo_order extends core_model_lo_order___utility
 		global $core;
 		$this->items = core::model('lo_order_line_item');
 
-		
-		
-		# these custom fields can be used to verify the validity
-		# of the item state
-
-		$this->items->add_custom_field('(
-			select sum(product_inventory.qty) >= lo_order_line_item.qty_ordered
-			from product_inventory
-			WHERE product_inventory.prod_id=lo_order_line_item.prod_id
-		) as has_valid_inventory');
-		$this->items->add_custom_field('(
-			select count(pcs_id) > 0
-			from product_delivery_cross_sells
-			inner join delivery_days on (product_delivery_cross_sells.dd_id=delivery_days.dd_id)
-			WHERE product_delivery_cross_sells.prod_id=lo_order_line_item.prod_id
-			and delivery_days.domain_id='.$core->config['domain']['domain_id'].'
-		) as has_valid_delivs');
-		$this->items->add_custom_field('(
-			select count(price_id) > 0
-			from product_prices
-			WHERE product_prices.prod_id=lo_order_line_item.prod_id
-			and (product_prices.min_qty <= lo_order_line_item.qty_ordered or product_prices.min_qty is null)
-			and (product_prices.org_id = 0 or product_prices.org_id='.intval($this['org_id']).')
-			and (product_prices.domain_id=0 or product_prices.domain_id='.$core->config['domain']['domain_id'].')
-		) as has_valid_prices');
-
 		$this->items = $this->items->collection()
 			->filter('lo_oid',$this['lo_oid'])
-			->sort('product_name')
-			->sort('seller_name')
-			->sort('deliv_time');
+			->sort('deliv_time')
+			->sort('seller_name');
 
 		# check for zero quantities
 		if($check_for_zeros)
@@ -269,8 +242,6 @@ class core_model_lo_order extends core_model_lo_order___utility
          )
 			->collection()
 			->add_formatter('determine_delivery_language')
-			->sort('lo_order_line_item.product_name')
-			->sort('lo_order_line_item.seller_name')
 			->sort('pickup_start_time')
 			->filter('lo_order_line_item.lo_oid',$this['lo_oid']);
 		return $this->items;
@@ -316,6 +287,16 @@ class core_model_lo_order extends core_model_lo_order___utility
 		}
 	}
 
+	
+
+	function update_payment_status($lbps_id)
+	{
+		global $core;
+		core::log('lo_order.update_payment_status lo_oid='.$this['lo_oid']);
+		core_db::query('update lo_order set lbps_id = '.$lbps_id.' where lo_oid='.$this['lo_oid']);
+		core_db::query('update lo_order_line_item set lbps_id = '.$lbps_id.' where lo_oid='.$this['lo_oid']);
+	}
+	
 	function delete_deliveries()
 	{
 		global $core;
@@ -447,12 +428,7 @@ class core_model_lo_order extends core_model_lo_order___utility
 		$delivs = core::model('lo_order_delivery_fees')
 			->collection()
 			->filter('lo_oid','=',$this['lo_oid'])
-			->to_hash('dd_id');
-
-core::log("========================================= this['lo_oid']=".$this['lo_oid']);
-		core::log('delivs: '.print_r($delivs->__data,true));
-			
-			
+			->to_hash('dd_id');			
 		foreach($delivs as $dd_id=>$deliv)
 			$delivs[$dd_id][0]['applicable_total'] = 0;
 
