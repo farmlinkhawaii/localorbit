@@ -69,7 +69,8 @@ for($i=0; $i < $myresult->TotalNumRecords; $i++)
 {
 	echo('Payment '.$settlement->FrontEndTrace." was settled.\n");
 	$settlement = $myresult->ACHReturnRecords->ACHReturnRecord[$i];
-	$sql = 'update payments set processing_status=\'confirmed\' where ref_nbr=\''.$settlement->FrontEndTrace.'\' and payment_method=\'ACH\';';
+	$payment_id = intval(str_replace('P-00','',$settlement->FrontEndTrace));
+	$sql = 'update payments set processing_status=\'confirmed\' where (ref_nbr=\''.$settlement->FrontEndTrace.'\' or payment_id='.$payment_id.') and payment_method=\'ACH\';';
 	if($config['report-sql'] == 1)
 		echo("\t".$sql."\n");
 		
