@@ -21,6 +21,6 @@ class OrdersController < ApplicationController
   protected
 
   def order_params
-    params.require(:order).permit(:payment_method, :payment_note)
+    params.require(:order).permit(:payment_method, :payment_note, :credit_card)
   end
 end

@@ -4,6 +4,7 @@ describe "Checking Out" do
   let!(:user) { create(:user) }
   let!(:other_buying_user) {  create(:user) }
   let!(:buyer) { create(:organization, :single_location, :buyer, users: [user, other_buying_user]) }
+  let!(:credit_card) { create(:bank_account, :credit_card, bankable: buyer) }
 
   let!(:fulton_farms) { create(:organization, :seller, :single_location, name: "Fulton St. Farms", users:[create(:user), create(:user)]) }
   let!(:ada_farms){ create(:organization, :seller, :single_location, name: "Ada Farms", users: [create(:user)]) }
@@ -277,5 +278,17 @@ describe "Checking Out" do
 
     click_button "Place Order"
     expect(page).to have_content("Your cart is empty. Please add items to your cart before checking out.")
+  end
+
+  context "via credit card" do
+    it "uses a stored credit card" do
+      choose "Pay by Credit Card"
+      select "Visa", from: "Saved credit cards"
+
+      checkout
+
+      expect(page).to have_content("Thank you for your order")
+      expect(page).to have_content("Credit Card")
+    end
   end
 end

@@ -74,15 +74,33 @@
               <fieldset class="conditional">
                 <legend class="haiku">Select Payment Method</legend>
 
-                <%= f.radio_button :payment_method, "purchase order", checked: true %>
-                <label for="payment_method">
-                  Purchase Order
-                </label>
+                <div class="field">
+                  <label>
+                    <%= f.radio_button :payment_method, "purchase order", checked: true %>
+                    Pay by Purchase Order
+                  </label>
+                </div>
 
                 <div class="field">
-                  <%= f.label :payment_note, "PO Number" %><br>
-                  <%= f.text_field :payment_note, class: "input--short" %>
+                  <label>
+                    <%= f.radio_button :payment_method, "credit card" %>
+                    Pay by Credit Card
+                  </label>
                 </div>
+
+                <fieldset id="purchase-order-fields" class="payment-fields">
+                  <div class="field">
+                    <%= f.label :payment_note, "PO Number" %><br>
+                    <%= f.text_field :payment_note, class: "input--short" %>
+                  </div>
+                </fieldset>
+
+                <fieldset id="credit-card-fields" class="payment-fields">
+                  <div class="field">
+                    <%= f.label :credit_card, "Saved credit cards" %><br>
+                    <%= f.select :credit_card, options_for_select(current_organization.decorate.credit_card_options) %>
+                  </div>
+                </fieldset>
               </fieldset>
 
             </div>
