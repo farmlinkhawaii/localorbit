@@ -66,6 +66,8 @@ describe "Checking Out" do
   end
 
   before do
+    CreateBalancedCustomerForEntity.perform(organization: buyer)
+
     switch_to_subdomain(market.subdomain)
     sign_in_as(user)
 

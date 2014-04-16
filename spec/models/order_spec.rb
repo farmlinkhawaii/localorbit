@@ -87,11 +87,6 @@ describe Order do
       expect(subject).to be_invalid
       expect(subject).to have(1).error_on(:payment_status)
     end
-
-    it "requires a payment method" do
-      expect(subject).to be_invalid
-      expect(subject).to have(1).error_on(:payment_method)
-    end
   end
 
   describe ".orders_for_buyer" do
@@ -211,16 +206,12 @@ describe Order do
     let(:organization)      { create(:organization, :single_location) }
     let(:billing_address)   { organization.locations.default_billing }
     let(:cart)              { create(:cart, :with_items, organization: organization, delivery: delivery, location: delivery_location, market: market) }
-    let(:params)            { { payment_method: "purchase order"} }
+    let(:params)            { { } }
 
     subject { Order.create_from_cart(params, cart, buyer) }
 
-    context "purchase order" do
-      let(:params) { { payment_method: "purchase order", payment_note: "1234" } }
-
-      it "sets the payment type" do
-        expect(subject.payment_method).to eql("purchase order")
-      end
+    context "payment note" do
+      let!(:params) { { payment_note: "1234" } }
 
       it "sets the payment note" do
         expect(subject.payment_note).to eql("1234")
@@ -228,9 +219,9 @@ describe Order do
     end
 
     context "when the order is invalid", truncate: true do
-      let(:params) { { payment_method: nil, payment_note: "1234" } }
-
       it "will not consume inventory" do
+        allow(OrderNumber).to receive(:new).and_return(double("order number", id: nil))
+
         expect {
           subject
         }.not_to change{

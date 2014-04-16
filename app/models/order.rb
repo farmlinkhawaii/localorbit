@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
   validates :market_id, presence: true
   validates :order_number, presence: true, uniqueness: true
   validates :organization_id, presence: true
-  validates :payment_method, presence: true, inclusion: {in: PAYMENT_METHODS, allow_blank: true}
+  validates :payment_method, presence: true, allow_blank: true, inclusion: {in: PAYMENT_METHODS }
   validates :payment_status, presence: true
   validates :placed_at, presence: true
   validates :total_cost, presence: true
@@ -36,6 +36,8 @@ class Order < ActiveRecord::Base
   scope :uninvoiced, -> { where(payment_method: "purchase order", invoiced_at: nil) }
   scope :invoiced, -> { where(payment_method: "purchase order").where.not(invoiced_at: nil) }
   scope :unpaid, -> { where(payment_status: "unpaid") }
+
+  attr_accessor :credit_card
 
   def self.orders_for_buyer(user)
     if user.admin?
@@ -93,7 +95,7 @@ class Order < ActiveRecord::Base
       billing_zip: billing.zip,
       billing_phone: billing.phone,
       payment_status: "unpaid",
-      payment_method: params[:payment_method],
+      payment_method: "",
       delivery_fees: cart.delivery_fees,
       total_cost: cart.total,
       placed_at: DateTime.current
