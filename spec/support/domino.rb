@@ -297,6 +297,15 @@ module Dom
       end
     end
 
+    class FeaturedPromotionRow < Domino
+      selector ".promotion-row"
+
+      attribute :date
+      attribute :name
+      attribute :title
+      attribute :market
+    end
+
     class MarketRow < Domino
       selector ".market-org-list tbody tr"
 
