@@ -452,12 +452,14 @@ ActiveRecord::Schema.define(version: 20140606154142) do
   add_index "products", ["organization_id"], name: "index_products_on_organization_id", using: :btree
 
   create_table "promotions", force: true do |t|
-    t.integer "market_id"
-    t.integer "product_id"
-    t.string  "name"
-    t.string  "title"
-    t.text    "body"
-    t.boolean "active"
+    t.integer  "market_id"
+    t.integer  "product_id"
+    t.string   "name"
+    t.string   "title"
+    t.text     "body"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sequences", force: true do |t|
