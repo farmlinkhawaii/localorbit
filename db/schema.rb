@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606154142) do
+ActiveRecord::Schema.define(version: 20140606193933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -460,6 +460,7 @@ ActiveRecord::Schema.define(version: 20140606154142) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_uid"
   end
 
   create_table "sequences", force: true do |t|
