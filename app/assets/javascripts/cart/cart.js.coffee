@@ -140,7 +140,7 @@ $ ->
       parent = $(el).parents("tr")
       siblings = parent.siblings(".warning")
       siblings.each ->
-        this.remove()
+        $(this).remove()
 
   class CartModel
     constructor: (opts)->
