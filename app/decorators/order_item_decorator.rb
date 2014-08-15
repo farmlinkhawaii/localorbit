@@ -94,6 +94,7 @@ class OrderItemDecorator < Draper::Decorator
   def latest_changes
     @latest_changes ||= begin
       if object.audits.present?
+
         uuid = object.order.audits.last.request_uuid
         changes = object.audits.where(request_uuid: uuid).map(&:audited_changes)
         changes.inject({}) {|result, audit| result.merge(audit) }
@@ -101,10 +102,5 @@ class OrderItemDecorator < Draper::Decorator
         {}
       end
     end
-  end
-
-  def audits_with_changes_for(column)
-    object.audits.where("created_at between ? and ?", object.order.updated_at - 1.minutes, object.order.updated_at + 1.minutes).
-      select {|audit| audit.audited_changes[column] }.flatten
   end
 end
