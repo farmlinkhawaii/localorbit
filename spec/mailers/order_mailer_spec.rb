@@ -82,8 +82,7 @@ describe OrderMailer do
       before do
         Order.enable_auditing
         OrderItem.enable_auditing
-        order_item1.update(delivery_status: "canceled")
-        order.update(updated_at: Time.current)
+        order.reload.update(updated_at: Time.current, items_attributes: {"0" => {id: order_item1.id, quantity: 0, delivery_status: "canceled"}})
         OrderItem.disable_auditing
         Order.disable_auditing
 
@@ -174,8 +173,7 @@ describe OrderMailer do
       before do
         Order.enable_auditing
         OrderItem.enable_auditing
-        order_item1.update(delivery_status: "canceled")
-        order.update(updated_at: Time.current)
+        order.reload.update(updated_at: Time.current, items_attributes: {"0" => {id: order_item1.id, quantity: 0, delivery_status: "canceled"}})
         OrderItem.disable_auditing
         Order.disable_auditing
 
@@ -192,6 +190,10 @@ describe OrderMailer do
 
       it "shows the item as being canceled" do
         expect(@notification).to have_body_text("canceled")
+      end
+
+      it "does not show the canceled items previous quantity" do
+        expect(@notification).to_not have_body_text("10 per box")
       end
 
       it "does not show other seller items" do
