@@ -129,6 +129,7 @@ Rails.application.routes.draw do
         get :pdf, to: "invoices#show_pdf"
       end
     end
+    get "spike-generate-batch-invoices" => "invoices#spike_generate_batch_invoices"
 
     resources :activities, only: :index
     resources :categories, only: [:index, :show, :new, :create], path: :taxonomy

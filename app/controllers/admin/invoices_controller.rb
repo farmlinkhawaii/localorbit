@@ -1,6 +1,6 @@
 module Admin
   class InvoicesController < AdminController
-    before_action :fetch_order
+    before_action :fetch_order, except: :spike_generate_batch_invoices
 
     def show
       @invoice = BuyerOrder.new(@order)
@@ -22,6 +22,14 @@ module Admin
     def mark_invoiced
       @order.invoice
       head @order.save ? :ok : :not_found
+    end
+
+    def spike_generate_batch_invoices
+      orders = Order.uninvoiced.where("placed_at > '2014-09-03'").uninvoiced
+
+      SpikeBatchInvoices.perform(orders: orders[0..2])
+      flash[:notice] = "OK OK OK!"
+      redirect_to [:admin, :financials, :invoices]
     end
 
     private
