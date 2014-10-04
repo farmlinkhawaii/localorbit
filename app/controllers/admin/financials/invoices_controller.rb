@@ -26,7 +26,8 @@ module Admin::Financials
         redirect_to admin_financials_invoices_path, notice: message
 
       when "preview-selected-invoices"
-        context = SpikeBatchInvoices.perform(user: current_user, orders: @orders)
+        test_html = ["1", "yes", "y", "Y", "true"].include?(params[:test_html])
+        context = SpikeBatchInvoices.perform(user: current_user, orders: @orders, test_html: test_html)
         redirect_to context.doc.doc_pdf.remote_url
 
       else

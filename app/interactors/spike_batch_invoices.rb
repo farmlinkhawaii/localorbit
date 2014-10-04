@@ -15,7 +15,12 @@ class SpikeBatchInvoices
     orders.each do |order|
       invoice = BuyerOrder.new(order)
       fname = "#{tmp}/spike_invoice_#{order.order_number}.pdf"
-      generate_pdf_for_invoice(view,invoice,fname)
+      html = if context[:test_html] and test_html == true
+               generate_testing_html
+             else
+               generate_html_for_invoice(view,invoice)
+             end
+      generate_pdf_for_html(html,fname)
       log "Generated PDF invoice #{fname}"
       pdf_temp_files << fname
     end
@@ -39,13 +44,17 @@ class SpikeBatchInvoices
     end
   end
 
-  def generate_pdf_for_invoice(view, invoice,fname)
-    #html = view.render( template: "admin/invoices/show.html.erb", locals: { invoice: invoice, user: nil } )
-    # html = File.read("#{Rails.root}/sandbox/demo_invoice.html")
-    html = File.read("#{Rails.root}/sandbox/one.html")
+  def generate_html_for_invoice(view, invoice)
+    view.render( template: "admin/invoices/show.html.erb", locals: { invoice: invoice, user: nil } )
+  end
+
+  def generate_testing_html
+    File.read("#{Rails.root}/sandbox/one.html")
+  end
+
+  def generate_pdf_for_html(html,fname)
     pdf = PDFKit.new(html, page_size: "letter", print_media_type: true)
     pdf.to_file(fname)
-    # order.invoice_pdf = pdf.to_file(fname)
   end
 
   def get_action_view
