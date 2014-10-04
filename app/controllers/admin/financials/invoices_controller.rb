@@ -19,12 +19,20 @@ module Admin::Financials
     end
 
     def create
-      # TODO: Figure out what to do if the save fails
-      # The order would have to become invalid after being placed.
-      @orders.uninvoiced.each {|order| CreateInvoice.perform(order: order) }
+      case params[:invoice_list_batch_action]
+      when "send-selected-invoices"
+        @orders.uninvoiced.each {|order| CreateInvoice.perform(order: order) }
+        message = "Invoice sent for order #{"number".pluralize(@orders.size)} #{@orders.map(&:order_number).sort.join(", ")}. Invoices can be downloaded on the Enter Receipts page"
+        redirect_to admin_financials_invoices_path, notice: message
 
-      message = "Invoice sent for order #{"number".pluralize(@orders.size)} #{@orders.map(&:order_number).sort.join(", ")}. Invoices can be downloaded on the Enter Receipts page"
-      redirect_to admin_financials_invoices_path, notice: message
+      when "preview-selected-invoices"
+        context = SpikeBatchInvoices.perform(user: current_user, orders: @orders)
+        redirect_to context.doc.doc_pdf.remote_url
+
+      else
+        redirect_to admin_financials_invoices_path, notice: "What?"
+      end  
+
     end
 
     def resend

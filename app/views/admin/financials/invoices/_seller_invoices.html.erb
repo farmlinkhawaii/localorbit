@@ -7,6 +7,7 @@
 </div>
 
 <%= form_tag admin_financials_invoices_path, method: :post, id: 'invoice-list' do %>
+  <input type="hidden" name="invoice_list_batch_action" id="invoice_list_batch_action" value="">
   <div class="clearfix sub-header-whitespace"></div>
   <div class="table-wrapper">
     <table class="sortable">

@@ -24,6 +24,7 @@ class SpikeBatchInvoices
 
     doc = user.documents.create
     doc.doc_pdf = File.read(big_pdf_fname)
+    doc.doc_pdf.name = "batch-invoices.pdf"
     doc.save
     context[:doc] = doc
   end

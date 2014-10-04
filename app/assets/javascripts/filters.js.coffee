@@ -26,8 +26,19 @@ $ ->
     if (e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)
       $("#search-btn").click()
 
+  #
+  # Invoice batch operations:
+  #
+  invoiceList = -> $('#invoice-list')
+  invoiceListBatchAction = -> $('#invoice_list_batch_action')
+
   $('#submit_send_selected').click ->
-    $('#invoice-list').trigger('submit')
+    invoiceListBatchAction().val("send-selected-invoices")
+    invoiceList().trigger('submit')
+
+  $('#submit_preview_selected').click ->
+    invoiceListBatchAction().val("preview-selected-invoices")
+    invoiceList().trigger('submit')
 
   parseSearchString = () ->
     list = window.location.search.substr(1).split("&")
