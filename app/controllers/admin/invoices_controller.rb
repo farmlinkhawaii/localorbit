@@ -30,7 +30,7 @@ module Admin
 
       ctx = SpikeBatchInvoices.perform(user: current_user, orders: orders)
       doc = ctx.doc
-      flash[:notice] = "Rock on: #{doc.doc_pdf_uid}/#{doc.doc_pdf_name}"
+      flash[:notice] = "Document PDF #{doc.id}: #{doc.doc_pdf.remote_url}"
       redirect_to [:admin, :financials, :invoices]
     end
 
