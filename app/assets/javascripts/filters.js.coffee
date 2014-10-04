@@ -40,6 +40,10 @@ $ ->
     invoiceListBatchAction().val("preview-selected-invoices")
     invoiceList().trigger('submit')
 
+  $('#submit_html_pdf_test').click ->
+    invoiceListBatchAction().val("html-pdf-test")
+    invoiceList().trigger('submit')
+
   parseSearchString = () ->
     list = window.location.search.substr(1).split("&")
     params = {}

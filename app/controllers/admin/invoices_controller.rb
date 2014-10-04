@@ -24,15 +24,6 @@ module Admin
       head @order.save ? :ok : :not_found
     end
 
-    # def spike_generate_batch_invoices
-    #   orders = Order.all[-3..-1]
-    #
-    #   ctx = SpikeBatchInvoices.perform(user: current_user, orders: orders)
-    #   doc = ctx.doc
-    #   flash[:notice] = "Document PDF #{doc.id}: #{doc.doc_pdf.remote_url}"
-    #   redirect_to [:admin, :financials, :invoices]
-    # end
-
     private
 
     def fetch_order

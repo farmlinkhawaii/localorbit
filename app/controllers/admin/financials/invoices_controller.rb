@@ -20,14 +20,18 @@ module Admin::Financials
 
     def create
       case params[:invoice_list_batch_action]
+
       when "send-selected-invoices"
         @orders.uninvoiced.each {|order| CreateInvoice.perform(order: order) }
         message = "Invoice sent for order #{"number".pluralize(@orders.size)} #{@orders.map(&:order_number).sort.join(", ")}. Invoices can be downloaded on the Enter Receipts page"
         redirect_to admin_financials_invoices_path, notice: message
 
       when "preview-selected-invoices"
-        test_html = ["1", "yes", "y", "Y", "true"].include?(params[:test_html])
-        context = SpikeBatchInvoices.perform(user: current_user, orders: @orders, test_html: test_html)
+        context = SpikeBatchInvoices.perform(user: current_user, orders: @orders)
+        redirect_to context.doc.doc_pdf.remote_url
+
+      when "html-pdf-test"
+        context = SpikeBatchInvoices.perform(user: current_user, orders: @orders, test_html:true)
         redirect_to context.doc.doc_pdf.remote_url
 
       else
