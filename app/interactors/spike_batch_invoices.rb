@@ -3,6 +3,7 @@ class SpikeBatchInvoices
 
   # NEEDS:
   #   orders
+  #   user
   # OPTIONAL:
   #   temp_dir
   #
@@ -20,6 +21,11 @@ class SpikeBatchInvoices
     end
 
     big_pdf_fname = merge_pdfs(pdf_temp_files)
+
+    doc = user.documents.create
+    doc.doc_pdf = big_pdf_fname
+    doc.save
+    context[:doc] = doc
   end
 
   private

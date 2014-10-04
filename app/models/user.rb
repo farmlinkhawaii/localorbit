@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
   has_many :managed_markets_join, class_name: "ManagedMarket"
 
+  has_many :documents
+
   before_create do |user|
     if user.subscription_types.empty?
       Subscription.ensure_user_has_subscription_links_to_fresh_sheet_and_newsletter(user)

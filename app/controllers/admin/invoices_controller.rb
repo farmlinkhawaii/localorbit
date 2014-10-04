@@ -25,10 +25,12 @@ module Admin
     end
 
     def spike_generate_batch_invoices
-      orders = Order.uninvoiced.where("placed_at > '2014-09-03'").uninvoiced
+      #orders = Order.uninvoiced.where("placed_at > '2014-09-03'").uninvoiced
+      orders = Order.all[-3..-1]
 
-      SpikeBatchInvoices.perform(orders: orders[0..2])
-      flash[:notice] = "OK OK OK!"
+      ctx = SpikeBatchInvoices.perform(orders: orders)
+      doc = ctx.doc
+      flash[:notice] = "Rock on: #{doc.doc_pdf_uid}/#{doc.doc_pdf_name}"
       redirect_to [:admin, :financials, :invoices]
     end
 

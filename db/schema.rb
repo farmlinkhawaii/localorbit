@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926031324) do
+ActiveRecord::Schema.define(version: 20141003235138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20140926031324) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "legacy_id"
+    t.datetime "buyer_deliver_on"
   end
 
   add_index "deliveries", ["cutoff_time"], name: "index_deliveries_on_cutoff_time", using: :btree
@@ -154,6 +155,7 @@ ActiveRecord::Schema.define(version: 20140926031324) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "legacy_id"
+    t.integer  "buyer_day"
   end
 
   add_index "delivery_schedules", ["deleted_at"], name: "index_delivery_schedules_on_deleted_at", using: :btree
@@ -183,6 +185,15 @@ ActiveRecord::Schema.define(version: 20140926031324) do
   end
 
   add_index "discounts", ["code"], name: "index_discounts_on_code", using: :btree
+
+  create_table "documents", force: true do |t|
+    t.integer  "user_id"
+    t.string   "doc_pdf_uid"
+    t.string   "doc_pdf_name"
+    t.string   "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "geocodes", force: true do |t|
     t.decimal "latitude",    precision: 15, scale: 12
