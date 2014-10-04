@@ -23,7 +23,7 @@ class SpikeBatchInvoices
     big_pdf_fname = merge_pdfs(pdf_temp_files)
 
     doc = user.documents.create
-    doc.doc_pdf = big_pdf_fname
+    doc.doc_pdf = File.read(big_pdf_fname)
     doc.save
     context[:doc] = doc
   end
